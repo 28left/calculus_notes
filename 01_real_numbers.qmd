@@ -1,0 +1,192 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Rational Numbers and the Number Line
+
+::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.1a, together with the neighborhood definition from §1.1d —
+covered a bit early here since we will use it constantly for the rest of the semester.
+:::
+
+Calculus is built on the real numbers, so before we can talk about limits, derivatives, or
+integrals we need to understand exactly what a real number *is* — and, just as importantly, why
+the rational numbers alone are not enough. This lecture makes that precise: we recall how the
+natural numbers extend to the rationals, set up the number line, and then prove that a length as
+ordinary as the hypotenuse of a simple right triangle cannot be a rational number at all.
+
+## From Counting to Measuring
+
+There are two major uses for numbers: **counting** and **measuring**. The natural numbers
+$\N = \{1,2,3,\dots\}$ are the tool for counting — abstract symbols for how many elements are in a
+collection, stripped of any reference to what is actually being counted. They come equipped with
+addition and multiplication satisfying a short list of familiar rules.
+
+::: {#rem-arithmetic-laws}
+For all natural numbers $a,b,c$:
+
+- $a+b=b+a$ and $ab=ba$ &emsp; (commutative laws)
+- $a+(b+c)=(a+b)+c$ and $a(bc)=(ab)c$ &emsp; (associative laws)
+- $a(b+c)=ab+ac$ &emsp; (distributive law)
+- $a+c=b+c \;\Rightarrow\; a=b$ &emsp; (cancellation law)
+
+These are the *rules* of arithmetic, not its *content* — everything else in this course is built on
+top of them, and we will not dwell on them further.
+:::
+
+Natural numbers can be added and multiplied, but not always subtracted or divided. There is no
+natural number $a$ with
+$$
+5+a=2,
+$$
+so subtraction is not always possible in $\N$. Extending $\N$ to the **integers**
+$\Z = \{\dots,-2,-1,0,1,2,\dots\}$ fixes this: now $5+(-3)=2$.
+
+In $\Z$, we still cannot always divide: there is no integer $b\in\Z$ with
+$$
+5\cdot b = 2 .
+$$
+Extending $\Z$ to the **rational numbers** fixes this in turn.
+
+::: {#def-rational-number}
+\
+A **rational number** is a number that can be written as $p/q$ where $p,q\in\Z$ and $q\neq 0$.
+Every rational number has a unique representation $p/q$ with $q>0$ and $\gcd(p,q)=1$ (no common
+factor larger than $1$); we call this representation **in lowest terms**.
+:::
+
+Within $\Q$, all four rational operations — addition, subtraction, multiplication, and division
+(except by $0$) — can be carried out freely, and they obey exactly the same laws as in
+@rem-arithmetic-laws. In this precise sense, $\Q$ is the smallest extension of the natural numbers
+in which counting-type arithmetic becomes measuring-type arithmetic.
+
+## The Number Line
+
+To turn numbers into geometry, fix a line $L$, a point $O$ on it called the **origin**, and a
+second point $I$ to the right of $O$; the segment $OI$ serves as our unit scale for measuring — a
+"prototype meter." The direction from $O$ to $I$ is called **positive**.
+
+Every point on $L$ is now uniquely determined by two pieces of information: its **distance** from
+$O$, and its **direction** (left or right) from $O$. For example, the point at distance $\tfrac12$
+in the positive direction represents the rational number $\tfrac12$; the point at distance $2$ in
+the positive direction represents $2$.
+
+::: {#def-absolute-value}
+\
+The distance of a number $x$ from the origin is written $|x|$ and called the **absolute value** of
+$x$:
+$$
+|x| \;=\; \begin{cases} \phantom{-}x & x \ge 0 \\ -x & x < 0. \end{cases}
+$$
+Note $|x|\ge 0$ always, with equality only when $x=0$.
+:::
+
+Every rational point can in fact be *constructed*, not just described: to locate $p/q$ on $L$ with
+ruler and compass, construct a subdivision of the segment $OI$ into $q$ equal parts, then extend
+the part closest to $O$, $p$ times. We will identify each rational number with its representation
+on $L$.
+
+## Distances and Intervals
+
+For $x,y\in L$, the number $|x-y|$ is the **distance between $x$ and $y$**. Observe: if $x,y\in\Q$,
+then $|x-y|\in\Q$ as well — distances between rational points are themselves rational.
+
+::: {#def-interval}
+\
+For $a<b$, the **interval** between $a$ and $b$ comes in four flavors:
+
+- open: &emsp; $(a,b) := \{x : a<x<b\}$ &emsp; (both endpoints excluded)
+- closed: &emsp; $[a,b] := \{x : a\le x\le b\}$ &emsp; (both endpoints included)
+- half-open: &emsp; $[a,b) := \{x: a \le x < b\}$ and $(a,b] := \{x : a< x \le b\}$
+:::
+
+::: {#def-neighborhood}
+\
+Given a number $a$ and $\eps>0$, the **$\eps$-neighborhood of $a$** is the open interval
+$$
+\{y : |y-a| < \eps\} = (a-\eps, a+\eps),
+$$
+i.e. the set of points less than $\eps$ away from $a$.
+:::
+
+We will meet $\eps$-neighborhoods constantly once we get to limits — keep this definition close by.
+
+### Density
+
+::: {#prp-density}
+\
+Between any two distinct rational numbers $a<b$ there is another rational number $c$ with
+$a<c<b$. Consequently, between $a$ and $b$ there are infinitely many rational numbers.
+:::
+
+::: {.proof}
+Let $c=\dfrac{a+b}{2}$. Since $a,b\in\Q$ and $\Q$ is closed under addition and division by $2$,
+$c\in\Q$; and since $a<b$, averaging gives $a<c<b$.
+
+Now repeat the argument on the pair $a,c$ to get a rational number strictly between $a$ and $c$,
+hence strictly between $a$ and $b$. Doing this again and again produces infinitely many rational
+numbers between $a$ and $b$.
+:::
+
+We say the rationals are **dense** on the number line: no matter how closely you look, you will
+always find another one.
+
+## Incommensurable Lengths {#sec-incommensurable}
+
+Given how constructible and how dense $\Q$ is, a natural question arises: is there anything "left
+in between" the rational numbers? Are there any *gaps*? Clearly, such a gap could not itself be an
+interval — density rules that out, since any interval of positive length contains infinitely many
+rational points. If a gap exists at all, it can only be a single missing point.
+
+::: {#rem-pythagoras}
+The discovery that not every length is a rational multiple of a chosen unit is due to the school of
+Pythagoras, in the fifth or sixth century BCE. Consider a right triangle with both legs of length
+$1$; by the Pythagorean theorem, its hypotenuse $a$ satisfies
+$$
+1^2+1^2 = a^2 = 2,
+$$
+and $a$ can certainly be constructed with ruler and compass. The theorem below shows this length
+cannot be written as $p/q$ for integers $p,q$ — the hypotenuse and the legs of this triangle are, in
+the language of the ancients, **incommensurable**: there is no common unit of which both are
+integer multiples.
+:::
+
+::: {#thm-sqrt2-irrational}
+\
+There is no rational number $x$ with $x^2=2$. Equivalently, $\sqrt2 \notin \Q$.
+:::
+
+::: {.proof}
+\
+Suppose, toward a contradiction, that $\sqrt2 = p/q$ for integers $p,q$ with $q\neq 0$ and
+$\gcd(p,q)=1$ (i.e. $p/q$ is in lowest terms).
+
+1. Square both sides and clear the denominator: $p^2 = 2q^2$.
+2. Conclude that $p^2$ is even — if $p$ were odd, $p^2$ would be odd, but $p^2=2q^2$ is even. Write $p=2r$ for some integer $r$.
+3. Substitute $p=2r$ into the equation from Step 1 and simplify to get an equation for $q^2$ in
+   terms of $r$: $(2r)^2 = 2q^2 \;\Rightarrow\; 4r^2 = 2q^2 \;\Rightarrow\; q^2 = 2r^2$.
+4. Conclude that $q$ is also even, by the same reasoning as in Step 2.
+5. Steps 2 and 4 show that $2$ divides both $p$ and $q$. This contradicts $\gcd(p,q)=1$, which we assumed when we wrote
+   $p/q$ in lowest terms.
+6. Conclude: $\sqrt2$ is irrational — no integers $p,q$ satisfy $\sqrt2=p/q$, so $\sqrt2 \notin \Q$.
+:::
+
+
+::: {#exr-}
+Adapt the proof of @thm-sqrt2-irrational to show that $\sqrt3$ is irrational. Then try to see where
+the argument would break if you attempted the same proof for $\sqrt4$ — since $\sqrt4=2$ is
+certainly rational, something in the argument *must* fail. Where, exactly?
+:::
+
+## Summary
+
+- The rationals $\Q$ satisfy all the usual laws of arithmetic (@rem-arithmetic-laws) and are
+  **dense**: between any two rationals lies another (@prp-density).
+- Distances $|x-y|$, intervals, and $\eps$-neighborhoods (@def-interval, @def-neighborhood) give us
+  the basic vocabulary for talking about "closeness" on the number line — vocabulary we will lean
+  on heavily once limits arrive.
+- Density notwithstanding, $\Q$ does not exhaust the number line: @thm-sqrt2-irrational exhibits an
+  ordinary, constructible length that is not a rational number.
+- The rationals therefore leave *gaps* in the line. Lecture 2 closes these gaps rigorously, using
+  **nested intervals** to construct the real numbers.

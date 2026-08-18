@@ -1,0 +1,100 @@
+project:
+  type: book
+
+book:
+  title: "Math 140H — Honors Calculus I: Lecture Notes"
+  author: "Jan Reimann"
+  date: today
+  chapters:
+    - index.qmd
+    # - part: Real Numbers
+    #   chapters:
+    #     - 01_real_numbers.qmd
+    #     - 02_nested_intervals.qmd
+    #     - notebooks/Week01_Number_Bases.ipynb 
+
+number-sections: true
+
+format:
+  html:
+    callout-icon: false
+    filters:
+      - callouty-theorem
+    theme:
+      - cosmo
+    number-depth: 2
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    toc-depth: 2
+    number-depth: 2
+    callout-icon: false
+    keep-tex: true
+    geometry:
+      - margin=1.5in
+      - heightrounded
+
+callouty-theorem:
+  thm:
+    override-title: false
+    callout:
+      type: warning
+      appearance: simple
+
+  prp:
+    override-title: false
+    callout:
+      type: caution
+      appearance: minimal
+
+  lem:
+    override-title: false
+    callout:
+      type: caution
+      appearance: minimal
+
+  remark:
+    override-title: false
+    callout:
+      type: tip
+      appearance: simple
+
+  exr:
+    override-title: false
+    callout:
+      type: tip
+      appearance: simple
+
+  proof:
+    override-title: true
+    callout:
+      type: note
+      appearance: simple
+      collapse: true
+      icon: true
+
+  solution:
+    override-title: true
+    callout:
+      type: note
+      appearance: default
+      collapse: true
+      icon: true
+
+  cor:
+    override-title: false
+    callout:
+      type: caution
+      appearance: simple
+
+  def:
+    override-title: false
+    callout:
+      type: note
+      appearance: simple
+
+  exm:
+    override-title: false
+    callout:
+      type: tip
+      appearance: simple

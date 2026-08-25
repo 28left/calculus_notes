@@ -158,7 +158,6 @@ There is no rational number $x$ with $x^2=2$. Equivalently, $\sqrt2 \notin \Q$.
 :::
 
 ::: {.proof}
-\
 Suppose, toward a contradiction, that $\sqrt2 = p/q$ for integers $p,q$ with $q\neq 0$ and
 $\gcd(p,q)=1$ (i.e. $p/q$ is in lowest terms).
 

@@ -110,6 +110,22 @@
 
 \KOMAoption{captions}{tableheading}
 \makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
 \makeatother
 \makeatletter
@@ -146,6 +162,21 @@
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Proof}}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem{refremark}{Remark}[chapter]
+\newtheorem{refsolution}{Solution}[chapter]
 \makeatother
 \makeatletter
 \makeatother
@@ -173,7 +204,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-08-19}
+\date{2026-08-25}
 \begin{document}
 \maketitle
 
@@ -199,6 +230,282 @@ generally be available immediately \textbf{after} the corresponding
 class session.
 
 State College, Fall 2026
+
+\part{Real Numbers}
+
+\chapter{The Rational Numbers and the Number
+Line}\label{the-rational-numbers-and-the-number-line}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §1.1a, together with the neighborhood
+definition from §1.1d --- covered a bit early here since we will use it
+constantly for the rest of the semester.
+
+\end{tcolorbox}
+
+Calculus is built on the real numbers, so before we can talk about
+limits, derivatives, or integrals we need to understand exactly what a
+real number \emph{is} --- and, just as importantly, why the rational
+numbers alone are not enough. This lecture makes that precise: we recall
+how the natural numbers extend to the rationals, set up the number line,
+and then prove that a length as ordinary as the hypotenuse of a simple
+right triangle cannot be a rational number at all.
+
+\section{From Counting to Measuring}\label{from-counting-to-measuring}
+
+There are two major uses for numbers: \textbf{counting} and
+\textbf{measuring}. The natural numbers \(\mathbb{N}= \{1,2,3,\dots\}\)
+are the tool for counting --- abstract symbols for how many elements are
+in a collection, stripped of any reference to what is actually being
+counted. They come equipped with addition and multiplication satisfying
+a short list of familiar rules.
+
+\begin{refremark}
+For all natural numbers \(a,b,c\):
+
+\begin{itemize}
+\tightlist
+\item
+  \(a+b=b+a\) and \(ab=ba\)   (commutative laws)
+\item
+  \(a+(b+c)=(a+b)+c\) and \(a(bc)=(ab)c\)   (associative laws)
+\item
+  \(a(b+c)=ab+ac\)   (distributive law)
+\item
+  \(a+c=b+c \;\Rightarrow\; a=b\)   (cancellation law)
+\end{itemize}
+
+These are the \emph{rules} of arithmetic, not its \emph{content} ---
+everything else in this course is built on top of them, and we will not
+dwell on them further.
+
+\label{rem-arithmetic-laws}
+
+\end{refremark}
+
+Natural numbers can be added and multiplied, but not always subtracted
+or divided. There is no natural number \(a\) with \[
+5+a=2,
+\] so subtraction is not always possible in \(\mathbb{N}\). Extending
+\(\mathbb{N}\) to the \textbf{integers}
+\(\mathbb{Z}= \{\dots,-2,-1,0,1,2,\dots\}\) fixes this: now
+\(5+(-3)=2\).
+
+In \(\mathbb{Z}\), we still cannot always divide: there is no integer
+\(b\in\mathbb{Z}\) with \[
+5\cdot b = 2 .
+\] Extending \(\mathbb{Z}\) to the \textbf{rational numbers} fixes this
+in turn.
+
+\begin{definition}[]\protect\hypertarget{def-rational-number}{}\label{def-rational-number}
+
+\hfill\break
+A \textbf{rational number} is a number that can be written as \(p/q\)
+where \(p,q\in\mathbb{Z}\) and \(q\neq 0\). Every rational number has a
+unique representation \(p/q\) with \(q>0\) and \(\gcd(p,q)=1\) (no
+common factor larger than \(1\)); we call this representation \textbf{in
+lowest terms}.
+
+\end{definition}
+
+Within \(\mathbb{Q}\), all four rational operations --- addition,
+subtraction, multiplication, and division (except by \(0\)) --- can be
+carried out freely, and they obey exactly the same laws as in
+Remark~\ref{rem-arithmetic-laws}. In this precise sense, \(\mathbb{Q}\)
+is the smallest extension of the natural numbers in which counting-type
+arithmetic becomes measuring-type arithmetic.
+
+\section{The Number Line}\label{the-number-line}
+
+To turn numbers into geometry, fix a line \(L\), a point \(O\) on it
+called the \textbf{origin}, and a second point \(I\) to the right of
+\(O\); the segment \(OI\) serves as our unit scale for measuring --- a
+``prototype meter.'' The direction from \(O\) to \(I\) is called
+\textbf{positive}.
+
+Every point on \(L\) is now uniquely determined by two pieces of
+information: its \textbf{distance} from \(O\), and its
+\textbf{direction} (left or right) from \(O\). For example, the point at
+distance \(\tfrac12\) in the positive direction represents the rational
+number \(\tfrac12\); the point at distance \(2\) in the positive
+direction represents \(2\).
+
+\begin{definition}[]\protect\hypertarget{def-absolute-value}{}\label{def-absolute-value}
+
+\hfill\break
+The distance of a number \(x\) from the origin is written \(|x|\) and
+called the \textbf{absolute value} of \(x\): \[
+|x| \;=\; \begin{cases} \phantom{-}x & x \ge 0 \\ -x & x < 0. \end{cases}
+\] Note \(|x|\ge 0\) always, with equality only when \(x=0\).
+
+\end{definition}
+
+Every rational point can in fact be \emph{constructed}, not just
+described: to locate \(p/q\) on \(L\) with ruler and compass, construct
+a subdivision of the segment \(OI\) into \(q\) equal parts, then extend
+the part closest to \(O\), \(p\) times. We will identify each rational
+number with its representation on \(L\).
+
+\section{Distances and Intervals}\label{distances-and-intervals}
+
+For \(x,y\in L\), the number \(|x-y|\) is the \textbf{distance between
+\(x\) and \(y\)}. Observe: if \(x,y\in\mathbb{Q}\), then
+\(|x-y|\in\mathbb{Q}\) as well --- distances between rational points are
+themselves rational.
+
+\begin{definition}[]\protect\hypertarget{def-interval}{}\label{def-interval}
+
+\hfill\break
+For \(a<b\), the \textbf{interval} between \(a\) and \(b\) comes in four
+flavors:
+
+\begin{itemize}
+\tightlist
+\item
+  open:   \((a,b) := \{x : a<x<b\}\)   (both endpoints excluded)
+\item
+  closed:   \([a,b] := \{x : a\le x\le b\}\)   (both endpoints included)
+\item
+  half-open:   \([a,b) := \{x: a \le x < b\}\) and
+  \((a,b] := \{x : a< x \le b\}\)
+\end{itemize}
+
+\end{definition}
+
+\begin{definition}[]\protect\hypertarget{def-neighborhood}{}\label{def-neighborhood}
+
+\hfill\break
+Given a number \(a\) and \(\varepsilon>0\), the
+\textbf{\(\varepsilon\)-neighborhood of \(a\)} is the open interval \[
+\{y : |y-a| < \varepsilon\} = (a-\varepsilon, a+\varepsilon),
+\] i.e.~the set of points less than \(\varepsilon\) away from \(a\).
+
+\end{definition}
+
+We will meet \(\varepsilon\)-neighborhoods constantly once we get to
+limits --- keep this definition close by.
+
+\subsection{Density}\label{density}
+
+\begin{proposition}[]\protect\hypertarget{prp-density}{}\label{prp-density}
+
+\hfill\break
+Between any two distinct rational numbers \(a<b\) there is another
+rational number \(c\) with \(a<c<b\). Consequently, between \(a\) and
+\(b\) there are infinitely many rational numbers.
+
+\end{proposition}
+
+\begin{proof}
+Let \(c=\dfrac{a+b}{2}\). Since \(a,b\in\mathbb{Q}\) and \(\mathbb{Q}\)
+is closed under addition and division by \(2\), \(c\in\mathbb{Q}\); and
+since \(a<b\), averaging gives \(a<c<b\).
+
+Now repeat the argument on the pair \(a,c\) to get a rational number
+strictly between \(a\) and \(c\), hence strictly between \(a\) and
+\(b\). Doing this again and again produces infinitely many rational
+numbers between \(a\) and \(b\).
+\end{proof}
+
+We say the rationals are \textbf{dense} on the number line: no matter
+how closely you look, you will always find another one.
+
+\section{Incommensurable Lengths}\label{sec-incommensurable}
+
+Given how constructible and how dense \(\mathbb{Q}\) is, a natural
+question arises: is there anything ``left in between'' the rational
+numbers? Are there any \emph{gaps}? Clearly, such a gap could not itself
+be an interval --- density rules that out, since any interval of
+positive length contains infinitely many rational points. If a gap
+exists at all, it can only be a single missing point.
+
+\begin{refremark}
+The discovery that not every length is a rational multiple of a chosen
+unit is due to the school of Pythagoras, in the fifth or sixth century
+BCE. Consider a right triangle with both legs of length \(1\); by the
+Pythagorean theorem, its hypotenuse \(a\) satisfies \[
+1^2+1^2 = a^2 = 2,
+\] and \(a\) can certainly be constructed with ruler and compass. The
+theorem below shows this length cannot be written as \(p/q\) for
+integers \(p,q\) --- the hypotenuse and the legs of this triangle are,
+in the language of the ancients, \textbf{incommensurable}: there is no
+common unit of which both are integer multiples.
+
+\label{rem-pythagoras}
+
+\end{refremark}
+
+\begin{theorem}[]\protect\hypertarget{thm-sqrt2-irrational}{}\label{thm-sqrt2-irrational}
+
+\hfill\break
+There is no rational number \(x\) with \(x^2=2\). Equivalently,
+\(\sqrt2 \notin \mathbb{Q}\).
+
+\end{theorem}
+
+\begin{proof}
+Suppose, toward a contradiction, that \(\sqrt2 = p/q\) for integers
+\(p,q\) with \(q\neq 0\) and \(\gcd(p,q)=1\) (i.e.~\(p/q\) is in lowest
+terms).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Square both sides and clear the denominator: \(p^2 = 2q^2\).
+\item
+  Conclude that \(p^2\) is even --- if \(p\) were odd, \(p^2\) would be
+  odd, but \(p^2=2q^2\) is even. Write \(p=2r\) for some integer \(r\).
+\item
+  Substitute \(p=2r\) into the equation from Step 1 and simplify to get
+  an equation for \(q^2\) in terms of \(r\):
+  \((2r)^2 = 2q^2 \;\Rightarrow\; 4r^2 = 2q^2 \;\Rightarrow\; q^2 = 2r^2\).
+\item
+  Conclude that \(q\) is also even, by the same reasoning as in Step 2.
+\item
+  Steps 2 and 4 show that \(2\) divides both \(p\) and \(q\). This
+  contradicts \(\gcd(p,q)=1\), which we assumed when we wrote \(p/q\) in
+  lowest terms.
+\item
+  Conclude: \(\sqrt2\) is irrational --- no integers \(p,q\) satisfy
+  \(\sqrt2=p/q\), so \(\sqrt2 \notin \mathbb{Q}\).
+\end{enumerate}
+
+\end{proof}
+
+\begin{exercise}[]\protect\hypertarget{exr-}{}\label{exr-}
+
+Adapt the proof of Theorem~\ref{thm-sqrt2-irrational} to show that
+\(\sqrt3\) is irrational. Then try to see where the argument would break
+if you attempted the same proof for \(\sqrt4\) --- since \(\sqrt4=2\) is
+certainly rational, something in the argument \emph{must} fail. Where,
+exactly?
+
+\end{exercise}
+
+\section{Summary}\label{summary}
+
+\begin{itemize}
+\tightlist
+\item
+  The rationals \(\mathbb{Q}\) satisfy all the usual laws of arithmetic
+  (Remark~\ref{rem-arithmetic-laws}) and are \textbf{dense}: between any
+  two rationals lies another (Proposition~\ref{prp-density}).
+\item
+  Distances \(|x-y|\), intervals, and \(\varepsilon\)-neighborhoods
+  (Definition~\ref{def-interval}, Definition~\ref{def-neighborhood})
+  give us the basic vocabulary for talking about ``closeness'' on the
+  number line --- vocabulary we will lean on heavily once limits arrive.
+\item
+  Density notwithstanding, \(\mathbb{Q}\) does not exhaust the number
+  line: Theorem~\ref{thm-sqrt2-irrational} exhibits an ordinary,
+  constructible length that is not a rational number.
+\item
+  The rationals therefore leave \emph{gaps} in the line. Lecture 2
+  closes these gaps rigorously, using \textbf{nested intervals} to
+  construct the real numbers.
+\end{itemize}
 
 
 

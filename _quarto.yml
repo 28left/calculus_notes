@@ -7,9 +7,9 @@ book:
   date: today
   chapters:
     - index.qmd
-    # - part: Real Numbers
-    #   chapters:
-    #     - 01_real_numbers.qmd
+    - part: Real Numbers
+      chapters:
+        - 01_real_numbers.qmd
     #     - 02_nested_intervals.qmd
     #     - notebooks/Week01_Number_Bases.ipynb 
 

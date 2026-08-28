@@ -167,10 +167,12 @@
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -204,7 +206,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-08-25}
+\date{2026-08-26}
 \begin{document}
 \maketitle
 
@@ -505,6 +507,303 @@ exactly?
   The rationals therefore leave \emph{gaps} in the line. Lecture 2
   closes these gaps rigorously, using \textbf{nested intervals} to
   construct the real numbers.
+\end{itemize}
+
+\chapter{The Real Numbers via Nested
+Intervals}\label{the-real-numbers-via-nested-intervals}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §1.1b--c.
+
+\end{tcolorbox}
+
+Last time we found a gap: the length \(\sqrt2\) is constructible with
+ruler and compass, yet Theorem~\ref{thm-sqrt2-irrational} shows it is
+not a rational number. So what \emph{is} \(\sqrt2\), as a number? We are
+used to describing such quantities through infinite decimal expansions,
+e.g. \[
+\pi = 3.1415926\ldots,
+\] but so far this is just a string of digits --- it is not clear what
+it \emph{means} mathematically. The key idea of this lecture is that an
+infinite decimal (or any other description of an irrational number) is
+really a recipe for \textbf{approximating} a point by rational numbers,
+to any desired degree of accuracy. We make this precise using shrinking
+intervals with rational endpoints.
+
+\section{Nested Intervals}\label{nested-intervals}
+
+Suppose \(x\) is a point on the number line that we want to pin down
+using only rational numbers. Start with any closed interval
+\(I_1 = [a_1,b_1]\) with \(a_1,b_1\in\mathbb{Q}\) and
+\(a_1 \le x \le b_1\). Now choose a subinterval
+\(I_2 = [a_2,b_2] \subseteq I_1\) that still contains \(x\): \[
+a_1 \le a_2 \le x \le b_2 \le b_1,
+\] for instance by splitting \(I_1\) in half and keeping whichever half
+contains \(x\). Repeating this forever produces a chain \[
+I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots, \qquad x \in I_n \text{ for every } n.
+\] For this to genuinely \emph{pin down} \(x\) --- rather than just
+hover near it --- we need one more ingredient: the intervals must shrink
+all the way down to a point.
+
+\begin{definition}[]\protect\hypertarget{def-nested-intervals}{}\label{def-nested-intervals}
+
+\hfill\break
+A \textbf{nested sequence of closed intervals with rational endpoints}
+is a sequence \(I_n = [a_n,b_n]\), \(n=1,2,3,\dots\), with
+\(a_n,b_n\in\mathbb{Q}\), such that
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots\), and
+\item
+  the lengths \(|I_n| := b_n - a_n\) tend to \(0\) as \(n\to\infty\):
+  for every \(\varepsilon>0\) there is an \(N\) such that
+  \(|I_n| < \varepsilon\) for all \(n \ge N\).
+\end{enumerate}
+
+\end{definition}
+
+\begin{proposition}[]\protect\hypertarget{prp-nested-unique}{}\label{prp-nested-unique}
+
+\hfill\break
+If a nested sequence of closed intervals \((I_n)\) contains a point in
+every \(I_n\), that point is unique: there is at most one \(x\) with
+\(x\in I_n\) for all \(n\).
+
+\end{proposition}
+
+\begin{proof}
+Suppose \(x\) and \(y\) both lie in every \(I_n\), and toward a
+contradiction suppose \(x\neq y\). Let \(\varepsilon_0 = |x-y| > 0\).
+Since \(|I_n|\to 0\), there is some \(n\) with
+\(|I_n| < \varepsilon_0\). But \(x,y\in I_n\) means
+\(|x-y| \le |I_n| < \varepsilon_0 = |x-y|\), which is absurd. Hence
+\(x=y\).
+\end{proof}
+
+So a nested sequence of intervals can ``address'' at most one point ---
+and, geometrically, every point \(x\) on the line does arise this way:
+
+\begin{theorem}[]\protect\hypertarget{thm-real-nested-intervals}{}\label{thm-real-nested-intervals}
+
+\hfill\break
+Every real number \(x\) is the unique point contained in every interval
+of some nested sequence of closed intervals with rational endpoints.
+
+\end{theorem}
+
+\begin{proof}
+Uniqueness is Proposition~\ref{prp-nested-unique}. For existence, pick
+any rational bracket \(I_1=[a_1,b_1]\) with \(a_1 \le x \le b_1\), and
+repeatedly bisect: given \(I_n=[a_n,b_n]\), let
+\(m_n = \tfrac{a_n+b_n}{2}\) (rational, since \(a_n,b_n\in\mathbb{Q}\)),
+and set \[
+I_{n+1} = \begin{cases} [a_n,m_n] & \text{if } x \le m_n \\ [m_n,b_n] & \text{if } x > m_n. \end{cases}
+\] Then \(x\in I_{n+1}\subseteq I_n\) and \(|I_{n+1}| = |I_n|/2\), so
+\(|I_n| = |I_1|/2^{n-1} \to 0\). This is a nested sequence of closed
+intervals with rational endpoints containing \(x\).
+\end{proof}
+
+In this sense, every real number can be described --- completely and
+unambiguously --- by an infinite sequence of rational numbers (the
+endpoints \(a_n,b_n\)).
+
+\section{The Nested Interval Axiom}\label{the-nested-interval-axiom}
+
+The construction above starts from a real number \(x\) and produces a
+nested sequence around it. What about the converse: if we are simply
+\emph{handed} a nested sequence of closed intervals with rational
+endpoints, must there be a point in \(\bigcap_n I_n\) at all?
+
+For \textbf{open} intervals, the answer is no: \(I_n = (0, \tfrac1n)\)
+satisfies \(I_1 \supseteq I_2
+\supseteq \cdots\) and \(|I_n| = \tfrac1n \to 0\), yet no point lies in
+every \(I_n\) --- any candidate \(x>0\) fails once \(n > 1/x\), and
+\(x=0\) is excluded from every \(I_n\) by openness.
+
+For \textbf{closed} intervals, this is far less obvious, and cannot be
+deduced from the algebraic properties of \(\mathbb{Q}\) alone (after
+all, \(\mathbb{Q}\) itself has a gap at \(\sqrt2\)). We take it as a
+basic postulate about the number line.
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Axiom (Nested Interval Property)}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+If \(I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots\) is a nested
+sequence of closed intervals with rational endpoints, then \[
+\bigcap_{n\in\mathbb{N}} I_n \neq \emptyset,
+\] i.e.~there is a point \(x\) contained in every \(I_n\).
+
+\end{tcolorbox}
+
+This is a genuine \textbf{axiom}: a basic postulate we accept without
+proof, rather than a consequence of things we already know. Together
+with Proposition~\ref{prp-nested-unique}, it guarantees that no gaps
+exist on the number line --- every nested sequence of rational brackets
+zeroes in on exactly one real number, no more and no less. This
+completeness of the number line is fundamental for everything that
+follows in this course; we will meet it again, in other guises, once we
+get to limits.
+
+\section{Decimal Expansions}\label{decimal-expansions}
+
+Decimal expansions are simply a very concrete, systematic way of
+producing a nested sequence of intervals --- one that subdivides by tens
+at every step.
+
+\begin{definition}[]\protect\hypertarget{def-decimal-expansion}{}\label{def-decimal-expansion}
+
+\hfill\break
+Let \(x\) be a point on the number line. Set \[
+c_0 := \lfloor x \rfloor,
+\] the greatest integer with \(c_0 \le x \le c_0+1\), and
+\(I_0 = [c_0, c_0+1]\), so \(|I_0|=1\).
+
+Divide \(I_0\) into ten equal parts using the points
+\(c_0+\tfrac1{10}, c_0+\tfrac2{10},\dots,
+c_0+\tfrac9{10}\), and let \(c_1\in\{0,1,\dots,9\}\) be the digit with
+\[
+c_0 + \frac{c_1}{10} \;\le\; x \;\le\; c_0 + \frac{c_1}{10} + \frac{1}{10},
+\] and set \(I_1\) to be this interval, so \(|I_1| = \tfrac1{10}\).
+
+Iterating, having chosen digits \(c_1,\dots,c_{n-1}\in\{0,\dots,9\}\),
+subdivide \(I_{n-1}\) into ten equal parts and let
+\(c_n\in\{0,\dots,9\}\) be the digit with \[
+c_0 + \frac{c_1}{10} + \cdots + \frac{c_n}{10^n} \;\le\; x \;\le\; c_0 + \frac{c_1}{10} + \cdots +
+\frac{c_n}{10^n} + \frac{1}{10^n},
+\] and let \(I_n\) be this interval, so \(|I_n| = 10^{-n}\).
+
+\end{definition}
+
+By construction \((I_n)_{n\ge0}\) is exactly a nested sequence of closed
+intervals with rational endpoints in the sense of
+Definition~\ref{def-nested-intervals}:
+\(I_0\supseteq I_1\supseteq I_2\supseteq\cdots\), each contains \(x\),
+and \(|I_n| = 10^{-n} \to 0\). We abbreviate this whole sequence by
+writing \[
+x = c_0 + 0.c_1c_2c_3\ldots,
+\] the \textbf{decimal expansion} of \(x\) --- a notational shortcut for
+the nested intervals, not a new kind of number. (Careful when \(c_0<0\):
+the digits after the point are still \emph{added} to \(c_0\). For
+instance \(x=-2.75\) has \(c_0 = \lfloor -2.75\rfloor = -3\) and
+\(x = -3 + 0.25\), not \(-3-0.25\).)
+
+Combining Definition~\ref{def-decimal-expansion} with
+Proposition~\ref{prp-nested-unique} and the Nested Interval Axiom:
+
+\begin{itemize}
+\tightlist
+\item
+  Every real number has an (infinite) decimal expansion.
+\item
+  Conversely, every such expansion --- i.e.~every choice of
+  \(c_0\in\mathbb{Z}\) and digits \(c_1,c_2,\dots\in\{0,\dots,9\}\) ---
+  is a nested sequence of closed intervals with rational endpoints, so
+  by the axiom it defines a real number.
+\end{itemize}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-warning-color!10!white, colframe=quarto-callout-warning-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Decimal expansions are not always unique}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+Some real numbers have \emph{two} decimal expansions: for instance \[
+1.000\ldots = 0.999\ldots.
+\]
+
+\end{tcolorbox}
+
+\begin{exercise}[]\protect\hypertarget{exr-decimal-not-unique}{}\label{exr-decimal-not-unique}
+
+Why does \(1.000\ldots = 0.999\ldots\)? (Hint: what would
+\(1 - 0.999\ldots\) have to be, if it were positive?) More generally,
+can you characterize \emph{exactly} which real numbers have two decimal
+expansions?
+
+\end{exercise}
+
+\begin{solution}
+If \(1 - 0.999\ldots = \delta > 0\), then \(\delta\) would have to be
+smaller than \(10^{-n}\) for every \(n\) (since
+\(0.\underbrace{9\cdots9}_{n} = 1 - 10^{-n}\) already exceeds
+\(1-\delta\)), forcing \(\delta=0\) --- contradiction. So the two
+expansions name the same point.
+
+In general, a real number has two decimal expansions exactly when it is
+a \textbf{terminating} decimal, i.e.~of the form \(m/10^n\) for some
+\(m\in\mathbb{Z}\), \(n\ge0\): one expansion ends in all \(0\)'s, the
+other in all \(9\)'s. Every other real number has a unique decimal
+expansion.
+\end{solution}
+
+\section{Other Bases}\label{other-bases}
+
+Nothing in Definition~\ref{def-decimal-expansion} is special about the
+number \(10\) --- we could subdivide each interval into any number
+\(p>1\) of equal parts instead of ten, producing digits
+\(c_i \in \{0,1,\dots,p-1\}\) and a \textbf{base-\(p\) (or \(p\)-ary)
+expansion} of \(x\).
+
+The case \(p=2\), the \textbf{binary expansion}, is exactly the
+bisection procedure from the proof of
+Theorem~\ref{thm-real-nested-intervals}: at each step we only need to
+decide whether \(x\) lies in the lower or upper half of the current
+interval.
+
+\begin{example}[]\protect\hypertarget{exm-binary-expansion}{}\label{exm-binary-expansion}
+
+\hfill\break
+Let's find the first three binary digits of \(x=0.76\). Start with
+\(I_0=[0,1]\), so \(c_0=0\).
+
+\begin{itemize}
+\tightlist
+\item
+  Midpoint \(0.5\): since \(0.76 \ge 0.5\), digit \(c_1=1\) and
+  \(I_1=[0.5,1]\).
+\item
+  Midpoint \(0.75\): since \(0.76 \ge 0.75\), digit \(c_2=1\) and
+  \(I_2=[0.75,1]\).
+\item
+  Midpoint \(0.875\): since \(0.76 < 0.875\), digit \(c_3=0\) and
+  \(I_3=[0.75,0.875]\).
+\end{itemize}
+
+So \(0.76 = 0.110\ldots\) in base \(2\).
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-other-base-expansions}{}\label{exr-other-base-expansions}
+
+Find the first three fractional digits of the base-\(2\) expansion of
+\(x=0.3\), and the first three fractional digits of the base-\(3\)
+expansion of \(x=0.76\).
+
+\end{exercise}
+
+\section{Summary}\label{summary-1}
+
+\begin{itemize}
+\tightlist
+\item
+  A \textbf{nested sequence of closed intervals with rational endpoints}
+  (Definition~\ref{def-nested-intervals}) can contain at most one point
+  (Proposition~\ref{prp-nested-unique}), and every real number arises as
+  the unique point of some such sequence
+  (Theorem~\ref{thm-real-nested-intervals}).
+\item
+  The converse --- that every nested sequence of closed intervals with
+  rational endpoints \emph{does} contain a point --- is not provable
+  from what came before; it is the \textbf{Nested Interval Axiom}, the
+  basic postulate that guarantees there are no gaps in the number line.
+\item
+  \textbf{Decimal expansions} (Definition~\ref{def-decimal-expansion})
+  are the special case of base-\(10\) subdivision; every real number has
+  one, though numbers of the form \(m/10^n\) have exactly two
+  (Exercise~\ref{exr-decimal-not-unique}).
+\item
+  The same construction works in any base \(p>1\), giving \(p\)-ary
+  expansions; base \(2\) is exactly the bisection algorithm behind
+  Theorem~\ref{thm-real-nested-intervals}.
 \end{itemize}
 
 

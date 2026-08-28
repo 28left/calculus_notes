@@ -140,5 +140,93 @@
       "Real Numbers",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>The Real Numbers via Nested Intervals</span>"
     ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html",
+    "href": "notebooks/Week01_Number_Bases.html",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "",
+    "text": "3.1 Before we start: how to use a Jupyter notebook\nMath 140H, Honors Calculus I\nThis is the first notebook of the semester, so we start a quick orientation:",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#before-we-start-how-to-use-a-jupyter-notebook",
+    "href": "notebooks/Week01_Number_Bases.html#before-we-start-how-to-use-a-jupyter-notebook",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "",
+    "text": "A notebook is a sequence of cells. This text lives in a markdown cell (formatted text); cells with code in the toolbar are code cells (Python).\nClick a cell and press Shift+Enter to run it and move to the next one. Code cells must be run in order the first time through, top to bottom — a later cell may use a function or variable that an earlier cell defined.\nIf something breaks, it is often because a cell was skipped or run twice out of order. Use the menu command Run All (or Restart Kernel and Run All) to run the whole notebook cleanly from the top.\nYou do not need to know Python already. Every function below is commented line by line — read the comments (the lines starting with #) as a description of the math, and the code as one particular way of writing it down.\n\n\nCode cells\nYou can think of a code cell very much like a fancy calculator. Move to the next cell an run it.\n\n16+(53*8.7777-128)\n\n353.2181\n\n\nCareful: In Python, exponentiation is **, not ^.\n\n2**4\n\n16\n\n\n\n2^4\n\n6\n\n\n^ in Python is the operation called bitwise XOR; that explains the strange result above.\nWe will learn more about Jupyter notebooks (and a little bit more about Python) in the course of this semester. Today, we will simply experiment a bit with pre-defined Python function that converts rational numbers to \\(p\\)-ary expansions. Go ahead and run the cells below one after the other (do not forget to read the text inbetween.)",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#importing-python-modules",
+    "href": "notebooks/Week01_Number_Bases.html#importing-python-modules",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "3.2 Importing Python modules",
+    "text": "3.2 Importing Python modules\nA lot functionality in Python is provided by modules. The following cell loads the modules we need for this notebook.\n\n# We import three tools before doing anything else:\n#\n#   math     -- the standard library module with math.floor(y), the greatest integer &lt;= y.\n#               (We need floor of *exact fractions*, not of floating-point approximations --\n#               see the note below.)\n#   Fraction -- from the 'fractions' module. A Fraction stores a rational number as an exact\n#               numerator/denominator pair, e.g. Fraction(1, 3) is *exactly* one third, forever.\n#               This matters a lot here: a computer's ordinary decimal numbers (called 'floats')\n#               are themselves binary approximations, so 1/3 as a float is already slightly wrong,\n#               and the tiny error would snowball after enough steps of the algorithm below.\n#               Using Fraction means every digit we compute is provably correct, not just close.\n#   numpy    -- imported as 'np' by convention. We use it only to store the list of digits we\n#               compute as a numpy array, which is a convenient container for a sequence of numbers.\nimport math\nfrom fractions import Fraction\nimport numpy as np\n\nThe cells below show the advantage of the Fraction function:\n\n1/2+1/3   # will use decimal expansions\n\n0.8333333333333333\n\n\n\nFraction(1,2)+Fraction(1,3)   # will preserve the precise fraction representation\n\nFraction(5, 6)",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#from-a-rational-number-to-its-p-ary-expansion",
+    "href": "notebooks/Week01_Number_Bases.html#from-a-rational-number-to-its-p-ary-expansion",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "3.3 From a rational number to its p-ary expansion",
+    "text": "3.3 From a rational number to its p-ary expansion\nWe generalize the nested interval construction to base \\(p\\): given \\(x\\), set \\[\nc_0 := \\lfloor x \\rfloor,\n\\] and then repeatedly zoom in. Having peeled off \\(c_0,c_1,\\dots,c_{n-1}\\), look at what is left over,\n\\[\nr_{n-1} \\;=\\; x - c_0 - \\frac{1}{p}c_1 - \\cdots - \\frac{1}{p^{n-1}}c_{n-1} \\;\\in [0, p^{-(n-1)}),\n\\]\nmultiply it by \\(p^{n-1}\\) so it lands back in \\([0,1)\\), and read off the next digit as the integer part of \\(p\\) times that:\n\\[\nc_n = \\lfloor p \\cdot (p^{n-1} r_{n-1}) \\rfloor.\n\\] (Multiplying by \\(p\\) here means zooming in by a factor of \\(p\\).)\nThe function below does exactly this, but it tracks the rescaled remainder (called remainder in the code, always kept in \\([0,1)\\)) rather than \\(r_{n-1}\\) itself, since that is what you actually multiply by \\(p\\) at each step:\n\nremainder = x - floor(x), the fractional part of \\(x\\), in \\([0,1)\\).\nRepeat: multiply remainder by p. Its integer part is the next digit; subtract that integer part off, leaving a new remainder back in \\([0,1)\\), and go again.\n\n\ndef rational_to_p_ary(x, p, max_digits=50):\n    \"\"\"\n    Compute the base-p expansion of a rational number x.\n\n    Parameters\n    ----------\n    x : Fraction, int, or a string like \"7/12\"\n        The rational number to expand. (Do NOT pass a plain float such as 0.76 -- floats are\n        already binary approximations, so we would be expanding the wrong number. Use\n        Fraction(76, 100) instead. See the discussion above.)\n    p : int\n        The base, an integer &gt; 1 (p = 2 for binary, p = 10 for the usual decimal expansion, ...).\n    max_digits : int, optional (default = 50)\n        how many fractional digits to compute \n        \n    Returns\n    -------\n    integer_part : int\n        c_0, the integer part of x (i.e. floor(x)).\n    digits : numpy array of int\n        The fractional digits c_1, c_2, c_3, ... that were computed, in order.\n    repeat_start : int or None\n        If the expansion is eventually periodic, the index (0-based, into `digits`) where the\n        repeating block begins. If the expansion terminates exactly (all later digits are 0),\n        this is None.\n    \"\"\"\n    if not isinstance(p, int) or p &lt;= 1:\n        raise ValueError(\"the base p must be an integer greater than 1\")\n\n    # Convert x to an exact fraction, no matter what form it was given in.\n    x = Fraction(x)\n\n    # Step 1: peel off the integer part c_0 = floor(x). What remains, x - c_0, is the\n    # 'fractional part' of x and always lies in [0, 1).\n    integer_part = math.floor(x)\n    remainder = x - integer_part\n\n    digits = []            # the digits c_1, c_2, ... found so far, in order\n    seen_remainders = {}   # remembers, for each remainder value we've seen, which step it\n                            # first showed up at -- this is how we notice a repeat\n    repeat_start = None\n\n    for step in range(max_digits):\n        # Zooming into the next sub-interval of\n        # length 1/p means multiplying the remainder by p; the integer part of the result is\n        # exactly which of the p equal pieces x fell into, i.e. the next digit.\n        remainder = remainder * p\n        next_digit = math.floor(remainder)\n        digits.append(next_digit)\n\n        # Subtract off the digit we just read, leaving a fresh remainder back in [0, 1),\n        # ready for the next iteration.\n        remainder = remainder - next_digit\n\n    return integer_part, np.array(digits, dtype=int), repeat_start\n\nThe cell below defines a small helper function to print an expansion in a readable form. We deliberately write it as c_0 + 0.c_1c_2c_3... with an explicit +, matching the lecture notes’ warning: if \\(c_0\\) is negative, the fractional digits are still added to it, not subtracted, so -3.25 written the ordinary way would be dangerously ambiguous. Writing -3 + 0.25 instead leaves no room for that mistake.\n\ndef format_expansion(integer_part, digits, p, repeat_start=None):\n    \"\"\"\n    Turn the output of rational_to_p_ary into a readable string, e.g.\n        format_expansion(0, np.array([1, 1, 0]), 2, None) -&gt; '0 + 0.110  (base 2)'\n        format_expansion(0, np.array([3]), 10, 0)          -&gt; '0 + 0.(3)  (base 10)'   # = 0.333...\n    \"\"\"\n    # Turn each digit into a one-character string. In any base p &lt;= 10 these are ordinary digits;\n    # for p &gt; 10 we would need letters (like hexadecimal's a-f), which we don't handle here.\n    digit_chars = [str(int(d)) for d in digits]\n\n    if repeat_start is None:\n        # No repeating block: just list every digit we have.\n        fractional_part = \"\".join(digit_chars) if len(digit_chars) &gt; 0 else \"0\"\n    else:\n        # Split into the digits before the repeat (head) and the repeating block itself (tail),\n        # and wrap the tail in parentheses to mark it as repeating forever.\n        head = \"\".join(digit_chars[:repeat_start])\n        tail = \"\".join(digit_chars[repeat_start:])\n        fractional_part = f\"{head}({tail})\" if head else f\"({tail})\"\n\n    return f\"{integer_part} + 0.{fractional_part}  (base {p})\"",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#checking-the-examples",
+    "href": "notebooks/Week01_Number_Bases.html#checking-the-examples",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "3.4 Checking the examples",
+    "text": "3.4 Checking the examples\nIn the lecture notes, we found the first three binary digits of \\(x = 0.76\\) by hand: \\(c_1=1,\\ c_2=1,\\ c_3=0\\), i.e. \\(0.76 = 0.110\\ldots\\) in base 2. Let’s confirm that.\n\ninteger_part, digits, repeat_start = rational_to_p_ary(Fraction(76, 100), 2, max_digits=30)\nprint(format_expansion(integer_part, digits, 2, repeat_start))\nprint(\"first three fractional digits:\", digits[:3], \" -- matches c1, c2, c3 = 1, 1, 0 from Example\")\n\n0 + 0.110000101000111101011100001010  (base 2)\nfirst three fractional digits: [1 1 0]  -- matches c1, c2, c3 = 1, 1, 0 from Example 2.6\n\n\nNow find the first three fractional digits of the base-2 expansion of \\(x = 0.3\\), and of the base-3 expansion of \\(x = 0.76\\). Work those out on paper first – then run the cell below to check yourself.\n\nip, d, r = rational_to_p_ary(Fraction(3, 10), 2, max_digits=20)\nprint(\"0.3 in base 2:\", format_expansion(ip, d, 2, r))\nprint(\"first three digits:\", d[:3])\nprint()\nip, d, r = rational_to_p_ary(Fraction(76, 100), 3, max_digits=20)\nprint(\"0.76 in base 3:\", format_expansion(ip, d, 3, r))\nprint(\"first three digits:\", d[:3])\n\n0.3 in base 2: 0 + 0.01001100110011001100  (base 2)\nfirst three digits: [0 1 0]\n\n0.76 in base 3: 0 + 0.20211200100201102212  (base 3)\nfirst three digits: [2 0 2]",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#a-few-more-instructive-examples",
+    "href": "notebooks/Week01_Number_Bases.html#a-few-more-instructive-examples",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "3.5 A few more instructive examples",
+    "text": "3.5 A few more instructive examples\n\n\\(1/3\\) in base 10 has no terminating part at all – the repeating block starts immediately.\n\\(1/6\\) in base 10 has one non-repeating digit followed by a repeating block (matches \\(1/6 = 0.1\\overline{6}\\)).\n\\(1/10\\) terminates in base 10 (as expected, \\(1/10 = 0.1\\) exactly) but is purely repeating in base 2 – this is the mathematical reason 0.1 cannot be stored exactly as an ordinary floating-point number, and is why we insisted on Fraction above instead of Python floats.\nNegative \\(x\\): \\(x = -11/4 = -2.75\\). Its integer part is \\(c_0 = \\lfloor -2.75\\rfloor = -3\\), and the digits describe \\(0.25\\), which gets added to \\(-3\\) (giving back \\(-2.75\\)), not subtracted.\n\n\nfor label, value, base, n in [\n    (\"1/3\", Fraction(1, 3), 10, 10),\n    (\"1/6\", Fraction(1, 6), 10, 10),\n    (\"1/10\", Fraction(1, 10), 10, 10),\n    (\"1/10\", Fraction(1, 10), 2, 30),\n    (\"-11/4\", Fraction(-11, 4), 10, 10),\n]:\n    ip, d, r = rational_to_p_ary(value, base, max_digits=n)\n    print(f\"{label:&gt;6} = {format_expansion(ip, d, base, r)}\")\n\n   1/3 = 0 + 0.3333333333  (base 10)\n   1/6 = 0 + 0.1666666666  (base 10)\n  1/10 = 0 + 0.1000000000  (base 10)\n  1/10 = 0 + 0.000110011001100110011001100110  (base 2)\n -11/4 = -3 + 0.2500000000  (base 10)",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#try-it-yourself",
+    "href": "notebooks/Week01_Number_Bases.html#try-it-yourself",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "3.6 Try it yourself",
+    "text": "3.6 Try it yourself\nPick your own rational number \\(x\\) and a base \\(p &gt; 1\\). Use rational_to_p_ary to get its \\(p\\)-ary expansion.\n\n# Replace the values below with your own choice of x (as a Fraction), p.\nx = Fraction(1, 2)\np = 10\n\n\nip, d, r = rational_to_p_ary(x, p, max_digits=30)\nprint(f\"x in base {p}:\", format_expansion(ip, d, p, r))\n\nx in base 10: 0 + 0.500000000000000000000000000000  (base 10)",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
+  },
+  {
+    "objectID": "notebooks/Week01_Number_Bases.html#food-for-thought",
+    "href": "notebooks/Week01_Number_Bases.html#food-for-thought",
+    "title": "3  Jupyter Activity: p-ary Expansions",
+    "section": "3.7 Food for thought",
+    "text": "3.7 Food for thought\nQuestion 1: For a fixed base \\(p\\), which fractions will have a \\(p\\)-ary expansion that will eventually be identically \\(0\\)? (such as \\(1/2\\) in base 10) Try to formulate a hypothesis and test it using the cell above.\nQuestion 2: Is it true that all \\(p\\)-ary expansions of rational numbers eventually become periodic? If yes, why is this the case?",
+    "crumbs": [
+      "Real Numbers",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
+    ]
   }
 ]

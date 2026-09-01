@@ -246,19 +246,10 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Companion reading
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This lecture corresponds to C&amp;J §1.2.</p>
-</div>
-</div>
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.2.
+::: -->
 <p>With the number line in hand, we can start doing calculus — but calculus is not really about individual numbers. It is about <em>dependence</em>: how one quantity changes as another one does. The area of a circle depends on its radius, the height of a falling stone depends on the elapsed time, the pressure of a gas depends on its volume. The mathematical object that captures such a dependence is a <strong>function</strong>, and getting comfortable with the vocabulary now will pay off for the rest of the course.</p>
 <section id="functions-domain-and-range" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="functions-domain-and-range"><span class="header-section-number">4.1</span> Functions, Domain, and Range</h2>
@@ -344,8 +335,11 @@ x\neq y \quad \Rightarrow \quad f(x)\neq f(y),
 </div>
 <div class="callout-body-container">
 <div id="exm-injection" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.1</strong></span> <br>
-- <span class="math inline">\(f(x)=x^3\)</span> is injective on <span class="math inline">\(\mathbb{R}\)</span>: if <span class="math inline">\(x^3 = y^3\)</span> then <span class="math inline">\(x=y\)</span> (taking cube roots). - <span class="math inline">\(g(x)=x^2\)</span> is <strong>not</strong> injective on <span class="math inline">\(\mathbb{R}\)</span>: <span class="math inline">\(g(-1) = 1 = g(1)\)</span>, yet <span class="math inline">\(-1\neq 1\)</span>. Restricted to <span class="math inline">\([0,\infty)\)</span>, however, <span class="math inline">\(g\)</span> <em>is</em> injective.</p>
+<p><span class="theorem-title"><strong>Example 4.1</strong></span> &nbsp;</p>
+<ul>
+<li><span class="math inline">\(f(x)=x^3\)</span> is injective on <span class="math inline">\(\mathbb{R}\)</span>: if <span class="math inline">\(x^3 = y^3\)</span> then <span class="math inline">\(x=y\)</span> (taking cube roots).</li>
+<li><span class="math inline">\(g(x)=x^2\)</span> is <strong>not</strong> injective on <span class="math inline">\(\mathbb{R}\)</span>: <span class="math inline">\(g(-1) = 1 = g(1)\)</span>, yet <span class="math inline">\(-1\neq 1\)</span>. Restricted to <span class="math inline">\([0,\infty)\)</span>, however, <span class="math inline">\(g\)</span> <em>is</em> injective.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -364,9 +358,9 @@ x\neq y \quad \Rightarrow \quad f(x)\neq f(y),
 <p><span class="theorem-title"><strong>Definition 4.4</strong></span> <br>
 Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> with <span class="math inline">\(D\subseteq\mathbb{R}\)</span>. For all <span class="math inline">\(x,w\in D\)</span>, we say <span class="math inline">\(f\)</span> is</p>
 <ul>
-<li><strong>(monotonically) increasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\le f(w)\)</span>;</li>
+<li><strong>increasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\le f(w)\)</span>;</li>
 <li><strong>strictly increasing</strong> if <span class="math inline">\(\;x &lt; w \quad \Rightarrow \quad f(x) &lt; f(w)\)</span>;</li>
-<li><strong>(monotonically) decreasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\ge f(w)\)</span>;</li>
+<li><strong>decreasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\ge f(w)\)</span>;</li>
 <li><strong>strictly decreasing</strong> if <span class="math inline">\(\;x &lt; w \quad \Rightarrow \quad f(x) &gt; f(w)\)</span>.</li>
 </ul>
 <p>A function of any of these four types is called <strong>monotone</strong>.</p>
@@ -381,8 +375,11 @@ Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> with <span class
 </div>
 <div class="callout-body-container">
 <div id="exm-monotone" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.2</strong></span> <br>
-- <span class="math inline">\(f(x)=x^3\)</span> is strictly increasing on all of <span class="math inline">\(\mathbb{R}\)</span>. - <span class="math inline">\(g\colon[0,\pi]\to\mathbb{R}\)</span>, <span class="math inline">\(g(x)=\cos x\)</span>, is strictly decreasing: as the angle runs from <span class="math inline">\(0\)</span> to <span class="math inline">\(\pi\)</span>, the <span class="math inline">\(x\)</span>-coordinate on the unit circle drops steadily from <span class="math inline">\(1\)</span> to <span class="math inline">\(-1\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 4.2</strong></span> &nbsp;</p>
+<ul>
+<li><span class="math inline">\(f(x)=x^3\)</span> is strictly increasing on all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
+<li><span class="math inline">\(g\colon[0,\pi]\to\mathbb{R}\)</span>, <span class="math inline">\(g(x)=\cos x\)</span>, is strictly decreasing: as the angle runs from <span class="math inline">\(0\)</span> to <span class="math inline">\(\pi\)</span>, the <span class="math inline">\(x\)</span>-coordinate on the unit circle drops steadily from <span class="math inline">\(1\)</span> to <span class="math inline">\(-1\)</span>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -399,25 +396,14 @@ Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> with <span class
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>If <span class="math inline">\(f\)</span> is strictly increasing and <span class="math inline">\(x\neq y\)</span>, then either <span class="math inline">\(x&lt;y\)</span>, giving <span class="math inline">\(f(x)&lt;f(y)\)</span>, or <span class="math inline">\(x&gt;y\)</span>, giving <span class="math inline">\(f(x)&gt;f(y)\)</span>; either way <span class="math inline">\(f(x)\neq f(y)\)</span>. So <span class="math inline">\(f\)</span> is injective.</p>
-<p>The converse fails. Define <span class="math inline">\(f\colon\mathbb{R}\to\mathbb{R}\)</span> by <span class="math inline">\(f(x) = x\)</span> for <span class="math inline">\(x\neq 0,1\)</span>, with <span class="math inline">\(f(0)=1\)</span> and <span class="math inline">\(f(1)=0\)</span>. This is a bijection of <span class="math inline">\(\mathbb{R}\)</span> (it just swaps two values), hence injective, but it is neither increasing nor decreasing.</p>
-</div>
-</div>
-</div>
-</div>
+<!-- ::: {.solution}
+If $f$ is strictly increasing and $x\neq y$, then either $x<y$, giving $f(x)<f(y)$, or $x>y$, giving
+$f(x)>f(y)$; either way $f(x)\neq f(y)$. So $f$ is injective.
+
+The converse fails. Define $f\colon\R\to\R$ by $f(x) = x$ for $x\neq 0,1$, with $f(0)=1$ and
+$f(1)=0$. This is a bijection of $\R$ (it just swaps two values), hence injective, but it is neither
+increasing nor decreasing.
+::: -->
 </section>
 <section id="even-and-odd-functions" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="even-and-odd-functions"><span class="header-section-number">4.4</span> Even and Odd Functions</h2>

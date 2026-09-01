@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; The Real Numbers via Nested Intervals – Math 140H — Honors Calculus I: Lecture Notes</title>
+<title>5&nbsp; The Elementary Functions – Math 140H — Honors Calculus I: Lecture Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./notebooks/Week01_Number_Bases.html" rel="next">
-<link href="./01_real_numbers.html" rel="prev">
+<link href="./03_functions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_real_numbers.html">Real Numbers</a></li><li class="breadcrumb-item"><a href="./02_nested_intervals.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./04_elementary_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -165,7 +164,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_nested_intervals.html" class="sidebar-item-text sidebar-link active">
+  <a href="./02_nested_intervals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></span></a>
   </div>
 </li>
@@ -194,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
   </div>
 </li>
@@ -210,20 +209,22 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#nested-intervals" id="toc-nested-intervals" class="nav-link active" data-scroll-target="#nested-intervals"><span class="header-section-number">2.1</span> Nested Intervals</a></li>
-  <li><a href="#the-nested-interval-axiom" id="toc-the-nested-interval-axiom" class="nav-link" data-scroll-target="#the-nested-interval-axiom"><span class="header-section-number">2.2</span> The Nested Interval Axiom</a></li>
-  <li><a href="#decimal-expansions" id="toc-decimal-expansions" class="nav-link" data-scroll-target="#decimal-expansions"><span class="header-section-number">2.3</span> Decimal Expansions</a></li>
-  <li><a href="#other-bases" id="toc-other-bases" class="nav-link" data-scroll-target="#other-bases"><span class="header-section-number">2.4</span> Other Bases</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.5</span> Summary</a></li>
+  <li><a href="#polynomials" id="toc-polynomials" class="nav-link active" data-scroll-target="#polynomials"><span class="header-section-number">5.1</span> Polynomials</a></li>
+  <li><a href="#rational-functions" id="toc-rational-functions" class="nav-link" data-scroll-target="#rational-functions"><span class="header-section-number">5.2</span> Rational Functions</a></li>
+  <li><a href="#algebraic-and-power-functions" id="toc-algebraic-and-power-functions" class="nav-link" data-scroll-target="#algebraic-and-power-functions"><span class="header-section-number">5.3</span> Algebraic and Power Functions</a></li>
+  <li><a href="#exponential-functions" id="toc-exponential-functions" class="nav-link" data-scroll-target="#exponential-functions"><span class="header-section-number">5.4</span> Exponential Functions</a></li>
+  <li><a href="#logarithms" id="toc-logarithms" class="nav-link" data-scroll-target="#logarithms"><span class="header-section-number">5.5</span> Logarithms</a></li>
+  <li><a href="#trigonometric-functions" id="toc-trigonometric-functions" class="nav-link" data-scroll-target="#trigonometric-functions"><span class="header-section-number">5.6</span> Trigonometric Functions</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.7</span> Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_real_numbers.html">Real Numbers</a></li><li class="breadcrumb-item"><a href="./02_nested_intervals.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./04_elementary_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></h1>
 </div>
 
 
@@ -250,173 +251,92 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This lecture corresponds to C&amp;J §1.1b–c.</p>
+<p>This lecture corresponds to C&amp;J §1.3.</p>
 </div>
 </div>
-<p>Last time we found a gap: the length <span class="math inline">\(\sqrt2\)</span> is constructible with ruler and compass, yet <a href="01_real_numbers.html#thm-sqrt2-irrational" class="quarto-xref">Theorem&nbsp;<span>1.1</span></a> shows it is not a rational number. So what <em>is</em> <span class="math inline">\(\sqrt2\)</span>, as a number? We are used to describing such quantities through infinite decimal expansions, e.g. <span class="math display">\[
-\pi = 3.1415926\ldots,
-\]</span> but so far this is just a string of digits — it is not clear what it <em>means</em> mathematically. The key idea of this lecture is that an infinite decimal (or any other description of an irrational number) is really a recipe for <strong>approximating</strong> a point by rational numbers, to any desired degree of accuracy. We make this precise using shrinking intervals with rational endpoints.</p>
-<section id="nested-intervals" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="nested-intervals"><span class="header-section-number">2.1</span> Nested Intervals</h2>
-<p>Suppose <span class="math inline">\(x\)</span> is a point on the number line that we want to pin down using only rational numbers. Start with any closed interval <span class="math inline">\(I_1 = [a_1,b_1]\)</span> with <span class="math inline">\(a_1,b_1\in\mathbb{Q}\)</span> and <span class="math inline">\(a_1 \le x \le b_1\)</span>. Now choose a subinterval <span class="math inline">\(I_2 = [a_2,b_2] \subseteq I_1\)</span> that still contains <span class="math inline">\(x\)</span>: <span class="math display">\[
-a_1 \le a_2 \le x \le b_2 \le b_1,
-\]</span> for instance by splitting <span class="math inline">\(I_1\)</span> in half and keeping whichever half contains <span class="math inline">\(x\)</span>. Repeating this forever produces a chain <span class="math display">\[
-I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots, \qquad x \in I_n \text{ for every } n.
-\]</span> For this to genuinely <em>pin down</em> <span class="math inline">\(x\)</span> — rather than just hover near it — we need one more ingredient: the intervals must shrink all the way down to a point.</p>
+<p>Almost every function met in a first calculus course is built out of a short catalogue of standard functions: polynomials, rational functions, powers, exponentials, logarithms, and the trigonometric functions. These are the <strong>elementary functions</strong>. This lecture is a tour of the list, noting for each type its natural domain, its range, and its basic shape — information we will need constantly once we start differentiating and integrating.</p>
+<section id="polynomials" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="polynomials"><span class="header-section-number">5.1</span> Polynomials</h2>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-nested-intervals" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> <br>
-A <strong>nested sequence of closed intervals with rational endpoints</strong> is a sequence <span class="math inline">\(I_n = [a_n,b_n]\)</span>, <span class="math inline">\(n=1,2,3,\dots\)</span>, with <span class="math inline">\(a_n,b_n\in\mathbb{Q}\)</span>, such that</p>
-<ol type="1">
-<li><span class="math inline">\(I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots\)</span>, and</li>
-<li>the lengths <span class="math inline">\(|I_n| := b_n - a_n\)</span> tend to <span class="math inline">\(0\)</span> as <span class="math inline">\(n\to\infty\)</span>: for every <span class="math inline">\(\varepsilon&gt;0\)</span> there is an <span class="math inline">\(N\)</span> such that <span class="math inline">\(|I_n| &lt; \varepsilon\)</span> for all <span class="math inline">\(n \ge N\)</span>.</li>
-</ol>
+<div id="def-polynomial" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.1</strong></span> <br>
+A <strong>polynomial</strong> is a function of the form <span class="math display">\[
+p(x) \;=\; a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n,
+\]</span> with real coefficients <span class="math inline">\(a_0,a_1,\dots,a_n\)</span>. If <span class="math inline">\(a_n\neq 0\)</span>, the integer <span class="math inline">\(n\)</span> is the <strong>degree</strong> of <span class="math inline">\(p\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-caution no-icon">
+<p>The lowest degrees have familiar names:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>degree</th>
+<th>form</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(y = a_0\)</span></td>
+<td>constant</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(y = a_0 + a_1 x\)</span></td>
+<td>linear</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\(y = a_0 + a_1 x + a_2 x^2\)</span></td>
+<td>quadratic</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(3\)</span></td>
+<td><span class="math inline">\(y = a_0 + a_1 x + a_2 x^2 + a_3 x^3\)</span></td>
+<td>cubic</td>
+</tr>
+</tbody>
+</table>
+<p>A polynomial is a finite sum of constant multiples of the <strong>power functions</strong> <span class="math inline">\(1, x, x^2, x^3,\dots\)</span>, each of which is defined for every real number. Hence every polynomial has natural domain <span class="math display">\[
+\operatorname{dom}(p) = \mathbb{R}
+\]</span> (unless we deliberately restrict it).</p>
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="prp-nested-unique" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 2.1</strong></span> <br>
-If a nested sequence of closed intervals <span class="math inline">\((I_n)\)</span> contains a point in every <span class="math inline">\(I_n\)</span>, that point is unique: there is at most one <span class="math inline">\(x\)</span> with <span class="math inline">\(x\in I_n\)</span> for all <span class="math inline">\(n\)</span>.</p>
+<div id="rem-powers-of-x" class="proof remark">
+<p><span class="proof-title"><em>Remark 5.1</em>. </span>The pure powers <span class="math inline">\(x^n\)</span> share a few features worth remembering. Every graph passes through <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((1,1)\)</span>. On the interval <span class="math inline">\([0,1]\)</span> a higher power lies <em>below</em> a lower one (<span class="math inline">\(x^3 \le x^2 \le x\)</span>), while on <span class="math inline">\([1,\infty)\)</span> the order reverses. The power <span class="math inline">\(x^n\)</span> is even when <span class="math inline">\(n\)</span> is even and odd when <span class="math inline">\(n\)</span> is odd; for odd <span class="math inline">\(n\)</span> it is strictly increasing on <span class="math inline">\(\mathbb{R}\)</span> (hence injective), while for even <span class="math inline">\(n\)</span> it is not injective on <span class="math inline">\(\mathbb{R}\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Suppose <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> both lie in every <span class="math inline">\(I_n\)</span>, and toward a contradiction suppose <span class="math inline">\(x\neq y\)</span>. Let <span class="math inline">\(\varepsilon_0 = |x-y| &gt; 0\)</span>. Since <span class="math inline">\(|I_n|\to 0\)</span>, there is some <span class="math inline">\(n\)</span> with <span class="math inline">\(|I_n| &lt; \varepsilon_0\)</span>. But <span class="math inline">\(x,y\in I_n\)</span> means <span class="math inline">\(|x-y| \le |I_n| &lt; \varepsilon_0 = |x-y|\)</span>, which is absurd. Hence <span class="math inline">\(x=y\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p>So a nested sequence of intervals can “address” at most one point — and, geometrically, every point <span class="math inline">\(x\)</span> on the line does arise this way:</p>
-<div class="callout callout-style-simple callout-warning no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="thm-real-nested-intervals" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2.1</strong></span> <br>
-Every real number <span class="math inline">\(x\)</span> is the unique point contained in every interval of some nested sequence of closed intervals with rational endpoints.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Uniqueness is <a href="#prp-nested-unique" class="quarto-xref">Proposition&nbsp;<span>2.1</span></a>. For existence, pick any rational bracket <span class="math inline">\(I_1=[a_1,b_1]\)</span> with <span class="math inline">\(a_1 \le x \le b_1\)</span>, and repeatedly bisect: given <span class="math inline">\(I_n=[a_n,b_n]\)</span>, let <span class="math inline">\(m_n = \tfrac{a_n+b_n}{2}\)</span> (rational, since <span class="math inline">\(a_n,b_n\in\mathbb{Q}\)</span>), and set <span class="math display">\[
-I_{n+1} = \begin{cases} [a_n,m_n] &amp; \text{if } x \le m_n \\ [m_n,b_n] &amp; \text{if } x &gt; m_n. \end{cases}
-\]</span> Then <span class="math inline">\(x\in I_{n+1}\subseteq I_n\)</span> and <span class="math inline">\(|I_{n+1}| = |I_n|/2\)</span>, so <span class="math inline">\(|I_n| = |I_1|/2^{n-1} \to 0\)</span>. This is a nested sequence of closed intervals with rational endpoints containing <span class="math inline">\(x\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p>In this sense, every real number can be described — completely and unambiguously — by an infinite sequence of rational numbers (the endpoints <span class="math inline">\(a_n,b_n\)</span>).</p>
 </section>
-<section id="the-nested-interval-axiom" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="the-nested-interval-axiom"><span class="header-section-number">2.2</span> The Nested Interval Axiom</h2>
-<p>The construction above starts from a real number <span class="math inline">\(x\)</span> and produces a nested sequence around it. What about the converse: if we are simply <em>handed</em> a nested sequence of closed intervals with rational endpoints, must there be a point in <span class="math inline">\(\bigcap_n I_n\)</span> at all?</p>
-<p>For <strong>open</strong> intervals, the answer is no: <span class="math inline">\(I_n = (0, \tfrac1n)\)</span> satisfies <span class="math inline">\(I_1 \supseteq I_2
-\supseteq \cdots\)</span> and <span class="math inline">\(|I_n| = \tfrac1n \to 0\)</span>, yet no point lies in every <span class="math inline">\(I_n\)</span> — any candidate <span class="math inline">\(x&gt;0\)</span> fails once <span class="math inline">\(n &gt; 1/x\)</span>, and <span class="math inline">\(x=0\)</span> is excluded from every <span class="math inline">\(I_n\)</span> by openness.</p>
-<p>For <strong>closed</strong> intervals, this is far less obvious, and cannot be deduced from the algebraic properties of <span class="math inline">\(\mathbb{Q}\)</span> alone (after all, <span class="math inline">\(\mathbb{Q}\)</span> itself has a gap at <span class="math inline">\(\sqrt2\)</span>). We take it as a basic postulate about the number line.</p>
-<div class="callout callout-style-default callout-important no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Axiom (Nested Interval Property)
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If <span class="math inline">\(I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots\)</span> is a nested sequence of closed intervals with rational endpoints, then <span class="math display">\[
-\bigcap_{n\in\mathbb{N}} I_n \neq \emptyset,
-\]</span> i.e.&nbsp;there is a point <span class="math inline">\(x\)</span> contained in every <span class="math inline">\(I_n\)</span>.</p>
-</div>
-</div>
-<p>This is a genuine <strong>axiom</strong>: a basic postulate we accept without proof, rather than a consequence of things we already know. Together with <a href="#prp-nested-unique" class="quarto-xref">Proposition&nbsp;<span>2.1</span></a>, it guarantees that no gaps exist on the number line — every nested sequence of rational brackets zeroes in on exactly one real number, no more and no less. This completeness of the number line is fundamental for everything that follows in this course; we will meet it again, in other guises, once we get to limits.</p>
-</section>
-<section id="decimal-expansions" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="decimal-expansions"><span class="header-section-number">2.3</span> Decimal Expansions</h2>
-<p>Decimal expansions are simply a very concrete, systematic way of producing a nested sequence of intervals — one that subdivides by tens at every step.</p>
+<section id="rational-functions" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="rational-functions"><span class="header-section-number">5.2</span> Rational Functions</h2>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-decimal-expansion" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.2</strong></span> <br>
-Let <span class="math inline">\(x\)</span> be a point on the number line. Set <span class="math display">\[
-c_0 := \lfloor x \rfloor,
-\]</span> the greatest integer with <span class="math inline">\(c_0 \le x \le c_0+1\)</span>, and <span class="math inline">\(I_0 = [c_0, c_0+1]\)</span>, so <span class="math inline">\(|I_0|=1\)</span>.</p>
-<p>Divide <span class="math inline">\(I_0\)</span> into ten equal parts using the points <span class="math inline">\(c_0+\tfrac1{10}, c_0+\tfrac2{10},\dots,
-c_0+\tfrac9{10}\)</span>, and let <span class="math inline">\(c_1\in\{0,1,\dots,9\}\)</span> be the digit with <span class="math display">\[
-c_0 + \frac{c_1}{10} \;\le\; x \;\le\; c_0 + \frac{c_1}{10} + \frac{1}{10},
-\]</span> and set <span class="math inline">\(I_1\)</span> to be this interval, so <span class="math inline">\(|I_1| = \tfrac1{10}\)</span>.</p>
-<p>Iterating, having chosen digits <span class="math inline">\(c_1,\dots,c_{n-1}\in\{0,\dots,9\}\)</span>, subdivide <span class="math inline">\(I_{n-1}\)</span> into ten equal parts and let <span class="math inline">\(c_n\in\{0,\dots,9\}\)</span> be the digit with <span class="math display">\[
-c_0 + \frac{c_1}{10} + \cdots + \frac{c_n}{10^n} \;\le\; x \;\le\; c_0 + \frac{c_1}{10} + \cdots +
-\frac{c_n}{10^n} + \frac{1}{10^n},
-\]</span> and let <span class="math inline">\(I_n\)</span> be this interval, so <span class="math inline">\(|I_n| = 10^{-n}\)</span>.</p>
+<div id="def-rational-function" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.2</strong></span> <br>
+A <strong>rational function</strong> is a quotient of two polynomials, <span class="math display">\[
+r(x) \;=\; \frac{p(x)}{q(x)}, \qquad q \not\equiv 0.
+\]</span> Its natural domain is <span class="math inline">\(\mathbb{R}\setminus Z\)</span>, where <span class="math display">\[
+Z = \{\, x\in\mathbb{R}: q(x) = 0 \,\}
+\]</span> is the (finite) set of zeros of the denominator.</p>
 </div>
 </div>
-</div>
-</div>
-<p>By construction <span class="math inline">\((I_n)_{n\ge0}\)</span> is exactly a nested sequence of closed intervals with rational endpoints in the sense of <a href="#def-nested-intervals" class="quarto-xref">Definition&nbsp;<span>2.1</span></a>: <span class="math inline">\(I_0\supseteq I_1\supseteq I_2\supseteq\cdots\)</span>, each contains <span class="math inline">\(x\)</span>, and <span class="math inline">\(|I_n| = 10^{-n} \to 0\)</span>. We abbreviate this whole sequence by writing <span class="math display">\[
-x = c_0 + 0.c_1c_2c_3\ldots,
-\]</span> the <strong>decimal expansion</strong> of <span class="math inline">\(x\)</span> — a notational shortcut for the nested intervals, not a new kind of number. (Careful when <span class="math inline">\(c_0&lt;0\)</span>: the digits after the point are still <em>added</em> to <span class="math inline">\(c_0\)</span>. For instance <span class="math inline">\(x=-2.75\)</span> has <span class="math inline">\(c_0 = \lfloor -2.75\rfloor = -3\)</span> and <span class="math inline">\(x = -3 + 0.25\)</span>, not <span class="math inline">\(-3-0.25\)</span>.)</p>
-<p>Combining <a href="#def-decimal-expansion" class="quarto-xref">Definition&nbsp;<span>2.2</span></a> with <a href="#prp-nested-unique" class="quarto-xref">Proposition&nbsp;<span>2.1</span></a> and the Nested Interval Axiom:</p>
-<ul>
-<li>Every real number has an (infinite) decimal expansion.</li>
-<li>Conversely, every such expansion — i.e.&nbsp;every choice of <span class="math inline">\(c_0\in\mathbb{Z}\)</span> and digits <span class="math inline">\(c_1,c_2,\dots\in\{0,\dots,9\}\)</span> — is a nested sequence of closed intervals with rational endpoints, so by the axiom it defines a real number.</li>
-</ul>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Decimal expansions are not always unique
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Some real numbers have <em>two</em> decimal expansions: for instance <span class="math display">\[
-1.000\ldots = 0.999\ldots.
-\]</span></p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -425,14 +345,138 @@ x = c_0 + 0.c_1c_2c_3\ldots,
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="exr-decimal-not-unique" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.1</strong></span> Why does <span class="math inline">\(1.000\ldots = 0.999\ldots\)</span>? (Hint: what would <span class="math inline">\(1 - 0.999\ldots\)</span> have to be, if it were positive?) More generally, can you characterize <em>exactly</em> which real numbers have two decimal expansions?</p>
+<div id="exm-rational" class="theorem example">
+<p><span class="theorem-title"><strong>Example 5.1</strong></span> <br>
+- <span class="math inline">\(\dfrac{x}{x^2+1}\)</span> is a rational function. Since <span class="math inline">\(x^2+1 &gt; 0\)</span> for every real <span class="math inline">\(x\)</span>, the set <span class="math inline">\(Z\)</span> is empty and the domain is all of <span class="math inline">\(\mathbb{R}\)</span>. - <span class="math inline">\(\dfrac{\sqrt{x}}{x^3 - x}\)</span> is <strong>not</strong> a rational function: <span class="math inline">\(\sqrt{x}\)</span> is not a polynomial. (It is, however, still an elementary function — see the next section.)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="algebraic-and-power-functions" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="algebraic-and-power-functions"><span class="header-section-number">5.3</span> Algebraic and Power Functions</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-power-function" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.3</strong></span> <br>
+A <strong>power function</strong> is <span class="math inline">\(f(x) = x^{\alpha}\)</span> with a fixed real exponent <span class="math inline">\(\alpha\in\mathbb{R}\)</span>. For <span class="math inline">\(x&gt;0\)</span> this is defined for every <span class="math inline">\(\alpha\)</span> (via <span class="math inline">\(x^{\alpha} = \exp(\alpha\ln x)\)</span>, once we have <span class="math inline">\(\exp\)</span> and <span class="math inline">\(\ln\)</span>). For an <strong>integer</strong> exponent the domain extends to <span class="math display">\[
+\operatorname{dom}(x^{\alpha}) = \begin{cases}
+\mathbb{R}&amp; \alpha \ge 0,\\[2pt]
+\mathbb{R}\setminus\{0\} &amp; \alpha &lt; 0.
+\end{cases}
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-roots" class="proof remark">
+<p><span class="proof-title"><em>Remark 5.2</em>. </span>For a non-integer exponent one usually keeps the domain <span class="math inline">\([0,\infty)\)</span> (or <span class="math inline">\((0,\infty)\)</span> if <span class="math inline">\(\alpha&lt;0\)</span>). The roots <span class="math inline">\(x^{1/2} = \sqrt{x}\)</span>, <span class="math inline">\(x^{1/3} = \sqrt[3]{x},\dots\)</span> are examples; odd roots such as <span class="math inline">\(\sqrt[3]{x}\)</span> can in fact be extended to all of <span class="math inline">\(\mathbb{R}\)</span>. Power functions with rational exponent, and more generally functions obtained from polynomials by the four arithmetic operations together with root extraction, are called <strong>algebraic functions</strong>. The exponential and logarithm below are <em>not</em> algebraic — they are <strong>transcendental</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exponential-functions" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="exponential-functions"><span class="header-section-number">5.4</span> Exponential Functions</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-exponential" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.4</strong></span> <br>
+Fix a <strong>base</strong> <span class="math inline">\(a &gt; 0\)</span>. The <strong>exponential function</strong> with base <span class="math inline">\(a\)</span>, <span class="math display">\[
+\exp_a\colon \mathbb{R}\to \mathbb{R}, \qquad \exp_a(x) = a^{x},
+\]</span> is defined for every real <span class="math inline">\(x\)</span>. For <span class="math inline">\(a\neq 1\)</span> it takes only positive values, and every positive value is attained: <span class="math display">\[
+\operatorname{dom}(\exp_a) = \mathbb{R}, \qquad \operatorname{ran}(\exp_a) = (0,\infty) = \mathbb{R}^{&gt;0}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>For <span class="math inline">\(a &gt; 1\)</span> the function <span class="math inline">\(a^x\)</span> is strictly increasing; for <span class="math inline">\(0 &lt; a &lt; 1\)</span> it is strictly decreasing; for <span class="math inline">\(a=1\)</span> it is the constant <span class="math inline">\(1\)</span>. In all cases <span class="math inline">\(a^0 = 1\)</span> and <span class="math inline">\(a^{x+y} = a^x a^y\)</span>.</p>
+</section>
+<section id="logarithms" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="logarithms"><span class="header-section-number">5.5</span> Logarithms</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-logarithm" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.5</strong></span> <br>
+Fix a base <span class="math inline">\(a &gt; 0\)</span> with <span class="math inline">\(a\neq 1\)</span>. Then <span class="math inline">\(\exp_a\)</span> is injective from <span class="math inline">\(\mathbb{R}\)</span> onto <span class="math inline">\((0,\infty)\)</span>, and its inverse function (in the sense of <a href="03_functions.html#def-inverse" class="quarto-xref">Definition&nbsp;<span>4.8</span></a>) is the <strong>logarithm to base <span class="math inline">\(a\)</span></strong>, <span class="math display">\[
+\log_a\colon (0,\infty)\to\mathbb{R}, \qquad
+\log_a(a^{x}) = x, \qquad a^{\log_a y} = y.
+\]</span> Thus <span class="math display">\[
+\operatorname{dom}(\log_a) = (0,\infty), \qquad \operatorname{ran}(\log_a) = \mathbb{R}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Because it is the inverse of <span class="math inline">\(a^x\)</span>, the graph of <span class="math inline">\(\log_a\)</span> is the reflection of the graph of <span class="math inline">\(a^x\)</span> across the line <span class="math inline">\(y = x\)</span> (<a href="03_functions.html#rem-inverse-graph" class="quarto-xref">Remark&nbsp;<span>4.3</span></a>). It converts products to sums: <span class="math inline">\(\log_a(xy) = \log_a x + \log_a y\)</span>.</p>
+</section>
+<section id="trigonometric-functions" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="trigonometric-functions"><span class="header-section-number">5.6</span> Trigonometric Functions</h2>
+<p>Let <span class="math inline">\(x\)</span> be a real number, thought of as an angle measured in <strong>radians</strong>. Rotating the point <span class="math inline">\((1,0)\)</span> counter-clockwise through the angle <span class="math inline">\(x\)</span> about the origin lands on a point of the unit circle whose coordinates are, by definition, <span class="math inline">\((\cos x, \sin x)\)</span>.</p>
+<p>Both <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> are defined for all <span class="math inline">\(x\in\mathbb{R}\)</span>, take values in <span class="math inline">\([-1,1]\)</span>, and repeat after a full turn.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-periodic" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 5.6</strong></span> <br>
+A function <span class="math inline">\(f\)</span> is <strong>periodic with period <span class="math inline">\(P &gt; 0\)</span></strong> if <span class="math inline">\(f(x + P) = f(x)\)</span> for every <span class="math inline">\(x\)</span> in its domain.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Thus <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> are periodic with period <span class="math inline">\(2\pi\)</span>. The <strong>tangent</strong> <span class="math display">\[
+\tan x = \frac{\sin x}{\cos x}
+\]</span> is defined wherever <span class="math inline">\(\cos x \neq 0\)</span>, i.e.&nbsp;for <span class="math inline">\(x \neq \tfrac{\pi}{2} + k\pi\)</span> with <span class="math inline">\(k\in\mathbb{Z}\)</span>, and is periodic with period <span class="math inline">\(\pi\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-sinusoid" class="proof remark">
+<p><span class="proof-title"><em>Remark 5.3</em>. </span>A general <strong>sinusoid</strong> has the form <span class="math display">\[
+f(x) = A\,\sin(bx) + C,
+\]</span> with <strong>amplitude</strong> <span class="math inline">\(|A|\)</span> (half the vertical spread of the graph), <strong>period</strong> <span class="math inline">\(\dfrac{2\pi}{b}\)</span>, and <strong>vertical offset</strong> <span class="math inline">\(C\)</span> (the horizontal line the graph oscillates around).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-sinusoid" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> The function <span class="math inline">\(f(x) = 3\sin(2x) + 1\)</span> is a sinusoid. Find its amplitude, period, and range, and the smallest <span class="math inline">\(x &gt; 0\)</span> at which it attains its maximum.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -441,59 +485,23 @@ x = c_0 + 0.c_1c_2c_3\ldots,
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>If <span class="math inline">\(1 - 0.999\ldots = \delta &gt; 0\)</span>, then <span class="math inline">\(\delta\)</span> would have to be smaller than <span class="math inline">\(10^{-n}\)</span> for every <span class="math inline">\(n\)</span> (since <span class="math inline">\(0.\underbrace{9\cdots9}_{n} = 1 - 10^{-n}\)</span> already exceeds <span class="math inline">\(1-\delta\)</span>), forcing <span class="math inline">\(\delta=0\)</span> — contradiction. So the two expansions name the same point.</p>
-<p>In general, a real number has two decimal expansions exactly when it is a <strong>terminating</strong> decimal, i.e.&nbsp;of the form <span class="math inline">\(m/10^n\)</span> for some <span class="math inline">\(m\in\mathbb{Z}\)</span>, <span class="math inline">\(n\ge0\)</span>: one expansion ends in all <span class="math inline">\(0\)</span>’s, the other in all <span class="math inline">\(9\)</span>’s. Every other real number has a unique decimal expansion.</p>
+<p><span class="proof-title"><em>Solution</em>. </span>Amplitude <span class="math inline">\(|A| = 3\)</span>, period <span class="math inline">\(\dfrac{2\pi}{2} = \pi\)</span>, offset <span class="math inline">\(C = 1\)</span>, so the range is <span class="math inline">\([1-3,\,1+3] = [-2,4]\)</span>. The maximum occurs when <span class="math inline">\(\sin(2x) = 1\)</span>, i.e.&nbsp;<span class="math inline">\(2x = \tfrac{\pi}{2} + 2k\pi\)</span>; the smallest positive solution is <span class="math inline">\(x = \tfrac{\pi}{4}\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="other-bases" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="other-bases"><span class="header-section-number">2.4</span> Other Bases</h2>
-<p>Nothing in <a href="#def-decimal-expansion" class="quarto-xref">Definition&nbsp;<span>2.2</span></a> is special about the number <span class="math inline">\(10\)</span> — we could subdivide each interval into any number <span class="math inline">\(p&gt;1\)</span> of equal parts instead of ten, producing digits <span class="math inline">\(c_i \in \{0,1,\dots,p-1\}\)</span> and a <strong>base-<span class="math inline">\(p\)</span> (or <span class="math inline">\(p\)</span>-ary) expansion</strong> of <span class="math inline">\(x\)</span>.</p>
-<p>The case <span class="math inline">\(p=2\)</span>, the <strong>binary expansion</strong>, is exactly the bisection procedure from the proof of <a href="#thm-real-nested-intervals" class="quarto-xref">Theorem&nbsp;<span>2.1</span></a>: at each step we only need to decide whether <span class="math inline">\(x\)</span> lies in the lower or upper half of the current interval.</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-binary-expansion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.1</strong></span> <br>
-Let’s find the first three binary digits of <span class="math inline">\(x=0.76\)</span>. Start with <span class="math inline">\(I_0=[0,1]\)</span>, so <span class="math inline">\(c_0=0\)</span>.</p>
+<section id="summary" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.7</span> Summary</h2>
 <ul>
-<li>Midpoint <span class="math inline">\(0.5\)</span>: since <span class="math inline">\(0.76 \ge 0.5\)</span>, digit <span class="math inline">\(c_1=1\)</span> and <span class="math inline">\(I_1=[0.5,1]\)</span>.</li>
-<li>Midpoint <span class="math inline">\(0.75\)</span>: since <span class="math inline">\(0.76 \ge 0.75\)</span>, digit <span class="math inline">\(c_2=1\)</span> and <span class="math inline">\(I_2=[0.75,1]\)</span>.</li>
-<li>Midpoint <span class="math inline">\(0.875\)</span>: since <span class="math inline">\(0.76 &lt; 0.875\)</span>, digit <span class="math inline">\(c_3=0\)</span> and <span class="math inline">\(I_3=[0.75,0.875]\)</span>.</li>
-</ul>
-<p>So <span class="math inline">\(0.76 = 0.110\ldots\)</span> in base <span class="math inline">\(2\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exr-other-base-expansions" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Find the first three fractional digits of the base-<span class="math inline">\(2\)</span> expansion of <span class="math inline">\(x=0.3\)</span>, and the first three fractional digits of the base-<span class="math inline">\(3\)</span> expansion of <span class="math inline">\(x=0.76\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="summary" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.5</span> Summary</h2>
-<ul>
-<li>A <strong>nested sequence of closed intervals with rational endpoints</strong> (<a href="#def-nested-intervals" class="quarto-xref">Definition&nbsp;<span>2.1</span></a>) can contain at most one point (<a href="#prp-nested-unique" class="quarto-xref">Proposition&nbsp;<span>2.1</span></a>), and every real number arises as the unique point of some such sequence (<a href="#thm-real-nested-intervals" class="quarto-xref">Theorem&nbsp;<span>2.1</span></a>).</li>
-<li>The converse — that every nested sequence of closed intervals with rational endpoints <em>does</em> contain a point — is not provable from what came before; it is the <strong>Nested Interval Axiom</strong>, the basic postulate that guarantees there are no gaps in the number line.</li>
-<li><strong>Decimal expansions</strong> (<a href="#def-decimal-expansion" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>) are the special case of base-<span class="math inline">\(10\)</span> subdivision; every real number has one, though numbers of the form <span class="math inline">\(m/10^n\)</span> have exactly two (<a href="#exr-decimal-not-unique" class="quarto-xref">Exercise&nbsp;<span>2.1</span></a>).</li>
-<li>The same construction works in any base <span class="math inline">\(p&gt;1\)</span>, giving <span class="math inline">\(p\)</span>-ary expansions; base <span class="math inline">\(2\)</span> is exactly the bisection algorithm behind <a href="#thm-real-nested-intervals" class="quarto-xref">Theorem&nbsp;<span>2.1</span></a>.</li>
+<li><strong>Polynomials</strong> (<a href="#def-polynomial" class="quarto-xref">Definition&nbsp;<span>5.1</span></a>) are finite combinations of the powers <span class="math inline">\(1,x,x^2,\dots\)</span>; they are defined on all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
+<li><strong>Rational functions</strong> (<a href="#def-rational-function" class="quarto-xref">Definition&nbsp;<span>5.2</span></a>) are quotients of polynomials, defined off the finite zero set of the denominator.</li>
+<li><strong>Power functions</strong> <span class="math inline">\(x^{\alpha}\)</span> (<a href="#def-power-function" class="quarto-xref">Definition&nbsp;<span>5.3</span></a>) have domain <span class="math inline">\(\mathbb{R}\)</span> or <span class="math inline">\(\mathbb{R}\setminus\{0\}\)</span> for integer exponents, and are typically taken on <span class="math inline">\([0,\infty)\)</span> otherwise; together with roots they form the <strong>algebraic</strong> functions.</li>
+<li><strong>Exponentials</strong> <span class="math inline">\(a^x\)</span> (<a href="#def-exponential" class="quarto-xref">Definition&nbsp;<span>5.4</span></a>) have domain <span class="math inline">\(\mathbb{R}\)</span> and range <span class="math inline">\((0,\infty)\)</span>; their inverses, the <strong>logarithms</strong> <span class="math inline">\(\log_a\)</span> (<a href="#def-logarithm" class="quarto-xref">Definition&nbsp;<span>5.5</span></a>), have domain <span class="math inline">\((0,\infty)\)</span> and range <span class="math inline">\(\mathbb{R}\)</span>.</li>
+<li>The <strong>trigonometric functions</strong> <span class="math inline">\(\sin,\cos\)</span> are <span class="math inline">\(2\pi\)</span>-periodic (<a href="#def-periodic" class="quarto-xref">Definition&nbsp;<span>5.6</span></a>) with range <span class="math inline">\([-1,1]\)</span>; <span class="math inline">\(\tan = \sin/\cos\)</span> is <span class="math inline">\(\pi\)</span>-periodic and undefined where <span class="math inline">\(\cos\)</span> vanishes.</li>
 </ul>
 
 
@@ -902,14 +910,11 @@ Let’s find the first three binary digits of <span class="math inline">\(x=0.76
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_real_numbers.html" class="pagination-link" aria-label="The Rational Numbers and the Number Line">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Rational Numbers and the Number Line</span></span>
+      <a href="./03_functions.html" class="pagination-link" aria-label="The Concept of Function">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./notebooks/Week01_Number_Bases.html" class="pagination-link" aria-label="Jupyter Activity: p-ary Expansions">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -228,5 +228,170 @@
       "Real Numbers",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyter Activity: p-ary Expansions</span>"
     ]
+  },
+  {
+    "objectID": "03_functions.html",
+    "href": "03_functions.html",
+    "title": "4  The Concept of Function",
+    "section": "",
+    "text": "4.1 Functions, Domain, and Range\nWith the number line in hand, we can start doing calculus — but calculus is not really about individual numbers. It is about dependence: how one quantity changes as another one does. The area of a circle depends on its radius, the height of a falling stone depends on the elapsed time, the pressure of a gas depends on its volume. The mathematical object that captures such a dependence is a function, and getting comfortable with the vocabulary now will pay off for the rest of the course.\nThe word unambiguously is the heart of the definition: for each input \\(x\\in D\\) there must be exactly one output \\(f(x)\\) — no more (that would not be a rule) and no fewer (every point of the domain must get a value). The domain is part of the data of a function: \\(x\\mapsto x^2\\) on \\(\\mathbb{R}\\) and \\(x\\mapsto x^2\\) on \\([0,\\infty)\\) are, strictly speaking, different functions.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "03_functions.html#functions-domain-and-range",
+    "href": "03_functions.html#functions-domain-and-range",
+    "title": "4  The Concept of Function",
+    "section": "",
+    "text": "Definition 4.1 \nA function \\(f\\) is a rule that assigns to every element \\(x\\) of a set \\(D\\) — the domain of \\(f\\) — one single, unambiguously determined object \\(f(x)\\), its value at \\(x\\), lying in a set \\(E\\) — the codomain. We write \\[\nf\\colon D \\to E, \\qquad x \\mapsto f(x).\n\\] In this course the domain is almost always a subset of the number line, \\(D\\subseteq\\mathbb{R}\\), and the codomain is \\(E=\\mathbb{R}\\); we then call \\(f\\) a real-valued function of a real variable and write simply \\(f\\colon D\\to\\mathbb{R}\\).\n\n\n\n\n\n\n\n\n\n\n\n\nRemark 4.1. When a function is specified by a formula with no domain stated, we adopt the convention that its domain is the natural domain: the largest set of real numbers for which the formula makes sense. For \\(x\\mapsto 1/(x-1)\\) this is \\(\\mathbb{R}\\setminus\\{1\\}\\); for \\(x\\mapsto\\sqrt{x}\\) it is \\([0,\\infty)\\). We are always free to restrict to a smaller domain when we want to.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 4.2 \nThe range (or image) of \\(f\\colon D\\to\\mathbb{R}\\) is the set of values it actually attains: \\[\n\\operatorname{ran}(f) \\;=\\; \\{\\, y\\in\\mathbb{R}: y = f(x) \\text{ for some } x\\in D \\,\\}.\n\\]\n\n\n\n\n\n\n\n\n\n\n\nRemark 4.2. The range need not fill up the codomain. For \\(f\\colon\\mathbb{R}\\to\\mathbb{R}\\), \\(f(x)=x^2\\), the codomain is \\(\\mathbb{R}\\) but \\[\n\\operatorname{ran}(f) = [0,\\infty),\n\\] since squares are never negative and every \\(y\\ge 0\\) is \\((\\sqrt y)^2\\). Saying “\\(f\\) maps into \\(\\mathbb{R}\\)” is a statement about where the values are allowed to live; the range records where they actually land.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "03_functions.html#injective-functions",
+    "href": "03_functions.html#injective-functions",
+    "title": "4  The Concept of Function",
+    "section": "4.2 Injective Functions",
+    "text": "4.2 Injective Functions\n\n\n\n\n\n\n\nDefinition 4.3 \nA function \\(f\\colon D\\to\\mathbb{R}\\) is injective (or one-to-one) if it sends distinct inputs to distinct outputs: \\[\nx\\neq y \\quad \\Rightarrow \\quad f(x)\\neq f(y),\n\\] or equivalently, taking the contrapositive, \\(f(x)=f(y) \\quad \\Rightarrow \\quad x=y\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 4.1 \n- \\(f(x)=x^3\\) is injective on \\(\\mathbb{R}\\): if \\(x^3 = y^3\\) then \\(x=y\\) (taking cube roots). - \\(g(x)=x^2\\) is not injective on \\(\\mathbb{R}\\): \\(g(-1) = 1 = g(1)\\), yet \\(-1\\neq 1\\). Restricted to \\([0,\\infty)\\), however, \\(g\\) is injective.\n\n\n\n\nInjectivity is exactly the property that lets us run a function backwards; we return to this when we discuss inverse functions below.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "03_functions.html#monotone-functions",
+    "href": "03_functions.html#monotone-functions",
+    "title": "4  The Concept of Function",
+    "section": "4.3 Monotone Functions",
+    "text": "4.3 Monotone Functions\n\n\n\n\n\n\n\nDefinition 4.4 \nLet \\(f\\colon D\\to\\mathbb{R}\\) with \\(D\\subseteq\\mathbb{R}\\). For all \\(x,w\\in D\\), we say \\(f\\) is\n\n(monotonically) increasing if \\(\\;x\\le w \\quad \\Rightarrow \\quad f(x)\\le f(w)\\);\nstrictly increasing if \\(\\;x &lt; w \\quad \\Rightarrow \\quad f(x) &lt; f(w)\\);\n(monotonically) decreasing if \\(\\;x\\le w \\quad \\Rightarrow \\quad f(x)\\ge f(w)\\);\nstrictly decreasing if \\(\\;x &lt; w \\quad \\Rightarrow \\quad f(x) &gt; f(w)\\).\n\nA function of any of these four types is called monotone.\n\n\n\n\n\n\n\n\n\n\n\nExample 4.2 \n- \\(f(x)=x^3\\) is strictly increasing on all of \\(\\mathbb{R}\\). - \\(g\\colon[0,\\pi]\\to\\mathbb{R}\\), \\(g(x)=\\cos x\\), is strictly decreasing: as the angle runs from \\(0\\) to \\(\\pi\\), the \\(x\\)-coordinate on the unit circle drops steadily from \\(1\\) to \\(-1\\).\n\n\n\n\n\n\n\n\n\n\n\nExercise 4.1 Show that a strictly increasing function is injective (and likewise for strictly decreasing). Is the converse true — must an injective function be monotone?\n\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nSolution. If \\(f\\) is strictly increasing and \\(x\\neq y\\), then either \\(x&lt;y\\), giving \\(f(x)&lt;f(y)\\), or \\(x&gt;y\\), giving \\(f(x)&gt;f(y)\\); either way \\(f(x)\\neq f(y)\\). So \\(f\\) is injective.\nThe converse fails. Define \\(f\\colon\\mathbb{R}\\to\\mathbb{R}\\) by \\(f(x) = x\\) for \\(x\\neq 0,1\\), with \\(f(0)=1\\) and \\(f(1)=0\\). This is a bijection of \\(\\mathbb{R}\\) (it just swaps two values), hence injective, but it is neither increasing nor decreasing.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "03_functions.html#even-and-odd-functions",
+    "href": "03_functions.html#even-and-odd-functions",
+    "title": "4  The Concept of Function",
+    "section": "4.4 Even and Odd Functions",
+    "text": "4.4 Even and Odd Functions\n\n\n\n\n\n\n\nDefinition 4.5 \nSuppose the domain \\(D\\) is symmetric about \\(0\\), i.e. \\(x\\in D \\quad \\Rightarrow \\quad-x\\in D\\). A function \\(f\\colon D\\to\\mathbb{R}\\) is\n\neven if \\(f(-x)=f(x)\\) for all \\(x\\in D\\) — its graph is symmetric about the \\(y\\)-axis;\nodd if \\(f(-x)=-f(x)\\) for all \\(x\\in D\\) — its graph is symmetric about the origin.\n\n\n\n\n\n\n\n\n\n\n\n\nExample 4.3 \n\\(x^2\\), \\(\\lvert x \\rvert\\), and \\(\\cos x\\) are even; \\(x\\), \\(x^3\\), and \\(\\sin x\\) are odd; \\(x + x^2\\) is neither. Most functions are neither even nor odd.\n\n\n\n\n\n\n\n\n\n\n\nExercise 4.2 Show that every function \\(f\\) on a symmetric domain can be written uniquely as a sum \\(f = f_{\\mathrm e} + f_{\\mathrm o}\\) of an even function \\(f_{\\mathrm e}\\) and an odd function \\(f_{\\mathrm o}\\). (Hint: what must \\(\\tfrac12\\bigl(f(x)+f(-x)\\bigr)\\) and \\(\\tfrac12\\bigl(f(x)-f(-x)\\bigr)\\) be?)",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "03_functions.html#building-new-functions-from-old",
+    "href": "03_functions.html#building-new-functions-from-old",
+    "title": "4  The Concept of Function",
+    "section": "4.5 Building New Functions from Old",
+    "text": "4.5 Building New Functions from Old\nMost functions we work with are assembled from simpler ones by a few standard operations.\n\nArithmetic combinations\n\n\n\n\n\n\n\nDefinition 4.6 \nLet \\(f,g\\colon D\\to\\mathbb{R}\\) be two functions on the same domain, and \\(c\\in\\mathbb{R}\\). Then \\[\nf+g,\\qquad c\\,f,\\qquad f\\cdot g\n\\] are again functions on \\(D\\), defined pointwise: \\((f+g)(x) = f(x)+g(x)\\), \\((c\\,f)(x) = c\\,f(x)\\), \\((f\\cdot g)(x) = f(x)\\,g(x)\\). The quotient \\(f/g\\), given by \\((f/g)(x) = f(x)/g(x)\\), is a function on the smaller domain \\[\nD\\setminus\\{\\, x\\in D : g(x)=0 \\,\\}.\n\\]\n\n\n\n\n\n\nComposition\n\n\n\n\n\n\n\nDefinition 4.7 \nLet \\(g\\colon D\\to\\mathbb{R}\\) and \\(f\\colon D'\\to\\mathbb{R}\\) with \\(\\operatorname{ran}(g)\\subseteq D'\\). The composition \\(f\\circ g\\) (“first \\(g\\), then \\(f\\)”) is \\[\n(f\\circ g)(x) \\;:=\\; f\\bigl(g(x)\\bigr), \\qquad x\\in D,\n\\] a function with domain \\(\\operatorname{dom}(f\\circ g) = \\operatorname{dom}(g)\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 4.4 \nWith \\(f(x)=\\sqrt{x}\\) and \\(g(x)=1+x^2\\): \\[\n(f\\circ g)(x) = \\sqrt{1+x^2} \\quad(\\text{all } x\\in\\mathbb{R}), \\qquad\n(g\\circ f)(x) = 1 + x \\quad(x\\ge 0).\n\\] The order matters: \\(f\\circ g\\) and \\(g\\circ f\\) are different functions.\n\n\n\n\n\n\nInverse functions\n\n\n\n\n\n\n\nDefinition 4.8 \nIf \\(f\\colon D\\to\\mathbb{R}\\) is injective, then for each \\(y\\in\\operatorname{ran}(f)\\) there is exactly one \\(x\\in D\\) with \\(f(x)=y\\). Sending each such \\(y\\) to that \\(x\\) defines the inverse function \\[\nf^{-1}\\colon \\operatorname{ran}(f)\\to D, \\qquad f^{-1}\\bigl(f(x)\\bigr) = x \\ \\text{ for all } x\\in D, \\qquad\nf\\bigl(f^{-1}(y)\\bigr) = y \\ \\text{ for all } y\\in\\operatorname{ran}(f).\n\\] Its domain is \\(\\operatorname{ran}(f)\\) and its range is \\(D\\).\n\n\n\n\n\n\n\n\n\n\nWarningNotation trap\n\n\n\n\\(f^{-1}\\) denotes the inverse function, not the reciprocal \\(1/f\\). For \\(f(x)=x^3\\) we have \\(f^{-1}(y)=\\sqrt[3]{y}\\), whereas \\(\\dfrac{1}{f(x)} = x^{-3}\\).\n\n\n\n\n\n\n\n\n\nRemark 4.3. The point \\((a,b)\\) lies on the graph of \\(f\\) exactly when \\((b,a)\\) lies on the graph of \\(f^{-1}\\). So the graph of \\(f^{-1}\\) is the mirror image of the graph of \\(f\\) across the line \\(y=x\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 4.5 \n\\(f(x)=x^3\\) is injective on \\(\\mathbb{R}\\) with \\(\\operatorname{ran}(f)=\\mathbb{R}\\), and \\(f^{-1}(y)=\\sqrt[3]{y}\\). By contrast \\(g(x)=x^2\\) on \\(\\mathbb{R}\\) has no inverse (it is not injective); restricted to \\([0,\\infty)\\) it does, namely \\(g^{-1}(y)=\\sqrt{y}\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "03_functions.html#summary",
+    "href": "03_functions.html#summary",
+    "title": "4  The Concept of Function",
+    "section": "4.6 Summary",
+    "text": "4.6 Summary\n\nA function \\(f\\colon D\\to\\mathbb{R}\\) (Definition 4.1) assigns to each point of its domain \\(D\\) exactly one real value; the set of values attained is its range (Definition 4.2), which may be a proper subset of the codomain.\n\\(f\\) is injective (Definition 4.3) if distinct inputs give distinct outputs, and monotone\n\nif it consistently preserves or reverses order; strict monotonicity implies injectivity (Exercise 4.1).\n\nOn a symmetric domain, \\(f\\) may be even or odd (Definition 4.5), i.e. symmetric about the \\(y\\)-axis or the origin.\nNew functions are built from old ones by pointwise arithmetic (Definition 4.6), composition (Definition 4.7), and — when \\(f\\) is injective — by forming the inverse \\(f^{-1}\\) (Definition 4.8), whose graph is the reflection of that of \\(f\\) across \\(y=x\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>The Concept of Function</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html",
+    "href": "04_elementary_functions.html",
+    "title": "5  The Elementary Functions",
+    "section": "",
+    "text": "5.1 Polynomials\nAlmost every function met in a first calculus course is built out of a short catalogue of standard functions: polynomials, rational functions, powers, exponentials, logarithms, and the trigonometric functions. These are the elementary functions. This lecture is a tour of the list, noting for each type its natural domain, its range, and its basic shape — information we will need constantly once we start differentiating and integrating.\nThe lowest degrees have familiar names:\nA polynomial is a finite sum of constant multiples of the power functions \\(1, x, x^2, x^3,\\dots\\), each of which is defined for every real number. Hence every polynomial has natural domain \\[\n\\operatorname{dom}(p) = \\mathbb{R}\n\\] (unless we deliberately restrict it).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#polynomials",
+    "href": "04_elementary_functions.html#polynomials",
+    "title": "5  The Elementary Functions",
+    "section": "",
+    "text": "Definition 5.1 \nA polynomial is a function of the form \\[\np(x) \\;=\\; a_0 + a_1 x + a_2 x^2 + \\cdots + a_n x^n,\n\\] with real coefficients \\(a_0,a_1,\\dots,a_n\\). If \\(a_n\\neq 0\\), the integer \\(n\\) is the degree of \\(p\\).\n\n\n\n\n\n\n\n\ndegree\nform\nname\n\n\n\n\n\\(0\\)\n\\(y = a_0\\)\nconstant\n\n\n\\(1\\)\n\\(y = a_0 + a_1 x\\)\nlinear\n\n\n\\(2\\)\n\\(y = a_0 + a_1 x + a_2 x^2\\)\nquadratic\n\n\n\\(3\\)\n\\(y = a_0 + a_1 x + a_2 x^2 + a_3 x^3\\)\ncubic\n\n\n\n\n\n\n\n\n\n\n\nRemark 5.1. The pure powers \\(x^n\\) share a few features worth remembering. Every graph passes through \\((0,0)\\) and \\((1,1)\\). On the interval \\([0,1]\\) a higher power lies below a lower one (\\(x^3 \\le x^2 \\le x\\)), while on \\([1,\\infty)\\) the order reverses. The power \\(x^n\\) is even when \\(n\\) is even and odd when \\(n\\) is odd; for odd \\(n\\) it is strictly increasing on \\(\\mathbb{R}\\) (hence injective), while for even \\(n\\) it is not injective on \\(\\mathbb{R}\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#rational-functions",
+    "href": "04_elementary_functions.html#rational-functions",
+    "title": "5  The Elementary Functions",
+    "section": "5.2 Rational Functions",
+    "text": "5.2 Rational Functions\n\n\n\n\n\n\n\nDefinition 5.2 \nA rational function is a quotient of two polynomials, \\[\nr(x) \\;=\\; \\frac{p(x)}{q(x)}, \\qquad q \\not\\equiv 0.\n\\] Its natural domain is \\(\\mathbb{R}\\setminus Z\\), where \\[\nZ = \\{\\, x\\in\\mathbb{R}: q(x) = 0 \\,\\}\n\\] is the (finite) set of zeros of the denominator.\n\n\n\n\n\n\n\n\n\n\n\nExample 5.1 \n- \\(\\dfrac{x}{x^2+1}\\) is a rational function. Since \\(x^2+1 &gt; 0\\) for every real \\(x\\), the set \\(Z\\) is empty and the domain is all of \\(\\mathbb{R}\\). - \\(\\dfrac{\\sqrt{x}}{x^3 - x}\\) is not a rational function: \\(\\sqrt{x}\\) is not a polynomial. (It is, however, still an elementary function — see the next section.)",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#algebraic-and-power-functions",
+    "href": "04_elementary_functions.html#algebraic-and-power-functions",
+    "title": "5  The Elementary Functions",
+    "section": "5.3 Algebraic and Power Functions",
+    "text": "5.3 Algebraic and Power Functions\n\n\n\n\n\n\n\nDefinition 5.3 \nA power function is \\(f(x) = x^{\\alpha}\\) with a fixed real exponent \\(\\alpha\\in\\mathbb{R}\\). For \\(x&gt;0\\) this is defined for every \\(\\alpha\\) (via \\(x^{\\alpha} = \\exp(\\alpha\\ln x)\\), once we have \\(\\exp\\) and \\(\\ln\\)). For an integer exponent the domain extends to \\[\n\\operatorname{dom}(x^{\\alpha}) = \\begin{cases}\n\\mathbb{R}& \\alpha \\ge 0,\\\\[2pt]\n\\mathbb{R}\\setminus\\{0\\} & \\alpha &lt; 0.\n\\end{cases}\n\\]\n\n\n\n\n\n\n\n\n\n\n\nRemark 5.2. For a non-integer exponent one usually keeps the domain \\([0,\\infty)\\) (or \\((0,\\infty)\\) if \\(\\alpha&lt;0\\)). The roots \\(x^{1/2} = \\sqrt{x}\\), \\(x^{1/3} = \\sqrt[3]{x},\\dots\\) are examples; odd roots such as \\(\\sqrt[3]{x}\\) can in fact be extended to all of \\(\\mathbb{R}\\). Power functions with rational exponent, and more generally functions obtained from polynomials by the four arithmetic operations together with root extraction, are called algebraic functions. The exponential and logarithm below are not algebraic — they are transcendental.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#exponential-functions",
+    "href": "04_elementary_functions.html#exponential-functions",
+    "title": "5  The Elementary Functions",
+    "section": "5.4 Exponential Functions",
+    "text": "5.4 Exponential Functions\n\n\n\n\n\n\n\nDefinition 5.4 \nFix a base \\(a &gt; 0\\). The exponential function with base \\(a\\), \\[\n\\exp_a\\colon \\mathbb{R}\\to \\mathbb{R}, \\qquad \\exp_a(x) = a^{x},\n\\] is defined for every real \\(x\\). For \\(a\\neq 1\\) it takes only positive values, and every positive value is attained: \\[\n\\operatorname{dom}(\\exp_a) = \\mathbb{R}, \\qquad \\operatorname{ran}(\\exp_a) = (0,\\infty) = \\mathbb{R}^{&gt;0}.\n\\]\n\n\n\n\nFor \\(a &gt; 1\\) the function \\(a^x\\) is strictly increasing; for \\(0 &lt; a &lt; 1\\) it is strictly decreasing; for \\(a=1\\) it is the constant \\(1\\). In all cases \\(a^0 = 1\\) and \\(a^{x+y} = a^x a^y\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#logarithms",
+    "href": "04_elementary_functions.html#logarithms",
+    "title": "5  The Elementary Functions",
+    "section": "5.5 Logarithms",
+    "text": "5.5 Logarithms\n\n\n\n\n\n\n\nDefinition 5.5 \nFix a base \\(a &gt; 0\\) with \\(a\\neq 1\\). Then \\(\\exp_a\\) is injective from \\(\\mathbb{R}\\) onto \\((0,\\infty)\\), and its inverse function (in the sense of Definition 4.8) is the logarithm to base \\(a\\), \\[\n\\log_a\\colon (0,\\infty)\\to\\mathbb{R}, \\qquad\n\\log_a(a^{x}) = x, \\qquad a^{\\log_a y} = y.\n\\] Thus \\[\n\\operatorname{dom}(\\log_a) = (0,\\infty), \\qquad \\operatorname{ran}(\\log_a) = \\mathbb{R}.\n\\]\n\n\n\n\nBecause it is the inverse of \\(a^x\\), the graph of \\(\\log_a\\) is the reflection of the graph of \\(a^x\\) across the line \\(y = x\\) (Remark 4.3). It converts products to sums: \\(\\log_a(xy) = \\log_a x + \\log_a y\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#trigonometric-functions",
+    "href": "04_elementary_functions.html#trigonometric-functions",
+    "title": "5  The Elementary Functions",
+    "section": "5.6 Trigonometric Functions",
+    "text": "5.6 Trigonometric Functions\nLet \\(x\\) be a real number, thought of as an angle measured in radians. Rotating the point \\((1,0)\\) counter-clockwise through the angle \\(x\\) about the origin lands on a point of the unit circle whose coordinates are, by definition, \\((\\cos x, \\sin x)\\).\nBoth \\(\\sin\\) and \\(\\cos\\) are defined for all \\(x\\in\\mathbb{R}\\), take values in \\([-1,1]\\), and repeat after a full turn.\n\n\n\n\n\n\n\nDefinition 5.6 \nA function \\(f\\) is periodic with period \\(P &gt; 0\\) if \\(f(x + P) = f(x)\\) for every \\(x\\) in its domain.\n\n\n\n\nThus \\(\\sin\\) and \\(\\cos\\) are periodic with period \\(2\\pi\\). The tangent \\[\n\\tan x = \\frac{\\sin x}{\\cos x}\n\\] is defined wherever \\(\\cos x \\neq 0\\), i.e. for \\(x \\neq \\tfrac{\\pi}{2} + k\\pi\\) with \\(k\\in\\mathbb{Z}\\), and is periodic with period \\(\\pi\\).\n\n\n\n\n\n\n\nRemark 5.3. A general sinusoid has the form \\[\nf(x) = A\\,\\sin(bx) + C,\n\\] with amplitude \\(|A|\\) (half the vertical spread of the graph), period \\(\\dfrac{2\\pi}{b}\\), and vertical offset \\(C\\) (the horizontal line the graph oscillates around).\n\n\n\n\n\n\n\n\n\n\n\nExercise 5.1 The function \\(f(x) = 3\\sin(2x) + 1\\) is a sinusoid. Find its amplitude, period, and range, and the smallest \\(x &gt; 0\\) at which it attains its maximum.\n\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nSolution. Amplitude \\(|A| = 3\\), period \\(\\dfrac{2\\pi}{2} = \\pi\\), offset \\(C = 1\\), so the range is \\([1-3,\\,1+3] = [-2,4]\\). The maximum occurs when \\(\\sin(2x) = 1\\), i.e. \\(2x = \\tfrac{\\pi}{2} + 2k\\pi\\); the smallest positive solution is \\(x = \\tfrac{\\pi}{4}\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
+  },
+  {
+    "objectID": "04_elementary_functions.html#summary",
+    "href": "04_elementary_functions.html#summary",
+    "title": "5  The Elementary Functions",
+    "section": "5.7 Summary",
+    "text": "5.7 Summary\n\nPolynomials (Definition 5.1) are finite combinations of the powers \\(1,x,x^2,\\dots\\); they are defined on all of \\(\\mathbb{R}\\).\nRational functions (Definition 5.2) are quotients of polynomials, defined off the finite zero set of the denominator.\nPower functions \\(x^{\\alpha}\\) (Definition 5.3) have domain \\(\\mathbb{R}\\) or \\(\\mathbb{R}\\setminus\\{0\\}\\) for integer exponents, and are typically taken on \\([0,\\infty)\\) otherwise; together with roots they form the algebraic functions.\nExponentials \\(a^x\\) (Definition 5.4) have domain \\(\\mathbb{R}\\) and range \\((0,\\infty)\\); their inverses, the logarithms \\(\\log_a\\) (Definition 5.5), have domain \\((0,\\infty)\\) and range \\(\\mathbb{R}\\).\nThe trigonometric functions \\(\\sin,\\cos\\) are \\(2\\pi\\)-periodic (Definition 5.6) with range \\([-1,1]\\); \\(\\tan = \\sin/\\cos\\) is \\(\\pi\\)-periodic and undefined where \\(\\cos\\) vanishes.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
+    ]
   }
 ]

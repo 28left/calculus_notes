@@ -1,0 +1,191 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Elementary Functions
+
+::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.3.
+:::
+
+Almost every function met in a first calculus course is built out of a short catalogue of standard
+functions: polynomials, rational functions, powers, exponentials, logarithms, and the trigonometric
+functions. These are the **elementary functions**. This lecture is a tour of the list, noting for
+each type its natural domain, its range, and its basic shape — information we will need constantly
+once we start differentiating and integrating.
+
+## Polynomials
+
+::: {#def-polynomial}
+\
+A **polynomial** is a function of the form
+$$
+p(x) \;=\; a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n,
+$$
+with real coefficients $a_0,a_1,\dots,a_n$. If $a_n\neq 0$, the integer $n$ is the **degree** of $p$.
+:::
+
+The lowest degrees have familiar names:
+
+| degree | form | name |
+|---|---|---|
+| $0$ | $y = a_0$ | constant |
+| $1$ | $y = a_0 + a_1 x$ | linear |
+| $2$ | $y = a_0 + a_1 x + a_2 x^2$ | quadratic |
+| $3$ | $y = a_0 + a_1 x + a_2 x^2 + a_3 x^3$ | cubic |
+
+A polynomial is a finite sum of constant multiples of the **power functions** $1, x, x^2, x^3,\dots$,
+each of which is defined for every real number. Hence every polynomial has natural domain
+$$
+\dom(p) = \R
+$$
+(unless we deliberately restrict it).
+
+::: {#rem-powers-of-x}
+The pure powers $x^n$ share a few features worth remembering. Every graph passes through $(0,0)$ and
+$(1,1)$. On the interval $[0,1]$ a higher power lies *below* a lower one ($x^3 \le x^2 \le x$),
+while on $[1,\infty)$ the order reverses. The power $x^n$ is even when $n$ is even and odd when $n$
+is odd; for odd $n$ it is strictly increasing on $\R$ (hence injective), while for even $n$ it is
+not injective on $\R$.
+:::
+
+## Rational Functions
+
+::: {#def-rational-function}
+\
+A **rational function** is a quotient of two polynomials,
+$$
+r(x) \;=\; \frac{p(x)}{q(x)}, \qquad q \not\equiv 0.
+$$
+Its natural domain is $\R\setminus Z$, where
+$$
+Z = \{\, x\in\R : q(x) = 0 \,\}
+$$
+is the (finite) set of zeros of the denominator.
+:::
+
+::: {#exm-rational}
+
+- $\dfrac{x}{x^2+1}$ is a rational function. Since $x^2+1 > 0$ for every real $x$, the set $Z$ is
+  empty and the domain is all of $\R$.
+- $\dfrac{\sqrt{x}}{x^3 - x}$ is **not** a rational function: $\sqrt{x}$ is not a polynomial. (It is,
+  however, still an elementary function, as it is the arithmetic combination of two elementary functions - see next section)
+:::
+
+## Algebraic and Power Functions
+
+::: {#def-power-function}
+\
+A **power function** is $f(x) = x^{\alpha}$ with a fixed real exponent $\alpha\in\R$. For $x>0$ this
+is defined for every $\alpha$ (via $x^{\alpha} = \exp(\alpha\ln x)$, once we have $\exp$ and $\ln$).
+For an **integer** exponent the domain extends to
+$$
+\dom(x^{\alpha}) = \begin{cases}
+\R & \alpha \ge 0,\\[2pt]
+\R\setminus\{0\} & \alpha < 0.
+\end{cases}
+$$
+:::
+
+::: {#rem-roots}
+For a non-integer exponent one usually keeps the domain $[0,\infty)$ (or $(0,\infty)$ if
+$\alpha<0$). The roots $x^{1/2} = \sqrt{x}$, $x^{1/3} = \sqrt[3]{x},\dots$ are examples; odd roots
+such as $\sqrt[3]{x}$ can in fact be extended to all of $\R$. Power functions with rational exponent,
+and more generally functions obtained from polynomials by the four arithmetic operations together
+with root extraction, are called **algebraic functions**. The exponential and logarithm below are
+*not* algebraic — they are **transcendental**.
+:::
+
+## Exponential Functions
+
+::: {#def-exponential}
+\
+Fix a **base** $a > 0$. The **exponential function** with base $a$,
+$$
+\exp_a\colon \R \to \R, \qquad \exp_a(x) = a^{x},
+$$
+is defined for every real $x$. For $a\neq 1$ it takes only positive values, and every positive value
+is attained:
+$$
+\dom(\exp_a) = \R, \qquad \ran(\exp_a) = (0,\infty) = \R^{>0}.
+$$
+:::
+
+For $a > 1$ the function $a^x$ is strictly increasing; for $0 < a < 1$ it is strictly decreasing;
+for $a=1$ it is the constant $1$. In all cases $a^0 = 1$ and $a^{x+y} = a^x a^y$.
+
+## Logarithms
+
+::: {#def-logarithm}
+\
+Fix a base $a > 0$ with $a\neq 1$. Then $\exp_a$ is injective from $\R$ onto $(0,\infty)$, and its
+inverse function (in the sense of @def-inverse) is the **logarithm to base $a$**,
+$$
+\log_a\colon (0,\infty)\to\R, \qquad
+\log_a(a^{x}) = x, \qquad a^{\log_a y} = y.
+$$
+Thus
+$$
+\dom(\log_a) = (0,\infty), \qquad \ran(\log_a) = \R.
+$$
+:::
+
+Because it is the inverse of $a^x$, the graph of $\log_a$ is the reflection of the graph of $a^x$
+across the line $y = x$ (@rem-inverse-graph). It converts products to sums:
+$\log_a(xy) = \log_a x + \log_a y$.
+
+## Trigonometric Functions
+
+Let $x$ be a real number, thought of as an angle measured in **radians**. Rotating the point $(1,0)$
+counter-clockwise through the angle $x$ about the origin lands on a point of the unit circle whose
+coordinates are, by definition, $(\cos x, \sin x)$.
+
+Both $\sin$ and $\cos$ are defined for all $x\in\R$, take values in $[-1,1]$, and repeat after a full
+turn.
+
+::: {#def-periodic}
+\
+A function $f$ is **periodic with period $P > 0$** if $f(x + P) = f(x)$ for every $x$ in its domain.
+:::
+
+Thus $\sin$ and $\cos$ are periodic with period $2\pi$. The **tangent**
+$$
+\tan x = \frac{\sin x}{\cos x}
+$$
+is defined wherever $\cos x \neq 0$, i.e. for $x \neq \tfrac{\pi}{2} + k\pi$ with $k\in\Z$, and is
+periodic with period $\pi$.
+
+::: {#rem-sinusoid}
+A general **sinusoid** has the form
+$$
+f(x) = A\,\sin(bx) + C,
+$$
+with **amplitude** $|A|$ (half the vertical spread of the graph), **period** $\dfrac{2\pi}{b}$, and
+**vertical offset** $C$ (the horizontal line the graph oscillates around).
+:::
+
+::: {#exr-sinusoid}
+The function $f(x) = 3\sin(2x) + 1$ is a sinusoid. Find its amplitude, period, and range, and the
+smallest $x > 0$ at which it attains its maximum.
+:::
+
+<!-- ::: {.solution}
+Amplitude $|A| = 3$, period $\dfrac{2\pi}{2} = \pi$, offset $C = 1$, so the range is
+$[1-3,\,1+3] = [-2,4]$. The maximum occurs when $\sin(2x) = 1$, i.e. $2x = \tfrac{\pi}{2} + 2k\pi$;
+the smallest positive solution is $x = \tfrac{\pi}{4}$.
+::: -->
+
+## Summary
+
+- **Polynomials** (@def-polynomial) are finite combinations of the powers $1,x,x^2,\dots$; they are
+  defined on all of $\R$.
+- **Rational functions** (@def-rational-function) are quotients of polynomials, defined off the
+  finite zero set of the denominator.
+- **Power functions** $x^{\alpha}$ (@def-power-function) have domain $\R$ or $\R\setminus\{0\}$ for
+  integer exponents, and are typically taken on $[0,\infty)$ otherwise; together with roots they
+  form the **algebraic** functions.
+- **Exponentials** $a^x$ (@def-exponential) have domain $\R$ and range $(0,\infty)$; their inverses,
+  the **logarithms** $\log_a$ (@def-logarithm), have domain $(0,\infty)$ and range $\R$.
+- The **trigonometric functions** $\sin,\cos$ are $2\pi$-periodic (@def-periodic) with range
+  $[-1,1]$; $\tan = \sin/\cos$ is $\pi$-periodic and undefined where $\cos$ vanishes.

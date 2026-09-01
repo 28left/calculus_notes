@@ -1,0 +1,224 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Concept of Function
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.2.
+::: -->
+
+With the number line in hand, we can start doing calculus — but calculus is not really about individual numbers. It is about *dependence*: how one quantity changes as another one does. The area of a circle depends on its radius, the height of a falling stone depends on the elapsed time, the pressure of a gas depends on its volume. The mathematical object that captures such a dependence is a **function**, and getting comfortable with the vocabulary now will pay off for the rest of the course.
+
+## Functions, Domain, and Range
+
+::: {#def-function}
+\
+A **function** $f$ is a rule that assigns to every element $x$ of a set $D$ — the **domain** of $f$ —
+one single, unambiguously determined object $f(x)$, its **value** at $x$, lying in a set $E$ — the
+**codomain**. We write
+$$
+f\colon D \to E, \qquad x \mapsto f(x).
+$$
+In this course the domain is almost always a subset of the number line, $D\subseteq\R$, and the
+codomain is $E=\R$; we then call $f$ a **real-valued function of a real variable** and write simply
+$f\colon D\to\R$.
+:::
+
+The word *unambiguously* is the heart of the definition: for each input $x\in D$ there must be
+**exactly one** output $f(x)$ — no more (that would not be a rule) and no fewer (every point of the
+domain must get a value). The domain is part of the data of a function: $x\mapsto x^2$ on $\R$ and
+$x\mapsto x^2$ on $[0,\infty)$ are, strictly speaking, different functions.
+
+::: {#rem-natural-domain}
+When a function is specified by a formula with no domain stated, we adopt the convention that its
+domain is the **natural domain**: the largest set of real numbers for which the formula makes sense.
+For $x\mapsto 1/(x-1)$ this is $\R\setminus\{1\}$; for $x\mapsto\sqrt{x}$ it is $[0,\infty)$. We are
+always free to *restrict* to a smaller domain when we want to.
+:::
+
+::: {#def-range}
+\
+The **range** (or **image**) of $f\colon D\to\R$ is the set of values it actually attains:
+$$
+\ran(f) \;=\; \{\, y\in\R : y = f(x) \text{ for some } x\in D \,\}.
+$$
+:::
+
+::: {#rem-range-vs-codomain}
+The range need not fill up the codomain. For $f\colon\R\to\R$, $f(x)=x^2$, the codomain is $\R$ but
+$$
+\ran(f) = [0,\infty),
+$$
+since squares are never negative and every $y\ge 0$ is $(\sqrt y)^2$. Saying "$f$ maps into $\R$"
+is a statement about where the values are *allowed* to live; the range records where they *actually*
+land.
+:::
+
+## Injective Functions
+
+::: {#def-injection}
+\
+A function $f\colon D\to\R$ is **injective** (or **one-to-one**) if it sends distinct inputs to
+distinct outputs:
+$$
+x\neq y \Imp f(x)\neq f(y),
+$$
+or equivalently, taking the contrapositive, $f(x)=f(y) \Imp x=y$.
+:::
+
+::: {#exm-injection}
+
+- $f(x)=x^3$ is injective on $\R$: if $x^3 = y^3$ then $x=y$ (taking cube roots).
+- $g(x)=x^2$ is **not** injective on $\R$: $g(-1) = 1 = g(1)$, yet $-1\neq 1$. Restricted to
+  $[0,\infty)$, however, $g$ *is* injective.
+:::
+
+Injectivity is exactly the property that lets us run a function backwards; we return to this when we
+discuss inverse functions below.
+
+## Monotone Functions
+
+::: {#def-monotone}
+\
+Let $f\colon D\to\R$ with $D\subseteq\R$. For all $x,w\in D$, we say $f$ is
+
+- **increasing** if $\;x\le w \Imp f(x)\le f(w)$;
+- **strictly increasing** if $\;x < w \Imp f(x) < f(w)$;
+- **decreasing** if $\;x\le w \Imp f(x)\ge f(w)$;
+- **strictly decreasing** if $\;x < w \Imp f(x) > f(w)$.
+
+A function of any of these four types is called **monotone**.
+:::
+
+::: {#exm-monotone}
+
+- $f(x)=x^3$ is strictly increasing on all of $\R$.
+- $g\colon[0,\pi]\to\R$, $g(x)=\cos x$, is strictly decreasing: as the angle runs from $0$ to $\pi$,
+  the $x$-coordinate on the unit circle drops steadily from $1$ to $-1$.
+:::
+
+::: {#exr-strict-mono-injective}
+Show that a strictly increasing function is injective (and likewise for strictly decreasing). Is
+the converse true — must an injective function be monotone?
+:::
+
+<!-- ::: {.solution}
+If $f$ is strictly increasing and $x\neq y$, then either $x<y$, giving $f(x)<f(y)$, or $x>y$, giving
+$f(x)>f(y)$; either way $f(x)\neq f(y)$. So $f$ is injective.
+
+The converse fails. Define $f\colon\R\to\R$ by $f(x) = x$ for $x\neq 0,1$, with $f(0)=1$ and
+$f(1)=0$. This is a bijection of $\R$ (it just swaps two values), hence injective, but it is neither
+increasing nor decreasing.
+::: -->
+
+## Even and Odd Functions
+
+::: {#def-even-odd}
+\
+Suppose the domain $D$ is symmetric about $0$, i.e. $x\in D \Imp -x\in D$. A function $f\colon D\to\R$
+is
+
+- **even** if $f(-x)=f(x)$ for all $x\in D$ — its graph is symmetric about the $y$-axis;
+- **odd** if $f(-x)=-f(x)$ for all $x\in D$ — its graph is symmetric about the origin.
+:::
+
+::: {#exm-even-odd}
+\
+$x^2$, $\abs{x}$, and $\cos x$ are even; $x$, $x^3$, and $\sin x$ are odd; $x + x^2$ is neither.
+Most functions are neither even nor odd.
+:::
+
+::: {#exr-even-odd-decomposition}
+Show that every function $f$ on a symmetric domain can be written *uniquely* as a sum $f = f_{\mathrm e} + f_{\mathrm o}$
+of an even function $f_{\mathrm e}$ and an odd function $f_{\mathrm o}$. (Hint: what must
+$\tfrac12\bigl(f(x)+f(-x)\bigr)$ and $\tfrac12\bigl(f(x)-f(-x)\bigr)$ be?)
+:::
+
+## Building New Functions from Old
+
+Most functions we work with are assembled from simpler ones by a few standard operations.
+
+### Arithmetic combinations
+
+::: {#def-arithmetic-combinations}
+\
+Let $f,g\colon D\to\R$ be two functions on the same domain, and $c\in\R$. Then
+$$
+f+g,\qquad c\,f,\qquad f\cdot g
+$$
+are again functions on $D$, defined **pointwise**: $(f+g)(x) = f(x)+g(x)$, $(c\,f)(x) = c\,f(x)$,
+$(f\cdot g)(x) = f(x)\,g(x)$. The **quotient** $f/g$, given by $(f/g)(x) = f(x)/g(x)$, is a function
+on the smaller domain
+$$
+D\setminus\{\, x\in D : g(x)=0 \,\}.
+$$
+:::
+
+### Composition
+
+::: {#def-composition}
+\
+Let $g\colon D\to\R$ and $f\colon D'\to\R$ with $\ran(g)\subseteq D'$. The **composition** $f\circ g$
+("first $g$, then $f$") is
+$$
+(f\circ g)(x) \;:=\; f\bigl(g(x)\bigr), \qquad x\in D,
+$$
+a function with domain $\dom(f\circ g) = \dom(g)$.
+:::
+
+::: {#exm-composition}
+\
+With $f(x)=\sqrt{x}$ and $g(x)=1+x^2$:
+$$
+(f\circ g)(x) = \sqrt{1+x^2} \quad(\text{all } x\in\R), \qquad
+(g\circ f)(x) = 1 + x \quad(x\ge 0).
+$$
+The order matters: $f\circ g$ and $g\circ f$ are different functions.
+:::
+
+### Inverse functions
+
+::: {#def-inverse}
+\
+If $f\colon D\to\R$ is injective, then for each $y\in\ran(f)$ there is **exactly one** $x\in D$ with
+$f(x)=y$. Sending each such $y$ to that $x$ defines the **inverse function**
+$$
+f^{-1}\colon \ran(f)\to D, \qquad f^{-1}\bigl(f(x)\bigr) = x \ \text{ for all } x\in D, \qquad
+f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\ran(f).
+$$
+Its domain is $\ran(f)$ and its range is $D$.
+:::
+
+::: {.callout-warning}
+## Notation trap
+$f^{-1}$ denotes the **inverse function**, not the reciprocal $1/f$. For $f(x)=x^3$ we have
+$f^{-1}(y)=\sqrt[3]{y}$, whereas $\dfrac{1}{f(x)} = x^{-3}$.
+:::
+
+::: {#rem-inverse-graph}
+The point $(a,b)$ lies on the graph of $f$ exactly when $(b,a)$ lies on the graph of $f^{-1}$. So the
+graph of $f^{-1}$ is the mirror image of the graph of $f$ across the line $y=x$.
+:::
+
+::: {#exm-inverse}
+\
+$f(x)=x^3$ is injective on $\R$ with $\ran(f)=\R$, and $f^{-1}(y)=\sqrt[3]{y}$. By contrast
+$g(x)=x^2$ on $\R$ has no inverse (it is not injective); restricted to $[0,\infty)$ it does, namely
+$g^{-1}(y)=\sqrt{y}$.
+:::
+
+## Summary
+
+- A **function** $f\colon D\to\R$ (@def-function) assigns to each point of its **domain** $D$ exactly
+  one real value; the set of values attained is its **range** (@def-range), which may be a proper
+  subset of the codomain.
+- $f$ is **injective** (@def-injection) if distinct inputs give distinct outputs, and **monotone**
+  (@def-monotone) if it consistently preserves or reverses order; strict monotonicity implies
+  injectivity (@exr-strict-mono-injective).
+- On a symmetric domain, $f$ may be **even** or **odd** (@def-even-odd), i.e. symmetric about the
+  $y$-axis or the origin.
+- New functions are built from old ones by pointwise **arithmetic** (@def-arithmetic-combinations),
+  **composition** (@def-composition), and — when $f$ is injective — by forming the **inverse**
+  $f^{-1}$ (@def-inverse), whose graph is the reflection of that of $f$ across $y=x$.

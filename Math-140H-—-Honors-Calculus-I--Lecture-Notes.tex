@@ -66,6 +66,46 @@
 \fi
 \makeatother
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
 \newcounter{none} % for unnumbered tables
@@ -164,15 +204,15 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -206,7 +246,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-08-26}
+\date{2026-09-01}
 \begin{document}
 \maketitle
 
@@ -804,6 +844,959 @@ expansion of \(x=0.76\).
   The same construction works in any base \(p>1\), giving \(p\)-ary
   expansions; base \(2\) is exactly the bisection algorithm behind
   Theorem~\ref{thm-real-nested-intervals}.
+\end{itemize}
+
+\chapter{Jupyter Activity: p-ary
+Expansions}\label{jupyter-activity-p-ary-expansions}
+
+Math 140H, Honors Calculus I
+
+\section{Before we start: how to use a Jupyter
+notebook}\label{before-we-start-how-to-use-a-jupyter-notebook}
+
+This is the first notebook of the semester, so we start a quick
+orientation:
+
+\begin{itemize}
+\tightlist
+\item
+  A notebook is a sequence of \textbf{cells}. This text lives in a
+  \emph{markdown cell} (formatted text); cells with \texttt{code} in the
+  toolbar are \emph{code cells} (Python).
+\item
+  Click a cell and press \textbf{Shift+Enter} to run it and move to the
+  next one. Code cells must be run in order the first time through, top
+  to bottom --- a later cell may use a function or variable that an
+  earlier cell defined.
+\item
+  If something breaks, it is often because a cell was skipped or run
+  twice out of order. Use the menu command \emph{Run All} (or
+  \emph{Restart Kernel and Run All}) to run the whole notebook cleanly
+  from the top.
+\item
+  You do \textbf{not} need to know Python already. Every function below
+  is commented line by line --- read the comments (the lines starting
+  with \texttt{\#}) as a description of the math, and the code as one
+  particular way of writing it down.
+\end{itemize}
+
+\subsection{Code cells}\label{code-cells}
+
+You can think of a code cell very much like a fancy calculator. Move to
+the next cell an run it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{16}\OperatorTok{+}\NormalTok{(}\DecValTok{53}\OperatorTok{*}\FloatTok{8.7777}\OperatorTok{{-}}\DecValTok{128}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+353.2181
+\end{verbatim}
+
+Careful: In Python, exponentiation is \texttt{**}, not \texttt{\^{}}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{**}\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{\^{}}\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+6
+\end{verbatim}
+
+\texttt{\^{}} in Python is the operation called \texttt{bitwise\ XOR};
+that explains the strange result above.
+
+We will learn more about Jupyter notebooks (and a little bit more about
+Python) in the course of this semester. Today, we will simply experiment
+a bit with pre-defined Python function that converts rational numbers to
+\(p\)-ary expansions. Go ahead and run the cells below one after the
+other (do not forget to read the text inbetween.)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{Importing Python modules}\label{importing-python-modules}
+
+A lot functionality in Python is provided by \emph{modules}. The
+following cell loads the modules we need for this notebook.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# We import three tools before doing anything else:}
+\CommentTok{\#}
+\CommentTok{\#   math     {-}{-} the standard library module with math.floor(y), the greatest integer \textless{}= y.}
+\CommentTok{\#               (We need floor of *exact fractions*, not of floating{-}point approximations {-}{-}}
+\CommentTok{\#               see the note below.)}
+\CommentTok{\#   Fraction {-}{-} from the \textquotesingle{}fractions\textquotesingle{} module. A Fraction stores a rational number as an exact}
+\CommentTok{\#               numerator/denominator pair, e.g. Fraction(1, 3) is *exactly* one third, forever.}
+\CommentTok{\#               This matters a lot here: a computer\textquotesingle{}s ordinary decimal numbers (called \textquotesingle{}floats\textquotesingle{})}
+\CommentTok{\#               are themselves binary approximations, so 1/3 as a float is already slightly wrong,}
+\CommentTok{\#               and the tiny error would snowball after enough steps of the algorithm below.}
+\CommentTok{\#               Using Fraction means every digit we compute is provably correct, not just close.}
+\CommentTok{\#   numpy    {-}{-} imported as \textquotesingle{}np\textquotesingle{} by convention. We use it only to store the list of digits we}
+\CommentTok{\#               compute as a numpy array, which is a convenient container for a sequence of numbers.}
+\ImportTok{import}\NormalTok{ math}
+\ImportTok{from}\NormalTok{ fractions }\ImportTok{import}\NormalTok{ Fraction}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\end{Highlighting}
+\end{Shaded}
+
+The cells below show the advantage of the \texttt{Fraction} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{/}\DecValTok{2}\OperatorTok{+}\DecValTok{1}\OperatorTok{/}\DecValTok{3}   \CommentTok{\# will use decimal expansions}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+0.8333333333333333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Fraction(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)}\OperatorTok{+}\NormalTok{Fraction(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)   }\CommentTok{\# will preserve the precise fraction representation}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Fraction(5, 6)
+\end{verbatim}
+
+\section{\texorpdfstring{From a rational number to its \emph{p}-ary
+expansion}{From a rational number to its p-ary expansion}}\label{from-a-rational-number-to-its-p-ary-expansion}
+
+We generalize the nested interval construction to base \(p\): given
+\(x\), set \[
+c_0 := \lfloor x \rfloor,
+\] and then repeatedly zoom in. Having peeled off
+\(c_0,c_1,\dots,c_{n-1}\), look at what is left over,
+
+\[
+r_{n-1} \;=\; x - c_0 - \frac{1}{p}c_1 - \cdots - \frac{1}{p^{n-1}}c_{n-1} \;\in [0, p^{-(n-1)}),
+\]
+
+multiply it by \(p^{n-1}\) so it lands back in \([0,1)\), and read off
+the next digit as the integer part of \(p\) times that:
+
+\[
+c_n = \lfloor p \cdot (p^{n-1} r_{n-1}) \rfloor.
+\] (Multiplying by \(p\) here means zooming in by a factor of \(p\).)
+
+The function below does exactly this, but it tracks the \emph{rescaled}
+remainder (called \texttt{remainder} in the code, always kept in
+\([0,1)\)) rather than \(r_{n-1}\) itself, since that is what you
+actually multiply by \(p\) at each step:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{remainder\ =\ x\ -\ floor(x)}, the fractional part of \(x\),
+  in \([0,1)\).
+\item
+  Repeat: multiply \texttt{remainder} by \texttt{p}. Its integer part is
+  the next digit; subtract that integer part off, leaving a new
+  \texttt{remainder} back in \([0,1)\), and go again.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ rational\_to\_p\_ary(x, p, max\_digits}\OperatorTok{=}\DecValTok{50}\NormalTok{):}
+    \CommentTok{"""}
+\CommentTok{    Compute the base{-}p expansion of a rational number x.}
+
+\CommentTok{    Parameters}
+\CommentTok{    {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{    x : Fraction, int, or a string like "7/12"}
+\CommentTok{        The rational number to expand. (Do NOT pass a plain float such as 0.76 {-}{-} floats are}
+\CommentTok{        already binary approximations, so we would be expanding the wrong number. Use}
+\CommentTok{        Fraction(76, 100) instead. See the discussion above.)}
+\CommentTok{    p : int}
+\CommentTok{        The base, an integer \textgreater{} 1 (p = 2 for binary, p = 10 for the usual decimal expansion, ...).}
+\CommentTok{    max\_digits : int, optional (default = 50)}
+\CommentTok{        how many fractional digits to compute }
+\CommentTok{        }
+\CommentTok{    Returns}
+\CommentTok{    {-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{    integer\_part : int}
+\CommentTok{        c\_0, the integer part of x (i.e. floor(x)).}
+\CommentTok{    digits : numpy array of int}
+\CommentTok{        The fractional digits c\_1, c\_2, c\_3, ... that were computed, in order.}
+\CommentTok{    repeat\_start : int or None}
+\CommentTok{        If the expansion is eventually periodic, the index (0{-}based, into \textasciigrave{}digits\textasciigrave{}) where the}
+\CommentTok{        repeating block begins. If the expansion terminates exactly (all later digits are 0),}
+\CommentTok{        this is None.}
+\CommentTok{    """}
+    \ControlFlowTok{if} \KeywordTok{not} \BuiltInTok{isinstance}\NormalTok{(p, }\BuiltInTok{int}\NormalTok{) }\KeywordTok{or}\NormalTok{ p }\OperatorTok{\textless{}=} \DecValTok{1}\NormalTok{:}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"the base p must be an integer greater than 1"}\NormalTok{)}
+
+    \CommentTok{\# Convert x to an exact fraction, no matter what form it was given in.}
+\NormalTok{    x }\OperatorTok{=}\NormalTok{ Fraction(x)}
+
+    \CommentTok{\# Step 1: peel off the integer part c\_0 = floor(x). What remains, x {-} c\_0, is the}
+    \CommentTok{\# \textquotesingle{}fractional part\textquotesingle{} of x and always lies in [0, 1).}
+\NormalTok{    integer\_part }\OperatorTok{=}\NormalTok{ math.floor(x)}
+\NormalTok{    remainder }\OperatorTok{=}\NormalTok{ x }\OperatorTok{{-}}\NormalTok{ integer\_part}
+
+\NormalTok{    digits }\OperatorTok{=}\NormalTok{ []            }\CommentTok{\# the digits c\_1, c\_2, ... found so far, in order}
+\NormalTok{    seen\_remainders }\OperatorTok{=}\NormalTok{ \{\}   }\CommentTok{\# remembers, for each remainder value we\textquotesingle{}ve seen, which step it}
+                            \CommentTok{\# first showed up at {-}{-} this is how we notice a repeat}
+\NormalTok{    repeat\_start }\OperatorTok{=} \VariableTok{None}
+
+    \ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(max\_digits):}
+        \CommentTok{\# Zooming into the next sub{-}interval of}
+        \CommentTok{\# length 1/p means multiplying the remainder by p; the integer part of the result is}
+        \CommentTok{\# exactly which of the p equal pieces x fell into, i.e. the next digit.}
+\NormalTok{        remainder }\OperatorTok{=}\NormalTok{ remainder }\OperatorTok{*}\NormalTok{ p}
+\NormalTok{        next\_digit }\OperatorTok{=}\NormalTok{ math.floor(remainder)}
+\NormalTok{        digits.append(next\_digit)}
+
+        \CommentTok{\# Subtract off the digit we just read, leaving a fresh remainder back in [0, 1),}
+        \CommentTok{\# ready for the next iteration.}
+\NormalTok{        remainder }\OperatorTok{=}\NormalTok{ remainder }\OperatorTok{{-}}\NormalTok{ next\_digit}
+
+    \ControlFlowTok{return}\NormalTok{ integer\_part, np.array(digits, dtype}\OperatorTok{=}\BuiltInTok{int}\NormalTok{), repeat\_start}
+\end{Highlighting}
+\end{Shaded}
+
+The cell below defines a small helper function to print an expansion in
+a readable form. We deliberately write it as
+\texttt{c\_0\ +\ 0.c\_1c\_2c\_3...} with an explicit \texttt{+},
+matching the lecture notes' warning: if \(c_0\) is negative, the
+fractional digits are still \emph{added} to it, not subtracted, so
+\texttt{-3.25} written the ordinary way would be dangerously ambiguous.
+Writing \texttt{-3\ +\ 0.25} instead leaves no room for that mistake.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ format\_expansion(integer\_part, digits, p, repeat\_start}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+    \CommentTok{"""}
+\CommentTok{    Turn the output of rational\_to\_p\_ary into a readable string, e.g.}
+\CommentTok{        format\_expansion(0, np.array([1, 1, 0]), 2, None) {-}\textgreater{} \textquotesingle{}0 + 0.110  (base 2)\textquotesingle{}}
+\CommentTok{        format\_expansion(0, np.array([3]), 10, 0)          {-}\textgreater{} \textquotesingle{}0 + 0.(3)  (base 10)\textquotesingle{}   \# = 0.333...}
+\CommentTok{    """}
+    \CommentTok{\# Turn each digit into a one{-}character string. In any base p \textless{}= 10 these are ordinary digits;}
+    \CommentTok{\# for p \textgreater{} 10 we would need letters (like hexadecimal\textquotesingle{}s a{-}f), which we don\textquotesingle{}t handle here.}
+\NormalTok{    digit\_chars }\OperatorTok{=}\NormalTok{ [}\BuiltInTok{str}\NormalTok{(}\BuiltInTok{int}\NormalTok{(d)) }\ControlFlowTok{for}\NormalTok{ d }\KeywordTok{in}\NormalTok{ digits]}
+
+    \ControlFlowTok{if}\NormalTok{ repeat\_start }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
+        \CommentTok{\# No repeating block: just list every digit we have.}
+\NormalTok{        fractional\_part }\OperatorTok{=} \StringTok{""}\NormalTok{.join(digit\_chars) }\ControlFlowTok{if} \BuiltInTok{len}\NormalTok{(digit\_chars) }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else} \StringTok{"0"}
+    \ControlFlowTok{else}\NormalTok{:}
+        \CommentTok{\# Split into the digits before the repeat (head) and the repeating block itself (tail),}
+        \CommentTok{\# and wrap the tail in parentheses to mark it as repeating forever.}
+\NormalTok{        head }\OperatorTok{=} \StringTok{""}\NormalTok{.join(digit\_chars[:repeat\_start])}
+\NormalTok{        tail }\OperatorTok{=} \StringTok{""}\NormalTok{.join(digit\_chars[repeat\_start:])}
+\NormalTok{        fractional\_part }\OperatorTok{=} \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{head}\SpecialCharTok{\}}\SpecialStringTok{(}\SpecialCharTok{\{}\NormalTok{tail}\SpecialCharTok{\}}\SpecialStringTok{)"} \ControlFlowTok{if}\NormalTok{ head }\ControlFlowTok{else} \SpecialStringTok{f"(}\SpecialCharTok{\{}\NormalTok{tail}\SpecialCharTok{\}}\SpecialStringTok{)"}
+
+    \ControlFlowTok{return} \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{integer\_part}\SpecialCharTok{\}}\SpecialStringTok{ + 0.}\SpecialCharTok{\{}\NormalTok{fractional\_part}\SpecialCharTok{\}}\SpecialStringTok{  (base }\SpecialCharTok{\{}\NormalTok{p}\SpecialCharTok{\}}\SpecialStringTok{)"}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Checking the examples}\label{checking-the-examples}
+
+In the lecture notes, we found the first three \emph{binary} digits of
+\(x = 0.76\) by hand: \(c_1=1,\ c_2=1,\ c_3=0\),
+i.e.~\(0.76 = 0.110\ldots\) in base 2. Let's confirm that.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{integer\_part, digits, repeat\_start }\OperatorTok{=}\NormalTok{ rational\_to\_p\_ary(Fraction(}\DecValTok{76}\NormalTok{, }\DecValTok{100}\NormalTok{), }\DecValTok{2}\NormalTok{, max\_digits}\OperatorTok{=}\DecValTok{30}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(format\_expansion(integer\_part, digits, }\DecValTok{2}\NormalTok{, repeat\_start))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"first three fractional digits:"}\NormalTok{, digits[:}\DecValTok{3}\NormalTok{], }\StringTok{" {-}{-} matches c1, c2, c3 = 1, 1, 0 from Example"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+0 + 0.110000101000111101011100001010  (base 2)
+first three fractional digits: [1 1 0]  -- matches c1, c2, c3 = 1, 1, 0 from Example 2.6
+\end{verbatim}
+
+Now find the first three fractional digits of the base-2 expansion of
+\(x = 0.3\), and of the base-3 expansion of \(x = 0.76\). Work those out
+on paper first -- then run the cell below to check yourself.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ip, d, r }\OperatorTok{=}\NormalTok{ rational\_to\_p\_ary(Fraction(}\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DecValTok{2}\NormalTok{, max\_digits}\OperatorTok{=}\DecValTok{20}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"0.3 in base 2:"}\NormalTok{, format\_expansion(ip, d, }\DecValTok{2}\NormalTok{, r))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"first three digits:"}\NormalTok{, d[:}\DecValTok{3}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{()}
+\NormalTok{ip, d, r }\OperatorTok{=}\NormalTok{ rational\_to\_p\_ary(Fraction(}\DecValTok{76}\NormalTok{, }\DecValTok{100}\NormalTok{), }\DecValTok{3}\NormalTok{, max\_digits}\OperatorTok{=}\DecValTok{20}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"0.76 in base 3:"}\NormalTok{, format\_expansion(ip, d, }\DecValTok{3}\NormalTok{, r))}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"first three digits:"}\NormalTok{, d[:}\DecValTok{3}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+0.3 in base 2: 0 + 0.01001100110011001100  (base 2)
+first three digits: [0 1 0]
+
+0.76 in base 3: 0 + 0.20211200100201102212  (base 3)
+first three digits: [2 0 2]
+\end{verbatim}
+
+\section{A few more instructive
+examples}\label{a-few-more-instructive-examples}
+
+\begin{itemize}
+\tightlist
+\item
+  \(1/3\) in base 10 has \emph{no} terminating part at all -- the
+  repeating block starts immediately.
+\item
+  \(1/6\) in base 10 has one non-repeating digit followed by a repeating
+  block (matches \(1/6 = 0.1\overline{6}\)).
+\item
+  \(1/10\) terminates in base 10 (as expected, \(1/10 = 0.1\) exactly)
+  but is \emph{purely repeating} in base 2 -- this is the mathematical
+  reason \texttt{0.1} cannot be stored exactly as an ordinary
+  floating-point number, and is why we insisted on \texttt{Fraction}
+  above instead of Python floats.
+\item
+  Negative \(x\): \(x = -11/4 = -2.75\). Its integer part is
+  \(c_0 = \lfloor -2.75\rfloor = -3\), and the digits describe \(0.25\),
+  which gets \emph{added} to \(-3\) (giving back \(-2.75\)), not
+  subtracted.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ label, value, base, n }\KeywordTok{in}\NormalTok{ [}
+\NormalTok{    (}\StringTok{"1/3"}\NormalTok{, Fraction(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    (}\StringTok{"1/6"}\NormalTok{, Fraction(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{), }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    (}\StringTok{"1/10"}\NormalTok{, Fraction(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    (}\StringTok{"1/10"}\NormalTok{, Fraction(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{), }\DecValTok{2}\NormalTok{, }\DecValTok{30}\NormalTok{),}
+\NormalTok{    (}\StringTok{"{-}11/4"}\NormalTok{, Fraction(}\OperatorTok{{-}}\DecValTok{11}\NormalTok{, }\DecValTok{4}\NormalTok{), }\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{]:}
+\NormalTok{    ip, d, r }\OperatorTok{=}\NormalTok{ rational\_to\_p\_ary(value, base, max\_digits}\OperatorTok{=}\NormalTok{n)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{label}\SpecialCharTok{:\textgreater{}6\}}\SpecialStringTok{ = }\SpecialCharTok{\{}\NormalTok{format\_expansion(ip, d, base, r)}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   1/3 = 0 + 0.3333333333  (base 10)
+   1/6 = 0 + 0.1666666666  (base 10)
+  1/10 = 0 + 0.1000000000  (base 10)
+  1/10 = 0 + 0.000110011001100110011001100110  (base 2)
+ -11/4 = -3 + 0.2500000000  (base 10)
+\end{verbatim}
+
+\section{Try it yourself}\label{try-it-yourself}
+
+Pick your own rational number \(x\) and a base \(p > 1\). Use
+\texttt{rational\_to\_p\_ary} to get its \(p\)-ary expansion.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Replace the values below with your own choice of x (as a Fraction), p.}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ Fraction(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{p }\OperatorTok{=} \DecValTok{10}
+
+
+\NormalTok{ip, d, r }\OperatorTok{=}\NormalTok{ rational\_to\_p\_ary(x, p, max\_digits}\OperatorTok{=}\DecValTok{30}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"x in base }\SpecialCharTok{\{}\NormalTok{p}\SpecialCharTok{\}}\SpecialStringTok{:"}\NormalTok{, format\_expansion(ip, d, p, r))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+x in base 10: 0 + 0.500000000000000000000000000000  (base 10)
+\end{verbatim}
+
+\section{Food for thought}\label{food-for-thought}
+
+\textbf{Question 1:} For a fixed base \(p\), which fractions will have a
+\(p\)-ary expansion that will eventually be identically \(0\)? (such as
+\(1/2\) in base 10) Try to formulate a hypothesis and test it using the
+cell above.
+
+\textbf{Question 2:} Is it true that all \(p\)-ary expansions of
+rational numbers eventually become periodic? If yes, why is this the
+case?
+
+\part{Functions}
+
+\chapter{The Concept of Function}\label{the-concept-of-function}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §1.2.
+
+\end{tcolorbox}
+
+With the number line in hand, we can start doing calculus --- but
+calculus is not really about individual numbers. It is about
+\emph{dependence}: how one quantity changes as another one does. The
+area of a circle depends on its radius, the height of a falling stone
+depends on the elapsed time, the pressure of a gas depends on its
+volume. The mathematical object that captures such a dependence is a
+\textbf{function}, and getting comfortable with the vocabulary now will
+pay off for the rest of the course.
+
+\section{Functions, Domain, and Range}\label{functions-domain-and-range}
+
+\begin{definition}[]\protect\hypertarget{def-function}{}\label{def-function}
+
+\hfill\break
+A \textbf{function} \(f\) is a rule that assigns to every element \(x\)
+of a set \(D\) --- the \textbf{domain} of \(f\) --- one single,
+unambiguously determined object \(f(x)\), its \textbf{value} at \(x\),
+lying in a set \(E\) --- the \textbf{codomain}. We write \[
+f\colon D \to E, \qquad x \mapsto f(x).
+\] In this course the domain is almost always a subset of the number
+line, \(D\subseteq\mathbb{R}\), and the codomain is \(E=\mathbb{R}\); we
+then call \(f\) a \textbf{real-valued function of a real variable} and
+write simply \(f\colon D\to\mathbb{R}\).
+
+\end{definition}
+
+The word \emph{unambiguously} is the heart of the definition: for each
+input \(x\in D\) there must be \textbf{exactly one} output \(f(x)\) ---
+no more (that would not be a rule) and no fewer (every point of the
+domain must get a value). The domain is part of the data of a function:
+\(x\mapsto x^2\) on \(\mathbb{R}\) and \(x\mapsto x^2\) on
+\([0,\infty)\) are, strictly speaking, different functions.
+
+\begin{refremark}
+When a function is specified by a formula with no domain stated, we
+adopt the convention that its domain is the \textbf{natural domain}: the
+largest set of real numbers for which the formula makes sense. For
+\(x\mapsto 1/(x-1)\) this is \(\mathbb{R}\setminus\{1\}\); for
+\(x\mapsto\sqrt{x}\) it is \([0,\infty)\). We are always free to
+\emph{restrict} to a smaller domain when we want to.
+
+\label{rem-natural-domain}
+
+\end{refremark}
+
+\begin{definition}[]\protect\hypertarget{def-range}{}\label{def-range}
+
+\hfill\break
+The \textbf{range} (or \textbf{image}) of \(f\colon D\to\mathbb{R}\) is
+the set of values it actually attains: \[
+\operatorname{ran}(f) \;=\; \{\, y\in\mathbb{R}: y = f(x) \text{ for some } x\in D \,\}.
+\]
+
+\end{definition}
+
+\begin{refremark}
+The range need not fill up the codomain. For
+\(f\colon\mathbb{R}\to\mathbb{R}\), \(f(x)=x^2\), the codomain is
+\(\mathbb{R}\) but \[
+\operatorname{ran}(f) = [0,\infty),
+\] since squares are never negative and every \(y\ge 0\) is
+\((\sqrt y)^2\). Saying ``\(f\) maps into \(\mathbb{R}\)'' is a
+statement about where the values are \emph{allowed} to live; the range
+records where they \emph{actually} land.
+
+\label{rem-range-vs-codomain}
+
+\end{refremark}
+
+\section{Injective Functions}\label{injective-functions}
+
+\begin{definition}[]\protect\hypertarget{def-injection}{}\label{def-injection}
+
+\hfill\break
+A function \(f\colon D\to\mathbb{R}\) is \textbf{injective} (or
+\textbf{one-to-one}) if it sends distinct inputs to distinct outputs: \[
+x\neq y \quad \Rightarrow \quad f(x)\neq f(y),
+\] or equivalently, taking the contrapositive,
+\(f(x)=f(y) \quad \Rightarrow \quad x=y\).
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-injection}{}\label{exm-injection}
+
+\hfill\break
+- \(f(x)=x^3\) is injective on \(\mathbb{R}\): if \(x^3 = y^3\) then
+\(x=y\) (taking cube roots). - \(g(x)=x^2\) is \textbf{not} injective on
+\(\mathbb{R}\): \(g(-1) = 1 = g(1)\), yet \(-1\neq 1\). Restricted to
+\([0,\infty)\), however, \(g\) \emph{is} injective.
+
+\end{example}
+
+Injectivity is exactly the property that lets us run a function
+backwards; we return to this when we discuss inverse functions below.
+
+\section{Monotone Functions}\label{monotone-functions}
+
+\begin{definition}[]\protect\hypertarget{def-monotone}{}\label{def-monotone}
+
+\hfill\break
+Let \(f\colon D\to\mathbb{R}\) with \(D\subseteq\mathbb{R}\). For all
+\(x,w\in D\), we say \(f\) is
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{(monotonically) increasing} if
+  \(\;x\le w \quad \Rightarrow \quad f(x)\le f(w)\);
+\item
+  \textbf{strictly increasing} if
+  \(\;x < w \quad \Rightarrow \quad f(x) < f(w)\);
+\item
+  \textbf{(monotonically) decreasing} if
+  \(\;x\le w \quad \Rightarrow \quad f(x)\ge f(w)\);
+\item
+  \textbf{strictly decreasing} if
+  \(\;x < w \quad \Rightarrow \quad f(x) > f(w)\).
+\end{itemize}
+
+A function of any of these four types is called \textbf{monotone}.
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-monotone}{}\label{exm-monotone}
+
+\hfill\break
+- \(f(x)=x^3\) is strictly increasing on all of \(\mathbb{R}\). -
+\(g\colon[0,\pi]\to\mathbb{R}\), \(g(x)=\cos x\), is strictly
+decreasing: as the angle runs from \(0\) to \(\pi\), the
+\(x\)-coordinate on the unit circle drops steadily from \(1\) to \(-1\).
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-strict-mono-injective}{}\label{exr-strict-mono-injective}
+
+Show that a strictly increasing function is injective (and likewise for
+strictly decreasing). Is the converse true --- must an injective
+function be monotone?
+
+\end{exercise}
+
+\begin{solution}
+If \(f\) is strictly increasing and \(x\neq y\), then either \(x<y\),
+giving \(f(x)<f(y)\), or \(x>y\), giving \(f(x)>f(y)\); either way
+\(f(x)\neq f(y)\). So \(f\) is injective.
+
+The converse fails. Define \(f\colon\mathbb{R}\to\mathbb{R}\) by
+\(f(x) = x\) for \(x\neq 0,1\), with \(f(0)=1\) and \(f(1)=0\). This is
+a bijection of \(\mathbb{R}\) (it just swaps two values), hence
+injective, but it is neither increasing nor decreasing.
+\end{solution}
+
+\section{Even and Odd Functions}\label{even-and-odd-functions}
+
+\begin{definition}[]\protect\hypertarget{def-even-odd}{}\label{def-even-odd}
+
+\hfill\break
+Suppose the domain \(D\) is symmetric about \(0\),
+i.e.~\(x\in D \quad \Rightarrow \quad-x\in D\). A function
+\(f\colon D\to\mathbb{R}\) is
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{even} if \(f(-x)=f(x)\) for all \(x\in D\) --- its graph is
+  symmetric about the \(y\)-axis;
+\item
+  \textbf{odd} if \(f(-x)=-f(x)\) for all \(x\in D\) --- its graph is
+  symmetric about the origin.
+\end{itemize}
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-even-odd}{}\label{exm-even-odd}
+
+\hfill\break
+\(x^2\), \(\lvert x \rvert\), and \(\cos x\) are even; \(x\), \(x^3\),
+and \(\sin x\) are odd; \(x + x^2\) is neither. Most functions are
+neither even nor odd.
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-even-odd-decomposition}{}\label{exr-even-odd-decomposition}
+
+Show that every function \(f\) on a symmetric domain can be written
+\emph{uniquely} as a sum \(f = f_{\mathrm e} + f_{\mathrm o}\) of an
+even function \(f_{\mathrm e}\) and an odd function \(f_{\mathrm o}\).
+(Hint: what must \(\tfrac12\bigl(f(x)+f(-x)\bigr)\) and
+\(\tfrac12\bigl(f(x)-f(-x)\bigr)\) be?)
+
+\end{exercise}
+
+\section{Building New Functions from
+Old}\label{building-new-functions-from-old}
+
+Most functions we work with are assembled from simpler ones by a few
+standard operations.
+
+\subsection{Arithmetic combinations}\label{arithmetic-combinations}
+
+\begin{definition}[]\protect\hypertarget{def-arithmetic-combinations}{}\label{def-arithmetic-combinations}
+
+\hfill\break
+Let \(f,g\colon D\to\mathbb{R}\) be two functions on the same domain,
+and \(c\in\mathbb{R}\). Then \[
+f+g,\qquad c\,f,\qquad f\cdot g
+\] are again functions on \(D\), defined \textbf{pointwise}:
+\((f+g)(x) = f(x)+g(x)\), \((c\,f)(x) = c\,f(x)\),
+\((f\cdot g)(x) = f(x)\,g(x)\). The \textbf{quotient} \(f/g\), given by
+\((f/g)(x) = f(x)/g(x)\), is a function on the smaller domain \[
+D\setminus\{\, x\in D : g(x)=0 \,\}.
+\]
+
+\end{definition}
+
+\subsection{Composition}\label{composition}
+
+\begin{definition}[]\protect\hypertarget{def-composition}{}\label{def-composition}
+
+\hfill\break
+Let \(g\colon D\to\mathbb{R}\) and \(f\colon D'\to\mathbb{R}\) with
+\(\operatorname{ran}(g)\subseteq D'\). The \textbf{composition}
+\(f\circ g\) (``first \(g\), then \(f\)'') is \[
+(f\circ g)(x) \;:=\; f\bigl(g(x)\bigr), \qquad x\in D,
+\] a function with domain
+\(\operatorname{dom}(f\circ g) = \operatorname{dom}(g)\).
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-composition}{}\label{exm-composition}
+
+\hfill\break
+With \(f(x)=\sqrt{x}\) and \(g(x)=1+x^2\): \[
+(f\circ g)(x) = \sqrt{1+x^2} \quad(\text{all } x\in\mathbb{R}), \qquad
+(g\circ f)(x) = 1 + x \quad(x\ge 0).
+\] The order matters: \(f\circ g\) and \(g\circ f\) are different
+functions.
+
+\end{example}
+
+\subsection{Inverse functions}\label{inverse-functions}
+
+\begin{definition}[]\protect\hypertarget{def-inverse}{}\label{def-inverse}
+
+\hfill\break
+If \(f\colon D\to\mathbb{R}\) is injective, then for each
+\(y\in\operatorname{ran}(f)\) there is \textbf{exactly one} \(x\in D\)
+with \(f(x)=y\). Sending each such \(y\) to that \(x\) defines the
+\textbf{inverse function} \[
+f^{-1}\colon \operatorname{ran}(f)\to D, \qquad f^{-1}\bigl(f(x)\bigr) = x \ \text{ for all } x\in D, \qquad
+f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
+\] Its domain is \(\operatorname{ran}(f)\) and its range is \(D\).
+
+\end{definition}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-warning-color!10!white, colframe=quarto-callout-warning-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Notation trap}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+\(f^{-1}\) denotes the \textbf{inverse function}, not the reciprocal
+\(1/f\). For \(f(x)=x^3\) we have \(f^{-1}(y)=\sqrt[3]{y}\), whereas
+\(\dfrac{1}{f(x)} = x^{-3}\).
+
+\end{tcolorbox}
+
+\begin{refremark}
+The point \((a,b)\) lies on the graph of \(f\) exactly when \((b,a)\)
+lies on the graph of \(f^{-1}\). So the graph of \(f^{-1}\) is the
+mirror image of the graph of \(f\) across the line \(y=x\).
+
+\label{rem-inverse-graph}
+
+\end{refremark}
+
+\begin{example}[]\protect\hypertarget{exm-inverse}{}\label{exm-inverse}
+
+\hfill\break
+\(f(x)=x^3\) is injective on \(\mathbb{R}\) with
+\(\operatorname{ran}(f)=\mathbb{R}\), and \(f^{-1}(y)=\sqrt[3]{y}\). By
+contrast \(g(x)=x^2\) on \(\mathbb{R}\) has no inverse (it is not
+injective); restricted to \([0,\infty)\) it does, namely
+\(g^{-1}(y)=\sqrt{y}\).
+
+\end{example}
+
+\section{Summary}\label{summary-2}
+
+\begin{itemize}
+\tightlist
+\item
+  A \textbf{function} \(f\colon D\to\mathbb{R}\)
+  (Definition~\ref{def-function}) assigns to each point of its
+  \textbf{domain} \(D\) exactly one real value; the set of values
+  attained is its \textbf{range} (Definition~\ref{def-range}), which may
+  be a proper subset of the codomain.
+\item
+  \(f\) is \textbf{injective} (Definition~\ref{def-injection}) if
+  distinct inputs give distinct outputs, and \textbf{monotone}
+
+  \begin{enumerate}
+  \def\labelenumi{(\arabic{enumi})}
+  \tightlist
+  \item
+    if it consistently preserves or reverses order; strict monotonicity
+    implies injectivity (Exercise~\ref{exr-strict-mono-injective}).
+  \end{enumerate}
+\item
+  On a symmetric domain, \(f\) may be \textbf{even} or \textbf{odd}
+  (Definition~\ref{def-even-odd}), i.e.~symmetric about the \(y\)-axis
+  or the origin.
+\item
+  New functions are built from old ones by pointwise \textbf{arithmetic}
+  (Definition~\ref{def-arithmetic-combinations}), \textbf{composition}
+  (Definition~\ref{def-composition}), and --- when \(f\) is injective
+  --- by forming the \textbf{inverse} \(f^{-1}\)
+  (Definition~\ref{def-inverse}), whose graph is the reflection of that
+  of \(f\) across \(y=x\).
+\end{itemize}
+
+\chapter{The Elementary Functions}\label{the-elementary-functions}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §1.3.
+
+\end{tcolorbox}
+
+Almost every function met in a first calculus course is built out of a
+short catalogue of standard functions: polynomials, rational functions,
+powers, exponentials, logarithms, and the trigonometric functions. These
+are the \textbf{elementary functions}. This lecture is a tour of the
+list, noting for each type its natural domain, its range, and its basic
+shape --- information we will need constantly once we start
+differentiating and integrating.
+
+\section{Polynomials}\label{polynomials}
+
+\begin{definition}[]\protect\hypertarget{def-polynomial}{}\label{def-polynomial}
+
+\hfill\break
+A \textbf{polynomial} is a function of the form \[
+p(x) \;=\; a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n,
+\] with real coefficients \(a_0,a_1,\dots,a_n\). If \(a_n\neq 0\), the
+integer \(n\) is the \textbf{degree} of \(p\).
+
+\end{definition}
+
+The lowest degrees have familiar names:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+degree & form & name \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(0\) & \(y = a_0\) & constant \\
+\(1\) & \(y = a_0 + a_1 x\) & linear \\
+\(2\) & \(y = a_0 + a_1 x + a_2 x^2\) & quadratic \\
+\(3\) & \(y = a_0 + a_1 x + a_2 x^2 + a_3 x^3\) & cubic \\
+\end{longtable}
+}
+
+A polynomial is a finite sum of constant multiples of the \textbf{power
+functions} \(1, x, x^2, x^3,\dots\), each of which is defined for every
+real number. Hence every polynomial has natural domain \[
+\operatorname{dom}(p) = \mathbb{R}
+\] (unless we deliberately restrict it).
+
+\begin{refremark}
+The pure powers \(x^n\) share a few features worth remembering. Every
+graph passes through \((0,0)\) and \((1,1)\). On the interval \([0,1]\)
+a higher power lies \emph{below} a lower one (\(x^3 \le x^2 \le x\)),
+while on \([1,\infty)\) the order reverses. The power \(x^n\) is even
+when \(n\) is even and odd when \(n\) is odd; for odd \(n\) it is
+strictly increasing on \(\mathbb{R}\) (hence injective), while for even
+\(n\) it is not injective on \(\mathbb{R}\).
+
+\label{rem-powers-of-x}
+
+\end{refremark}
+
+\section{Rational Functions}\label{rational-functions}
+
+\begin{definition}[]\protect\hypertarget{def-rational-function}{}\label{def-rational-function}
+
+\hfill\break
+A \textbf{rational function} is a quotient of two polynomials, \[
+r(x) \;=\; \frac{p(x)}{q(x)}, \qquad q \not\equiv 0.
+\] Its natural domain is \(\mathbb{R}\setminus Z\), where \[
+Z = \{\, x\in\mathbb{R}: q(x) = 0 \,\}
+\] is the (finite) set of zeros of the denominator.
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-rational}{}\label{exm-rational}
+
+\hfill\break
+- \(\dfrac{x}{x^2+1}\) is a rational function. Since \(x^2+1 > 0\) for
+every real \(x\), the set \(Z\) is empty and the domain is all of
+\(\mathbb{R}\). - \(\dfrac{\sqrt{x}}{x^3 - x}\) is \textbf{not} a
+rational function: \(\sqrt{x}\) is not a polynomial. (It is, however,
+still an elementary function --- see the next section.)
+
+\end{example}
+
+\section{Algebraic and Power
+Functions}\label{algebraic-and-power-functions}
+
+\begin{definition}[]\protect\hypertarget{def-power-function}{}\label{def-power-function}
+
+\hfill\break
+A \textbf{power function} is \(f(x) = x^{\alpha}\) with a fixed real
+exponent \(\alpha\in\mathbb{R}\). For \(x>0\) this is defined for every
+\(\alpha\) (via \(x^{\alpha} = \exp(\alpha\ln x)\), once we have
+\(\exp\) and \(\ln\)). For an \textbf{integer} exponent the domain
+extends to \[
+\operatorname{dom}(x^{\alpha}) = \begin{cases}
+\mathbb{R}& \alpha \ge 0,\\[2pt]
+\mathbb{R}\setminus\{0\} & \alpha < 0.
+\end{cases}
+\]
+
+\end{definition}
+
+\begin{refremark}
+For a non-integer exponent one usually keeps the domain \([0,\infty)\)
+(or \((0,\infty)\) if \(\alpha<0\)). The roots \(x^{1/2} = \sqrt{x}\),
+\(x^{1/3} = \sqrt[3]{x},\dots\) are examples; odd roots such as
+\(\sqrt[3]{x}\) can in fact be extended to all of \(\mathbb{R}\). Power
+functions with rational exponent, and more generally functions obtained
+from polynomials by the four arithmetic operations together with root
+extraction, are called \textbf{algebraic functions}. The exponential and
+logarithm below are \emph{not} algebraic --- they are
+\textbf{transcendental}.
+
+\label{rem-roots}
+
+\end{refremark}
+
+\section{Exponential Functions}\label{exponential-functions}
+
+\begin{definition}[]\protect\hypertarget{def-exponential}{}\label{def-exponential}
+
+\hfill\break
+Fix a \textbf{base} \(a > 0\). The \textbf{exponential function} with
+base \(a\), \[
+\exp_a\colon \mathbb{R}\to \mathbb{R}, \qquad \exp_a(x) = a^{x},
+\] is defined for every real \(x\). For \(a\neq 1\) it takes only
+positive values, and every positive value is attained: \[
+\operatorname{dom}(\exp_a) = \mathbb{R}, \qquad \operatorname{ran}(\exp_a) = (0,\infty) = \mathbb{R}^{>0}.
+\]
+
+\end{definition}
+
+For \(a > 1\) the function \(a^x\) is strictly increasing; for
+\(0 < a < 1\) it is strictly decreasing; for \(a=1\) it is the constant
+\(1\). In all cases \(a^0 = 1\) and \(a^{x+y} = a^x a^y\).
+
+\section{Logarithms}\label{logarithms}
+
+\begin{definition}[]\protect\hypertarget{def-logarithm}{}\label{def-logarithm}
+
+\hfill\break
+Fix a base \(a > 0\) with \(a\neq 1\). Then \(\exp_a\) is injective from
+\(\mathbb{R}\) onto \((0,\infty)\), and its inverse function (in the
+sense of Definition~\ref{def-inverse}) is the \textbf{logarithm to base
+\(a\)}, \[
+\log_a\colon (0,\infty)\to\mathbb{R}, \qquad
+\log_a(a^{x}) = x, \qquad a^{\log_a y} = y.
+\] Thus \[
+\operatorname{dom}(\log_a) = (0,\infty), \qquad \operatorname{ran}(\log_a) = \mathbb{R}.
+\]
+
+\end{definition}
+
+Because it is the inverse of \(a^x\), the graph of \(\log_a\) is the
+reflection of the graph of \(a^x\) across the line \(y = x\)
+(Remark~\ref{rem-inverse-graph}). It converts products to sums:
+\(\log_a(xy) = \log_a x + \log_a y\).
+
+\section{Trigonometric Functions}\label{trigonometric-functions}
+
+Let \(x\) be a real number, thought of as an angle measured in
+\textbf{radians}. Rotating the point \((1,0)\) counter-clockwise through
+the angle \(x\) about the origin lands on a point of the unit circle
+whose coordinates are, by definition, \((\cos x, \sin x)\).
+
+Both \(\sin\) and \(\cos\) are defined for all \(x\in\mathbb{R}\), take
+values in \([-1,1]\), and repeat after a full turn.
+
+\begin{definition}[]\protect\hypertarget{def-periodic}{}\label{def-periodic}
+
+\hfill\break
+A function \(f\) is \textbf{periodic with period \(P > 0\)} if
+\(f(x + P) = f(x)\) for every \(x\) in its domain.
+
+\end{definition}
+
+Thus \(\sin\) and \(\cos\) are periodic with period \(2\pi\). The
+\textbf{tangent} \[
+\tan x = \frac{\sin x}{\cos x}
+\] is defined wherever \(\cos x \neq 0\), i.e.~for
+\(x \neq \tfrac{\pi}{2} + k\pi\) with \(k\in\mathbb{Z}\), and is
+periodic with period \(\pi\).
+
+\begin{refremark}
+A general \textbf{sinusoid} has the form \[
+f(x) = A\,\sin(bx) + C,
+\] with \textbf{amplitude} \(|A|\) (half the vertical spread of the
+graph), \textbf{period} \(\dfrac{2\pi}{b}\), and \textbf{vertical
+offset} \(C\) (the horizontal line the graph oscillates around).
+
+\label{rem-sinusoid}
+
+\end{refremark}
+
+\begin{exercise}[]\protect\hypertarget{exr-sinusoid}{}\label{exr-sinusoid}
+
+The function \(f(x) = 3\sin(2x) + 1\) is a sinusoid. Find its amplitude,
+period, and range, and the smallest \(x > 0\) at which it attains its
+maximum.
+
+\end{exercise}
+
+\begin{solution}
+Amplitude \(|A| = 3\), period \(\dfrac{2\pi}{2} = \pi\), offset
+\(C = 1\), so the range is \([1-3,\,1+3] = [-2,4]\). The maximum occurs
+when \(\sin(2x) = 1\), i.e.~\(2x = \tfrac{\pi}{2} + 2k\pi\); the
+smallest positive solution is \(x = \tfrac{\pi}{4}\).
+\end{solution}
+
+\section{Summary}\label{summary-3}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Polynomials} (Definition~\ref{def-polynomial}) are finite
+  combinations of the powers \(1,x,x^2,\dots\); they are defined on all
+  of \(\mathbb{R}\).
+\item
+  \textbf{Rational functions} (Definition~\ref{def-rational-function})
+  are quotients of polynomials, defined off the finite zero set of the
+  denominator.
+\item
+  \textbf{Power functions} \(x^{\alpha}\)
+  (Definition~\ref{def-power-function}) have domain \(\mathbb{R}\) or
+  \(\mathbb{R}\setminus\{0\}\) for integer exponents, and are typically
+  taken on \([0,\infty)\) otherwise; together with roots they form the
+  \textbf{algebraic} functions.
+\item
+  \textbf{Exponentials} \(a^x\) (Definition~\ref{def-exponential}) have
+  domain \(\mathbb{R}\) and range \((0,\infty)\); their inverses, the
+  \textbf{logarithms} \(\log_a\) (Definition~\ref{def-logarithm}), have
+  domain \((0,\infty)\) and range \(\mathbb{R}\).
+\item
+  The \textbf{trigonometric functions} \(\sin,\cos\) are
+  \(2\pi\)-periodic (Definition~\ref{def-periodic}) with range
+  \([-1,1]\); \(\tan = \sin/\cos\) is \(\pi\)-periodic and undefined
+  where \(\cos\) vanishes.
 \end{itemize}
 
 

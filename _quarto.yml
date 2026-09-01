@@ -11,7 +11,11 @@ book:
       chapters:
         - 01_real_numbers.qmd
         - 02_nested_intervals.qmd
-        - notebooks/Week01_Number_Bases.ipynb 
+        - notebooks/Week01_Number_Bases.ipynb
+    - part: Functions
+      chapters:
+        - 03_functions.qmd
+        - 04_elementary_functions.qmd
 
 number-sections: true
 

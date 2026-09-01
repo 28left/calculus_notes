@@ -6,3 +6,5 @@
 \newcommand{\abs}[1]{\lvert #1 \rvert}
 \newcommand{\Iff}{\quad \Leftrightarrow \quad}
 \newcommand{\Imp}{\quad \Rightarrow \quad}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\ran}{\operatorname{ran}}

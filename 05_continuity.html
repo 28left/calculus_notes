@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; The Concept of Function – Math 140H — Honors Calculus I: Lecture Notes</title>
+<title>6&nbsp; Continuity – Math 140H — Honors Calculus I: Lecture Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04_elementary_functions.html" rel="next">
-<link href="./notebooks/Week01_Number_Bases.html" rel="prev">
+<link href="./04_elementary_functions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./03_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./05_continuity.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_functions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03_functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span></a>
   </div>
 </li>
@@ -200,7 +199,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_continuity.html" class="sidebar-item-text sidebar-link">
+  <a href="./05_continuity.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span></a>
   </div>
 </li>
@@ -216,26 +215,21 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#functions-domain-and-range" id="toc-functions-domain-and-range" class="nav-link active" data-scroll-target="#functions-domain-and-range"><span class="header-section-number">4.1</span> Functions, Domain, and Range</a></li>
-  <li><a href="#injective-functions" id="toc-injective-functions" class="nav-link" data-scroll-target="#injective-functions"><span class="header-section-number">4.2</span> Injective Functions</a></li>
-  <li><a href="#monotone-functions" id="toc-monotone-functions" class="nav-link" data-scroll-target="#monotone-functions"><span class="header-section-number">4.3</span> Monotone Functions</a></li>
-  <li><a href="#even-and-odd-functions" id="toc-even-and-odd-functions" class="nav-link" data-scroll-target="#even-and-odd-functions"><span class="header-section-number">4.4</span> Even and Odd Functions</a></li>
-  <li><a href="#building-new-functions-from-old" id="toc-building-new-functions-from-old" class="nav-link" data-scroll-target="#building-new-functions-from-old"><span class="header-section-number">4.5</span> Building New Functions from Old</a>
+  <li><a href="#the-varepsilondelta-definition" id="toc-the-varepsilondelta-definition" class="nav-link active" data-scroll-target="#the-varepsilondelta-definition"><span class="header-section-number">6.1</span> The <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> Definition</a>
   <ul class="collapse">
-  <li><a href="#arithmetic-combinations" id="toc-arithmetic-combinations" class="nav-link" data-scroll-target="#arithmetic-combinations">Arithmetic combinations</a></li>
-  <li><a href="#composition" id="toc-composition" class="nav-link" data-scroll-target="#composition">Composition</a></li>
-  <li><a href="#inverse-functions" id="toc-inverse-functions" class="nav-link" data-scroll-target="#inverse-functions">Inverse functions</a></li>
+  <li><a href="#the-varepsilondelta-game" id="toc-the-varepsilondelta-game" class="nav-link" data-scroll-target="#the-varepsilondelta-game">The <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> game</a></li>
   </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.6</span> Summary</a></li>
+  <li><a href="#types-of-discontinuities" id="toc-types-of-discontinuities" class="nav-link" data-scroll-target="#types-of-discontinuities"><span class="header-section-number">6.2</span> Types of Discontinuities</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./03_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./05_continuity.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></h1>
 </div>
 
 
@@ -252,296 +246,69 @@ window.Quarto = {
 </header>
 
 
-<!-- ::: {.callout-note}
-## Companion reading
-This lecture corresponds to C&J §1.2.
-::: -->
-<p>With the number line in hand, we can start doing calculus — but calculus is not really about individual numbers. It is about <em>dependence</em>: how one quantity changes as another one does. The area of a circle depends on its radius, the height of a falling stone depends on the elapsed time, the pressure of a gas depends on its volume. The mathematical object that captures such a dependence is a <strong>function</strong>, and getting comfortable with the vocabulary now will pay off for the rest of the course.</p>
-<section id="functions-domain-and-range" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="functions-domain-and-range"><span class="header-section-number">4.1</span> Functions, Domain, and Range</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.1</strong></span> <br>
-A <strong>function</strong> <span class="math inline">\(f\)</span> is a rule that assigns to every element <span class="math inline">\(x\)</span> of a set <span class="math inline">\(D\)</span> — the <strong>domain</strong> of <span class="math inline">\(f\)</span> — one single, unambiguously determined object <span class="math inline">\(f(x)\)</span>, its <strong>value</strong> at <span class="math inline">\(x\)</span>, lying in a set <span class="math inline">\(E\)</span> — the <strong>codomain</strong>. We write <span class="math display">\[
-f\colon D \to E, \qquad x \mapsto f(x).
-\]</span> In this course the domain is almost always a subset of the number line, <span class="math inline">\(D\subseteq\mathbb{R}\)</span>, and the codomain is <span class="math inline">\(E=\mathbb{R}\)</span>; we then call <span class="math inline">\(f\)</span> a <strong>real-valued function of a real variable</strong> and write simply <span class="math inline">\(f\colon D\to\mathbb{R}\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p>The word <em>unambiguously</em> is the heart of the definition: for each input <span class="math inline">\(x\in D\)</span> there must be <strong>exactly one</strong> output <span class="math inline">\(f(x)\)</span> — no more (that would not be a rule) and no fewer (every point of the domain must get a value). The domain is part of the data of a function: <span class="math inline">\(x\mapsto x^2\)</span> on <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\(x\mapsto x^2\)</span> on <span class="math inline">\([0,\infty)\)</span> are, strictly speaking, different functions.</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-natural-domain" class="proof remark">
-<p><span class="proof-title"><em>Remark 4.1</em>. </span>When a function is specified by a formula with no domain stated, we adopt the convention that its domain is the <strong>natural domain</strong>: the largest set of real numbers for which the formula makes sense. For <span class="math inline">\(x\mapsto 1/(x-1)\)</span> this is <span class="math inline">\(\mathbb{R}\setminus\{1\}\)</span>; for <span class="math inline">\(x\mapsto\sqrt{x}\)</span> it is <span class="math inline">\([0,\infty)\)</span>. We are always free to <em>restrict</em> to a smaller domain when we want to.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-range" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.2</strong></span> <br>
-The <strong>range</strong> (or <strong>image</strong>) of <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is the set of values it actually attains: <span class="math display">\[
-\operatorname{ran}(f) \;=\; \{\, y\in\mathbb{R}: y = f(x) \text{ for some } x\in D \,\}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-range-vs-codomain" class="proof remark">
-<p><span class="proof-title"><em>Remark 4.2</em>. </span>The range need not fill up the codomain. For <span class="math inline">\(f\colon\mathbb{R}\to\mathbb{R}\)</span>, <span class="math inline">\(f(x)=x^2\)</span>, the codomain is <span class="math inline">\(\mathbb{R}\)</span> but <span class="math display">\[
-\operatorname{ran}(f) = [0,\infty),
-\]</span> since squares are never negative and every <span class="math inline">\(y\ge 0\)</span> is <span class="math inline">\((\sqrt y)^2\)</span>. Saying “<span class="math inline">\(f\)</span> maps into <span class="math inline">\(\mathbb{R}\)</span>” is a statement about where the values are <em>allowed</em> to live; the range records where they <em>actually</em> land.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="injective-functions" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="injective-functions"><span class="header-section-number">4.2</span> Injective Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-injection" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.3</strong></span> <br>
-A function <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is <strong>injective</strong> (or <strong>one-to-one</strong>) if it sends distinct inputs to distinct outputs: <span class="math display">\[
-x\neq y \quad \Rightarrow \quad f(x)\neq f(y),
-\]</span> or equivalently, taking the contrapositive, <span class="math inline">\(f(x)=f(y) \quad \Rightarrow \quad x=y\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-injection" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.1</strong></span> &nbsp;</p>
-<ul>
-<li><span class="math inline">\(f(x)=x^3\)</span> is injective on <span class="math inline">\(\mathbb{R}\)</span>: if <span class="math inline">\(x^3 = y^3\)</span> then <span class="math inline">\(x=y\)</span> (taking cube roots).</li>
-<li><span class="math inline">\(g(x)=x^2\)</span> is <strong>not</strong> injective on <span class="math inline">\(\mathbb{R}\)</span>: <span class="math inline">\(g(-1) = 1 = g(1)\)</span>, yet <span class="math inline">\(-1\neq 1\)</span>. Restricted to <span class="math inline">\([0,\infty)\)</span>, however, <span class="math inline">\(g\)</span> <em>is</em> injective.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<p>Injectivity is exactly the property that lets us run a function backwards; we return to this when we discuss inverse functions below.</p>
-</section>
-<section id="monotone-functions" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="monotone-functions"><span class="header-section-number">4.3</span> Monotone Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-monotone" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.4</strong></span> <br>
-Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> with <span class="math inline">\(D\subseteq\mathbb{R}\)</span>. For all <span class="math inline">\(x,w\in D\)</span>, we say <span class="math inline">\(f\)</span> is</p>
-<ul>
-<li><strong>increasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\le f(w)\)</span>;</li>
-<li><strong>strictly increasing</strong> if <span class="math inline">\(\;x &lt; w \quad \Rightarrow \quad f(x) &lt; f(w)\)</span>;</li>
-<li><strong>decreasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\ge f(w)\)</span>;</li>
-<li><strong>strictly decreasing</strong> if <span class="math inline">\(\;x &lt; w \quad \Rightarrow \quad f(x) &gt; f(w)\)</span>.</li>
-</ul>
-<p>A function of any of these four types is called <strong>monotone</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-monotone" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.2</strong></span> &nbsp;</p>
-<ul>
-<li><span class="math inline">\(f(x)=x^3\)</span> is strictly increasing on all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li><span class="math inline">\(g\colon[0,\pi]\to\mathbb{R}\)</span>, <span class="math inline">\(g(x)=\cos x\)</span>, is strictly decreasing: as the angle runs from <span class="math inline">\(0\)</span> to <span class="math inline">\(\pi\)</span>, the <span class="math inline">\(x\)</span>-coordinate on the unit circle drops steadily from <span class="math inline">\(1\)</span> to <span class="math inline">\(-1\)</span>.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exr-strict-mono-injective" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> Show that a strictly increasing function is injective (and likewise for strictly decreasing). Is the converse true — must an injective function be monotone?</p>
-</div>
-</div>
-</div>
-</div>
-<!-- ::: {.solution}
-If $f$ is strictly increasing and $x\neq y$, then either $x<y$, giving $f(x)<f(y)$, or $x>y$, giving
-$f(x)>f(y)$; either way $f(x)\neq f(y)$. So $f$ is injective.
-
-The converse fails. Define $f\colon\R\to\R$ by $f(x) = x$ for $x\neq 0,1$, with $f(0)=1$ and
-$f(1)=0$. This is a bijection of $\R$ (it just swaps two values), hence injective, but it is neither
-increasing nor decreasing.
-::: -->
-</section>
-<section id="even-and-odd-functions" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="even-and-odd-functions"><span class="header-section-number">4.4</span> Even and Odd Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-even-odd" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.5</strong></span> <br>
-Suppose the domain <span class="math inline">\(D\)</span> is symmetric about <span class="math inline">\(0\)</span>, i.e.&nbsp;<span class="math inline">\(x\in D \quad \Rightarrow \quad-x\in D\)</span>. A function <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is</p>
-<ul>
-<li><strong>even</strong> if <span class="math inline">\(f(-x)=f(x)\)</span> for all <span class="math inline">\(x\in D\)</span> — its graph is symmetric about the <span class="math inline">\(y\)</span>-axis;</li>
-<li><strong>odd</strong> if <span class="math inline">\(f(-x)=-f(x)\)</span> for all <span class="math inline">\(x\in D\)</span> — its graph is symmetric about the origin.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-even-odd" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.3</strong></span> <br>
-<span class="math inline">\(x^2\)</span>, <span class="math inline">\(\lvert x \rvert\)</span>, and <span class="math inline">\(\cos x\)</span> are even; <span class="math inline">\(x\)</span>, <span class="math inline">\(x^3\)</span>, and <span class="math inline">\(\sin x\)</span> are odd; <span class="math inline">\(x + x^2\)</span> is neither. Most functions are neither even nor odd.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exr-even-odd-decomposition" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 4.2</strong></span> Show that every function <span class="math inline">\(f\)</span> on a symmetric domain can be written <em>uniquely</em> as a sum <span class="math inline">\(f = f_{\mathrm e} + f_{\mathrm o}\)</span> of an even function <span class="math inline">\(f_{\mathrm e}\)</span> and an odd function <span class="math inline">\(f_{\mathrm o}\)</span>. (Hint: what must <span class="math inline">\(\tfrac12\bigl(f(x)+f(-x)\bigr)\)</span> and <span class="math inline">\(\tfrac12\bigl(f(x)-f(-x)\bigr)\)</span> be?)</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="building-new-functions-from-old" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="building-new-functions-from-old"><span class="header-section-number">4.5</span> Building New Functions from Old</h2>
-<p>Most functions we work with are assembled from simpler ones by a few standard operations.</p>
-<section id="arithmetic-combinations" class="level3">
-<h3 class="anchored" data-anchor-id="arithmetic-combinations">Arithmetic combinations</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-arithmetic-combinations" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.6</strong></span> <br>
-Let <span class="math inline">\(f,g\colon D\to\mathbb{R}\)</span> be two functions on the same domain, and <span class="math inline">\(c\in\mathbb{R}\)</span>. Then <span class="math display">\[
-f+g,\qquad c\,f,\qquad f\cdot g
-\]</span> are again functions on <span class="math inline">\(D\)</span>, defined <strong>pointwise</strong>: <span class="math inline">\((f+g)(x) = f(x)+g(x)\)</span>, <span class="math inline">\((c\,f)(x) = c\,f(x)\)</span>, <span class="math inline">\((f\cdot g)(x) = f(x)\,g(x)\)</span>. The <strong>quotient</strong> <span class="math inline">\(f/g\)</span>, given by <span class="math inline">\((f/g)(x) = f(x)/g(x)\)</span>, is a function on the smaller domain <span class="math display">\[
-D\setminus\{\, x\in D : g(x)=0 \,\}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="composition" class="level3">
-<h3 class="anchored" data-anchor-id="composition">Composition</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-composition" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.7</strong></span> <br>
-Let <span class="math inline">\(g\colon D\to\mathbb{R}\)</span> and <span class="math inline">\(f\colon D'\to\mathbb{R}\)</span> with <span class="math inline">\(\operatorname{ran}(g)\subseteq D'\)</span>. The <strong>composition</strong> <span class="math inline">\(f\circ g\)</span> (“first <span class="math inline">\(g\)</span>, then <span class="math inline">\(f\)</span>”) is <span class="math display">\[
-(f\circ g)(x) \;:=\; f\bigl(g(x)\bigr), \qquad x\in D,
-\]</span> a function with domain <span class="math inline">\(\operatorname{dom}(f\circ g) = \operatorname{dom}(g)\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-composition" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.4</strong></span> <br>
-With <span class="math inline">\(f(x)=\sqrt{x}\)</span> and <span class="math inline">\(g(x)=1+x^2\)</span>: <span class="math display">\[
-(f\circ g)(x) = \sqrt{1+x^2} \quad(\text{all } x\in\mathbb{R}), \qquad
-(g\circ f)(x) = 1 + x \quad(x\ge 0).
-\]</span> The order matters: <span class="math inline">\(f\circ g\)</span> and <span class="math inline">\(g\circ f\)</span> are different functions.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="inverse-functions" class="level3">
-<h3 class="anchored" data-anchor-id="inverse-functions">Inverse functions</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-inverse" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.8</strong></span> <br>
-If <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is injective, then for each <span class="math inline">\(y\in\operatorname{ran}(f)\)</span> there is <strong>exactly one</strong> <span class="math inline">\(x\in D\)</span> with <span class="math inline">\(f(x)=y\)</span>. Sending each such <span class="math inline">\(y\)</span> to that <span class="math inline">\(x\)</span> defines the <strong>inverse function</strong> <span class="math display">\[
-f^{-1}\colon \operatorname{ran}(f)\to D, \qquad f^{-1}\bigl(f(x)\bigr) = x \ \text{ for all } x\in D, \qquad
-f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
-\]</span> Its domain is <span class="math inline">\(\operatorname{ran}(f)\)</span> and its range is <span class="math inline">\(D\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Notation trap
+<span class="screen-reader-only">Note</span>Companion reading
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><span class="math inline">\(f^{-1}\)</span> denotes the <strong>inverse function</strong>, not the reciprocal <span class="math inline">\(1/f\)</span>. For <span class="math inline">\(f(x)=x^3\)</span> we have <span class="math inline">\(f^{-1}(y)=\sqrt[3]{y}\)</span>, whereas <span class="math inline">\(\dfrac{1}{f(x)} = x^{-3}\)</span>.</p>
+<p>This lecture corresponds to C&amp;J §1.2.d.</p>
+</div>
+</div>
+<p>Intuitively, a function is continuous if a small change in the independent variable produces only a small change in the dependent variable — the graph has no jumps, gaps, or blow-ups. Before making this precise, it helps to see why the intuitive idea is not yet a <em>definition</em>: it uses the word “small” twice without saying how small, or how the two smallnesses are related.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-jump-motivation" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.1</strong></span> <br>
+Let <span class="math display">\[
+f(x) = \begin{cases} 1 &amp; x \ge 0 \\ 0 &amp; x &lt; 0. \end{cases}
+\]</span> At <span class="math inline">\(x_0 = 0\)</span>, an arbitrarily small change in <span class="math inline">\(x\)</span> — moving from <span class="math inline">\(x=0\)</span> to some <span class="math inline">\(x&lt;0\)</span> — causes <span class="math inline">\(f\)</span> to jump from <span class="math inline">\(1\)</span> to <span class="math inline">\(0\)</span>, a change of a full unit. No matter how small a step we take to the left of <span class="math inline">\(0\)</span>, the output change stays large. We call this a <strong>jump discontinuity</strong> at <span class="math inline">\(x_0=0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Q: How do we make “small change forces small change” precise?</strong> The idea is to formalize “small” using neighborhoods.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-epsilon-neighborhood" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 6.1</strong></span> <br>
+Given <span class="math inline">\(a\in\mathbb{R}\)</span> and <span class="math inline">\(\varepsilon&gt;0\)</span>, the <strong><span class="math inline">\(\varepsilon\)</span>-neighborhood</strong> of <span class="math inline">\(a\)</span> is the interval <span class="math display">\[
+(a-\varepsilon,\, a+\varepsilon).
+\]</span> Think of <span class="math inline">\(\varepsilon\)</span> as a <em>tolerance</em>: saying “<span class="math inline">\(x\)</span> is within tolerance of <span class="math inline">\(a\)</span>” means <span class="math inline">\(x\in(a-\varepsilon,a+\varepsilon)\)</span>, i.e.&nbsp;<span class="math inline">\(\lvert x-a \rvert&lt;\varepsilon\)</span>. “Small change” becomes “<span class="math inline">\(\varepsilon\)</span> small.”</p>
+</div>
+</div>
+</div>
+</div>
+<p>Fix a point <span class="math inline">\(x_0\)</span>. We want: the distance between <span class="math inline">\(f(x)\)</span> and <span class="math inline">\(f(x_0)\)</span> stays within tolerance <span class="math inline">\(\varepsilon\)</span>, i.e. <span class="math display">\[
+\lvert f(x) - f(x_0) \rvert &lt; \varepsilon,
+\]</span> whenever <span class="math inline">\(x\)</span> is <em>sufficiently close</em> to <span class="math inline">\(x_0\)</span> — say, within some tolerance <span class="math inline">\(\delta\)</span> of <span class="math inline">\(x_0\)</span>. The key point is that this has to work for <strong>any</strong> <span class="math inline">\(\varepsilon&gt;0\)</span>, no matter how small; but we are allowed to choose <span class="math inline">\(\delta\)</span> <em>in response to</em> <span class="math inline">\(\varepsilon\)</span> — a smaller tolerance on the output may well force a smaller tolerance on the input.</p>
+<section id="the-varepsilondelta-definition" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="the-varepsilondelta-definition"><span class="header-section-number">6.1</span> The <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> Definition</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-continuity" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 6.2</strong></span> <br>
+Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> with <span class="math inline">\(D\subseteq\mathbb{R}\)</span>, and let <span class="math inline">\(x_0\in D\)</span>. We say <span class="math inline">\(f\)</span> is <strong>continuous at <span class="math inline">\(x_0\)</span></strong> if for every <span class="math inline">\(\varepsilon&gt;0\)</span> there exists <span class="math inline">\(\delta&gt;0\)</span> such that <span class="math display">\[
+x\in D \text{ and } \lvert x-x_0 \rvert&lt;\delta \quad \Rightarrow \quad\lvert f(x)-f(x_0) \rvert&lt;\varepsilon.
+\]</span></p>
+</div>
+</div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -550,8 +317,11 @@ f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="rem-inverse-graph" class="proof remark">
-<p><span class="proof-title"><em>Remark 4.3</em>. </span>The point <span class="math inline">\((a,b)\)</span> lies on the graph of <span class="math inline">\(f\)</span> exactly when <span class="math inline">\((b,a)\)</span> lies on the graph of <span class="math inline">\(f^{-1}\)</span>. So the graph of <span class="math inline">\(f^{-1}\)</span> is the mirror image of the graph of <span class="math inline">\(f\)</span> across the line <span class="math inline">\(y=x\)</span>.</p>
+<div id="exm-jump-not-continuous" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.2</strong></span> <br>
+Take <span class="math inline">\(f\)</span> as in <a href="#exm-jump-motivation" class="quarto-xref">Example&nbsp;<span>6.1</span></a> and <span class="math inline">\(x_0=0\)</span>. Pick <span class="math inline">\(\varepsilon=\tfrac12\)</span>. No matter how small we choose <span class="math inline">\(\delta&gt;0\)</span>, there is always some <span class="math inline">\(x&lt;0\)</span> with <span class="math inline">\(\lvert x-x_0 \rvert&lt;\delta\)</span> (i.e.&nbsp;<span class="math inline">\(x\)</span> is <span class="math inline">\(\delta\)</span>-close to <span class="math inline">\(x_0=0\)</span>), and for any such <span class="math inline">\(x\)</span>, <span class="math display">\[
+\lvert f(x)-f(x_0) \rvert = \lvert 0-1 \rvert = 1 &gt; \tfrac12.
+\]</span> So no <span class="math inline">\(\delta\)</span> works for this <span class="math inline">\(\varepsilon\)</span>, and <span class="math inline">\(f\)</span> is <strong>not</strong> continuous at <span class="math inline">\(x_0=0\)</span>.</p>
 </div>
 </div>
 </div>
@@ -562,25 +332,162 @@ f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="exm-inverse" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.5</strong></span> <br>
-<span class="math inline">\(f(x)=x^3\)</span> is injective on <span class="math inline">\(\mathbb{R}\)</span> with <span class="math inline">\(\operatorname{ran}(f)=\mathbb{R}\)</span>, and <span class="math inline">\(f^{-1}(y)=\sqrt[3]{y}\)</span>. By contrast <span class="math inline">\(g(x)=x^2\)</span> on <span class="math inline">\(\mathbb{R}\)</span> has no inverse (it is not injective); restricted to <span class="math inline">\([0,\infty)\)</span> it does, namely <span class="math inline">\(g^{-1}(y)=\sqrt{y}\)</span>.</p>
+<div id="rem-continuity-at-a-point" class="proof remark">
+<p><span class="proof-title"><em>Remark 6.1</em>. </span>Continuity is a property of <span class="math inline">\(f\)</span> <strong>at a point</strong>. The function <span class="math inline">\(f\)</span> above is continuous at every <span class="math inline">\(x_0\neq 0\)</span> (<a href="#exr-jump-continuous-elsewhere" class="quarto-xref">Exercise&nbsp;<span>6.1</span></a>) and discontinuous only at <span class="math inline">\(x_0=0\)</span> — a function can be continuous at some points of its domain and discontinuous at others.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-jump-continuous-elsewhere" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.1</strong></span> Show that <span class="math inline">\(f\)</span> from <a href="#exm-jump-motivation" class="quarto-xref">Example&nbsp;<span>6.1</span></a> is continuous at every <span class="math inline">\(x_0\neq 0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<section id="the-varepsilondelta-game" class="level3">
+<h3 class="anchored" data-anchor-id="the-varepsilondelta-game">The <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> game</h3>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-epsilon-delta-game" class="proof remark">
+<p><span class="proof-title"><em>Remark 6.2</em>. </span>It helps to think of the definition as a game between an opponent and you. The opponent challenges you with some <span class="math inline">\(\varepsilon&gt;0\)</span>; you must exhibit a matching <span class="math inline">\(\delta&gt;0\)</span> so that <span class="math display">\[
+\lvert x-x_0 \rvert&lt;\delta \quad \Rightarrow \quad\lvert f(x)-f(x_0) \rvert&lt;\varepsilon.
+\]</span> <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(x_0\)</span> exactly when you can win this game <strong>no matter which <span class="math inline">\(\varepsilon\)</span> the opponent picks</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-linear-continuous" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.3</strong></span> <br>
+<span class="math inline">\(g(x) = 3x+2\)</span> is continuous at every <span class="math inline">\(x_0\in\mathbb{R}\)</span>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon&gt;0\)</span> and <span class="math inline">\(x_0\in\mathbb{R}\)</span> be arbitrary. We want <span class="math inline">\(\lvert g(x)-g(x_0) \rvert&lt;\varepsilon\)</span>. Compute <span class="math display">\[
+\lvert g(x)-g(x_0) \rvert = \lvert (3x+2)-(3x_0+2) \rvert = \lvert 3x-3x_0 \rvert = 3\lvert x-x_0 \rvert.
+\]</span> So if we let <span class="math inline">\(\delta = \varepsilon/3\)</span>, then <span class="math display">\[
+\lvert x-x_0 \rvert&lt;\delta \quad \Rightarrow \quad\lvert g(x)-g(x_0) \rvert = 3\lvert x-x_0 \rvert &lt; 3\delta = \varepsilon.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-half-x-continuous" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Show, directly from <a href="#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>, that <span class="math inline">\(h(x) = \tfrac12 x - 1\)</span> is continuous at every <span class="math inline">\(x_0\in\mathbb{R}\)</span>. (What choice of <span class="math inline">\(\delta\)</span> in terms of <span class="math inline">\(\varepsilon\)</span> makes the argument work?)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- ::: {.solution}
+$\abs{h(x)-h(x_0)} = \tfrac12\abs{x-x_0}$, so $\delta = 2\varepsilon$ works: if $\abs{x-x_0}<\delta$
+then $\abs{h(x)-h(x_0)} = \tfrac12\abs{x-x_0} < \tfrac12\delta = \varepsilon$.
+::: -->
+<p>A Jupyter demonstration accompanying this lecture lets you play the <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> game interactively: pick <span class="math inline">\(x_0\)</span> and a <span class="math inline">\(\delta\)</span>, and watch the resulting range of <span class="math inline">\(f\)</span>-values shrink (or fail to shrink) as <span class="math inline">\(\delta\to 0\)</span>.</p>
+</section>
+</section>
+<section id="types-of-discontinuities" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="types-of-discontinuities"><span class="header-section-number">6.2</span> Types of Discontinuities</h2>
+<p>If <span class="math inline">\(f\)</span> fails to be continuous at <span class="math inline">\(x_0\)</span>, the failure typically has one of three flavors.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-jump-discontinuity" class="proof remark">
+<p><span class="proof-title"><em>Remark 6.3</em>. </span><strong>Jump discontinuities.</strong> The values of <span class="math inline">\(f\)</span> approach one number from the left of <span class="math inline">\(x_0\)</span> and a different number from the right, as in <a href="#exm-jump-motivation" class="quarto-xref">Example&nbsp;<span>6.1</span></a>. We will make this precise next week with <em>one-sided limits</em>: a jump discontinuity is exactly a point where the one-sided limits exist but disagree.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-infinite-discontinuity" class="proof remark">
+<p><span class="proof-title"><em>Remark 6.4</em>. </span><strong>Unbounded (infinite) discontinuities.</strong> Consider <span class="math display">\[
+f(x) = \begin{cases} 1/x^2 &amp; x\neq 0 \\ 0 &amp; x = 0. \end{cases}
+\]</span> As <span class="math inline">\(x\to 0\)</span>, <span class="math inline">\(f(x)\to\infty\)</span>, so <span class="math inline">\(\lvert f(x)-f(0) \rvert\)</span> is <strong>unbounded</strong> on every neighborhood of <span class="math inline">\(0\)</span> — no <span class="math inline">\(\varepsilon\)</span>-tolerance, however large, can be met near <span class="math inline">\(x_0=0\)</span> by any <span class="math inline">\(\delta\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-oscillation-discontinuity" class="proof remark">
+<p><span class="proof-title"><em>Remark 6.5</em>. </span><strong>Oscillation discontinuities.</strong> Consider <span class="math display">\[
+g(x) = \begin{cases} \sin(1/x) &amp; x\neq 0 \\ 0 &amp; x=0. \end{cases}
+\]</span> Near <span class="math inline">\(x_0=0\)</span>, <span class="math inline">\(g\)</span> oscillates wildly: arbitrarily close to <span class="math inline">\(0\)</span> we can always find points where <span class="math inline">\(g\)</span> equals <span class="math inline">\(1\)</span> and points where <span class="math inline">\(g\)</span> equals <span class="math inline">\(-1\)</span>. Indeed, for any <span class="math inline">\(n\in\mathbb{N}\)</span>, taking <span class="math display">\[
+x_1 = \frac{1}{2\pi n + \pi/2} \qquad\text{gives}\qquad \sin(1/x_1) = 1,
+\]</span> and similarly <span class="math inline">\(x_{-1} = \dfrac{1}{2\pi n + 3\pi/2}\)</span> gives <span class="math inline">\(\sin(1/x_{-1}) = -1\)</span>; both <span class="math inline">\(x_1,x_{-1}\to 0\)</span> as <span class="math inline">\(n\to\infty\)</span>. So on every neighborhood of <span class="math inline">\(0\)</span>, no matter how small, <span class="math inline">\(g\)</span> takes values <span class="math inline">\(\varepsilon\)</span> apart for <span class="math inline">\(\varepsilon\)</span> close to <span class="math inline">\(2\)</span> — <span class="math inline">\(g\)</span> cannot be made continuous at <span class="math inline">\(0\)</span> by any choice of <span class="math inline">\(g(0)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-x-sin-continuous" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.4</strong></span> <br>
+Contrast this with <span class="math display">\[
+x\sin(1/x) \quad (x\neq 0), \qquad \text{value } 0 \text{ at } x=0,
+\]</span> which <strong>is</strong> continuous at <span class="math inline">\(x_0=0\)</span>: although <span class="math inline">\(\sin(1/x)\)</span> still oscillates without settling down, it is squeezed between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>, so <span class="math inline">\(\lvert x\sin(1/x) - 0 \rvert \le \lvert x \rvert \to 0\)</span> as <span class="math inline">\(x\to 0\)</span>. Oscillation alone does not cause a discontinuity — it must fail to be <em>damped out</em> as <span class="math inline">\(x\to x_0\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="summary" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.6</span> Summary</h2>
+<section id="summary" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.3</span> Summary</h2>
 <ul>
-<li>A <strong>function</strong> <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> (<a href="#def-function" class="quarto-xref">Definition&nbsp;<span>4.1</span></a>) assigns to each point of its <strong>domain</strong> <span class="math inline">\(D\)</span> exactly one real value; the set of values attained is its <strong>range</strong> (<a href="#def-range" class="quarto-xref">Definition&nbsp;<span>4.2</span></a>), which may be a proper subset of the codomain.</li>
-<li><span class="math inline">\(f\)</span> is <strong>injective</strong> (<a href="#def-injection" class="quarto-xref">Definition&nbsp;<span>4.3</span></a>) if distinct inputs give distinct outputs, and <strong>monotone</strong>
-<ol class="example" type="1">
-<li>if it consistently preserves or reverses order; strict monotonicity implies injectivity (<a href="#exr-strict-mono-injective" class="quarto-xref">Exercise&nbsp;<span>4.1</span></a>).</li>
-</ol></li>
-<li>On a symmetric domain, <span class="math inline">\(f\)</span> may be <strong>even</strong> or <strong>odd</strong> (<a href="#def-even-odd" class="quarto-xref">Definition&nbsp;<span>4.5</span></a>), i.e.&nbsp;symmetric about the <span class="math inline">\(y\)</span>-axis or the origin.</li>
-<li>New functions are built from old ones by pointwise <strong>arithmetic</strong> (<a href="#def-arithmetic-combinations" class="quarto-xref">Definition&nbsp;<span>4.6</span></a>), <strong>composition</strong> (<a href="#def-composition" class="quarto-xref">Definition&nbsp;<span>4.7</span></a>), and — when <span class="math inline">\(f\)</span> is injective — by forming the <strong>inverse</strong> <span class="math inline">\(f^{-1}\)</span> (<a href="#def-inverse" class="quarto-xref">Definition&nbsp;<span>4.8</span></a>), whose graph is the reflection of that of <span class="math inline">\(f\)</span> across <span class="math inline">\(y=x\)</span>.</li>
+<li>The intuitive idea “small change in, small change out” is formalized using <strong><span class="math inline">\(\varepsilon\)</span>-neighborhoods</strong> (<a href="#def-epsilon-neighborhood" class="quarto-xref">Definition&nbsp;<span>6.1</span></a>): a tolerance interval <span class="math inline">\((a-\varepsilon,a+\varepsilon)\)</span> around a point.</li>
+<li><span class="math inline">\(f\)</span> is <strong>continuous at <span class="math inline">\(x_0\)</span></strong> (<a href="#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>) if for every tolerance <span class="math inline">\(\varepsilon&gt;0\)</span> on the output, there is a matching tolerance <span class="math inline">\(\delta&gt;0\)</span> on the input, so that <span class="math inline">\(x\)</span> within <span class="math inline">\(\delta\)</span> of <span class="math inline">\(x_0\)</span> forces <span class="math inline">\(f(x)\)</span> within <span class="math inline">\(\varepsilon\)</span> of <span class="math inline">\(f(x_0)\)</span> — think of it as a game (<a href="#rem-epsilon-delta-game" class="quarto-xref">Remark&nbsp;<span>6.2</span></a>) you must be able to win against any <span class="math inline">\(\varepsilon\)</span>.</li>
+<li>Continuity is a property of <span class="math inline">\(f\)</span> <strong>at a point</strong> (<a href="#rem-continuity-at-a-point" class="quarto-xref">Remark&nbsp;<span>6.1</span></a>); a function can be continuous at some points and not others.</li>
+<li>Failures of continuity come in three standard flavors: <strong>jump</strong> discontinuities (<a href="#rem-jump-discontinuity" class="quarto-xref">Remark&nbsp;<span>6.3</span></a>), where one-sided behavior disagrees; <strong>unbounded</strong> discontinuities (<a href="#rem-infinite-discontinuity" class="quarto-xref">Remark&nbsp;<span>6.4</span></a>), where <span class="math inline">\(f\)</span> blows up; and <strong>oscillation</strong> discontinuities (<a href="#rem-oscillation-discontinuity" class="quarto-xref">Remark&nbsp;<span>6.5</span></a>), where <span class="math inline">\(f\)</span> never settles down near <span class="math inline">\(x_0\)</span> — unless the oscillation is damped, as in <span class="math inline">\(x\sin(1/x)\)</span> (<a href="#exm-x-sin-continuous" class="quarto-xref">Example&nbsp;<span>6.4</span></a>), which remains continuous.</li>
 </ul>
 
 
@@ -989,14 +896,11 @@ f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./notebooks/Week01_Number_Bases.html" class="pagination-link" aria-label="Jupyter Activity: p-ary Expansions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span>
+      <a href="./04_elementary_functions.html" class="pagination-link" aria-label="The Elementary Functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04_elementary_functions.html" class="pagination-link" aria-label="The Elementary Functions">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

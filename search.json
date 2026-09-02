@@ -393,5 +393,49 @@
       "Functions",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>The Elementary Functions</span>"
     ]
+  },
+  {
+    "objectID": "05_continuity.html",
+    "href": "05_continuity.html",
+    "title": "6  Continuity",
+    "section": "",
+    "text": "6.1 The \\(\\varepsilon\\)–\\(\\delta\\) Definition\nIntuitively, a function is continuous if a small change in the independent variable produces only a small change in the dependent variable — the graph has no jumps, gaps, or blow-ups. Before making this precise, it helps to see why the intuitive idea is not yet a definition: it uses the word “small” twice without saying how small, or how the two smallnesses are related.\nQ: How do we make “small change forces small change” precise? The idea is to formalize “small” using neighborhoods.\nFix a point \\(x_0\\). We want: the distance between \\(f(x)\\) and \\(f(x_0)\\) stays within tolerance \\(\\varepsilon\\), i.e. \\[\n\\lvert f(x) - f(x_0) \\rvert &lt; \\varepsilon,\n\\] whenever \\(x\\) is sufficiently close to \\(x_0\\) — say, within some tolerance \\(\\delta\\) of \\(x_0\\). The key point is that this has to work for any \\(\\varepsilon&gt;0\\), no matter how small; but we are allowed to choose \\(\\delta\\) in response to \\(\\varepsilon\\) — a smaller tolerance on the output may well force a smaller tolerance on the input.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Continuity</span>"
+    ]
+  },
+  {
+    "objectID": "05_continuity.html#the-varepsilondelta-definition",
+    "href": "05_continuity.html#the-varepsilondelta-definition",
+    "title": "6  Continuity",
+    "section": "",
+    "text": "Definition 6.2 \nLet \\(f\\colon D\\to\\mathbb{R}\\) with \\(D\\subseteq\\mathbb{R}\\), and let \\(x_0\\in D\\). We say \\(f\\) is continuous at \\(x_0\\) if for every \\(\\varepsilon&gt;0\\) there exists \\(\\delta&gt;0\\) such that \\[\nx\\in D \\text{ and } \\lvert x-x_0 \\rvert&lt;\\delta \\quad \\Rightarrow \\quad\\lvert f(x)-f(x_0) \\rvert&lt;\\varepsilon.\n\\]\n\n\n\n\n\n\n\n\n\n\n\nExample 6.2 \nTake \\(f\\) as in Example 6.1 and \\(x_0=0\\). Pick \\(\\varepsilon=\\tfrac12\\). No matter how small we choose \\(\\delta&gt;0\\), there is always some \\(x&lt;0\\) with \\(\\lvert x-x_0 \\rvert&lt;\\delta\\) (i.e. \\(x\\) is \\(\\delta\\)-close to \\(x_0=0\\)), and for any such \\(x\\), \\[\n\\lvert f(x)-f(x_0) \\rvert = \\lvert 0-1 \\rvert = 1 &gt; \\tfrac12.\n\\] So no \\(\\delta\\) works for this \\(\\varepsilon\\), and \\(f\\) is not continuous at \\(x_0=0\\).\n\n\n\n\n\n\n\n\n\n\n\nRemark 6.1. Continuity is a property of \\(f\\) at a point. The function \\(f\\) above is continuous at every \\(x_0\\neq 0\\) (Exercise 6.1) and discontinuous only at \\(x_0=0\\) — a function can be continuous at some points of its domain and discontinuous at others.\n\n\n\n\n\n\n\n\n\n\n\nExercise 6.1 Show that \\(f\\) from Example 6.1 is continuous at every \\(x_0\\neq 0\\).\n\n\n\n\n\nThe \\(\\varepsilon\\)–\\(\\delta\\) game\n\n\n\n\n\n\n\nRemark 6.2. It helps to think of the definition as a game between an opponent and you. The opponent challenges you with some \\(\\varepsilon&gt;0\\); you must exhibit a matching \\(\\delta&gt;0\\) so that \\[\n\\lvert x-x_0 \\rvert&lt;\\delta \\quad \\Rightarrow \\quad\\lvert f(x)-f(x_0) \\rvert&lt;\\varepsilon.\n\\] \\(f\\) is continuous at \\(x_0\\) exactly when you can win this game no matter which \\(\\varepsilon\\) the opponent picks.\n\n\n\n\n\n\n\n\n\n\n\nExample 6.3 \n\\(g(x) = 3x+2\\) is continuous at every \\(x_0\\in\\mathbb{R}\\).\n\n\n\n\n\n\nNoteProof\n\n\n\n\n\n\nProof. Let \\(\\varepsilon&gt;0\\) and \\(x_0\\in\\mathbb{R}\\) be arbitrary. We want \\(\\lvert g(x)-g(x_0) \\rvert&lt;\\varepsilon\\). Compute \\[\n\\lvert g(x)-g(x_0) \\rvert = \\lvert (3x+2)-(3x_0+2) \\rvert = \\lvert 3x-3x_0 \\rvert = 3\\lvert x-x_0 \\rvert.\n\\] So if we let \\(\\delta = \\varepsilon/3\\), then \\[\n\\lvert x-x_0 \\rvert&lt;\\delta \\quad \\Rightarrow \\quad\\lvert g(x)-g(x_0) \\rvert = 3\\lvert x-x_0 \\rvert &lt; 3\\delta = \\varepsilon.\n\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExercise 6.2 Show, directly from Definition 6.2, that \\(h(x) = \\tfrac12 x - 1\\) is continuous at every \\(x_0\\in\\mathbb{R}\\). (What choice of \\(\\delta\\) in terms of \\(\\varepsilon\\) makes the argument work?)\n\n\n\n\n\nA Jupyter demonstration accompanying this lecture lets you play the \\(\\varepsilon\\)–\\(\\delta\\) game interactively: pick \\(x_0\\) and a \\(\\delta\\), and watch the resulting range of \\(f\\)-values shrink (or fail to shrink) as \\(\\delta\\to 0\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Continuity</span>"
+    ]
+  },
+  {
+    "objectID": "05_continuity.html#types-of-discontinuities",
+    "href": "05_continuity.html#types-of-discontinuities",
+    "title": "6  Continuity",
+    "section": "6.2 Types of Discontinuities",
+    "text": "6.2 Types of Discontinuities\nIf \\(f\\) fails to be continuous at \\(x_0\\), the failure typically has one of three flavors.\n\n\n\n\n\n\n\nRemark 6.3. Jump discontinuities. The values of \\(f\\) approach one number from the left of \\(x_0\\) and a different number from the right, as in Example 6.1. We will make this precise next week with one-sided limits: a jump discontinuity is exactly a point where the one-sided limits exist but disagree.\n\n\n\n\n\n\n\n\n\n\n\nRemark 6.4. Unbounded (infinite) discontinuities. Consider \\[\nf(x) = \\begin{cases} 1/x^2 & x\\neq 0 \\\\ 0 & x = 0. \\end{cases}\n\\] As \\(x\\to 0\\), \\(f(x)\\to\\infty\\), so \\(\\lvert f(x)-f(0) \\rvert\\) is unbounded on every neighborhood of \\(0\\) — no \\(\\varepsilon\\)-tolerance, however large, can be met near \\(x_0=0\\) by any \\(\\delta\\).\n\n\n\n\n\n\n\n\n\n\n\nRemark 6.5. Oscillation discontinuities. Consider \\[\ng(x) = \\begin{cases} \\sin(1/x) & x\\neq 0 \\\\ 0 & x=0. \\end{cases}\n\\] Near \\(x_0=0\\), \\(g\\) oscillates wildly: arbitrarily close to \\(0\\) we can always find points where \\(g\\) equals \\(1\\) and points where \\(g\\) equals \\(-1\\). Indeed, for any \\(n\\in\\mathbb{N}\\), taking \\[\nx_1 = \\frac{1}{2\\pi n + \\pi/2} \\qquad\\text{gives}\\qquad \\sin(1/x_1) = 1,\n\\] and similarly \\(x_{-1} = \\dfrac{1}{2\\pi n + 3\\pi/2}\\) gives \\(\\sin(1/x_{-1}) = -1\\); both \\(x_1,x_{-1}\\to 0\\) as \\(n\\to\\infty\\). So on every neighborhood of \\(0\\), no matter how small, \\(g\\) takes values \\(\\varepsilon\\) apart for \\(\\varepsilon\\) close to \\(2\\) — \\(g\\) cannot be made continuous at \\(0\\) by any choice of \\(g(0)\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 6.4 \nContrast this with \\[\nx\\sin(1/x) \\quad (x\\neq 0), \\qquad \\text{value } 0 \\text{ at } x=0,\n\\] which is continuous at \\(x_0=0\\): although \\(\\sin(1/x)\\) still oscillates without settling down, it is squeezed between \\(-1\\) and \\(1\\), so \\(\\lvert x\\sin(1/x) - 0 \\rvert \\le \\lvert x \\rvert \\to 0\\) as \\(x\\to 0\\). Oscillation alone does not cause a discontinuity — it must fail to be damped out as \\(x\\to x_0\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Continuity</span>"
+    ]
+  },
+  {
+    "objectID": "05_continuity.html#summary",
+    "href": "05_continuity.html#summary",
+    "title": "6  Continuity",
+    "section": "6.3 Summary",
+    "text": "6.3 Summary\n\nThe intuitive idea “small change in, small change out” is formalized using \\(\\varepsilon\\)-neighborhoods (Definition 6.1): a tolerance interval \\((a-\\varepsilon,a+\\varepsilon)\\) around a point.\n\\(f\\) is continuous at \\(x_0\\) (Definition 6.2) if for every tolerance \\(\\varepsilon&gt;0\\) on the output, there is a matching tolerance \\(\\delta&gt;0\\) on the input, so that \\(x\\) within \\(\\delta\\) of \\(x_0\\) forces \\(f(x)\\) within \\(\\varepsilon\\) of \\(f(x_0)\\) — think of it as a game (Remark 6.2) you must be able to win against any \\(\\varepsilon\\).\nContinuity is a property of \\(f\\) at a point (Remark 6.1); a function can be continuous at some points and not others.\nFailures of continuity come in three standard flavors: jump discontinuities (Remark 6.3), where one-sided behavior disagrees; unbounded discontinuities (Remark 6.4), where \\(f\\) blows up; and oscillation discontinuities (Remark 6.5), where \\(f\\) never settles down near \\(x_0\\) — unless the oscillation is damped, as in \\(x\\sin(1/x)\\) (Example 6.4), which remains continuous.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Continuity</span>"
+    ]
   }
 ]

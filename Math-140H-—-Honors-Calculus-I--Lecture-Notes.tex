@@ -204,15 +204,15 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
+\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -1232,12 +1232,6 @@ case?
 
 \chapter{The Concept of Function}\label{the-concept-of-function}
 
-\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
-
-This lecture corresponds to C\&J §1.2.
-
-\end{tcolorbox}
-
 With the number line in hand, we can start doing calculus --- but
 calculus is not really about individual numbers. It is about
 \emph{dependence}: how one quantity changes as another one does. The
@@ -1322,11 +1316,18 @@ x\neq y \quad \Rightarrow \quad f(x)\neq f(y),
 
 \begin{example}[]\protect\hypertarget{exm-injection}{}\label{exm-injection}
 
-\hfill\break
-- \(f(x)=x^3\) is injective on \(\mathbb{R}\): if \(x^3 = y^3\) then
-\(x=y\) (taking cube roots). - \(g(x)=x^2\) is \textbf{not} injective on
-\(\mathbb{R}\): \(g(-1) = 1 = g(1)\), yet \(-1\neq 1\). Restricted to
-\([0,\infty)\), however, \(g\) \emph{is} injective.
+~
+
+\begin{itemize}
+\tightlist
+\item
+  \(f(x)=x^3\) is injective on \(\mathbb{R}\): if \(x^3 = y^3\) then
+  \(x=y\) (taking cube roots).
+\item
+  \(g(x)=x^2\) is \textbf{not} injective on \(\mathbb{R}\):
+  \(g(-1) = 1 = g(1)\), yet \(-1\neq 1\). Restricted to \([0,\infty)\),
+  however, \(g\) \emph{is} injective.
+\end{itemize}
 
 \end{example}
 
@@ -1344,13 +1345,13 @@ Let \(f\colon D\to\mathbb{R}\) with \(D\subseteq\mathbb{R}\). For all
 \begin{itemize}
 \tightlist
 \item
-  \textbf{(monotonically) increasing} if
+  \textbf{increasing} if
   \(\;x\le w \quad \Rightarrow \quad f(x)\le f(w)\);
 \item
   \textbf{strictly increasing} if
   \(\;x < w \quad \Rightarrow \quad f(x) < f(w)\);
 \item
-  \textbf{(monotonically) decreasing} if
+  \textbf{decreasing} if
   \(\;x\le w \quad \Rightarrow \quad f(x)\ge f(w)\);
 \item
   \textbf{strictly decreasing} if
@@ -1363,11 +1364,18 @@ A function of any of these four types is called \textbf{monotone}.
 
 \begin{example}[]\protect\hypertarget{exm-monotone}{}\label{exm-monotone}
 
-\hfill\break
-- \(f(x)=x^3\) is strictly increasing on all of \(\mathbb{R}\). -
-\(g\colon[0,\pi]\to\mathbb{R}\), \(g(x)=\cos x\), is strictly
-decreasing: as the angle runs from \(0\) to \(\pi\), the
-\(x\)-coordinate on the unit circle drops steadily from \(1\) to \(-1\).
+~
+
+\begin{itemize}
+\tightlist
+\item
+  \(f(x)=x^3\) is strictly increasing on all of \(\mathbb{R}\).
+\item
+  \(g\colon[0,\pi]\to\mathbb{R}\), \(g(x)=\cos x\), is strictly
+  decreasing: as the angle runs from \(0\) to \(\pi\), the
+  \(x\)-coordinate on the unit circle drops steadily from \(1\) to
+  \(-1\).
+\end{itemize}
 
 \end{example}
 
@@ -1378,17 +1386,6 @@ strictly decreasing). Is the converse true --- must an injective
 function be monotone?
 
 \end{exercise}
-
-\begin{solution}
-If \(f\) is strictly increasing and \(x\neq y\), then either \(x<y\),
-giving \(f(x)<f(y)\), or \(x>y\), giving \(f(x)>f(y)\); either way
-\(f(x)\neq f(y)\). So \(f\) is injective.
-
-The converse fails. Define \(f\colon\mathbb{R}\to\mathbb{R}\) by
-\(f(x) = x\) for \(x\neq 0,1\), with \(f(0)=1\) and \(f(1)=0\). This is
-a bijection of \(\mathbb{R}\) (it just swaps two values), hence
-injective, but it is neither increasing nor decreasing.
-\end{solution}
 
 \section{Even and Odd Functions}\label{even-and-odd-functions}
 
@@ -1634,12 +1631,20 @@ Z = \{\, x\in\mathbb{R}: q(x) = 0 \,\}
 
 \begin{example}[]\protect\hypertarget{exm-rational}{}\label{exm-rational}
 
-\hfill\break
-- \(\dfrac{x}{x^2+1}\) is a rational function. Since \(x^2+1 > 0\) for
-every real \(x\), the set \(Z\) is empty and the domain is all of
-\(\mathbb{R}\). - \(\dfrac{\sqrt{x}}{x^3 - x}\) is \textbf{not} a
-rational function: \(\sqrt{x}\) is not a polynomial. (It is, however,
-still an elementary function --- see the next section.)
+~
+
+\begin{itemize}
+\tightlist
+\item
+  \(\dfrac{x}{x^2+1}\) is a rational function. Since \(x^2+1 > 0\) for
+  every real \(x\), the set \(Z\) is empty and the domain is all of
+  \(\mathbb{R}\).
+\item
+  \(\dfrac{\sqrt{x}}{x^3 - x}\) is \textbf{not} a rational function:
+  \(\sqrt{x}\) is not a polynomial. (It is, however, still an elementary
+  function, as it is the arithmetic combination of two elementary
+  functions - see next section)
+\end{itemize}
 
 \end{example}
 
@@ -1761,13 +1766,6 @@ period, and range, and the smallest \(x > 0\) at which it attains its
 maximum.
 
 \end{exercise}
-
-\begin{solution}
-Amplitude \(|A| = 3\), period \(\dfrac{2\pi}{2} = \pi\), offset
-\(C = 1\), so the range is \([1-3,\,1+3] = [-2,4]\). The maximum occurs
-when \(\sin(2x) = 1\), i.e.~\(2x = \tfrac{\pi}{2} + 2k\pi\); the
-smallest positive solution is \(x = \tfrac{\pi}{4}\).
-\end{solution}
 
 \section{Summary}\label{summary-3}
 

@@ -1137,4 +1137,125 @@ Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 2
 52.
 
-(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmss
+(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 2
+52.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
+52.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+252.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+252.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 252.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 252.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 252.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 252
+.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 252
+.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+) [1
+
+
+
+{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
+al/texlive/2026/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
+Package tocbasic Info: character protrusion at toc deactivated on input line 25
+6.
+
+(./Math-140H-—-Honors-Calculus-I--Lecture-Notes.toc)
+\tf@toc=\write5
+\openout5 = `Math-140H-—-Honors-Calculus-I--Lecture-Notes.toc'.
+
+ [2
+
+] [3
+
+]
+part I.
+Package scrkbase Info: You've told me to use the font selection of the element
+(scrkbase)             `partprefix' that is an alias of element `partnumber'
+(scrkbase)              on input line 276.
+[4
+
+]
+chapter 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 300.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 300.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 300.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
+12.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+./Math-140H-—-Honors-Calculus-I--Lecture-Notes.tex:312: LaTeX Error: Unicode 
+character   (U+2003)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.312   \(a+b=b+a\) and \(ab=ba\)  
+                                      (commutative laws)
+? 
+./Math-140H-—-Honors-Calculus-I--Lecture-Notes.tex:312: Emergency stop.
+ ...                                              
+                                                  
+l.312   \(a+b=b+a\) and \(ab=ba\)  
+                                      (commutative laws)
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+ 
+Here is how much of TeX's memory you used:
+ 36614 strings out of 467349
+ 741244 string characters out of 5415635
+ 1318664 words of memory out of 5000000
+ 65095 multiletter control sequences out of 15000+600000
+ 685087 words of font info for 123 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 108i,7n,108p,11268b,955s stack positions out of 10000i,1000n,20000p,200000b,200000s
+./Math-140H-—-Honors-Calculus-I--Lecture-Notes.tex:312:  ==> Fatal error occu
+rred, no output PDF file produced!

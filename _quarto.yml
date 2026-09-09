@@ -19,6 +19,9 @@ book:
         - 05_continuity.qmd
         - 06_activity_properties_of_functions.qmd
         # - notebooks/Week02_Continuity.ipynb
+    - part: Limits
+      chapters:
+        - 07_sequences_convergence.qmd
 
 number-sections: true
 

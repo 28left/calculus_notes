@@ -1,0 +1,197 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Sequences and Convergence
+
+::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.6 (a selection). The arithmetic rules for limits are treated in
+C&J §1.7.
+:::
+
+## Sequences
+
+A **sequence** is an unending list of real numbers
+$$
+a_1,\ a_2,\ a_3,\ \ldots
+$$
+We write $(a_n)_{n\in\N}$, or just $(a_n)$, and call $a_n$ the **$n$-th term**. Formally, a sequence is
+nothing but a function
+$$
+a\colon \N \to \R,
+$$
+where we write $a_n$ instead of $a(n)$.
+
+::: {#exm-sequences}
+\
+$$
+\begin{aligned}
+a_n &= \tfrac{1}{n}: & &1,\ \tfrac12,\ \tfrac13,\ \tfrac14,\ \ldots \\[2pt]
+b_n &= \tfrac{(-1)^{n+1}}{n}: & &1,\ -\tfrac12,\ \tfrac13,\ -\tfrac14,\ \ldots \\[2pt]
+c_n &= \tfrac{n}{n+1}: & &\tfrac12,\ \tfrac23,\ \tfrac34,\ \tfrac45,\ \ldots \\[2pt]
+d_n &= \sqrt[n]{p}, \quad p>0 \text{ fixed} \\[2pt]
+e_n &= \alpha^n, \quad \alpha>1.
+\end{aligned}
+$$
+:::
+
+## The Limit of a Sequence
+
+Look at $a_n = \tfrac1n$. What happens to the terms as $n$ gets larger and larger? The values get
+smaller and smaller, coming **arbitrarily close to $0$** — though no term is ever equal to $0$. We want
+to make "arbitrarily close" precise.
+
+The idea is to use $\eps$-neighborhoods (@def-epsilon-neighborhood): given a tolerance $\eps>0$, we
+ask that *from some point on*, every term of the sequence lies within $\eps$ of $0$.
+
+::: {#def-null-sequence}
+\
+We say $(a_n)$ **converges to $0$**, written
+$$
+\lim_{n\to\infty} a_n = 0 \qquad\text{or}\qquad a_n \to 0,
+$$
+if for every $\eps>0$ there exists $N\in\N$ such that
+$$
+\abs{a_n} = \abs{a_n - 0} < \eps \qquad\text{for all } n \ge N.
+$$
+:::
+
+The number $N$ is allowed to depend on $\eps$ — a smaller tolerance will in general require going
+further out in the sequence. To emphasize this dependence one sometimes writes $N(\eps)$.
+
+::: {#exm-one-over-n}
+\
+$\lim_{n\to\infty} \tfrac1n = 0$.
+
+::: {.proof}
+Let $\eps>0$. We must find $N$ so that $\tfrac1n < \eps$ for all $n\ge N$. Now
+$$
+\tfrac1n < \eps \Iff \tfrac1\eps < n,
+$$
+so any $N \in \N$ with $N > \tfrac1\eps$ works: if $n \ge N > \tfrac1\eps$, then $\tfrac1n < \eps$.
+
+Concretely, for $\eps = 0.05 = \tfrac{5}{100}$ we need $n > \tfrac{100}{5} = 20$, so $N = 21$ will do.
+:::
+:::
+
+::: {#exr-alternating-null}
+Show that $\lim_{n\to\infty} \dfrac{(-1)^{n+1}}{n} = 0$. (Note $\abs{b_n} = \tfrac1n$.)
+:::
+
+## Convergence to a General Limit
+
+Now consider $c_n = \tfrac{n}{n+1}$. The terms get closer and closer to $1$, which suggests
+$\lim_{n\to\infty} c_n = 1$. The definition is the same as before, with $0$ replaced by the candidate
+limit.
+
+::: {#def-limit}
+\
+Let $a\in\R$. We say $(c_n)$ **converges to $a$**, written $\lim_{n\to\infty} c_n = a$ or
+$c_n \to a$, if for every $\eps>0$ there exists $N\in\N$ such that
+$$
+\abs{c_n - a} < \eps \qquad\text{for all } n \ge N.
+$$
+Equivalently: from the $N$-th term on, all terms lie in the $\eps$-neighborhood
+$(a-\eps,\, a+\eps)$. A sequence is **convergent** if it converges to some $a$, and **divergent**
+otherwise.
+:::
+
+::: {#exm-n-over-n-plus-1}
+\
+$\lim_{n\to\infty} \dfrac{n}{n+1} = 1$. Here
+$$
+\abs{c_n - 1} = \abs{\frac{n}{n+1} - 1} = 1 - \frac{n}{n+1} = \frac{1}{n+1}.
+$$
+
+Let us check two tolerances. For $\eps = 1$ we need $\tfrac{1}{n+1} < 1$, which holds for every
+$n\ge 1$; so $N = 1$ works. For $\eps = \tfrac14$ we need
+$$
+\frac{1}{n+1} < \frac14 \Iff 3 < n,
+$$
+so $N = 4$ works.
+
+In general, $\abs{c_n - 1} = \tfrac{1}{n+1} < \eps \Iff n > \tfrac1\eps - 1$, so any
+$N > \tfrac1\eps - 1$ works, and $c_n \to 1$.
+:::
+
+::: {#rem-limit-unique}
+When a limit exists it is **unique**: if $c_n \to a$ and $c_n \to a'$, then for every $\eps>0$ we
+have $\abs{a - a'} \le \abs{a - c_n} + \abs{c_n - a'} < 2\eps$ for large $n$, so $\abs{a-a'} = 0$.
+This is what justifies speaking of *the* limit and the notation $\lim_{n\to\infty} c_n$.
+:::
+
+### Divergence
+
+To show a sequence **diverges** we must show it converges to no limit at all. Negating
+@def-limit: $(c_n)$ does not converge to $a$ if there is some $\eps>0$ such that, no matter how far
+out we go, some later term is at least $\eps$ away from $a$.
+
+::: {#exm-alternating-diverges}
+\
+The sequence $\big((-1)^n\big) = -1, 1, -1, 1, \ldots$ diverges.
+
+::: {.proof}
+Suppose $(-1)^n \to a$ for some $a$. Take $\eps = 1$. Then $\abs{(-1)^n - a} < 1$ for all large $n$;
+applying this to an even and an odd $n$ gives $\abs{1 - a} < 1$ and $\abs{-1 - a} < 1$. But then
+$$
+2 = \abs{1 - (-1)} \le \abs{1 - a} + \abs{a - (-1)} < 1 + 1 = 2,
+$$
+a contradiction.
+:::
+:::
+
+::: {#exr-sequences-limits}
+Investigate the remaining sequences from @exm-sequences: $d_n = \sqrt[n]{p}$ (with $p>0$ fixed) and
+$e_n = \alpha^n$ (with $\alpha>1$). One converges; the other diverges. Which is which, and what is the
+limit?
+:::
+
+::: {#rem-sequences-limits-answers}
+For reference: $\sqrt[n]{p} \to 1$ for every $p>0$, while $\alpha^n$ diverges when $\alpha>1$ (its
+terms grow without bound). Both facts are proved in C&J §1.6.
+:::
+
+## Limit Laws
+
+Computing $N(\eps)$ by hand for every sequence quickly becomes tedious. The following rules let us
+build limits of complicated sequences out of simpler ones.
+
+::: {#prp-limit-laws}
+## Arithmetic of limits
+Suppose $a_n \to a$ and $b_n \to b$. Then
+$$
+\begin{aligned}
+a_n + b_n &\to a + b, & a_n - b_n &\to a - b, \\
+a_n \cdot b_n &\to a \cdot b, & \frac{a_n}{b_n} &\to \frac{a}{b} \quad (\text{provided } b \neq 0).
+\end{aligned}
+$$
+:::
+
+::: {#exm-rational-sequence}
+\
+Find $\displaystyle\lim_{n\to\infty} \frac{2n^2 - 1}{n^2 + n + 1}$.
+
+Divide numerator and denominator by $n^2$:
+$$
+\frac{2n^2 - 1}{n^2 + n + 1}
+= \frac{2 - \tfrac{1}{n^2}}{1 + \tfrac1n + \tfrac{1}{n^2}}.
+$$
+Now $\tfrac1n \to 0$ and $\tfrac{1}{n^2} \to 0$, so by the limit laws the numerator tends to
+$2 - 0 = 2$ and the denominator to $1 + 0 + 0 = 1$. Since the denominator limit is nonzero,
+$$
+\lim_{n\to\infty} \frac{2n^2 - 1}{n^2 + n + 1} = \frac{2}{1} = 2.
+$$
+:::
+
+## Summary
+
+- A **sequence** is a function $a\colon\N\to\R$, written $(a_n)$.
+- $(a_n)$ **converges to $a$** (@def-limit) if for every tolerance $\eps>0$ there is an index
+  $N$ such that $\abs{a_n - a} < \eps$ for all $n\ge N$ — from some point on, all terms lie in the
+  $\eps$-neighborhood of $a$. The special case $a=0$ is @def-null-sequence.
+- The limit, when it exists, is **unique** (@rem-limit-unique). A sequence with no limit, such as
+  $\big((-1)^n\big)$ (@exm-alternating-diverges), is **divergent**.
+- The **limit laws** (@prp-limit-laws) compute limits of sums, differences, products, and quotients
+  termwise; dividing through by the highest power of $n$ turns a ratio of polynomials into a form
+  where they apply (@exm-rational-sequence).

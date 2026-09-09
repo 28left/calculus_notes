@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; The Elementary Functions – Math 140H — Honors Calculus I: Lecture Notes</title>
+<title>8&nbsp; Sequences and Convergence – Math 140H — Honors Calculus I: Lecture Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05_continuity.html" rel="next">
-<link href="./03_functions.html" rel="prev">
+<link href="./06_activity_properties_of_functions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./04_elementary_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_sequences_convergence.html">Limits</a></li><li class="breadcrumb-item"><a href="./07_sequences_convergence.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
   </div>
 </li>
@@ -223,7 +222,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_sequences_convergence.html" class="sidebar-item-text sidebar-link">
+  <a href="./07_sequences_convergence.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></span></a>
   </div>
 </li>
@@ -239,22 +238,23 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#polynomials" id="toc-polynomials" class="nav-link active" data-scroll-target="#polynomials"><span class="header-section-number">5.1</span> Polynomials</a></li>
-  <li><a href="#rational-functions" id="toc-rational-functions" class="nav-link" data-scroll-target="#rational-functions"><span class="header-section-number">5.2</span> Rational Functions</a></li>
-  <li><a href="#algebraic-and-power-functions" id="toc-algebraic-and-power-functions" class="nav-link" data-scroll-target="#algebraic-and-power-functions"><span class="header-section-number">5.3</span> Algebraic and Power Functions</a></li>
-  <li><a href="#exponential-functions" id="toc-exponential-functions" class="nav-link" data-scroll-target="#exponential-functions"><span class="header-section-number">5.4</span> Exponential Functions</a></li>
-  <li><a href="#logarithms" id="toc-logarithms" class="nav-link" data-scroll-target="#logarithms"><span class="header-section-number">5.5</span> Logarithms</a></li>
-  <li><a href="#trigonometric-functions" id="toc-trigonometric-functions" class="nav-link" data-scroll-target="#trigonometric-functions"><span class="header-section-number">5.6</span> Trigonometric Functions</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.7</span> Summary</a></li>
+  <li><a href="#sequences" id="toc-sequences" class="nav-link active" data-scroll-target="#sequences"><span class="header-section-number">8.1</span> Sequences</a></li>
+  <li><a href="#the-limit-of-a-sequence" id="toc-the-limit-of-a-sequence" class="nav-link" data-scroll-target="#the-limit-of-a-sequence"><span class="header-section-number">8.2</span> The Limit of a Sequence</a></li>
+  <li><a href="#convergence-to-a-general-limit" id="toc-convergence-to-a-general-limit" class="nav-link" data-scroll-target="#convergence-to-a-general-limit"><span class="header-section-number">8.3</span> Convergence to a General Limit</a>
+  <ul class="collapse">
+  <li><a href="#divergence" id="toc-divergence" class="nav-link" data-scroll-target="#divergence">Divergence</a></li>
+  </ul></li>
+  <li><a href="#limit-laws" id="toc-limit-laws" class="nav-link" data-scroll-target="#limit-laws"><span class="header-section-number">8.4</span> Limit Laws</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.5</span> Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./04_elementary_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_sequences_convergence.html">Limits</a></li><li class="breadcrumb-item"><a href="./07_sequences_convergence.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></h1>
 </div>
 
 
@@ -281,90 +281,90 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This lecture corresponds to C&amp;J §1.3.</p>
+<p>This lecture corresponds to C&amp;J §1.6 (a selection). The arithmetic rules for limits are treated in C&amp;J §1.7.</p>
 </div>
 </div>
-<p>Almost every function met in a first calculus course is built out of a short catalogue of standard functions: polynomials, rational functions, powers, exponentials, logarithms, and the trigonometric functions. These are the <strong>elementary functions</strong>. This lecture is a tour of the list, noting for each type its natural domain, its range, and its basic shape — information we will need constantly once we start differentiating and integrating.</p>
-<section id="polynomials" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="polynomials"><span class="header-section-number">5.1</span> Polynomials</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-polynomial" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.1</strong></span> <br>
-A <strong>polynomial</strong> is a function of the form <span class="math display">\[
-p(x) \;=\; a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n,
-\]</span> with real coefficients <span class="math inline">\(a_0,a_1,\dots,a_n\)</span>. If <span class="math inline">\(a_n\neq 0\)</span>, the integer <span class="math inline">\(n\)</span> is the <strong>degree</strong> of <span class="math inline">\(p\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p>The lowest degrees have familiar names:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>degree</th>
-<th>form</th>
-<th>name</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(0\)</span></td>
-<td><span class="math inline">\(y = a_0\)</span></td>
-<td>constant</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(1\)</span></td>
-<td><span class="math inline">\(y = a_0 + a_1 x\)</span></td>
-<td>linear</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(2\)</span></td>
-<td><span class="math inline">\(y = a_0 + a_1 x + a_2 x^2\)</span></td>
-<td>quadratic</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(3\)</span></td>
-<td><span class="math inline">\(y = a_0 + a_1 x + a_2 x^2 + a_3 x^3\)</span></td>
-<td>cubic</td>
-</tr>
-</tbody>
-</table>
-<p>A polynomial is a finite sum of constant multiples of the <strong>power functions</strong> <span class="math inline">\(1, x, x^2, x^3,\dots\)</span>, each of which is defined for every real number. Hence every polynomial has natural domain <span class="math display">\[
-\operatorname{dom}(p) = \mathbb{R}
-\]</span> (unless we deliberately restrict it).</p>
+<section id="sequences" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sequences"><span class="header-section-number">8.1</span> Sequences</h2>
+<p>A <strong>sequence</strong> is an unending list of real numbers <span class="math display">\[
+a_1,\ a_2,\ a_3,\ \ldots
+\]</span> We write <span class="math inline">\((a_n)_{n\in\mathbb{N}}\)</span>, or just <span class="math inline">\((a_n)\)</span>, and call <span class="math inline">\(a_n\)</span> the <strong><span class="math inline">\(n\)</span>-th term</strong>. Formally, a sequence is nothing but a function <span class="math display">\[
+a\colon \mathbb{N}\to \mathbb{R},
+\]</span> where we write <span class="math inline">\(a_n\)</span> instead of <span class="math inline">\(a(n)\)</span>.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="rem-powers-of-x" class="proof remark">
-<p><span class="proof-title"><em>Remark 5.1</em>. </span>The pure powers <span class="math inline">\(x^n\)</span> share a few features worth remembering. Every graph passes through <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((1,1)\)</span>. On the interval <span class="math inline">\([0,1]\)</span> a higher power lies <em>below</em> a lower one (<span class="math inline">\(x^3 \le x^2 \le x\)</span>), while on <span class="math inline">\([1,\infty)\)</span> the order reverses. The power <span class="math inline">\(x^n\)</span> is even when <span class="math inline">\(n\)</span> is even and odd when <span class="math inline">\(n\)</span> is odd; for odd <span class="math inline">\(n\)</span> it is strictly increasing on <span class="math inline">\(\mathbb{R}\)</span> (hence injective), while for even <span class="math inline">\(n\)</span> it is not injective on <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<div id="exm-sequences" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.1</strong></span> <br>
+<span class="math display">\[
+\begin{aligned}
+a_n &amp;= \tfrac{1}{n}: &amp; &amp;1,\ \tfrac12,\ \tfrac13,\ \tfrac14,\ \ldots \\[2pt]
+b_n &amp;= \tfrac{(-1)^{n+1}}{n}: &amp; &amp;1,\ -\tfrac12,\ \tfrac13,\ -\tfrac14,\ \ldots \\[2pt]
+c_n &amp;= \tfrac{n}{n+1}: &amp; &amp;\tfrac12,\ \tfrac23,\ \tfrac34,\ \tfrac45,\ \ldots \\[2pt]
+d_n &amp;= \sqrt[n]{p}, \quad p&gt;0 \text{ fixed} \\[2pt]
+e_n &amp;= \alpha^n, \quad \alpha&gt;1.
+\end{aligned}
+\]</span></p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="rational-functions" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="rational-functions"><span class="header-section-number">5.2</span> Rational Functions</h2>
+<section id="the-limit-of-a-sequence" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="the-limit-of-a-sequence"><span class="header-section-number">8.2</span> The Limit of a Sequence</h2>
+<p>Look at <span class="math inline">\(a_n = \tfrac1n\)</span>. What happens to the terms as <span class="math inline">\(n\)</span> gets larger and larger? The values get smaller and smaller, coming <strong>arbitrarily close to <span class="math inline">\(0\)</span></strong> — though no term is ever equal to <span class="math inline">\(0\)</span>. We want to make “arbitrarily close” precise.</p>
+<p>The idea is to use <span class="math inline">\(\varepsilon\)</span>-neighborhoods (<a href="05_continuity.html#def-epsilon-neighborhood" class="quarto-xref">Definition&nbsp;<span>6.1</span></a>): given a tolerance <span class="math inline">\(\varepsilon&gt;0\)</span>, we ask that <em>from some point on</em>, every term of the sequence lies within <span class="math inline">\(\varepsilon\)</span> of <span class="math inline">\(0\)</span>.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-rational-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.2</strong></span> <br>
-A <strong>rational function</strong> is a quotient of two polynomials, <span class="math display">\[
-r(x) \;=\; \frac{p(x)}{q(x)}, \qquad q \not\equiv 0.
-\]</span> Its natural domain is <span class="math inline">\(\mathbb{R}\setminus Z\)</span>, where <span class="math display">\[
-Z = \{\, x\in\mathbb{R}: q(x) = 0 \,\}
-\]</span> is the (finite) set of zeros of the denominator.</p>
+<div id="def-null-sequence" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 8.1</strong></span> <br>
+We say <span class="math inline">\((a_n)\)</span> <strong>converges to <span class="math inline">\(0\)</span></strong>, written <span class="math display">\[
+\lim_{n\to\infty} a_n = 0 \qquad\text{or}\qquad a_n \to 0,
+\]</span> if for every <span class="math inline">\(\varepsilon&gt;0\)</span> there exists <span class="math inline">\(N\in\mathbb{N}\)</span> such that <span class="math display">\[
+\lvert a_n \rvert = \lvert a_n - 0 \rvert &lt; \varepsilon\qquad\text{for all } n \ge N.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The number <span class="math inline">\(N\)</span> is allowed to depend on <span class="math inline">\(\varepsilon\)</span> — a smaller tolerance will in general require going further out in the sequence. To emphasize this dependence one sometimes writes <span class="math inline">\(N(\varepsilon)\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-one-over-n" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.2</strong></span> <br>
+<span class="math inline">\(\lim_{n\to\infty} \tfrac1n = 0\)</span>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon&gt;0\)</span>. We must find <span class="math inline">\(N\)</span> so that <span class="math inline">\(\tfrac1n &lt; \varepsilon\)</span> for all <span class="math inline">\(n\ge N\)</span>. Now <span class="math display">\[
+\tfrac1n &lt; \varepsilon\quad \Leftrightarrow \quad\tfrac1\varepsilon&lt; n,
+\]</span> so any <span class="math inline">\(N \in \mathbb{N}\)</span> with <span class="math inline">\(N &gt; \tfrac1\varepsilon\)</span> works: if <span class="math inline">\(n \ge N &gt; \tfrac1\varepsilon\)</span>, then <span class="math inline">\(\tfrac1n &lt; \varepsilon\)</span>.</p>
+<p>Concretely, for <span class="math inline">\(\varepsilon= 0.05 = \tfrac{5}{100}\)</span> we need <span class="math inline">\(n &gt; \tfrac{100}{5} = 20\)</span>, so <span class="math inline">\(N = 21\)</span> will do.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -375,153 +375,171 @@ Z = \{\, x\in\mathbb{R}: q(x) = 0 \,\}
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="exm-rational" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.1</strong></span> &nbsp;</p>
+<div id="exr-alternating-null" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.1</strong></span> Show that <span class="math inline">\(\lim_{n\to\infty} \dfrac{(-1)^{n+1}}{n} = 0\)</span>. (Note <span class="math inline">\(\lvert b_n \rvert = \tfrac1n\)</span>.)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="convergence-to-a-general-limit" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="convergence-to-a-general-limit"><span class="header-section-number">8.3</span> Convergence to a General Limit</h2>
+<p>Now consider <span class="math inline">\(c_n = \tfrac{n}{n+1}\)</span>. The terms get closer and closer to <span class="math inline">\(1\)</span>, which suggests <span class="math inline">\(\lim_{n\to\infty} c_n = 1\)</span>. The definition is the same as before, with <span class="math inline">\(0\)</span> replaced by the candidate limit.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-limit" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 8.2</strong></span> <br>
+Let <span class="math inline">\(a\in\mathbb{R}\)</span>. We say <span class="math inline">\((c_n)\)</span> <strong>converges to <span class="math inline">\(a\)</span></strong>, written <span class="math inline">\(\lim_{n\to\infty} c_n = a\)</span> or <span class="math inline">\(c_n \to a\)</span>, if for every <span class="math inline">\(\varepsilon&gt;0\)</span> there exists <span class="math inline">\(N\in\mathbb{N}\)</span> such that <span class="math display">\[
+\lvert c_n - a \rvert &lt; \varepsilon\qquad\text{for all } n \ge N.
+\]</span> Equivalently: from the <span class="math inline">\(N\)</span>-th term on, all terms lie in the <span class="math inline">\(\varepsilon\)</span>-neighborhood <span class="math inline">\((a-\varepsilon,\, a+\varepsilon)\)</span>. A sequence is <strong>convergent</strong> if it converges to some <span class="math inline">\(a\)</span>, and <strong>divergent</strong> otherwise.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-n-over-n-plus-1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.3</strong></span> <br>
+<span class="math inline">\(\lim_{n\to\infty} \dfrac{n}{n+1} = 1\)</span>. Here <span class="math display">\[
+\lvert c_n - 1 \rvert = \lvert \frac{n}{n+1} - 1 \rvert = 1 - \frac{n}{n+1} = \frac{1}{n+1}.
+\]</span></p>
+<p>Let us check two tolerances. For <span class="math inline">\(\varepsilon= 1\)</span> we need <span class="math inline">\(\tfrac{1}{n+1} &lt; 1\)</span>, which holds for every <span class="math inline">\(n\ge 1\)</span>; so <span class="math inline">\(N = 1\)</span> works. For <span class="math inline">\(\varepsilon= \tfrac14\)</span> we need <span class="math display">\[
+\frac{1}{n+1} &lt; \frac14 \quad \Leftrightarrow \quad 3 &lt; n,
+\]</span> so <span class="math inline">\(N = 4\)</span> works.</p>
+<p>In general, <span class="math inline">\(\lvert c_n - 1 \rvert = \tfrac{1}{n+1} &lt; \varepsilon\quad \Leftrightarrow \quad n &gt; \tfrac1\varepsilon- 1\)</span>, so any <span class="math inline">\(N &gt; \tfrac1\varepsilon- 1\)</span> works, and <span class="math inline">\(c_n \to 1\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-limit-unique" class="proof remark">
+<p><span class="proof-title"><em>Remark 8.1</em>. </span>When a limit exists it is <strong>unique</strong>: if <span class="math inline">\(c_n \to a\)</span> and <span class="math inline">\(c_n \to a'\)</span>, then for every <span class="math inline">\(\varepsilon&gt;0\)</span> we have <span class="math inline">\(\lvert a - a' \rvert \le \lvert a - c_n \rvert + \lvert c_n - a' \rvert &lt; 2\varepsilon\)</span> for large <span class="math inline">\(n\)</span>, so <span class="math inline">\(\lvert a-a' \rvert = 0\)</span>. This is what justifies speaking of <em>the</em> limit and the notation <span class="math inline">\(\lim_{n\to\infty} c_n\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<section id="divergence" class="level3">
+<h3 class="anchored" data-anchor-id="divergence">Divergence</h3>
+<p>To show a sequence <strong>diverges</strong> we must show it converges to no limit at all. Negating <a href="#def-limit" class="quarto-xref">Definition&nbsp;<span>8.2</span></a>: <span class="math inline">\((c_n)\)</span> does not converge to <span class="math inline">\(a\)</span> if there is some <span class="math inline">\(\varepsilon&gt;0\)</span> such that, no matter how far out we go, some later term is at least <span class="math inline">\(\varepsilon\)</span> away from <span class="math inline">\(a\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-alternating-diverges" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.4</strong></span> <br>
+The sequence <span class="math inline">\(\big((-1)^n\big) = -1, 1, -1, 1, \ldots\)</span> diverges.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Suppose <span class="math inline">\((-1)^n \to a\)</span> for some <span class="math inline">\(a\)</span>. Take <span class="math inline">\(\varepsilon= 1\)</span>. Then <span class="math inline">\(\lvert (-1)^n - a \rvert &lt; 1\)</span> for all large <span class="math inline">\(n\)</span>; applying this to an even and an odd <span class="math inline">\(n\)</span> gives <span class="math inline">\(\lvert 1 - a \rvert &lt; 1\)</span> and <span class="math inline">\(\lvert -1 - a \rvert &lt; 1\)</span>. But then <span class="math display">\[
+2 = \lvert 1 - (-1) \rvert \le \lvert 1 - a \rvert + \lvert a - (-1) \rvert &lt; 1 + 1 = 2,
+\]</span> a contradiction.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-sequences-limits" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.2</strong></span> Investigate the remaining sequences from <a href="#exm-sequences" class="quarto-xref">Example&nbsp;<span>8.1</span></a>: <span class="math inline">\(d_n = \sqrt[n]{p}\)</span> (with <span class="math inline">\(p&gt;0\)</span> fixed) and <span class="math inline">\(e_n = \alpha^n\)</span> (with <span class="math inline">\(\alpha&gt;1\)</span>). One converges; the other diverges. Which is which, and what is the limit?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-sequences-limits-answers" class="proof remark">
+<p><span class="proof-title"><em>Remark 8.2</em>. </span>For reference: <span class="math inline">\(\sqrt[n]{p} \to 1\)</span> for every <span class="math inline">\(p&gt;0\)</span>, while <span class="math inline">\(\alpha^n\)</span> diverges when <span class="math inline">\(\alpha&gt;1\)</span> (its terms grow without bound). Both facts are proved in C&amp;J §1.6.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="limit-laws" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="limit-laws"><span class="header-section-number">8.4</span> Limit Laws</h2>
+<p>Computing <span class="math inline">\(N(\varepsilon)\)</span> by hand for every sequence quickly becomes tedious. The following rules let us build limits of complicated sequences out of simpler ones.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-limit-laws" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 8.1 (Arithmetic of limits)</strong></span> Suppose <span class="math inline">\(a_n \to a\)</span> and <span class="math inline">\(b_n \to b\)</span>. Then <span class="math display">\[
+\begin{aligned}
+a_n + b_n &amp;\to a + b, &amp; a_n - b_n &amp;\to a - b, \\
+a_n \cdot b_n &amp;\to a \cdot b, &amp; \frac{a_n}{b_n} &amp;\to \frac{a}{b} \quad (\text{provided } b \neq 0).
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-rational-sequence" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.5</strong></span> <br>
+Find <span class="math inline">\(\displaystyle\lim_{n\to\infty} \frac{2n^2 - 1}{n^2 + n + 1}\)</span>.</p>
+<p>Divide numerator and denominator by <span class="math inline">\(n^2\)</span>: <span class="math display">\[
+\frac{2n^2 - 1}{n^2 + n + 1}
+= \frac{2 - \tfrac{1}{n^2}}{1 + \tfrac1n + \tfrac{1}{n^2}}.
+\]</span> Now <span class="math inline">\(\tfrac1n \to 0\)</span> and <span class="math inline">\(\tfrac{1}{n^2} \to 0\)</span>, so by the limit laws the numerator tends to <span class="math inline">\(2 - 0 = 2\)</span> and the denominator to <span class="math inline">\(1 + 0 + 0 = 1\)</span>. Since the denominator limit is nonzero, <span class="math display">\[
+\lim_{n\to\infty} \frac{2n^2 - 1}{n^2 + n + 1} = \frac{2}{1} = 2.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.5</span> Summary</h2>
 <ul>
-<li><span class="math inline">\(\dfrac{x}{x^2+1}\)</span> is a rational function. Since <span class="math inline">\(x^2+1 &gt; 0\)</span> for every real <span class="math inline">\(x\)</span>, the set <span class="math inline">\(Z\)</span> is empty and the domain is all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li><span class="math inline">\(\dfrac{\sqrt{x}}{x^3 - x}\)</span> is <strong>not</strong> a rational function: <span class="math inline">\(\sqrt{x}\)</span> is not a polynomial. (It is, however, still an elementary function, as it is the arithmetic combination of two elementary functions - see next section)</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="algebraic-and-power-functions" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="algebraic-and-power-functions"><span class="header-section-number">5.3</span> Algebraic and Power Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-power-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.3</strong></span> <br>
-A <strong>power function</strong> is <span class="math inline">\(f(x) = x^{\alpha}\)</span> with a fixed real exponent <span class="math inline">\(\alpha\in\mathbb{R}\)</span>. For <span class="math inline">\(x&gt;0\)</span> this is defined for every <span class="math inline">\(\alpha\)</span> (via <span class="math inline">\(x^{\alpha} = \exp(\alpha\ln x)\)</span>, once we have <span class="math inline">\(\exp\)</span> and <span class="math inline">\(\ln\)</span>). For an <strong>integer</strong> exponent the domain extends to <span class="math display">\[
-\operatorname{dom}(x^{\alpha}) = \begin{cases}
-\mathbb{R}&amp; \alpha \ge 0,\\[2pt]
-\mathbb{R}\setminus\{0\} &amp; \alpha &lt; 0.
-\end{cases}
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-roots" class="proof remark">
-<p><span class="proof-title"><em>Remark 5.2</em>. </span>For a non-integer exponent one usually keeps the domain <span class="math inline">\([0,\infty)\)</span> (or <span class="math inline">\((0,\infty)\)</span> if <span class="math inline">\(\alpha&lt;0\)</span>). The roots <span class="math inline">\(x^{1/2} = \sqrt{x}\)</span>, <span class="math inline">\(x^{1/3} = \sqrt[3]{x},\dots\)</span> are examples; odd roots such as <span class="math inline">\(\sqrt[3]{x}\)</span> can in fact be extended to all of <span class="math inline">\(\mathbb{R}\)</span>. Power functions with rational exponent, and more generally functions obtained from polynomials by the four arithmetic operations together with root extraction, are called <strong>algebraic functions</strong>. The exponential and logarithm below are <em>not</em> algebraic — they are <strong>transcendental</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="exponential-functions" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="exponential-functions"><span class="header-section-number">5.4</span> Exponential Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-exponential" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.4</strong></span> <br>
-Fix a <strong>base</strong> <span class="math inline">\(a &gt; 0\)</span>. The <strong>exponential function</strong> with base <span class="math inline">\(a\)</span>, <span class="math display">\[
-\exp_a\colon \mathbb{R}\to \mathbb{R}, \qquad \exp_a(x) = a^{x},
-\]</span> is defined for every real <span class="math inline">\(x\)</span>. For <span class="math inline">\(a\neq 1\)</span> it takes only positive values, and every positive value is attained: <span class="math display">\[
-\operatorname{dom}(\exp_a) = \mathbb{R}, \qquad \operatorname{ran}(\exp_a) = (0,\infty) = \mathbb{R}^{&gt;0}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<p>For <span class="math inline">\(a &gt; 1\)</span> the function <span class="math inline">\(a^x\)</span> is strictly increasing; for <span class="math inline">\(0 &lt; a &lt; 1\)</span> it is strictly decreasing; for <span class="math inline">\(a=1\)</span> it is the constant <span class="math inline">\(1\)</span>. In all cases <span class="math inline">\(a^0 = 1\)</span> and <span class="math inline">\(a^{x+y} = a^x a^y\)</span>.</p>
-</section>
-<section id="logarithms" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="logarithms"><span class="header-section-number">5.5</span> Logarithms</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-logarithm" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.5</strong></span> <br>
-Fix a base <span class="math inline">\(a &gt; 0\)</span> with <span class="math inline">\(a\neq 1\)</span>. Then <span class="math inline">\(\exp_a\)</span> is injective from <span class="math inline">\(\mathbb{R}\)</span> onto <span class="math inline">\((0,\infty)\)</span>, and its inverse function (in the sense of <a href="03_functions.html#def-inverse" class="quarto-xref">Definition&nbsp;<span>4.8</span></a>) is the <strong>logarithm to base <span class="math inline">\(a\)</span></strong>, <span class="math display">\[
-\log_a\colon (0,\infty)\to\mathbb{R}, \qquad
-\log_a(a^{x}) = x, \qquad a^{\log_a y} = y.
-\]</span> Thus <span class="math display">\[
-\operatorname{dom}(\log_a) = (0,\infty), \qquad \operatorname{ran}(\log_a) = \mathbb{R}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<p>Because it is the inverse of <span class="math inline">\(a^x\)</span>, the graph of <span class="math inline">\(\log_a\)</span> is the reflection of the graph of <span class="math inline">\(a^x\)</span> across the line <span class="math inline">\(y = x\)</span> (<a href="03_functions.html#rem-inverse-graph" class="quarto-xref">Remark&nbsp;<span>4.3</span></a>). It converts products to sums: <span class="math inline">\(\log_a(xy) = \log_a x + \log_a y\)</span>.</p>
-</section>
-<section id="trigonometric-functions" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="trigonometric-functions"><span class="header-section-number">5.6</span> Trigonometric Functions</h2>
-<p>Let <span class="math inline">\(x\)</span> be a real number, thought of as an angle measured in <strong>radians</strong>. Rotating the point <span class="math inline">\((1,0)\)</span> counter-clockwise through the angle <span class="math inline">\(x\)</span> about the origin lands on a point of the unit circle whose coordinates are, by definition, <span class="math inline">\((\cos x, \sin x)\)</span>.</p>
-<p>Both <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> are defined for all <span class="math inline">\(x\in\mathbb{R}\)</span>, take values in <span class="math inline">\([-1,1]\)</span>, and repeat after a full turn.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-periodic" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.6</strong></span> <br>
-A function <span class="math inline">\(f\)</span> is <strong>periodic with period <span class="math inline">\(P &gt; 0\)</span></strong> if <span class="math inline">\(f(x + P) = f(x)\)</span> for every <span class="math inline">\(x\)</span> in its domain.</p>
-</div>
-</div>
-</div>
-</div>
-<p>Thus <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> are periodic with period <span class="math inline">\(2\pi\)</span>. The <strong>tangent</strong> <span class="math display">\[
-\tan x = \frac{\sin x}{\cos x}
-\]</span> is defined wherever <span class="math inline">\(\cos x \neq 0\)</span>, i.e.&nbsp;for <span class="math inline">\(x \neq \tfrac{\pi}{2} + k\pi\)</span> with <span class="math inline">\(k\in\mathbb{Z}\)</span>, and is periodic with period <span class="math inline">\(\pi\)</span>.</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-sinusoid" class="proof remark">
-<p><span class="proof-title"><em>Remark 5.3</em>. </span>A general <strong>sinusoid</strong> has the form <span class="math display">\[
-f(x) = A\,\sin(bx) + C,
-\]</span> with <strong>amplitude</strong> <span class="math inline">\(|A|\)</span> (half the vertical spread of the graph), <strong>period</strong> <span class="math inline">\(\dfrac{2\pi}{b}\)</span>, and <strong>vertical offset</strong> <span class="math inline">\(C\)</span> (the horizontal line the graph oscillates around).</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exr-sinusoid" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> The function <span class="math inline">\(f(x) = 3\sin(2x) + 1\)</span> is a sinusoid. Find its amplitude, period, and range, and the smallest <span class="math inline">\(x &gt; 0\)</span> at which it attains its maximum.</p>
-</div>
-</div>
-</div>
-</div>
-<!-- ::: {.solution}
-Amplitude $|A| = 3$, period $\dfrac{2\pi}{2} = \pi$, offset $C = 1$, so the range is
-$[1-3,\,1+3] = [-2,4]$. The maximum occurs when $\sin(2x) = 1$, i.e. $2x = \tfrac{\pi}{2} + 2k\pi$;
-the smallest positive solution is $x = \tfrac{\pi}{4}$.
-::: -->
-</section>
-<section id="summary" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.7</span> Summary</h2>
-<ul>
-<li><strong>Polynomials</strong> (<a href="#def-polynomial" class="quarto-xref">Definition&nbsp;<span>5.1</span></a>) are finite combinations of the powers <span class="math inline">\(1,x,x^2,\dots\)</span>; they are defined on all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li><strong>Rational functions</strong> (<a href="#def-rational-function" class="quarto-xref">Definition&nbsp;<span>5.2</span></a>) are quotients of polynomials, defined off the finite zero set of the denominator.</li>
-<li><strong>Power functions</strong> <span class="math inline">\(x^{\alpha}\)</span> (<a href="#def-power-function" class="quarto-xref">Definition&nbsp;<span>5.3</span></a>) have domain <span class="math inline">\(\mathbb{R}\)</span> or <span class="math inline">\(\mathbb{R}\setminus\{0\}\)</span> for integer exponents, and are typically taken on <span class="math inline">\([0,\infty)\)</span> otherwise; together with roots they form the <strong>algebraic</strong> functions.</li>
-<li><strong>Exponentials</strong> <span class="math inline">\(a^x\)</span> (<a href="#def-exponential" class="quarto-xref">Definition&nbsp;<span>5.4</span></a>) have domain <span class="math inline">\(\mathbb{R}\)</span> and range <span class="math inline">\((0,\infty)\)</span>; their inverses, the <strong>logarithms</strong> <span class="math inline">\(\log_a\)</span> (<a href="#def-logarithm" class="quarto-xref">Definition&nbsp;<span>5.5</span></a>), have domain <span class="math inline">\((0,\infty)\)</span> and range <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li>The <strong>trigonometric functions</strong> <span class="math inline">\(\sin,\cos\)</span> are <span class="math inline">\(2\pi\)</span>-periodic (<a href="#def-periodic" class="quarto-xref">Definition&nbsp;<span>5.6</span></a>) with range <span class="math inline">\([-1,1]\)</span>; <span class="math inline">\(\tan = \sin/\cos\)</span> is <span class="math inline">\(\pi\)</span>-periodic and undefined where <span class="math inline">\(\cos\)</span> vanishes.</li>
+<li>A <strong>sequence</strong> is a function <span class="math inline">\(a\colon\mathbb{N}\to\mathbb{R}\)</span>, written <span class="math inline">\((a_n)\)</span>.</li>
+<li><span class="math inline">\((a_n)\)</span> <strong>converges to <span class="math inline">\(a\)</span></strong> (<a href="#def-limit" class="quarto-xref">Definition&nbsp;<span>8.2</span></a>) if for every tolerance <span class="math inline">\(\varepsilon&gt;0\)</span> there is an index <span class="math inline">\(N\)</span> such that <span class="math inline">\(\lvert a_n - a \rvert &lt; \varepsilon\)</span> for all <span class="math inline">\(n\ge N\)</span> — from some point on, all terms lie in the <span class="math inline">\(\varepsilon\)</span>-neighborhood of <span class="math inline">\(a\)</span>. The special case <span class="math inline">\(a=0\)</span> is <a href="#def-null-sequence" class="quarto-xref">Definition&nbsp;<span>8.1</span></a>.</li>
+<li>The limit, when it exists, is <strong>unique</strong> (<a href="#rem-limit-unique" class="quarto-xref">Remark&nbsp;<span>8.1</span></a>). A sequence with no limit, such as <span class="math inline">\(\big((-1)^n\big)\)</span> (<a href="#exm-alternating-diverges" class="quarto-xref">Example&nbsp;<span>8.4</span></a>), is <strong>divergent</strong>.</li>
+<li>The <strong>limit laws</strong> (<a href="#prp-limit-laws" class="quarto-xref">Proposition&nbsp;<span>8.1</span></a>) compute limits of sums, differences, products, and quotients termwise; dividing through by the highest power of <span class="math inline">\(n\)</span> turns a ratio of polynomials into a form where they apply (<a href="#exm-rational-sequence" class="quarto-xref">Example&nbsp;<span>8.5</span></a>).</li>
 </ul>
 
 
@@ -930,14 +948,11 @@ the smallest positive solution is $x = \tfrac{\pi}{4}$.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03_functions.html" class="pagination-link" aria-label="The Concept of Function">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span>
+      <a href="./06_activity_properties_of_functions.html" class="pagination-link" aria-label="Activity: Properties of Functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05_continuity.html" class="pagination-link" aria-label="Continuity">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -17,6 +17,7 @@ book:
         - 03_functions.qmd
         - 04_elementary_functions.qmd
         - 05_continuity.qmd
+        - 06_activity_properties_of_functions.qmd
         # - notebooks/Week02_Continuity.ipynb
 
 number-sections: true

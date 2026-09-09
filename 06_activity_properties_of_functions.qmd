@@ -1,0 +1,155 @@
+---
+jupyter: python3
+---
+
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Activity: Properties of Functions
+
+::: {.callout-note}
+## About this activity
+An in-class, pencil-and-paper worksheet. It revisits the properties of functions
+built up in the previous chapters — *injective*, *monotone*, *even/odd*, and, above
+all, *continuous* — by working them out in full for two specific functions.
+Companion reading: C&J §1.2.d.
+:::
+
+## Background
+
+We have met several properties a function can have: **injective**, **monotone**,
+**even or odd**, and — most important — **continuous**. In this activity we
+investigate all of them for the two functions
+
+$$
+f(x) = \begin{cases} \dfrac{x}{\abs{x}} & x \neq 0,\\[2mm] 0 & x = 0, \end{cases}
+\qquad\qquad
+g(x) = \begin{cases} \dfrac{1}{x^{2}} & x \neq 0,\\[2mm] 0 & x = 0. \end{cases}
+$$
+
+## Step 1: Draw the graphs
+
+Sketch the graph of each function on its own set of axes. Plot a few sample points
+first (e.g. $x = \pm\tfrac12,\ \pm1,\ \pm2,\ \pm3$), then connect them.
+
+```{python}
+#| label: fig-blank-axes
+#| fig-cap: "Blank axes for sketching $f$ (left) and $g$ (right)."
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def blank_axes(ax, xlim, ylim, title, equal=True):
+    xmin, xmax = xlim
+    ymin, ymax = ylim
+    ax.set_xticks(range(xmin, xmax + 1))
+    ax.set_yticks(range(ymin, ymax + 1))
+    ax.grid(True, color="0.85", lw=0.6)
+    ax.axhline(0, color="0.25", lw=1.1)
+    ax.axvline(0, color="0.25", lw=1.1)
+    ax.set_xlim(xmin - 0.4, xmax + 0.4)
+    ax.set_ylim(ymin - 0.4, ymax + 0.4)
+    if equal:
+        ax.set_aspect("equal")
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$y$")
+    ax.set_title(title)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+
+
+fig, (ax_f, ax_g) = plt.subplots(1, 2, figsize=(8, 4))
+blank_axes(ax_f, (-4, 4), (-3, 3), "Graph of $f$")
+blank_axes(ax_g, (-4, 4), (-1, 6), "Graph of $g$", equal=False)
+fig.tight_layout()
+plt.show()
+```
+
+## Step 2: Make an educated guess
+
+From your graphs, try to answer the following.
+
+1. Is the function injective?
+2. Is it monotone? If so, is it *strictly* monotone? If not, can you find
+   intervals — as large as possible — on which it is (strictly) monotone?
+3. Is it even, odd, or neither?
+4. Is it continuous everywhere? If not, at which $x$ is it discontinuous?
+
+Record short answers in the table; you will verify each one in the steps that
+follow.
+
+| Property | $f$ | $g$ |
+|:--|:--|:--|
+| Injective? (yes / no) | &nbsp; | &nbsp; |
+| Monotone? Strictly? On which interval(s)? | &nbsp; | &nbsp; |
+| Even, odd, or neither? | &nbsp; | &nbsp; |
+| Continuous everywhere? If not, at which $x$? | &nbsp; | &nbsp; |
+
+## Verification: injectivity
+
+Neither $f$ nor $g$ is injective. To prove this, it is enough to exhibit two
+inputs $x \neq y$ with the same output.
+
+::: {#exr-activity-injective}
+Find explicit values:
+
+- for $f$: $x = \underline{\qquad}$ and $y = \underline{\qquad}$ with $f(x) = f(y)$;
+- for $g$: $x = \underline{\qquad}$ and $y = \underline{\qquad}$ with $g(x) = g(y)$.
+:::
+
+## Verification: even / odd
+
+::: {#exr-activity-even-odd}
+For whichever symmetry you guessed, verify it directly from the definition of the
+function: compute $f(-x)$ and check that it equals $-f(x)$ (odd) or $f(x)$ (even).
+Then do the same for $g$.
+:::
+
+## Verification: monotonicity
+
+::: {#exr-activity-monotone}
+Verify your monotonicity guess on a suitable interval, directly from the
+definition. For instance, to show a function is increasing on an interval, assume
+$x \le y$ in that interval and deduce $f(x) \le f(y)$ (use strict inequalities for
+*strictly* increasing); argue similarly for decreasing.
+:::
+
+## Continuity: the $\varepsilon$–$\delta$ game
+
+Both $f$ and $g$ are continuous at $x_0 = 1$. Play the $\varepsilon$–$\delta$ game
+from @def-continuity.
+
+::: {#exr-activity-eps-delta}
+1.  Take $\varepsilon = 1$. Find a number $\delta > 0$ such that
+    $$
+    \abs{x - 1} < \delta \Imp \abs{f(x) - f(1)} < 1
+    $$
+    (recall $f(1) = 1$). Then find such a $\delta$ for $g$.
+2.  Repeat with a smaller tolerance, $\varepsilon = \tfrac{1}{10}$. Does the
+    argument really change?
+3.  Can you produce a $\delta$ that works for an **arbitrary** $\varepsilon > 0$?
+:::
+
+<!-- ::: {.callout-tip}
+## Check your guesses numerically
+The notebook
+[`Week02_Epsilon_Delta_Game.ipynb`](notebooks/Week02_Epsilon_Delta_Game.ipynb)
+lets you set $\varepsilon$ with a slider, type in your $\delta$, and see the exact
+range of values $f$ takes on $(1-\delta,\,1+\delta)$ — together with a verdict on
+whether your $\delta$ wins the game.
+::: -->
+
+## Discontinuities
+
+Both functions are discontinuous at $x_0 = 0$. Here it is *you* who loses the game.
+
+::: {#exr-activity-discontinuous}
+Find an $\varepsilon > 0$ for which **no** $\delta$ works — that is, however close
+$x$ is taken to $0$, there is always some such $x$ with
+$$
+\abs{f(x) - f(0)} \ge \varepsilon.
+$$
+Give such an $\varepsilon$ for $f$, and one for $g$.
+:::

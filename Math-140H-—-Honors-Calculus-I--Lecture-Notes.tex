@@ -204,13 +204,13 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{remark}
@@ -246,7 +246,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-09-02}
+\date{2026-09-09}
 \begin{document}
 \maketitle
 
@@ -2033,384 +2033,184 @@ must fail to be \emph{damped out} as \(x\to x_0\).
   continuous.
 \end{itemize}
 
-\chapter{\texorpdfstring{Continuity Widget: Exploring the
-\(\varepsilon\)-\(\delta\)
-Definition}{Continuity Widget: Exploring the \textbackslash varepsilon-\textbackslash delta Definition}}\label{continuity-widget-exploring-the-varepsilon-delta-definition}
+\chapter{Activity: Properties of
+Functions}\label{activity-properties-of-functions}
 
-Math 140H, Honors Calculus I
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={About this activity}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
-\section{What this notebook does}\label{what-this-notebook-does}
+An in-class, pencil-and-paper worksheet. It revisits the properties of
+functions built up in the previous chapters --- \emph{injective},
+\emph{monotone}, \emph{even/odd}, and, above all, \emph{continuous} ---
+by working them out in full for two specific functions. Companion
+reading: C\&J §1.2.d.
 
-Recall the \(\varepsilon\)-\(\delta\) definition: \(f\) is continuous at
-\(x_0\) if for every \(\varepsilon > 0\) there is a \(\delta > 0\) so
-that \[
-|x - x_0| < \delta \ \Longrightarrow\ |f(x) - f(x_0)| < \varepsilon.
-\] The point of the definition is a \emph{game}: however small a target
-window \(\varepsilon\) around \(f(x_0)\) you are handed, you can always
-find a \(\delta\)-neighborhood of \(x_0\) whose whole image under \(f\)
-fits inside that window.
+\end{tcolorbox}
 
-The widget below runs this game in reverse, which is easier to see: you
-pick \(x_0\) and a \(\delta\), and it shows you the \emph{smallest}
-\(\varepsilon\)-window the \(\delta\)-neighborhood actually lands in,
-namely the true range of \(f\)-values over \((x_0-\delta, x_0+\delta)\).
-Watch what happens to that window as you drag \(\delta \to 0\):
+\section{Background}\label{background}
+
+We have met several properties a function can have: \textbf{injective},
+\textbf{monotone}, \textbf{even or odd}, and --- most important ---
+\textbf{continuous}. In this activity we investigate all of them for the
+two functions
+
+\[
+f(x) = \begin{cases} \dfrac{x}{\lvert x \rvert} & x \neq 0,\\[2mm] 0 & x = 0, \end{cases}
+\qquad\qquad
+g(x) = \begin{cases} \dfrac{1}{x^{2}} & x \neq 0,\\[2mm] 0 & x = 0. \end{cases}
+\]
+
+\section{Step 1: Draw the graphs}\label{step-1-draw-the-graphs}
+
+Sketch the graph of each function on its own set of axes. Plot a few
+sample points first (e.g.~\(x = \pm\tfrac12,\ \pm1,\ \pm2,\ \pm3\)),
+then connect them.
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{06_activity_properties_of_functions_files/figure-pdf/fig-blank-axes-output-1.pdf}}
+
+}
+
+\caption{\label{fig-blank-axes}Blank axes for sketching \(f\) (left) and
+\(g\) (right).}
+
+\end{figure}%
+
+\section{Step 2: Make an educated
+guess}\label{step-2-make-an-educated-guess}
+
+From your graphs, try to answer the following.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Is the function injective?
+\item
+  Is it monotone? If so, is it \emph{strictly} monotone? If not, can you
+  find intervals --- as large as possible --- on which it is (strictly)
+  monotone?
+\item
+  Is it even, odd, or neither?
+\item
+  Is it continuous everywhere? If not, at which \(x\) is it
+  discontinuous?
+\end{enumerate}
+
+Record short answers in the table; you will verify each one in the steps
+that follow.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Property & \(f\) & \(g\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Injective? (yes / no) & ~ & ~ \\
+Monotone? Strictly? On which interval(s)? & ~ & ~ \\
+Even, odd, or neither? & ~ & ~ \\
+Continuous everywhere? If not, at which \(x\)? & ~ & ~ \\
+\end{longtable}
+}
+
+\section{Verification: injectivity}\label{verification-injectivity}
+
+Neither \(f\) nor \(g\) is injective. To prove this, it is enough to
+exhibit two inputs \(x \neq y\) with the same output.
+
+\begin{exercise}[]\protect\hypertarget{exr-activity-injective}{}\label{exr-activity-injective}
+
+Find explicit values:
 
 \begin{itemize}
 \tightlist
 \item
-  At a point where \(f\) is continuous, the window's width shrinks to
-  \(0\).
+  for \(f\): \(x = \underline{\qquad}\) and \(y = \underline{\qquad}\)
+  with \(f(x) = f(y)\);
 \item
-  At a jump, the window's width stops shrinking once \(\delta\) is small
-  enough that both sides of the jump are still inside the neighborhood
-  --- no matter how much smaller you make \(\delta\) after that.
+  for \(g\): \(x = \underline{\qquad}\) and \(y = \underline{\qquad}\)
+  with \(g(x) = g(y)\).
 \end{itemize}
 
-\textbf{How to use it:} click any point on the blue curve to choose
-\(x_0\); the \(\delta\)-slider below the plot then becomes active.
-Dragging it slides the boundary of the \(\delta\)-neighborhood, and you
-can watch the orange ``tunnel'' (the region on the graph carved out by
-that neighborhood together with its image) and the red bar on the
-\(y\)-axis (the resulting \(\varepsilon\)-window) shrink or grow to
-match.
+\end{exercise}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# numpy      {-}{-} holds the sampled function as plain arrays (x, y = f(x)); the widget never calls}
-\CommentTok{\#               f itself, only looks up values you already computed. That means it works just as}
-\CommentTok{\#               well for a formula (np.sin(x)) as for data you only know at finitely many points.}
-\CommentTok{\# plotly.graph\_objects {-}{-} builds the interactive figure (as a FigureWidget, which can be updated}
-\CommentTok{\#               in place after you click on it, instead of redrawing a brand new picture).}
-\CommentTok{\# ipywidgets {-}{-} provides the delta{-}slider and the little text readout underneath the plot, and}
-\CommentTok{\#               glues them together with the figure.}
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\ImportTok{import}\NormalTok{ plotly.graph\_objects }\ImportTok{as}\NormalTok{ go}
-\ImportTok{import}\NormalTok{ ipywidgets }\ImportTok{as}\NormalTok{ widgets}
-\end{Highlighting}
-\end{Shaded}
+\section{Verification: even / odd}\label{verification-even-odd}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{def}\NormalTok{ continuity\_widget(x, y}\OperatorTok{=}\VariableTok{None}\NormalTok{, func\_name}\OperatorTok{=}\StringTok{"f"}\NormalTok{, title}\OperatorTok{=}\VariableTok{None}\NormalTok{, f}\OperatorTok{=}\VariableTok{None}\NormalTok{,}
-\NormalTok{                       delta\_min}\OperatorTok{=}\VariableTok{None}\NormalTok{, delta\_max}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
-    \CommentTok{"""}
-\CommentTok{    Interactive epsilon{-}delta explorer for a function sampled as arrays x, f(x) = y.}
+\begin{exercise}[]\protect\hypertarget{exr-activity-even-odd}{}\label{exr-activity-even-odd}
 
-\CommentTok{    Click a point on the curve to pick x0; a slider for delta (the half{-}width of the}
-\CommentTok{    x{-}neighborhood) then becomes active. As delta changes, the widget shades the region}
-\CommentTok{    of the graph swept out by the delta{-}neighborhood together with its true range of}
-\CommentTok{    f{-}values (the "tunnel"), and marks that same range as an interval on the y{-}axis.}
+For whichever symmetry you guessed, verify it directly from the
+definition of the function: compute \(f(-x)\) and check that it equals
+\(-f(x)\) (odd) or \(f(x)\) (even). Then do the same for \(g\).
 
-\CommentTok{    Parameters}
-\CommentTok{    {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{    x : 1{-}D numpy array}
-\CommentTok{        The x{-}values used to draw the curve (and, if f is not given, to compute the}
-\CommentTok{        delta{-}neighborhood range too). Use a fine grid (e.g. np.linspace) so a fixed}
-\CommentTok{        array is a good stand{-}in for a real interval.}
-\CommentTok{    y : 1{-}D numpy array, optional}
-\CommentTok{        y[i] = f(x[i]), used to draw the curve. If omitted, f(x) is used instead}
-\CommentTok{        (requires f).}
-\CommentTok{    func\_name : str}
-\CommentTok{        Label used for the function in the axis title and status line, e.g. "f".}
-\CommentTok{    title : str, optional}
-\CommentTok{        Plot title; a sensible default is generated if omitted.}
-\CommentTok{    f : callable, optional}
-\CommentTok{        A *vectorized* numpy function (built from np.where/np.sin/... so it accepts an}
-\CommentTok{        array and returns an array of the same shape). If given, the delta{-}neighborhood}
-\CommentTok{        range is NOT read off the (necessarily coarse) plotting grid \textasciigrave{}x\textasciigrave{}; instead, every}
-\CommentTok{        time delta changes, f is re{-}evaluated on a fresh grid inside}
-\CommentTok{        (x0 {-} delta, x0 + delta), with as many points as needed to keep resolving the}
-\CommentTok{        neighborhood as delta shrinks. This is what makes a function that oscillates}
-\CommentTok{        infinitely often near a point (like sin(1/x) at x0 = 0) demonstrable at all: a}
-\CommentTok{        fixed pre{-}sampled array would eventually be too coarse to see the fastest}
-\CommentTok{        oscillations once delta got small enough, and would misleadingly look like it}
-\CommentTok{        settles down.}
-\CommentTok{    delta\_min, delta\_max : float, optional}
-\CommentTok{        Override the slider\textquotesingle{}s default range (computed from the span of x). Pass a very}
-\CommentTok{        small delta\_min (e.g. 1e{-}5) together with f= to explore an oscillation}
-\CommentTok{        discontinuity down past where a fixed grid could ever resolve it.}
+\end{exercise}
 
-\CommentTok{    Returns}
-\CommentTok{    {-}{-}{-}{-}{-}{-}{-}}
-\CommentTok{    ipywidgets.VBox}
-\CommentTok{        Display this (as the last line of a cell, or via IPython.display.display) to}
-\CommentTok{        show the figure, the delta{-}slider, and the status readout stacked vertically.}
-\CommentTok{    """}
-\NormalTok{    x }\OperatorTok{=}\NormalTok{ np.asarray(x, dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{)}
-    \ControlFlowTok{if}\NormalTok{ y }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
-        \ControlFlowTok{if}\NormalTok{ f }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
-            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"provide either y (sampled values) or f (a vectorized callable)"}\NormalTok{)}
-\NormalTok{        y }\OperatorTok{=}\NormalTok{ f(x)}
-\NormalTok{    y }\OperatorTok{=}\NormalTok{ np.asarray(y, dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{)}
-    \ControlFlowTok{if}\NormalTok{ x.shape }\OperatorTok{!=}\NormalTok{ y.shape:}
-        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"x and y must have the same shape"}\NormalTok{)}
-    \CommentTok{\# Sort by x so "the neighborhood of x0" is a contiguous run of the array, and so the}
-    \CommentTok{\# line trace does not zig{-}zag if the caller passed x out of order.}
-\NormalTok{    order }\OperatorTok{=}\NormalTok{ np.argsort(x)}
-\NormalTok{    x, y }\OperatorTok{=}\NormalTok{ x[order], y[order]}
+\section{Verification: monotonicity}\label{verification-monotonicity}
 
-    \CommentTok{\# Fixed axis ranges, computed once from the data. Keeping these fixed (rather than}
-    \CommentTok{\# letting plotly autoscale on every update) is what makes the y{-}axis indicator bar}
-    \CommentTok{\# {-}{-} drawn at the *left edge* of the plot {-}{-} land in the same place every time.}
-\NormalTok{    x\_span }\OperatorTok{=}\NormalTok{ x.}\BuiltInTok{max}\NormalTok{() }\OperatorTok{{-}}\NormalTok{ x.}\BuiltInTok{min}\NormalTok{()}
-\NormalTok{    pad }\OperatorTok{=} \FloatTok{0.06} \OperatorTok{*}\NormalTok{ x\_span}
-\NormalTok{    x\_left, x\_right }\OperatorTok{=}\NormalTok{ x.}\BuiltInTok{min}\NormalTok{() }\OperatorTok{{-}}\NormalTok{ pad, x.}\BuiltInTok{max}\NormalTok{() }\OperatorTok{+}\NormalTok{ pad}
-\NormalTok{    y\_span }\OperatorTok{=}\NormalTok{ y.}\BuiltInTok{max}\NormalTok{() }\OperatorTok{{-}}\NormalTok{ y.}\BuiltInTok{min}\NormalTok{()}
-\NormalTok{    y\_pad }\OperatorTok{=} \FloatTok{0.10} \OperatorTok{*}\NormalTok{ y\_span }\ControlFlowTok{if}\NormalTok{ y\_span }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else} \FloatTok{1.0}
-\NormalTok{    y\_bottom, y\_top }\OperatorTok{=}\NormalTok{ y.}\BuiltInTok{min}\NormalTok{() }\OperatorTok{{-}}\NormalTok{ y\_pad, y.}\BuiltInTok{max}\NormalTok{() }\OperatorTok{+}\NormalTok{ y\_pad}
+\begin{exercise}[]\protect\hypertarget{exr-activity-monotone}{}\label{exr-activity-monotone}
 
-    \CommentTok{\# The function\textquotesingle{}s graph. mode="lines+markers" with small, faint markers keeps the}
-    \CommentTok{\# curve looking smooth while still giving plotly something at every sample point to}
-    \CommentTok{\# register a click on {-}{-} clicking on a bare line (no markers) is unreliable.}
-\NormalTok{    curve }\OperatorTok{=}\NormalTok{ go.Scatter(}
-\NormalTok{        x}\OperatorTok{=}\NormalTok{x, y}\OperatorTok{=}\NormalTok{y, mode}\OperatorTok{=}\StringTok{"lines+markers"}\NormalTok{,}
-\NormalTok{        line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"\#1f77b4"}\NormalTok{, width}\OperatorTok{=}\DecValTok{2}\NormalTok{),}
-\NormalTok{        marker}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(size}\OperatorTok{=}\DecValTok{4}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#1f77b4"}\NormalTok{, opacity}\OperatorTok{=}\FloatTok{0.35}\NormalTok{),}
-\NormalTok{        name}\OperatorTok{=}\NormalTok{func\_name, hoverinfo}\OperatorTok{=}\StringTok{"x+y"}\NormalTok{,}
-\NormalTok{    )}
-    \CommentTok{\# A second, initially empty trace just to highlight whichever point the student}
-    \CommentTok{\# clicked; we overwrite its single (x, y) pair every time a new point is picked.}
-\NormalTok{    selected\_point }\OperatorTok{=}\NormalTok{ go.Scatter(}
-\NormalTok{        x}\OperatorTok{=}\NormalTok{[], y}\OperatorTok{=}\NormalTok{[], mode}\OperatorTok{=}\StringTok{"markers"}\NormalTok{,}
-\NormalTok{        marker}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(size}\OperatorTok{=}\DecValTok{11}\NormalTok{, color}\OperatorTok{=}\StringTok{"\#d62728"}\NormalTok{, line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(width}\OperatorTok{=}\DecValTok{1}\NormalTok{, color}\OperatorTok{=}\StringTok{"white"}\NormalTok{)),}
-\NormalTok{        name}\OperatorTok{=}\StringTok{"x0"}\NormalTok{, hoverinfo}\OperatorTok{=}\StringTok{"skip"}\NormalTok{, showlegend}\OperatorTok{=}\VariableTok{False}\NormalTok{,}
-\NormalTok{    )}
+Verify your monotonicity guess on a suitable interval, directly from the
+definition. For instance, to show a function is increasing on an
+interval, assume \(x \le y\) in that interval and deduce
+\(f(x) \le f(y)\) (use strict inequalities for \emph{strictly}
+increasing); argue similarly for decreasing.
 
-\NormalTok{    fig }\OperatorTok{=}\NormalTok{ go.FigureWidget(data}\OperatorTok{=}\NormalTok{[curve, selected\_point])}
-\NormalTok{    fig.update\_layout(}
-\NormalTok{        template}\OperatorTok{=}\StringTok{"plotly\_white"}\NormalTok{,}
-\NormalTok{        title}\OperatorTok{=}\NormalTok{title }\KeywordTok{or} \SpecialStringTok{f"Continuity at a point: click the graph of }\SpecialCharTok{\{}\NormalTok{func\_name}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{,}
-\NormalTok{        xaxis}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(title}\OperatorTok{=}\StringTok{"x"}\NormalTok{, }\BuiltInTok{range}\OperatorTok{=}\NormalTok{[x\_left, x\_right], zeroline}\OperatorTok{=}\VariableTok{False}\NormalTok{),}
-\NormalTok{        yaxis}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(title}\OperatorTok{=}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{func\_name}\SpecialCharTok{\}}\SpecialStringTok{(x)"}\NormalTok{, }\BuiltInTok{range}\OperatorTok{=}\NormalTok{[y\_bottom, y\_top], zeroline}\OperatorTok{=}\VariableTok{False}\NormalTok{),}
-\NormalTok{        margin}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(t}\OperatorTok{=}\DecValTok{60}\NormalTok{, b}\OperatorTok{=}\DecValTok{40}\NormalTok{, l}\OperatorTok{=}\DecValTok{60}\NormalTok{, r}\OperatorTok{=}\DecValTok{20}\NormalTok{),}
-\NormalTok{        width}\OperatorTok{=}\DecValTok{700}\NormalTok{, height}\OperatorTok{=}\DecValTok{460}\NormalTok{,}
-\NormalTok{        showlegend}\OperatorTok{=}\VariableTok{False}\NormalTok{,}
-\NormalTok{    )}
+\end{exercise}
 
-    \CommentTok{\# delta ranges from "a few sample spacings" up to a quarter of the whole domain by}
-    \CommentTok{\# default {-}{-} small enough to demonstrate delta {-}\textgreater{} 0, large enough to matter visually.}
-    \CommentTok{\# Both can be overridden (see the f= discussion above).}
-    \ControlFlowTok{if}\NormalTok{ delta\_max }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
-\NormalTok{        delta\_max }\OperatorTok{=}\NormalTok{ x\_span }\OperatorTok{/} \DecValTok{2}
-    \ControlFlowTok{if}\NormalTok{ delta\_min }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
-\NormalTok{        delta\_min }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(x\_span }\OperatorTok{/} \DecValTok{500}\NormalTok{, }\FloatTok{1e{-}6}\NormalTok{)}
-\NormalTok{    default\_delta }\OperatorTok{=}\NormalTok{ delta\_max }\OperatorTok{/} \DecValTok{4}  \CommentTok{\# delta resets to this whenever a new x0 is picked}
-\NormalTok{    slider }\OperatorTok{=}\NormalTok{ widgets.FloatSlider(}
-\NormalTok{        value}\OperatorTok{=}\NormalTok{default\_delta, }\BuiltInTok{min}\OperatorTok{=}\NormalTok{delta\_min, }\BuiltInTok{max}\OperatorTok{=}\NormalTok{delta\_max, step}\OperatorTok{=}\NormalTok{delta\_min,}
-\NormalTok{        description}\OperatorTok{=}\StringTok{"delta"}\NormalTok{, disabled}\OperatorTok{=}\VariableTok{True}\NormalTok{, continuous\_update}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
-\NormalTok{        readout\_format}\OperatorTok{=}\StringTok{".2e"} \ControlFlowTok{if}\NormalTok{ delta\_min }\OperatorTok{\textless{}} \FloatTok{1e{-}3} \ControlFlowTok{else} \StringTok{".4f"}\NormalTok{,}
-\NormalTok{        layout}\OperatorTok{=}\NormalTok{widgets.Layout(width}\OperatorTok{=}\StringTok{"620px"}\NormalTok{),}
-\NormalTok{    )}
-\NormalTok{    status }\OperatorTok{=}\NormalTok{ widgets.HTML(value}\OperatorTok{=}\StringTok{"\textless{}i\textgreater{}Click a point on the curve to pick x\&\#8320;.\textless{}/i\textgreater{}"}\NormalTok{)}
+\section{\texorpdfstring{Continuity: the \(\varepsilon\)--\(\delta\)
+game}{Continuity: the \textbackslash varepsilon--\textbackslash delta game}}\label{continuity-the-varepsilondelta-game}
 
-    \CommentTok{\# Remembers which sample index is currently selected (None until the first click).}
-\NormalTok{    state }\OperatorTok{=}\NormalTok{ \{}\StringTok{"idx"}\NormalTok{: }\VariableTok{None}\NormalTok{\}}
+Both \(f\) and \(g\) are continuous at \(x_0 = 1\). Play the
+\(\varepsilon\)--\(\delta\) game from Definition~\ref{def-continuity}.
 
-    \CommentTok{\# Dynamic{-}resampling budget, used only when f is given. RESAMPLE\_FACTOR / delta grows}
-    \CommentTok{\# as delta shrinks, so the neighborhood grid gets finer exactly where it needs to {-}{-}}
-    \CommentTok{\# with a floor (never fewer than RESAMPLE\_MIN points) and a ceiling (never slower than}
-    \CommentTok{\# RESAMPLE\_MAX points, so the slider stays responsive even at tiny delta).}
-\NormalTok{    RESAMPLE\_FACTOR }\OperatorTok{=} \FloatTok{60.0}
-\NormalTok{    RESAMPLE\_MIN, RESAMPLE\_MAX }\OperatorTok{=} \DecValTok{4000}\NormalTok{, }\DecValTok{200\_000}
+\begin{exercise}[]\protect\hypertarget{exr-activity-eps-delta}{}\label{exr-activity-eps-delta}
 
-    \KeywordTok{def}\NormalTok{ neighborhood\_range(x0, delta):}
-        \CommentTok{"""The true range of f (or of the sampled y) over (x0 {-} delta, x0 + delta)."""}
-        \ControlFlowTok{if}\NormalTok{ f }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
-\NormalTok{            n\_pts }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(np.clip(RESAMPLE\_FACTOR }\OperatorTok{/}\NormalTok{ delta, RESAMPLE\_MIN, RESAMPLE\_MAX))}
-\NormalTok{            xs\_local }\OperatorTok{=}\NormalTok{ np.linspace(x0 }\OperatorTok{{-}}\NormalTok{ delta, x0 }\OperatorTok{+}\NormalTok{ delta, n\_pts)}
-            \ControlFlowTok{with}\NormalTok{ np.errstate(}\BuiltInTok{all}\OperatorTok{=}\StringTok{"ignore"}\NormalTok{):}
-\NormalTok{                ys\_local }\OperatorTok{=}\NormalTok{ f(xs\_local)}
-            \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{min}\NormalTok{(ys\_local)), }\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{max}\NormalTok{(ys\_local))}
-\NormalTok{        mask }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{abs}\NormalTok{(x }\OperatorTok{{-}}\NormalTok{ x0) }\OperatorTok{\textless{}=}\NormalTok{ delta}
-        \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ mask.}\BuiltInTok{any}\NormalTok{():}
-            \CommentTok{\# delta smaller than the sample spacing: fall back to the single nearest}
-            \CommentTok{\# point, so the display still degrades gracefully instead of erroring.}
-\NormalTok{            mask }\OperatorTok{=}\NormalTok{ np.array([np.argmin(np.}\BuiltInTok{abs}\NormalTok{(x }\OperatorTok{{-}}\NormalTok{ x0))])}
-        \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(y[mask].}\BuiltInTok{min}\NormalTok{()), }\BuiltInTok{float}\NormalTok{(y[mask].}\BuiltInTok{max}\NormalTok{())}
+~
 
-    \KeywordTok{def}\NormalTok{ neighborhood\_shapes(x0, delta):}
-        \CommentTok{"""Everything the plot needs to draw for the current (x0, delta): the tunnel}
-\CommentTok{        rectangle, its delta{-}boundary and epsilon{-}boundary guide lines, and the bold}
-\CommentTok{        y{-}axis indicator bar."""}
-\NormalTok{        y\_lo, y\_hi }\OperatorTok{=}\NormalTok{ neighborhood\_range(x0, delta)}
-\NormalTok{        d\_lo, d\_hi }\OperatorTok{=}\NormalTok{ x0 }\OperatorTok{{-}}\NormalTok{ delta, x0 }\OperatorTok{+}\NormalTok{ delta}
-\NormalTok{        shapes }\OperatorTok{=}\NormalTok{ [}
-            \CommentTok{\# The "tunnel": the box the graph is confined to over this delta{-}neighborhood.}
-            \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{type}\OperatorTok{=}\StringTok{"rect"}\NormalTok{, xref}\OperatorTok{=}\StringTok{"x"}\NormalTok{, yref}\OperatorTok{=}\StringTok{"y"}\NormalTok{, x0}\OperatorTok{=}\NormalTok{d\_lo, x1}\OperatorTok{=}\NormalTok{d\_hi, y0}\OperatorTok{=}\NormalTok{y\_lo, y1}\OperatorTok{=}\NormalTok{y\_hi,}
-\NormalTok{                 fillcolor}\OperatorTok{=}\StringTok{"rgba(255,140,0,0.25)"}\NormalTok{,}
-\NormalTok{                 line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"rgba(230,120,0,0.8)"}\NormalTok{, width}\OperatorTok{=}\DecValTok{1}\NormalTok{), layer}\OperatorTok{=}\StringTok{"below"}\NormalTok{),}
-            \CommentTok{\# Vertical dotted lines marking x0 {-} delta and x0 + delta.}
-            \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{type}\OperatorTok{=}\StringTok{"line"}\NormalTok{, xref}\OperatorTok{=}\StringTok{"x"}\NormalTok{, yref}\OperatorTok{=}\StringTok{"paper"}\NormalTok{, x0}\OperatorTok{=}\NormalTok{d\_lo, x1}\OperatorTok{=}\NormalTok{d\_lo, y0}\OperatorTok{=}\DecValTok{0}\NormalTok{, y1}\OperatorTok{=}\DecValTok{1}\NormalTok{,}
-\NormalTok{                 line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"rgba(230,120,0,0.8)"}\NormalTok{, width}\OperatorTok{=}\DecValTok{1}\NormalTok{, dash}\OperatorTok{=}\StringTok{"dot"}\NormalTok{)),}
-            \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{type}\OperatorTok{=}\StringTok{"line"}\NormalTok{, xref}\OperatorTok{=}\StringTok{"x"}\NormalTok{, yref}\OperatorTok{=}\StringTok{"paper"}\NormalTok{, x0}\OperatorTok{=}\NormalTok{d\_hi, x1}\OperatorTok{=}\NormalTok{d\_hi, y0}\OperatorTok{=}\DecValTok{0}\NormalTok{, y1}\OperatorTok{=}\DecValTok{1}\NormalTok{,}
-\NormalTok{                 line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"rgba(230,120,0,0.8)"}\NormalTok{, width}\OperatorTok{=}\DecValTok{1}\NormalTok{, dash}\OperatorTok{=}\StringTok{"dot"}\NormalTok{)),}
-            \CommentTok{\# Horizontal dotted guide lines connecting the tunnel to the y{-}axis bar.}
-            \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{type}\OperatorTok{=}\StringTok{"line"}\NormalTok{, xref}\OperatorTok{=}\StringTok{"x"}\NormalTok{, yref}\OperatorTok{=}\StringTok{"y"}\NormalTok{, x0}\OperatorTok{=}\NormalTok{x\_left, x1}\OperatorTok{=}\NormalTok{d\_hi, y0}\OperatorTok{=}\NormalTok{y\_lo, y1}\OperatorTok{=}\NormalTok{y\_lo,}
-\NormalTok{                 line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"gray"}\NormalTok{, width}\OperatorTok{=}\DecValTok{1}\NormalTok{, dash}\OperatorTok{=}\StringTok{"dot"}\NormalTok{)),}
-            \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{type}\OperatorTok{=}\StringTok{"line"}\NormalTok{, xref}\OperatorTok{=}\StringTok{"x"}\NormalTok{, yref}\OperatorTok{=}\StringTok{"y"}\NormalTok{, x0}\OperatorTok{=}\NormalTok{x\_left, x1}\OperatorTok{=}\NormalTok{d\_hi, y0}\OperatorTok{=}\NormalTok{y\_hi, y1}\OperatorTok{=}\NormalTok{y\_hi,}
-\NormalTok{                 line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"gray"}\NormalTok{, width}\OperatorTok{=}\DecValTok{1}\NormalTok{, dash}\OperatorTok{=}\StringTok{"dot"}\NormalTok{)),}
-            \CommentTok{\# The y{-}axis indicator: a bold bar sitting right on the axis, spanning}
-            \CommentTok{\# exactly the range of f{-}values the delta{-}neighborhood produces.}
-            \BuiltInTok{dict}\NormalTok{(}\BuiltInTok{type}\OperatorTok{=}\StringTok{"line"}\NormalTok{, xref}\OperatorTok{=}\StringTok{"x"}\NormalTok{, yref}\OperatorTok{=}\StringTok{"y"}\NormalTok{, x0}\OperatorTok{=}\NormalTok{x\_left, x1}\OperatorTok{=}\NormalTok{x\_left, y0}\OperatorTok{=}\NormalTok{y\_lo, y1}\OperatorTok{=}\NormalTok{y\_hi,}
-\NormalTok{                 line}\OperatorTok{=}\BuiltInTok{dict}\NormalTok{(color}\OperatorTok{=}\StringTok{"\#d62728"}\NormalTok{, width}\OperatorTok{=}\DecValTok{9}\NormalTok{)),}
-\NormalTok{        ]}
-        \ControlFlowTok{return}\NormalTok{ shapes, y\_lo, y\_hi}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Take \(\varepsilon = 1\). Find a number \(\delta > 0\) such that \[
+  \lvert x - 1 \rvert < \delta \quad \Rightarrow \quad\lvert f(x) - f(1) \rvert < 1
+  \] (recall \(f(1) = 1\)). Then find such a \(\delta\) for \(g\).
+\item
+  Repeat with a smaller tolerance, \(\varepsilon = \tfrac{1}{10}\). Does
+  the argument really change?
+\item
+  Can you produce a \(\delta\) that works for an \textbf{arbitrary}
+  \(\varepsilon > 0\)?
+\end{enumerate}
 
-    \KeywordTok{def}\NormalTok{ refresh(x0, y0, delta):}
-\NormalTok{        shapes, y\_lo, y\_hi }\OperatorTok{=}\NormalTok{ neighborhood\_shapes(x0, delta)}
-        \ControlFlowTok{with}\NormalTok{ fig.batch\_update():}
-\NormalTok{            fig.layout.shapes }\OperatorTok{=}\NormalTok{ shapes}
-\NormalTok{            fig.data[}\DecValTok{1}\NormalTok{].x, fig.data[}\DecValTok{1}\NormalTok{].y }\OperatorTok{=}\NormalTok{ [x0], [y0]}
-\NormalTok{        eps }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(y0 }\OperatorTok{{-}}\NormalTok{ y\_lo, y\_hi }\OperatorTok{{-}}\NormalTok{ y0)  }\CommentTok{\# textbook epsilon: window centered at f(x0)}
-\NormalTok{        status.value }\OperatorTok{=}\NormalTok{ (}
-            \SpecialStringTok{f"x\&\#8320; = }\SpecialCharTok{\{}\NormalTok{x0}\SpecialCharTok{:.4g\}}\SpecialStringTok{,  }\SpecialCharTok{\{}\NormalTok{func\_name}\SpecialCharTok{\}}\SpecialStringTok{(x\&\#8320;) = }\SpecialCharTok{\{}\NormalTok{y0}\SpecialCharTok{:.4g\}}\SpecialStringTok{ \&nbsp;|\&nbsp; "}
-            \SpecialStringTok{f"delta = }\SpecialCharTok{\{}\NormalTok{delta}\SpecialCharTok{:.2e\}}\SpecialStringTok{ \&nbsp;\&rarr;\&nbsp; "}
-            \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{func\_name}\SpecialCharTok{\}}\SpecialStringTok{ stays in [}\SpecialCharTok{\{}\NormalTok{y\_lo}\SpecialCharTok{:.4g\}}\SpecialStringTok{, }\SpecialCharTok{\{}\NormalTok{y\_hi}\SpecialCharTok{:.4g\}}\SpecialStringTok{] on (x\&\#8320;{-}delta, x\&\#8320;+delta) "}
-            \SpecialStringTok{f"\&nbsp;|\&nbsp; epsilon = }\SpecialCharTok{\{}\NormalTok{eps}\SpecialCharTok{:.4g\}}\SpecialStringTok{"}
-\NormalTok{        )}
+\end{exercise}
 
-    \KeywordTok{def}\NormalTok{ sample\_value(x0):}
-        \CommentTok{"""f(x0) {-}{-} via f if given (exact), else read off the sampled array y."""}
-        \ControlFlowTok{if}\NormalTok{ f }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
-            \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(f(np.array([x0]))[}\DecValTok{0}\NormalTok{])}
-\NormalTok{        idx }\OperatorTok{=}\NormalTok{ np.argmin(np.}\BuiltInTok{abs}\NormalTok{(x }\OperatorTok{{-}}\NormalTok{ x0))}
-        \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(y[idx])}
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Check your guesses numerically}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
-    \KeywordTok{def}\NormalTok{ on\_click(trace, points, click\_state):}
-        \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ points.point\_inds:}
-            \ControlFlowTok{return}
-\NormalTok{        idx }\OperatorTok{=}\NormalTok{ points.point\_inds[}\DecValTok{0}\NormalTok{]}
-\NormalTok{        state[}\StringTok{"idx"}\NormalTok{] }\OperatorTok{=}\NormalTok{ idx}
-\NormalTok{        x0 }\OperatorTok{=}\NormalTok{ x[idx]}
-\NormalTok{        slider.disabled }\OperatorTok{=} \VariableTok{False}
-        \CommentTok{\# Reset delta to its default every time a new x0 is picked, instead of keeping}
-        \CommentTok{\# whatever delta was left over from exploring the previous point. The slider\textquotesingle{}s}
-        \CommentTok{\# own observer is silenced for this one assignment so refresh() below still}
-        \CommentTok{\# runs exactly once (an assignment that doesn\textquotesingle{}t change .value would otherwise}
-        \CommentTok{\# not fire the observer at all, and one that does would fire it a second time).}
-\NormalTok{        slider.unobserve(on\_slider\_change, names}\OperatorTok{=}\StringTok{"value"}\NormalTok{)}
-\NormalTok{        slider.value }\OperatorTok{=}\NormalTok{ default\_delta}
-\NormalTok{        slider.observe(on\_slider\_change, names}\OperatorTok{=}\StringTok{"value"}\NormalTok{)}
-\NormalTok{        refresh(x0, sample\_value(x0), slider.value)}
+The notebook
+\href{notebooks/Week02_Epsilon_Delta_Game.ipynb}{\texttt{Week02\_Epsilon\_Delta\_Game.ipynb}}
+lets you set \(\varepsilon\) with a slider, type in your \(\delta\), and
+see the exact range of values \(f\) takes on \((1-\delta,\,1+\delta)\)
+--- together with a verdict on whether your \(\delta\) wins the game.
 
-\NormalTok{    fig.data[}\DecValTok{0}\NormalTok{].on\_click(on\_click)}
+\end{tcolorbox}
 
-    \KeywordTok{def}\NormalTok{ on\_slider\_change(change):}
-\NormalTok{        idx }\OperatorTok{=}\NormalTok{ state[}\StringTok{"idx"}\NormalTok{]}
-        \ControlFlowTok{if}\NormalTok{ idx }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
-            \ControlFlowTok{return}
-\NormalTok{        x0 }\OperatorTok{=}\NormalTok{ x[idx]}
-\NormalTok{        refresh(x0, sample\_value(x0), change[}\StringTok{"new"}\NormalTok{])}
+\section{Discontinuities}\label{discontinuities}
 
-\NormalTok{    slider.observe(on\_slider\_change, names}\OperatorTok{=}\StringTok{"value"}\NormalTok{)}
+Both functions are discontinuous at \(x_0 = 0\). Here it is \emph{you}
+who loses the game.
 
-    \ControlFlowTok{return}\NormalTok{ widgets.VBox([fig, slider, status])}
-\end{Highlighting}
-\end{Shaded}
+\begin{exercise}[]\protect\hypertarget{exr-activity-discontinuous}{}\label{exr-activity-discontinuous}
 
-\section{Try it: a continuous
-function}\label{try-it-a-continuous-function}
+Find an \(\varepsilon > 0\) for which \textbf{no} \(\delta\) works ---
+that is, however close \(x\) is taken to \(0\), there is always some
+such \(x\) with \[
+\lvert f(x) - f(0) \rvert \ge \varepsilon.
+\] Give such an \(\varepsilon\) for \(f\), and one for \(g\).
 
-\(f(x) = x^3 - 3x\) on \([-3, 3]\). Click a few different points on the
-curve, then narrow \(\delta\) with the slider.
-
-PREDICT (before you drag the slider all the way down): at a point where
-the curve is fairly flat, do you expect the same \(\delta\) to produce a
-\emph{wider} or \emph{narrower} \(\varepsilon\)-window than at a point
-where the curve is steep? Check your prediction at \(x_0 \approx 0\)
-(flat, an inflection point) versus \(x_0 \approx 2\) (steep).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x\_vals }\OperatorTok{=}\NormalTok{ np.linspace(}\OperatorTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{600}\NormalTok{)}
-\NormalTok{y\_vals }\OperatorTok{=}\NormalTok{ x\_vals}\OperatorTok{**}\DecValTok{3} \OperatorTok{{-}} \DecValTok{3} \OperatorTok{*}\NormalTok{ x\_vals}
-
-\NormalTok{continuity\_widget(x\_vals, y\_vals, func\_name}\OperatorTok{=}\StringTok{"f"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Contrast: a function with a jump
-discontinuity}\label{contrast-a-function-with-a-jump-discontinuity}
-
-\[
-g(x) = \begin{cases} -1 + 0.3x & x < 0 \\ \ \ 1 + 0.3x & x \ge 0 \end{cases}
-\]
-
-Click right at \(x_0 = 0\) and narrow \(\delta\) as far as it goes.
-
-VERIFY: for a continuous function, the epsilon reading in the status
-line keeps shrinking as \(\delta \to 0\). At \(x_0 = 0\) here, it should
-stop shrinking once \(\delta\) is small enough that the tunnel no longer
-reaches across the jump -- after that, no smaller \(\delta\) helps,
-which is exactly why \(g\) fails the \(\varepsilon\)-\(\delta\)
-definition at that point. Compare that to clicking a point away from the
-jump, e.g.~\(x_0 = 1.5\), where narrowing \(\delta\) keeps shrinking the
-window as usual.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x\_vals2 }\OperatorTok{=}\NormalTok{ np.linspace(}\OperatorTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{601}\NormalTok{)}
-\NormalTok{y\_vals2 }\OperatorTok{=}\NormalTok{ np.where(x\_vals2 }\OperatorTok{\textless{}} \DecValTok{0}\NormalTok{, }\OperatorTok{{-}}\FloatTok{1.0}\NormalTok{, }\FloatTok{1.0}\NormalTok{) }\OperatorTok{+} \FloatTok{0.3} \OperatorTok{*}\NormalTok{ x\_vals2}
-
-\NormalTok{continuity\_widget(x\_vals2, y\_vals2, func\_name}\OperatorTok{=}\StringTok{"g"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\section{\texorpdfstring{Contrast: an oscillation discontinuity,
-\(\sin(1/x)\)}{Contrast: an oscillation discontinuity, \textbackslash sin(1/x)}}\label{contrast-an-oscillation-discontinuity-sin1x}
-
-\[
-f(x) = \begin{cases} \sin(1/x) & x \ne 0 \\ 0 & x = 0 \end{cases}
-\]
-
-As \(x \to 0\), \(1/x \to \pm\infty\), so \(\sin(1/x)\) sweeps through
-every value in \([-1, 1]\) over and over, infinitely often, inside
-\emph{every} neighborhood of \(0\) no matter how small. So for
-\(x_0 = 0\): no \(\delta\) can ever squeeze the range of \(f\) down near
-\(f(0) = 0\) -- it is always all of (essentially) \([-1, 1]\). This is
-the third standard flavor of discontinuity, after removable and jump: an
-\textbf{oscillation discontinuity}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{def}\NormalTok{ sin\_inv\_x(x):}
-\NormalTok{    x }\OperatorTok{=}\NormalTok{ np.asarray(x, dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{)}
-    \CommentTok{\# 1/0 would raise a numpy warning even though we immediately overwrite that entry;}
-    \CommentTok{\# substitute a harmless placeholder first, then patch in the *defined* value f(0)=0.}
-\NormalTok{    safe\_x }\OperatorTok{=}\NormalTok{ np.where(x }\OperatorTok{==} \DecValTok{0}\NormalTok{, }\FloatTok{1.0}\NormalTok{, x)}
-    \ControlFlowTok{return}\NormalTok{ np.where(x }\OperatorTok{==} \DecValTok{0}\NormalTok{, }\FloatTok{0.0}\NormalTok{, np.sin(}\FloatTok{1.0} \OperatorTok{/}\NormalTok{ safe\_x))}
-
-\CommentTok{\# A log{-}spaced grid concentrated near 0, purely so the *picture* shows the oscillations}
-\CommentTok{\# piling up near x = 0 the way they really do. This grid is NOT what the epsilon/delta}
-\CommentTok{\# computation uses {-}{-} that comes from f= directly, resampled fresh on every slider move.}
-\NormalTok{x\_plot }\OperatorTok{=}\NormalTok{ np.concatenate([}\OperatorTok{{-}}\NormalTok{np.geomspace(}\FloatTok{1e{-}4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3000}\NormalTok{)[::}\OperatorTok{{-}}\DecValTok{1}\NormalTok{], [}\FloatTok{0.0}\NormalTok{], np.geomspace(}\FloatTok{1e{-}4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3000}\NormalTok{)])}
-
-\NormalTok{continuity\_widget(}
-\NormalTok{    x\_plot, func\_name}\OperatorTok{=}\StringTok{"sin(1/x)"}\NormalTok{, f}\OperatorTok{=}\NormalTok{sin\_inv\_x,}
-\NormalTok{    delta\_min}\OperatorTok{=}\FloatTok{1e{-}5}\NormalTok{, delta\_max}\OperatorTok{=}\FloatTok{0.5}\NormalTok{,}
-\NormalTok{    title}\OperatorTok{=}\StringTok{"Oscillation discontinuity: click x0 = 0 in sin(1/x)"}\NormalTok{,}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{def}\NormalTok{ x\_sin\_inv\_x(x):}
-\NormalTok{    x }\OperatorTok{=}\NormalTok{ np.asarray(x, dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{)}
-\NormalTok{    safe\_x }\OperatorTok{=}\NormalTok{ np.where(x }\OperatorTok{==} \DecValTok{0}\NormalTok{, }\FloatTok{1.0}\NormalTok{, x)}
-    \ControlFlowTok{return}\NormalTok{ np.where(x }\OperatorTok{==} \DecValTok{0}\NormalTok{, }\FloatTok{0.0}\NormalTok{, x }\OperatorTok{*}\NormalTok{ np.sin(}\FloatTok{1.0} \OperatorTok{/}\NormalTok{ safe\_x))}
-
-\NormalTok{x\_plot2 }\OperatorTok{=}\NormalTok{ np.concatenate([}\OperatorTok{{-}}\NormalTok{np.geomspace(}\FloatTok{1e{-}4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3000}\NormalTok{)[::}\OperatorTok{{-}}\DecValTok{1}\NormalTok{], [}\FloatTok{0.0}\NormalTok{], np.geomspace(}\FloatTok{1e{-}4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3000}\NormalTok{)])}
-
-\NormalTok{continuity\_widget(}
-\NormalTok{    x\_plot2, func\_name}\OperatorTok{=}\StringTok{"x sin(1/x)"}\NormalTok{, f}\OperatorTok{=}\NormalTok{x\_sin\_inv\_x,}
-\NormalTok{    delta\_min}\OperatorTok{=}\FloatTok{1e{-}5}\NormalTok{, delta\_max}\OperatorTok{=}\FloatTok{0.5}\NormalTok{,}
-\NormalTok{    title}\OperatorTok{=}\StringTok{"Continuous despite infinite oscillation: click x0 = 0 in x*sin(1/x)"}\NormalTok{,}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
+\end{exercise}
 
 
 

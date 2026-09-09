@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; The Elementary Functions – Math 140H — Honors Calculus I: Lecture Notes</title>
+<title>7&nbsp; Activity: Properties of Functions – Math 140H — Honors Calculus I: Lecture Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05_continuity.html" rel="next">
-<link href="./03_functions.html" rel="prev">
+<link href="./05_continuity.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./04_elementary_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./06_activity_properties_of_functions.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
   </div>
 </li>
@@ -206,7 +205,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_activity_properties_of_functions.html" class="sidebar-item-text sidebar-link">
+  <a href="./06_activity_properties_of_functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></span></a>
   </div>
 </li>
@@ -222,22 +221,23 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#polynomials" id="toc-polynomials" class="nav-link active" data-scroll-target="#polynomials"><span class="header-section-number">5.1</span> Polynomials</a></li>
-  <li><a href="#rational-functions" id="toc-rational-functions" class="nav-link" data-scroll-target="#rational-functions"><span class="header-section-number">5.2</span> Rational Functions</a></li>
-  <li><a href="#algebraic-and-power-functions" id="toc-algebraic-and-power-functions" class="nav-link" data-scroll-target="#algebraic-and-power-functions"><span class="header-section-number">5.3</span> Algebraic and Power Functions</a></li>
-  <li><a href="#exponential-functions" id="toc-exponential-functions" class="nav-link" data-scroll-target="#exponential-functions"><span class="header-section-number">5.4</span> Exponential Functions</a></li>
-  <li><a href="#logarithms" id="toc-logarithms" class="nav-link" data-scroll-target="#logarithms"><span class="header-section-number">5.5</span> Logarithms</a></li>
-  <li><a href="#trigonometric-functions" id="toc-trigonometric-functions" class="nav-link" data-scroll-target="#trigonometric-functions"><span class="header-section-number">5.6</span> Trigonometric Functions</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.7</span> Summary</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">7.1</span> Background</a></li>
+  <li><a href="#step-1-draw-the-graphs" id="toc-step-1-draw-the-graphs" class="nav-link" data-scroll-target="#step-1-draw-the-graphs"><span class="header-section-number">7.2</span> Step 1: Draw the graphs</a></li>
+  <li><a href="#step-2-make-an-educated-guess" id="toc-step-2-make-an-educated-guess" class="nav-link" data-scroll-target="#step-2-make-an-educated-guess"><span class="header-section-number">7.3</span> Step 2: Make an educated guess</a></li>
+  <li><a href="#verification-injectivity" id="toc-verification-injectivity" class="nav-link" data-scroll-target="#verification-injectivity"><span class="header-section-number">7.4</span> Verification: injectivity</a></li>
+  <li><a href="#verification-even-odd" id="toc-verification-even-odd" class="nav-link" data-scroll-target="#verification-even-odd"><span class="header-section-number">7.5</span> Verification: even / odd</a></li>
+  <li><a href="#verification-monotonicity" id="toc-verification-monotonicity" class="nav-link" data-scroll-target="#verification-monotonicity"><span class="header-section-number">7.6</span> Verification: monotonicity</a></li>
+  <li><a href="#continuity-the-varepsilondelta-game" id="toc-continuity-the-varepsilondelta-game" class="nav-link" data-scroll-target="#continuity-the-varepsilondelta-game"><span class="header-section-number">7.7</span> Continuity: the <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> game</a></li>
+  <li><a href="#discontinuities" id="toc-discontinuities" class="nav-link" data-scroll-target="#discontinuities"><span class="header-section-number">7.8</span> Discontinuities</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./04_elementary_functions.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./06_activity_properties_of_functions.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></h1>
 </div>
 
 
@@ -260,252 +260,180 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Companion reading
+<span class="screen-reader-only">Note</span>About this activity
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This lecture corresponds to C&amp;J §1.3.</p>
+<p>An in-class, pencil-and-paper worksheet. It revisits the properties of functions built up in the previous chapters — <em>injective</em>, <em>monotone</em>, <em>even/odd</em>, and, above all, <em>continuous</em> — by working them out in full for two specific functions. Companion reading: C&amp;J §1.2.d.</p>
 </div>
 </div>
-<p>Almost every function met in a first calculus course is built out of a short catalogue of standard functions: polynomials, rational functions, powers, exponentials, logarithms, and the trigonometric functions. These are the <strong>elementary functions</strong>. This lecture is a tour of the list, noting for each type its natural domain, its range, and its basic shape — information we will need constantly once we start differentiating and integrating.</p>
-<section id="polynomials" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="polynomials"><span class="header-section-number">5.1</span> Polynomials</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<section id="background" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="background"><span class="header-section-number">7.1</span> Background</h2>
+<p>We have met several properties a function can have: <strong>injective</strong>, <strong>monotone</strong>, <strong>even or odd</strong>, and — most important — <strong>continuous</strong>. In this activity we investigate all of them for the two functions</p>
+<p><span class="math display">\[
+f(x) = \begin{cases} \dfrac{x}{\lvert x \rvert} &amp; x \neq 0,\\[2mm] 0 &amp; x = 0, \end{cases}
+\qquad\qquad
+g(x) = \begin{cases} \dfrac{1}{x^{2}} &amp; x \neq 0,\\[2mm] 0 &amp; x = 0. \end{cases}
+\]</span></p>
+</section>
+<section id="step-1-draw-the-graphs" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="step-1-draw-the-graphs"><span class="header-section-number">7.2</span> Step 1: Draw the graphs</h2>
+<p>Sketch the graph of each function on its own set of axes. Plot a few sample points first (e.g.&nbsp;<span class="math inline">\(x = \pm\tfrac12,\ \pm1,\ \pm2,\ \pm3\)</span>), then connect them.</p>
+<div id="cell-fig-blank-axes" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-blank-axes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-blank-axes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06_activity_properties_of_functions_files/figure-html/fig-blank-axes-output-1.png" width="759" height="374" class="figure-img">
 </div>
-<div class="callout-body-container">
-<div id="def-polynomial" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.1</strong></span> <br>
-A <strong>polynomial</strong> is a function of the form <span class="math display">\[
-p(x) \;=\; a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n,
-\]</span> with real coefficients <span class="math inline">\(a_0,a_1,\dots,a_n\)</span>. If <span class="math inline">\(a_n\neq 0\)</span>, the integer <span class="math inline">\(n\)</span> is the <strong>degree</strong> of <span class="math inline">\(p\)</span>.</p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blank-axes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Blank axes for sketching <span class="math inline">\(f\)</span> (left) and <span class="math inline">\(g\)</span> (right).
+</figcaption>
+</figure>
 </div>
 </div>
 </div>
-</div>
-<p>The lowest degrees have familiar names:</p>
+</section>
+<section id="step-2-make-an-educated-guess" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="step-2-make-an-educated-guess"><span class="header-section-number">7.3</span> Step 2: Make an educated guess</h2>
+<p>From your graphs, try to answer the following.</p>
+<ol type="1">
+<li>Is the function injective?</li>
+<li>Is it monotone? If so, is it <em>strictly</em> monotone? If not, can you find intervals — as large as possible — on which it is (strictly) monotone?</li>
+<li>Is it even, odd, or neither?</li>
+<li>Is it continuous everywhere? If not, at which <span class="math inline">\(x\)</span> is it discontinuous?</li>
+</ol>
+<p>Record short answers in the table; you will verify each one in the steps that follow.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>degree</th>
-<th>form</th>
-<th>name</th>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;"><span class="math inline">\(f\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(g\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\(0\)</span></td>
-<td><span class="math inline">\(y = a_0\)</span></td>
-<td>constant</td>
+<td style="text-align: left;">Injective? (yes / no)</td>
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(1\)</span></td>
-<td><span class="math inline">\(y = a_0 + a_1 x\)</span></td>
-<td>linear</td>
+<td style="text-align: left;">Monotone? Strictly? On which interval(s)?</td>
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(2\)</span></td>
-<td><span class="math inline">\(y = a_0 + a_1 x + a_2 x^2\)</span></td>
-<td>quadratic</td>
+<td style="text-align: left;">Even, odd, or neither?</td>
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(3\)</span></td>
-<td><span class="math inline">\(y = a_0 + a_1 x + a_2 x^2 + a_3 x^3\)</span></td>
-<td>cubic</td>
+<td style="text-align: left;">Continuous everywhere? If not, at which <span class="math inline">\(x\)</span>?</td>
+<td style="text-align: left;">&nbsp;</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 </tbody>
 </table>
-<p>A polynomial is a finite sum of constant multiples of the <strong>power functions</strong> <span class="math inline">\(1, x, x^2, x^3,\dots\)</span>, each of which is defined for every real number. Hence every polynomial has natural domain <span class="math display">\[
-\operatorname{dom}(p) = \mathbb{R}
-\]</span> (unless we deliberately restrict it).</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-powers-of-x" class="proof remark">
-<p><span class="proof-title"><em>Remark 5.1</em>. </span>The pure powers <span class="math inline">\(x^n\)</span> share a few features worth remembering. Every graph passes through <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((1,1)\)</span>. On the interval <span class="math inline">\([0,1]\)</span> a higher power lies <em>below</em> a lower one (<span class="math inline">\(x^3 \le x^2 \le x\)</span>), while on <span class="math inline">\([1,\infty)\)</span> the order reverses. The power <span class="math inline">\(x^n\)</span> is even when <span class="math inline">\(n\)</span> is even and odd when <span class="math inline">\(n\)</span> is odd; for odd <span class="math inline">\(n\)</span> it is strictly increasing on <span class="math inline">\(\mathbb{R}\)</span> (hence injective), while for even <span class="math inline">\(n\)</span> it is not injective on <span class="math inline">\(\mathbb{R}\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="rational-functions" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="rational-functions"><span class="header-section-number">5.2</span> Rational Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-rational-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.2</strong></span> <br>
-A <strong>rational function</strong> is a quotient of two polynomials, <span class="math display">\[
-r(x) \;=\; \frac{p(x)}{q(x)}, \qquad q \not\equiv 0.
-\]</span> Its natural domain is <span class="math inline">\(\mathbb{R}\setminus Z\)</span>, where <span class="math display">\[
-Z = \{\, x\in\mathbb{R}: q(x) = 0 \,\}
-\]</span> is the (finite) set of zeros of the denominator.</p>
-</div>
-</div>
-</div>
-</div>
+<section id="verification-injectivity" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="verification-injectivity"><span class="header-section-number">7.4</span> Verification: injectivity</h2>
+<p>Neither <span class="math inline">\(f\)</span> nor <span class="math inline">\(g\)</span> is injective. To prove this, it is enough to exhibit two inputs <span class="math inline">\(x \neq y\)</span> with the same output.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="exm-rational" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.1</strong></span> &nbsp;</p>
+<div id="exr-activity-injective" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.1</strong></span> Find explicit values:</p>
 <ul>
-<li><span class="math inline">\(\dfrac{x}{x^2+1}\)</span> is a rational function. Since <span class="math inline">\(x^2+1 &gt; 0\)</span> for every real <span class="math inline">\(x\)</span>, the set <span class="math inline">\(Z\)</span> is empty and the domain is all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li><span class="math inline">\(\dfrac{\sqrt{x}}{x^3 - x}\)</span> is <strong>not</strong> a rational function: <span class="math inline">\(\sqrt{x}\)</span> is not a polynomial. (It is, however, still an elementary function, as it is the arithmetic combination of two elementary functions - see next section)</li>
+<li>for <span class="math inline">\(f\)</span>: <span class="math inline">\(x = \underline{\qquad}\)</span> and <span class="math inline">\(y = \underline{\qquad}\)</span> with <span class="math inline">\(f(x) = f(y)\)</span>;</li>
+<li>for <span class="math inline">\(g\)</span>: <span class="math inline">\(x = \underline{\qquad}\)</span> and <span class="math inline">\(y = \underline{\qquad}\)</span> with <span class="math inline">\(g(x) = g(y)\)</span>.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="algebraic-and-power-functions" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="algebraic-and-power-functions"><span class="header-section-number">5.3</span> Algebraic and Power Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-power-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.3</strong></span> <br>
-A <strong>power function</strong> is <span class="math inline">\(f(x) = x^{\alpha}\)</span> with a fixed real exponent <span class="math inline">\(\alpha\in\mathbb{R}\)</span>. For <span class="math inline">\(x&gt;0\)</span> this is defined for every <span class="math inline">\(\alpha\)</span> (via <span class="math inline">\(x^{\alpha} = \exp(\alpha\ln x)\)</span>, once we have <span class="math inline">\(\exp\)</span> and <span class="math inline">\(\ln\)</span>). For an <strong>integer</strong> exponent the domain extends to <span class="math display">\[
-\operatorname{dom}(x^{\alpha}) = \begin{cases}
-\mathbb{R}&amp; \alpha \ge 0,\\[2pt]
-\mathbb{R}\setminus\{0\} &amp; \alpha &lt; 0.
-\end{cases}
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
+<section id="verification-even-odd" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="verification-even-odd"><span class="header-section-number">7.5</span> Verification: even / odd</h2>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="rem-roots" class="proof remark">
-<p><span class="proof-title"><em>Remark 5.2</em>. </span>For a non-integer exponent one usually keeps the domain <span class="math inline">\([0,\infty)\)</span> (or <span class="math inline">\((0,\infty)\)</span> if <span class="math inline">\(\alpha&lt;0\)</span>). The roots <span class="math inline">\(x^{1/2} = \sqrt{x}\)</span>, <span class="math inline">\(x^{1/3} = \sqrt[3]{x},\dots\)</span> are examples; odd roots such as <span class="math inline">\(\sqrt[3]{x}\)</span> can in fact be extended to all of <span class="math inline">\(\mathbb{R}\)</span>. Power functions with rational exponent, and more generally functions obtained from polynomials by the four arithmetic operations together with root extraction, are called <strong>algebraic functions</strong>. The exponential and logarithm below are <em>not</em> algebraic — they are <strong>transcendental</strong>.</p>
+<div id="exr-activity-even-odd" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.2</strong></span> For whichever symmetry you guessed, verify it directly from the definition of the function: compute <span class="math inline">\(f(-x)\)</span> and check that it equals <span class="math inline">\(-f(x)\)</span> (odd) or <span class="math inline">\(f(x)\)</span> (even). Then do the same for <span class="math inline">\(g\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="exponential-functions" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="exponential-functions"><span class="header-section-number">5.4</span> Exponential Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-exponential" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.4</strong></span> <br>
-Fix a <strong>base</strong> <span class="math inline">\(a &gt; 0\)</span>. The <strong>exponential function</strong> with base <span class="math inline">\(a\)</span>, <span class="math display">\[
-\exp_a\colon \mathbb{R}\to \mathbb{R}, \qquad \exp_a(x) = a^{x},
-\]</span> is defined for every real <span class="math inline">\(x\)</span>. For <span class="math inline">\(a\neq 1\)</span> it takes only positive values, and every positive value is attained: <span class="math display">\[
-\operatorname{dom}(\exp_a) = \mathbb{R}, \qquad \operatorname{ran}(\exp_a) = (0,\infty) = \mathbb{R}^{&gt;0}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<p>For <span class="math inline">\(a &gt; 1\)</span> the function <span class="math inline">\(a^x\)</span> is strictly increasing; for <span class="math inline">\(0 &lt; a &lt; 1\)</span> it is strictly decreasing; for <span class="math inline">\(a=1\)</span> it is the constant <span class="math inline">\(1\)</span>. In all cases <span class="math inline">\(a^0 = 1\)</span> and <span class="math inline">\(a^{x+y} = a^x a^y\)</span>.</p>
-</section>
-<section id="logarithms" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="logarithms"><span class="header-section-number">5.5</span> Logarithms</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-logarithm" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.5</strong></span> <br>
-Fix a base <span class="math inline">\(a &gt; 0\)</span> with <span class="math inline">\(a\neq 1\)</span>. Then <span class="math inline">\(\exp_a\)</span> is injective from <span class="math inline">\(\mathbb{R}\)</span> onto <span class="math inline">\((0,\infty)\)</span>, and its inverse function (in the sense of <a href="03_functions.html#def-inverse" class="quarto-xref">Definition&nbsp;<span>4.8</span></a>) is the <strong>logarithm to base <span class="math inline">\(a\)</span></strong>, <span class="math display">\[
-\log_a\colon (0,\infty)\to\mathbb{R}, \qquad
-\log_a(a^{x}) = x, \qquad a^{\log_a y} = y.
-\]</span> Thus <span class="math display">\[
-\operatorname{dom}(\log_a) = (0,\infty), \qquad \operatorname{ran}(\log_a) = \mathbb{R}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<p>Because it is the inverse of <span class="math inline">\(a^x\)</span>, the graph of <span class="math inline">\(\log_a\)</span> is the reflection of the graph of <span class="math inline">\(a^x\)</span> across the line <span class="math inline">\(y = x\)</span> (<a href="03_functions.html#rem-inverse-graph" class="quarto-xref">Remark&nbsp;<span>4.3</span></a>). It converts products to sums: <span class="math inline">\(\log_a(xy) = \log_a x + \log_a y\)</span>.</p>
-</section>
-<section id="trigonometric-functions" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="trigonometric-functions"><span class="header-section-number">5.6</span> Trigonometric Functions</h2>
-<p>Let <span class="math inline">\(x\)</span> be a real number, thought of as an angle measured in <strong>radians</strong>. Rotating the point <span class="math inline">\((1,0)\)</span> counter-clockwise through the angle <span class="math inline">\(x\)</span> about the origin lands on a point of the unit circle whose coordinates are, by definition, <span class="math inline">\((\cos x, \sin x)\)</span>.</p>
-<p>Both <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> are defined for all <span class="math inline">\(x\in\mathbb{R}\)</span>, take values in <span class="math inline">\([-1,1]\)</span>, and repeat after a full turn.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-periodic" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5.6</strong></span> <br>
-A function <span class="math inline">\(f\)</span> is <strong>periodic with period <span class="math inline">\(P &gt; 0\)</span></strong> if <span class="math inline">\(f(x + P) = f(x)\)</span> for every <span class="math inline">\(x\)</span> in its domain.</p>
-</div>
-</div>
-</div>
-</div>
-<p>Thus <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> are periodic with period <span class="math inline">\(2\pi\)</span>. The <strong>tangent</strong> <span class="math display">\[
-\tan x = \frac{\sin x}{\cos x}
-\]</span> is defined wherever <span class="math inline">\(\cos x \neq 0\)</span>, i.e.&nbsp;for <span class="math inline">\(x \neq \tfrac{\pi}{2} + k\pi\)</span> with <span class="math inline">\(k\in\mathbb{Z}\)</span>, and is periodic with period <span class="math inline">\(\pi\)</span>.</p>
+<section id="verification-monotonicity" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="verification-monotonicity"><span class="header-section-number">7.6</span> Verification: monotonicity</h2>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="rem-sinusoid" class="proof remark">
-<p><span class="proof-title"><em>Remark 5.3</em>. </span>A general <strong>sinusoid</strong> has the form <span class="math display">\[
-f(x) = A\,\sin(bx) + C,
-\]</span> with <strong>amplitude</strong> <span class="math inline">\(|A|\)</span> (half the vertical spread of the graph), <strong>period</strong> <span class="math inline">\(\dfrac{2\pi}{b}\)</span>, and <strong>vertical offset</strong> <span class="math inline">\(C\)</span> (the horizontal line the graph oscillates around).</p>
+<div id="exr-activity-monotone" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.3</strong></span> Verify your monotonicity guess on a suitable interval, directly from the definition. For instance, to show a function is increasing on an interval, assume <span class="math inline">\(x \le y\)</span> in that interval and deduce <span class="math inline">\(f(x) \le f(y)\)</span> (use strict inequalities for <em>strictly</em> increasing); argue similarly for decreasing.</p>
 </div>
 </div>
 </div>
 </div>
+</section>
+<section id="continuity-the-varepsilondelta-game" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="continuity-the-varepsilondelta-game"><span class="header-section-number">7.7</span> Continuity: the <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> game</h2>
+<p>Both <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are continuous at <span class="math inline">\(x_0 = 1\)</span>. Play the <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> game from <a href="05_continuity.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="exr-sinusoid" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> The function <span class="math inline">\(f(x) = 3\sin(2x) + 1\)</span> is a sinusoid. Find its amplitude, period, and range, and the smallest <span class="math inline">\(x &gt; 0\)</span> at which it attains its maximum.</p>
+<div id="exr-activity-eps-delta" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.4</strong></span> &nbsp;</p>
+<ol type="1">
+<li>Take <span class="math inline">\(\varepsilon = 1\)</span>. Find a number <span class="math inline">\(\delta &gt; 0\)</span> such that <span class="math display">\[
+\lvert x - 1 \rvert &lt; \delta \quad \Rightarrow \quad\lvert f(x) - f(1) \rvert &lt; 1
+\]</span> (recall <span class="math inline">\(f(1) = 1\)</span>). Then find such a <span class="math inline">\(\delta\)</span> for <span class="math inline">\(g\)</span>.</li>
+<li>Repeat with a smaller tolerance, <span class="math inline">\(\varepsilon = \tfrac{1}{10}\)</span>. Does the argument really change?</li>
+<li>Can you produce a <span class="math inline">\(\delta\)</span> that works for an <strong>arbitrary</strong> <span class="math inline">\(\varepsilon &gt; 0\)</span>?</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
-<!-- ::: {.solution}
-Amplitude $|A| = 3$, period $\dfrac{2\pi}{2} = \pi$, offset $C = 1$, so the range is
-$[1-3,\,1+3] = [-2,4]$. The maximum occurs when $\sin(2x) = 1$, i.e. $2x = \tfrac{\pi}{2} + 2k\pi$;
-the smallest positive solution is $x = \tfrac{\pi}{4}$.
+<!-- ::: {.callout-tip}
+## Check your guesses numerically
+The notebook
+[`Week02_Epsilon_Delta_Game.ipynb`](notebooks/Week02_Epsilon_Delta_Game.ipynb)
+lets you set $\varepsilon$ with a slider, type in your $\delta$, and see the exact
+range of values $f$ takes on $(1-\delta,\,1+\delta)$ — together with a verdict on
+whether your $\delta$ wins the game.
 ::: -->
 </section>
-<section id="summary" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.7</span> Summary</h2>
-<ul>
-<li><strong>Polynomials</strong> (<a href="#def-polynomial" class="quarto-xref">Definition&nbsp;<span>5.1</span></a>) are finite combinations of the powers <span class="math inline">\(1,x,x^2,\dots\)</span>; they are defined on all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li><strong>Rational functions</strong> (<a href="#def-rational-function" class="quarto-xref">Definition&nbsp;<span>5.2</span></a>) are quotients of polynomials, defined off the finite zero set of the denominator.</li>
-<li><strong>Power functions</strong> <span class="math inline">\(x^{\alpha}\)</span> (<a href="#def-power-function" class="quarto-xref">Definition&nbsp;<span>5.3</span></a>) have domain <span class="math inline">\(\mathbb{R}\)</span> or <span class="math inline">\(\mathbb{R}\setminus\{0\}\)</span> for integer exponents, and are typically taken on <span class="math inline">\([0,\infty)\)</span> otherwise; together with roots they form the <strong>algebraic</strong> functions.</li>
-<li><strong>Exponentials</strong> <span class="math inline">\(a^x\)</span> (<a href="#def-exponential" class="quarto-xref">Definition&nbsp;<span>5.4</span></a>) have domain <span class="math inline">\(\mathbb{R}\)</span> and range <span class="math inline">\((0,\infty)\)</span>; their inverses, the <strong>logarithms</strong> <span class="math inline">\(\log_a\)</span> (<a href="#def-logarithm" class="quarto-xref">Definition&nbsp;<span>5.5</span></a>), have domain <span class="math inline">\((0,\infty)\)</span> and range <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li>The <strong>trigonometric functions</strong> <span class="math inline">\(\sin,\cos\)</span> are <span class="math inline">\(2\pi\)</span>-periodic (<a href="#def-periodic" class="quarto-xref">Definition&nbsp;<span>5.6</span></a>) with range <span class="math inline">\([-1,1]\)</span>; <span class="math inline">\(\tan = \sin/\cos\)</span> is <span class="math inline">\(\pi\)</span>-periodic and undefined where <span class="math inline">\(\cos\)</span> vanishes.</li>
-</ul>
+<section id="discontinuities" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="discontinuities"><span class="header-section-number">7.8</span> Discontinuities</h2>
+<p>Both functions are discontinuous at <span class="math inline">\(x_0 = 0\)</span>. Here it is <em>you</em> who loses the game.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-activity-discontinuous" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.5</strong></span> Find an <span class="math inline">\(\varepsilon &gt; 0\)</span> for which <strong>no</strong> <span class="math inline">\(\delta\)</span> works — that is, however close <span class="math inline">\(x\)</span> is taken to <span class="math inline">\(0\)</span>, there is always some such <span class="math inline">\(x\)</span> with <span class="math display">\[
+\lvert f(x) - f(0) \rvert \ge \varepsilon.
+\]</span> Give such an <span class="math inline">\(\varepsilon\)</span> for <span class="math inline">\(f\)</span>, and one for <span class="math inline">\(g\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
@@ -913,14 +841,11 @@ the smallest positive solution is $x = \tfrac{\pi}{4}$.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03_functions.html" class="pagination-link" aria-label="The Concept of Function">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span>
+      <a href="./05_continuity.html" class="pagination-link" aria-label="Continuity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05_continuity.html" class="pagination-link" aria-label="Continuity">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

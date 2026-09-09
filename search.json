@@ -437,5 +437,93 @@
       "Functions",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Continuity</span>"
     ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html",
+    "href": "06_activity_properties_of_functions.html",
+    "title": "7  Activity: Properties of Functions",
+    "section": "",
+    "text": "7.1 Background\nWe have met several properties a function can have: injective, monotone, even or odd, and — most important — continuous. In this activity we investigate all of them for the two functions\n\\[\nf(x) = \\begin{cases} \\dfrac{x}{\\lvert x \\rvert} & x \\neq 0,\\\\[2mm] 0 & x = 0, \\end{cases}\n\\qquad\\qquad\ng(x) = \\begin{cases} \\dfrac{1}{x^{2}} & x \\neq 0,\\\\[2mm] 0 & x = 0. \\end{cases}\n\\]",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#step-1-draw-the-graphs",
+    "href": "06_activity_properties_of_functions.html#step-1-draw-the-graphs",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.2 Step 1: Draw the graphs",
+    "text": "7.2 Step 1: Draw the graphs\nSketch the graph of each function on its own set of axes. Plot a few sample points first (e.g. \\(x = \\pm\\tfrac12,\\ \\pm1,\\ \\pm2,\\ \\pm3\\)), then connect them.\n\n\n\n\n\n\n\n\nFigure 7.1: Blank axes for sketching \\(f\\) (left) and \\(g\\) (right).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#step-2-make-an-educated-guess",
+    "href": "06_activity_properties_of_functions.html#step-2-make-an-educated-guess",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.3 Step 2: Make an educated guess",
+    "text": "7.3 Step 2: Make an educated guess\nFrom your graphs, try to answer the following.\n\nIs the function injective?\nIs it monotone? If so, is it strictly monotone? If not, can you find intervals — as large as possible — on which it is (strictly) monotone?\nIs it even, odd, or neither?\nIs it continuous everywhere? If not, at which \\(x\\) is it discontinuous?\n\nRecord short answers in the table; you will verify each one in the steps that follow.\n\n\n\nProperty\n\\(f\\)\n\\(g\\)\n\n\n\n\nInjective? (yes / no)\n \n \n\n\nMonotone? Strictly? On which interval(s)?\n \n \n\n\nEven, odd, or neither?\n \n \n\n\nContinuous everywhere? If not, at which \\(x\\)?",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#verification-injectivity",
+    "href": "06_activity_properties_of_functions.html#verification-injectivity",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.4 Verification: injectivity",
+    "text": "7.4 Verification: injectivity\nNeither \\(f\\) nor \\(g\\) is injective. To prove this, it is enough to exhibit two inputs \\(x \\neq y\\) with the same output.\n\n\n\n\n\n\n\nExercise 7.1 Find explicit values:\n\nfor \\(f\\): \\(x = \\underline{\\qquad}\\) and \\(y = \\underline{\\qquad}\\) with \\(f(x) = f(y)\\);\nfor \\(g\\): \\(x = \\underline{\\qquad}\\) and \\(y = \\underline{\\qquad}\\) with \\(g(x) = g(y)\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#verification-even-odd",
+    "href": "06_activity_properties_of_functions.html#verification-even-odd",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.5 Verification: even / odd",
+    "text": "7.5 Verification: even / odd\n\n\n\n\n\n\n\nExercise 7.2 For whichever symmetry you guessed, verify it directly from the definition of the function: compute \\(f(-x)\\) and check that it equals \\(-f(x)\\) (odd) or \\(f(x)\\) (even). Then do the same for \\(g\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#verification-monotonicity",
+    "href": "06_activity_properties_of_functions.html#verification-monotonicity",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.6 Verification: monotonicity",
+    "text": "7.6 Verification: monotonicity\n\n\n\n\n\n\n\nExercise 7.3 Verify your monotonicity guess on a suitable interval, directly from the definition. For instance, to show a function is increasing on an interval, assume \\(x \\le y\\) in that interval and deduce \\(f(x) \\le f(y)\\) (use strict inequalities for strictly increasing); argue similarly for decreasing.",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#continuity-the-varepsilondelta-game",
+    "href": "06_activity_properties_of_functions.html#continuity-the-varepsilondelta-game",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.7 Continuity: the \\(\\varepsilon\\)–\\(\\delta\\) game",
+    "text": "7.7 Continuity: the \\(\\varepsilon\\)–\\(\\delta\\) game\nBoth \\(f\\) and \\(g\\) are continuous at \\(x_0 = 1\\). Play the \\(\\varepsilon\\)–\\(\\delta\\) game from Definition 6.2.\n\n\n\n\n\n\n\nExercise 7.4  \n\nTake \\(\\varepsilon = 1\\). Find a number \\(\\delta &gt; 0\\) such that \\[\n\\lvert x - 1 \\rvert &lt; \\delta \\quad \\Rightarrow \\quad\\lvert f(x) - f(1) \\rvert &lt; 1\n\\] (recall \\(f(1) = 1\\)). Then find such a \\(\\delta\\) for \\(g\\).\nRepeat with a smaller tolerance, \\(\\varepsilon = \\tfrac{1}{10}\\). Does the argument really change?\nCan you produce a \\(\\delta\\) that works for an arbitrary \\(\\varepsilon &gt; 0\\)?",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "06_activity_properties_of_functions.html#discontinuities",
+    "href": "06_activity_properties_of_functions.html#discontinuities",
+    "title": "7  Activity: Properties of Functions",
+    "section": "7.8 Discontinuities",
+    "text": "7.8 Discontinuities\nBoth functions are discontinuous at \\(x_0 = 0\\). Here it is you who loses the game.\n\n\n\n\n\n\n\nExercise 7.5 Find an \\(\\varepsilon &gt; 0\\) for which no \\(\\delta\\) works — that is, however close \\(x\\) is taken to \\(0\\), there is always some such \\(x\\) with \\[\n\\lvert f(x) - f(0) \\rvert \\ge \\varepsilon.\n\\] Give such an \\(\\varepsilon\\) for \\(f\\), and one for \\(g\\).",
+    "crumbs": [
+      "Functions",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Activity: Properties of Functions</span>"
+    ]
   }
 ]

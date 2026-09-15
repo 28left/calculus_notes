@@ -204,15 +204,19 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -246,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-09-09}
+\date{2026-09-14}
 \begin{document}
 \maketitle
 
@@ -2206,13 +2210,6 @@ such \(x\) with \[
 
 \chapter{Sequences and Convergence}\label{sequences-and-convergence}
 
-\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
-
-This lecture corresponds to C\&J §1.6 (a selection). The arithmetic
-rules for limits are treated in C\&J §1.7.
-
-\end{tcolorbox}
-
 \section{Sequences}\label{sequences}
 
 A \textbf{sequence} is an unending list of real numbers \[
@@ -2418,6 +2415,234 @@ laws the numerator tends to \(2 - 0 = 2\) and the denominator to
 
 \end{example}
 
+\section{Comparison and the Squeeze
+Theorem}\label{comparison-and-the-squeeze-theorem}
+
+\begin{exercise}[]\protect\hypertarget{exr-warmup-half-n}{}\label{exr-warmup-half-n}
+
+\textbf{Warm-up.} Show that \(\lim_{n\to\infty} \dfrac{1}{2^n} = 0\).
+
+\end{exercise}
+
+Rather than hunting for \(N(\varepsilon)\) from scratch every time, it
+is often easier to compare a sequence to one whose limit we already
+know.
+
+\begin{proposition}[Comparison
+test]\protect\hypertarget{prp-comparison}{}\label{prp-comparison}
+
+Suppose \(0 \le b_n \le a_n\) for all \(n\), and \(a_n \to 0\). Then
+\(b_n \to 0\).
+
+\end{proposition}
+
+\begin{proof}
+Let \(\varepsilon>0\). Since \(a_n\to0\) there is \(N\in\mathbb{N}\)
+with \(a_n < \varepsilon\) for all \(n\ge N\). Then for \(n\ge N\), \[
+0 \le b_n \le a_n < \varepsilon,
+\] so \(\lvert b_n - 0 \rvert = b_n < \varepsilon\). Hence
+\(b_n \to 0\).
+\end{proof}
+
+We can generalize this by sandwiching a sequence between two others that
+converge to the \emph{same} limit works for any target value.
+
+\begin{proposition}[Squeeze
+theorem]\protect\hypertarget{prp-squeeze}{}\label{prp-squeeze}
+
+Suppose \(a_n \le b_n \le c_n\) for all \(n\), and \(a_n \to L\),
+\(c_n \to L\) for the same \(L\in\mathbb{R}\). Then \(b_n \to L\).
+
+\end{proposition}
+
+\begin{proof}
+Let \(\varepsilon>0\). Choose \(N_1\) with
+\(\lvert a_n-L \rvert<\varepsilon\) for \(n\ge N_1\), and \(N_2\) with
+\(\lvert c_n-L \rvert<\varepsilon\) for \(n\ge N_2\). Let
+\(N=\max(N_1,N_2)\). For \(n\ge N\), \[
+L-\varepsilon< a_n \le b_n \le c_n < L+\varepsilon,
+\] so \(\lvert b_n-L \rvert<\varepsilon\). Hence \(b_n\to L\).
+\end{proof}
+
+\begin{refremark}
+Proposition~\ref{prp-comparison} is the special case of the squeeze
+theorem where the lower bounding sequence is constantly \(0\) and
+\(L=0\).
+
+\label{rem-squeeze-comparison}
+
+\end{refremark}
+
+\section{Monotone and Bounded
+Sequences}\label{monotone-and-bounded-sequences}
+
+\begin{definition}[]\protect\hypertarget{def-monotone}{}\label{def-monotone}
+
+\hfill\break
+A sequence \((a_n)\) is \textbf{increasing} if \(a_n \le a_{n+1}\) for
+all \(n\), and \textbf{decreasing} if \(a_n \ge a_{n+1}\) for all \(n\).
+It is \textbf{monotone} if it is increasing or decreasing.
+
+\end{definition}
+
+\begin{definition}[]\protect\hypertarget{def-bounded}{}\label{def-bounded}
+
+\hfill\break
+A sequence \((a_n)\) is \textbf{bounded} if there is a constant \(C\)
+such that \(\lvert a_n \rvert\le C\) for all \(n\).
+
+\end{definition}
+
+\begin{theorem}[Monotone Convergence
+Theorem]\protect\hypertarget{thm-monotone-convergence}{}\label{thm-monotone-convergence}
+
+Every bounded monotone sequence converges.
+
+\end{theorem}
+
+\begin{refremark}
+This theorem expresses the same completeness of \(\mathbb{R}\) as the
+Nested Interval Axiom from \hyperref[the-nested-interval-axiom]{The
+Nested Interval Axiom} --- each can be derived from the other. We will
+not reprove the general statement here; instead we isolate the paired
+form that we actually use below, which follows directly from the axiom
+together with the comparison test.
+
+\label{rem-monotone-nip}
+
+\end{refremark}
+
+\begin{corollary}[]\protect\hypertarget{cor-monotone-squeeze}{}\label{cor-monotone-squeeze}
+
+Suppose \((a_n)\) is increasing, \((b_n)\) is decreasing, \(a_n\le b_n\)
+for all \(n\), and \(b_n - a_n \to 0\). Then \((a_n)\) and \((b_n)\)
+converge to a common limit \(c\), the unique point in
+\(\bigcap_n [a_n,b_n]\).
+
+\end{corollary}
+
+\begin{proof}
+Since \((a_n)\) is increasing and \((b_n)\) is decreasing with
+\(a_n\le b_n\), the intervals \([a_n,b_n]\) are nested:
+\([a_{n+1},b_{n+1}]\subseteq[a_n,b_n]\) for all \(n\). By the Nested
+Interval Axiom there is a point \(c\) with \(a_n \le c \le b_n\) for
+every \(n\). Then \[
+0 \le c - a_n \le b_n - a_n \to 0 \qquad\text{and}\qquad 0 \le b_n - c \le b_n - a_n \to 0,
+\] so the comparison test (Proposition~\ref{prp-comparison}) gives
+\(a_n \to c\) and \(b_n \to c\).
+\end{proof}
+
+\section{Applications}\label{applications}
+
+\begin{lemma}[Bernoulli's
+inequality]\protect\hypertarget{lem-bernoulli}{}\label{lem-bernoulli}
+
+For \(c \ge -1\) and \(n\in\mathbb{N}\), \[
+(1+c)^n \ge 1 + nc.
+\]
+
+\end{lemma}
+
+(For \(c \geq 0\) one can prove this by considering just the first two
+terms of the
+\href{https://en.wikipedia.org/wiki/Binomial_theorem}{binomial
+expansion} of \((1+c)^n\). The remaining terms are all non-negative, so
+by leaving them out, we obtain something smaller.)
+
+\subsection{\texorpdfstring{Roots:
+\(\sqrt[n]{p} \to 1\)}{Roots: \textbackslash sqrt{[}n{]}\{p\} \textbackslash to 1}}\label{roots-sqrtnp-to-1}
+
+\begin{theorem}[]\protect\hypertarget{thm-nth-root}{}\label{thm-nth-root}
+
+\hfill\break
+For every \(p>0\), \(\displaystyle\lim_{n\to\infty}\sqrt[n]{p} = 1\).
+
+\end{theorem}
+
+\begin{proof}
+For \(p=1\) the sequence is constant, so there is nothing to show.
+
+Suppose \(p>1\). Write \(a_n := \sqrt[n]{p} = 1+\delta_n\); since
+\(p>1\) we have \(a_n>1\), so \(\delta_n>0\). Raising to the \(n\)-th
+power and applying Bernoulli's inequality (with \(c=\delta_n\ge0\)), \[
+p = (1+\delta_n)^n \ge 1+n\delta_n,
+\] so \(0 < \delta_n \le \dfrac{p-1}{n}\). Since \(\tfrac{p-1}{n}\to0\),
+the comparison test gives \(\delta_n\to0\), and hence
+\(a_n = 1+\delta_n \to 1\).
+
+Suppose \(0<p<1\). Then \(q:=1/p>1\), and by the case just proved
+\(\sqrt[n]{q}\to1\). Since \(\sqrt[n]{q}\neq0\) for all \(n\) and its
+limit is nonzero, the quotient rule in Proposition~\ref{prp-limit-laws}
+gives \[
+\sqrt[n]{p} = \frac{1}{\sqrt[n]{q}} \longrightarrow \frac11 = 1.
+\]
+\end{proof}
+
+This proves the claim recorded in
+Remark~\ref{rem-sequences-limits-answers} for \(d_n=\sqrt[n]{p}\).
+
+\subsection{\texorpdfstring{The Number
+\(e\)}{The Number e}}\label{the-number-e}
+
+\begin{proposition}[]\protect\hypertarget{prp-e-increasing}{}\label{prp-e-increasing}
+
+\hfill\break
+The sequence \(e_n := \left(1+\tfrac1n\right)^n\) is increasing.
+
+\end{proposition}
+
+\begin{proof}
+We must show \[
+\left(1+\frac1n\right)^n \le \left(1+\frac1{n+1}\right)^{n+1}. \tag{$*$}
+\] Writing both sides with a common fractional base and splitting off
+one factor of \(\tfrac{n+2}{n+1}\) on the right, \[
+(*) \iff \left(\frac{n+1}{n}\right)^n \le \left(\frac{n+2}{n+1}\right)^n \cdot \frac{n+2}{n+1}
+\iff \frac{n+1}{n+2} \le \left(\frac{n(n+2)}{(n+1)^2}\right)^{n}.
+\] Since \((n+1)^2 = n^2+2n+1\), we have
+\(n(n+2) = n^2+2n = (n+1)^2-1\), so \[
+\left(\frac{n(n+2)}{(n+1)^2}\right)^{n} = \left(1-\frac{1}{(n+1)^2}\right)^{n}.
+\] By Bernoulli's inequality (with \(c=-\tfrac{1}{(n+1)^2}\ge-1\)), \[
+\left(1-\frac{1}{(n+1)^2}\right)^{n} \ge 1 - \frac{n}{(n+1)^2}.
+\] So it suffices to show \(\dfrac{n+1}{n+2} \le 1-\dfrac{n}{(n+1)^2}\),
+i.e. \[
+\frac{1}{n+2} \ge \frac{n}{(n+1)^2} \iff (n+1)^2 \ge n(n+2) \iff n^2+2n+1 \ge n^2+2n,
+\] which is always true. Chaining the inequalities back together proves
+\((*)\).
+\end{proof}
+
+\begin{exercise}[]\protect\hypertarget{exr-f-decreasing}{}\label{exr-f-decreasing}
+
+Show that \(f_n := \left(1+\tfrac1n\right)^{n+1}\) is decreasing. (Adapt
+the computation in the proof of Proposition~\ref{prp-e-increasing}.)
+
+\end{exercise}
+
+\begin{theorem}[]\protect\hypertarget{thm-e-exists}{}\label{thm-e-exists}
+
+\hfill\break
+The limit \[
+e := \lim_{n\to\infty}\left(1+\frac1n\right)^n
+\] exists; numerically \(e \approx 2.71828\ldots\).
+
+\end{theorem}
+
+\begin{proof}
+Let \(e_n = \left(1+\tfrac1n\right)^n\) and
+\(f_n = \left(1+\tfrac1n\right)^{n+1} = e_n\left(1+\tfrac1n\right)\), so
+\(e_n \le f_n\) for all \(n\). By Proposition~\ref{prp-e-increasing},
+\((e_n)\) is increasing; by Exercise~\ref{exr-f-decreasing}, \((f_n)\)
+is decreasing. In particular \(e_n \le f_n \le f_1 = 4\) for all \(n\),
+so \((e_n)\) is bounded.
+
+Moreover \[
+0 \le f_n - e_n = e_n\cdot\frac1n \le \frac{f_1}{n} = \frac4n \longrightarrow 0,
+\] so \(f_n - e_n \to 0\) by the comparison test. By
+Corollary~\ref{cor-monotone-squeeze}, \((e_n)\) and \((f_n)\) converge
+to a common limit --- which we call \(e\). Numerically,
+\(e_{10} \approx 2.594\), \(e_{100}\approx 2.705\),
+\(e_{1000}\approx 2.7169\), consistent with \(e\approx 2.71828\ldots\).
+\end{proof}
+
 \section{Summary}\label{summary-5}
 
 \begin{itemize}
@@ -2443,7 +2668,435 @@ laws the numerator tends to \(2 - 0 = 2\) and the denominator to
   dividing through by the highest power of \(n\) turns a ratio of
   polynomials into a form where they apply
   (Example~\ref{exm-rational-sequence}).
+\item
+  The \textbf{comparison test} and \textbf{squeeze theorem}
+  (Proposition~\ref{prp-comparison}, Proposition~\ref{prp-squeeze}) let
+  us find a limit by trapping a sequence between two others whose limits
+  we already know.
+\item
+  A \textbf{bounded monotone sequence converges}
+  (Theorem~\ref{thm-monotone-convergence}), a fact equivalent to the
+  Nested Interval Axiom; the paired form
+  (Corollary~\ref{cor-monotone-squeeze}) --- an increasing and a
+  decreasing sequence squeezing together --- is the version we use in
+  practice.
+\item
+  \textbf{Bernoulli's inequality} \((1+c)^n \ge 1+nc\)
+  (Lemma~\ref{lem-bernoulli}) drives two applications: every
+  \(\sqrt[n]{p} \to 1\) (Theorem~\ref{thm-nth-root}), and
+  \(\left(1+\tfrac1n\right)^n\) increases while
+  \(\left(1+\tfrac1n\right)^{n+1}\) decreases to the same limit,
+  defining the number \(e\approx2.71828\ldots\)
+  (Theorem~\ref{thm-e-exists}).
 \end{itemize}
+
+\chapter{Convergence of Sequences: Reading
+Data}\label{convergence-of-sequences-reading-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#}
+\CommentTok{\# !!! RUN THIS FIRST !!!}
+\CommentTok{\#}
+\CommentTok{\# (loads the data and defines all necessary functions)}
+\CommentTok{\#}
+
+
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+
+\NormalTok{pd.set\_option(}\StringTok{\textquotesingle{}display.max\_rows\textquotesingle{}}\NormalTok{, }\DecValTok{20}\NormalTok{)  }\CommentTok{\# long tables show head/tail with \textquotesingle{}...\textquotesingle{} automatically}
+
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.read\_csv(}\StringTok{\textquotesingle{}data/rc\_circuit\_data.csv\textquotesingle{}}\NormalTok{)}
+
+\KeywordTok{def}\NormalTok{ a(n):}
+    \CommentTok{"""Return the n{-}th term of the sequence, a\_n, as a plain float."""}
+\NormalTok{    row }\OperatorTok{=}\NormalTok{ df.loc[df[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{] }\OperatorTok{==}\NormalTok{ n]}
+    \ControlFlowTok{if}\NormalTok{ row.empty:}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\SpecialStringTok{f"n = }\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\SpecialStringTok{ is out of range (data covers n = 0 .. }\SpecialCharTok{\{}\NormalTok{df[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{]}\SpecialCharTok{.}\BuiltInTok{max}\NormalTok{()}\SpecialCharTok{\}}\SpecialStringTok{)."}\NormalTok{)}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(row[}\StringTok{\textquotesingle{}measured\_value\textquotesingle{}}\NormalTok{].values[}\DecValTok{0}\NormalTok{])}
+
+\KeywordTok{def}\NormalTok{ find\_smallest\_N(data, L\_guess, epsilon, value\_col}\OperatorTok{=}\StringTok{\textquotesingle{}measured\_value\textquotesingle{}}\NormalTok{):}
+    \CommentTok{"""Smallest N (present in the data) such that all later points are within epsilon of L\_guess."""}
+\NormalTok{    vals }\OperatorTok{=}\NormalTok{ data[value\_col].values}
+\NormalTok{    n\_vals }\OperatorTok{=}\NormalTok{ data[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{].values}
+    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(vals)):}
+        \ControlFlowTok{if}\NormalTok{ np.}\BuiltInTok{all}\NormalTok{(np.}\BuiltInTok{abs}\NormalTok{(vals[i:] }\OperatorTok{{-}}\NormalTok{ L\_guess) }\OperatorTok{\textless{}}\NormalTok{ epsilon):}
+            \ControlFlowTok{return} \BuiltInTok{int}\NormalTok{(n\_vals[i])}
+    \ControlFlowTok{return} \VariableTok{None}
+
+
+\KeywordTok{def}\NormalTok{ check\_convergence(data, L\_guess, N\_guess, epsilon, value\_col}\OperatorTok{=}\StringTok{\textquotesingle{}measured\_value\textquotesingle{}}\NormalTok{, reveal\_threshold}\OperatorTok{=}\DecValTok{50}\NormalTok{):}
+\NormalTok{    vals }\OperatorTok{=}\NormalTok{ data[value\_col].values}
+\NormalTok{    n\_vals }\OperatorTok{=}\NormalTok{ data[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{].values}
+\NormalTok{    mask }\OperatorTok{=}\NormalTok{ n\_vals }\OperatorTok{\textgreater{}=}\NormalTok{ N\_guess}
+
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ mask.}\BuiltInTok{any}\NormalTok{():}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"N\_guess = }\SpecialCharTok{\{}\NormalTok{N\_guess}\SpecialCharTok{\}}\SpecialStringTok{ is beyond the range of available data (max n = }\SpecialCharTok{\{}\NormalTok{n\_vals}\SpecialCharTok{.}\BuiltInTok{max}\NormalTok{()}\SpecialCharTok{\}}\SpecialStringTok{)."}\NormalTok{)}
+        \ControlFlowTok{return} \VariableTok{False}
+
+\NormalTok{    tail\_n }\OperatorTok{=}\NormalTok{ n\_vals[mask]}
+\NormalTok{    tail\_vals }\OperatorTok{=}\NormalTok{ vals[mask]}
+\NormalTok{    bad }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{abs}\NormalTok{(tail\_vals }\OperatorTok{{-}}\NormalTok{ L\_guess) }\OperatorTok{\textgreater{}=}\NormalTok{ epsilon}
+
+    \ControlFlowTok{if}\NormalTok{ bad.}\BuiltInTok{any}\NormalTok{():}
+\NormalTok{        first\_bad\_n }\OperatorTok{=}\NormalTok{ tail\_n[bad][}\DecValTok{0}\NormalTok{]}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"✗ Not valid: at n = }\SpecialCharTok{\{}\NormalTok{first\_bad\_n}\SpecialCharTok{\}}\SpecialStringTok{, |a\_n {-} }\SpecialCharTok{\{}\NormalTok{L\_guess}\SpecialCharTok{\}}\SpecialStringTok{| \textgreater{}= }\SpecialCharTok{\{}\NormalTok{epsilon}\SpecialCharTok{\}}\SpecialStringTok{."}\NormalTok{)}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"  The sequence leaves the epsilon{-}band after your N\_guess. Try a larger N, "}
+              \StringTok{"or reconsider your L\_guess."}\NormalTok{)}
+        \ControlFlowTok{return} \VariableTok{False}
+
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"✓ Valid: for all n \textgreater{}= }\SpecialCharTok{\{}\NormalTok{N\_guess}\SpecialCharTok{\}}\SpecialStringTok{, |a\_n {-} }\SpecialCharTok{\{}\NormalTok{L\_guess}\SpecialCharTok{\}}\SpecialStringTok{| \textless{} }\SpecialCharTok{\{}\NormalTok{epsilon}\SpecialCharTok{\}}\SpecialStringTok{."}\NormalTok{)}
+
+    \CommentTok{\# Don\textquotesingle{}t just hand over the smallest N {-}{-} only reveal it once the guess is close.}
+\NormalTok{    best\_N }\OperatorTok{=}\NormalTok{ find\_smallest\_N(data, L\_guess, epsilon, value\_col)}
+    \ControlFlowTok{if}\NormalTok{ best\_N }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+\NormalTok{        gap }\OperatorTok{=}\NormalTok{ N\_guess }\OperatorTok{{-}}\NormalTok{ best\_N}
+        \ControlFlowTok{if}\NormalTok{ gap }\OperatorTok{==} \DecValTok{0}\NormalTok{:}
+            \BuiltInTok{print}\NormalTok{(}\StringTok{"  This is also the smallest N that works for this L\_guess."}\NormalTok{)}
+        \ControlFlowTok{elif}\NormalTok{ gap }\OperatorTok{\textless{}=}\NormalTok{ reveal\_threshold:}
+            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"  Close! The smallest N that works is N = }\SpecialCharTok{\{}\NormalTok{best\_N}\SpecialCharTok{\}}\SpecialStringTok{ (you were only }\SpecialCharTok{\{}\NormalTok{gap}\SpecialCharTok{\}}\SpecialStringTok{ away)."}\NormalTok{)}
+        \ControlFlowTok{else}\NormalTok{:}
+            \BuiltInTok{print}\NormalTok{(}\StringTok{"  This N works, but it\textquotesingle{}s probably not the smallest one {-}{-} "}
+                  \StringTok{"try a smaller N and see if it still holds."}\NormalTok{)}
+    \ControlFlowTok{return} \VariableTok{True}
+
+
+\KeywordTok{def}\NormalTok{ plot\_challenge(data, L\_guess, N\_guess}\OperatorTok{=}\VariableTok{None}\NormalTok{, epsilon}\OperatorTok{=}\VariableTok{None}\NormalTok{, value\_col}\OperatorTok{=}\StringTok{\textquotesingle{}measured\_value\textquotesingle{}}\NormalTok{,}
+\NormalTok{                    zoom}\OperatorTok{=}\VariableTok{True}\NormalTok{, }\BuiltInTok{buffer}\OperatorTok{=}\DecValTok{50}\NormalTok{):}
+    \CommentTok{"""}
+\CommentTok{    Plot the sequence with the guessed L (and epsilon band, and N\_guess) marked.}
+
+\CommentTok{    By default (zoom=True), the plot starts \textasciigrave{}buffer\textasciigrave{} samples before N\_guess and}
+\CommentTok{    runs to the end of the data {-}{-} enough to see whether the sequence was}
+\CommentTok{    outside the band right before N\_guess, and to see it stay inside the band}
+\CommentTok{    all the way to the end. Set zoom=False to see the whole sequence instead,}
+\CommentTok{    or pass a bigger \textasciigrave{}buffer\textasciigrave{} to look further back.}
+\CommentTok{    """}
+\NormalTok{    plot\_data }\OperatorTok{=}\NormalTok{ data}
+    \ControlFlowTok{if}\NormalTok{ zoom }\KeywordTok{and}\NormalTok{ N\_guess }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+\NormalTok{        start }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(}\BuiltInTok{int}\NormalTok{(data[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{].}\BuiltInTok{min}\NormalTok{()), N\_guess }\OperatorTok{{-}} \BuiltInTok{buffer}\NormalTok{)}
+\NormalTok{        mask }\OperatorTok{=}\NormalTok{ data[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{] }\OperatorTok{\textgreater{}=}\NormalTok{ start}
+\NormalTok{        plot\_data }\OperatorTok{=}\NormalTok{ data[mask]}
+
+\NormalTok{    plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\NormalTok{    plt.plot(plot\_data[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{], plot\_data[value\_col], }\StringTok{\textquotesingle{}.\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.6}\NormalTok{)}
+\NormalTok{    plt.axhline(L\_guess, color}\OperatorTok{=}\StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{\textquotesingle{}{-}{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}L\_guess = }\SpecialCharTok{\{}\NormalTok{L\_guess}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ epsilon }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+\NormalTok{        plt.fill\_between(plot\_data[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{], L\_guess }\OperatorTok{{-}}\NormalTok{ epsilon, L\_guess }\OperatorTok{+}\NormalTok{ epsilon,}
+\NormalTok{                          color}\OperatorTok{=}\StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.15}\NormalTok{, label}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}epsilon band (+/{-} }\SpecialCharTok{\{}\NormalTok{epsilon}\SpecialCharTok{\}}\SpecialStringTok{)\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ N\_guess }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+\NormalTok{        plt.axvline(N\_guess, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, linestyle}\OperatorTok{=}\StringTok{\textquotesingle{}:\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}N\_guess = }\SpecialCharTok{\{}\NormalTok{N\_guess}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+\NormalTok{    plt.xlabel(}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{)}
+\NormalTok{    plt.ylabel(value\_col)}
+\NormalTok{    plt.legend()}
+\NormalTok{    plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+You've been handed a log file, \texttt{data/rc\_circuit\_data.csv}, from
+a lab sensor. It records a voltage measurement \texttt{measured\_value}
+at each sample index \texttt{n} (and the corresponding time
+\texttt{t\_seconds}).
+
+\textbf{You do not know what circuit or process produced this data.}
+Your job is to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Explore the data and form a hypothesis about its limiting behavior.
+\item
+  Given a challenge value \(\varepsilon\), \textbf{guess} the limit
+  \(L\) and the index \(N\) after which the data stays within
+  \(\varepsilon\) of \(L\) --- then verify your guess rigorously, not
+  just by eye.
+\end{enumerate}
+
+Recall the definition:
+
+\[ \lim_{n\to\infty} a_n = L \iff \text{ for all } \varepsilon>0,\ \text{ there is } N \text{ s.t. } n\ge N \implies |a_n-L|<\varepsilon. \]
+
+\section{A Simple Query Function}\label{a-simple-query-function}
+
+Sometimes you just want a single term of the sequence, \(a_n\), without
+pulling up the whole table. \texttt{a(n)} does that.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# try it:}
+
+\NormalTok{a(}\DecValTok{0}\NormalTok{), a(}\DecValTok{5000}\NormalTok{), a(}\DecValTok{9999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Task 1: Explore the Data}\label{task-1-explore-the-data}
+
+The full log has 10,000 samples. Set \texttt{n\_start} and
+\texttt{n\_end} below to pick a window and re-run the cell to see the
+table and plot over just that range --- e.g.~zoom into the early samples
+to see the initial behavior, or into the tail to see whether it's still
+moving. Change the numbers and re-run as many times as you like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# EDIT HERE}
+
+\NormalTok{n\_start }\OperatorTok{=} \DecValTok{3000}
+\NormalTok{n\_end }\OperatorTok{=} \DecValTok{9000}
+
+
+\CommentTok{\#}
+\CommentTok{\# No need to change anything down here}
+\CommentTok{\#}
+\NormalTok{view }\OperatorTok{=}\NormalTok{ df[(df[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{] }\OperatorTok{\textgreater{}=}\NormalTok{ n\_start) }\OperatorTok{\&}\NormalTok{ (df[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{] }\OperatorTok{\textless{}=}\NormalTok{ n\_end)]}
+\NormalTok{display(view)}
+
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\NormalTok{plt.plot(view[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{], view[}\StringTok{\textquotesingle{}measured\_value\textquotesingle{}}\NormalTok{], }\StringTok{\textquotesingle{}.\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{\textquotesingle{}measured\_value\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.title(}\SpecialStringTok{f\textquotesingle{}Sensor log, n = }\SpecialCharTok{\{}\NormalTok{n\_start}\SpecialCharTok{\}}\SpecialStringTok{ to }\SpecialCharTok{\{}\NormalTok{n\_end}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Questions to answer before moving
+on}\label{questions-to-answer-before-moving-on}
+
+\begin{itemize}
+\tightlist
+\item
+  What value does the sequence appear to be approaching? Write down your
+  best guess for \(L\).
+\item
+  Roughly how many samples does it take before the data ``settles down''
+  near that value?
+\item
+  Does the data ever exceed your guessed \(L\), or only approach it from
+  below?
+\item
+  Try \texttt{a(n)} for a few large \texttt{n} (e.g.~7000, 8500, 9999)
+  --- does it match what the plot suggested?
+\end{itemize}
+
+\section{\texorpdfstring{Task 2: The \(\varepsilon\)
+Challenge}{Task 2: The \textbackslash varepsilon Challenge}}\label{task-2-the-varepsilon-challenge}
+
+Your instructor assigns a value of \(\varepsilon\). Using \textbf{only
+the data} (no formulas, no ground truth), you must:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  State your guessed limit \texttt{L\_guess}.
+\item
+  State the smallest index \texttt{N\_guess} you believe works.
+\item
+  Check your answer with \texttt{check\_convergence} below, which
+  verifies directly against the definition: it checks whether
+  \textbf{every} remaining data point from \texttt{N\_guess} onward is
+  within \texttt{epsilon} of your \texttt{L\_guess}.
+\end{enumerate}
+
+Note this checks self-consistency with your own guessed \(L\) --- it
+does not tell you the ``true'' limit, because the whole point is that
+you don't get to see that. Two different reasonable guesses for \(L\)
+can each have a valid \(N\).
+
+The checker also won't just hand you the smallest possible \(N\): if
+your guess is close (within 50), it'll tell you the exact smallest
+\(N\); if you're further off, it'll just tell you to try smaller.
+
+\texttt{plot\_challenge} zooms in by default: it starts a bit before
+your \texttt{N\_guess} and runs to the end of the data, so you can see
+both whether the sequence was outside the band just before
+\texttt{N\_guess} and that it stays inside all the way to the end. Pass
+\texttt{zoom=False} if you want to see the whole sequence instead.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} Your answer {-}{-}{-}}
+\NormalTok{EPSILON }\OperatorTok{=} \FloatTok{0.08}          \CommentTok{\# \textless{}{-} instructor{-}assigned challenge value}
+
+\NormalTok{L\_guess }\OperatorTok{=} \DecValTok{5}         \CommentTok{\# }\AlertTok{TODO}\CommentTok{: your guessed limit}
+\NormalTok{N\_guess }\OperatorTok{=} \DecValTok{2400}           \CommentTok{\# }\AlertTok{TODO}\CommentTok{: your guessed N}
+
+\NormalTok{check\_convergence(df, L\_guess, N\_guess, EPSILON)}
+\NormalTok{plot\_challenge(df, L\_guess, N\_guess, EPSILON)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Dataset 2: Damped
+Oscillator}\label{dataset-2-damped-oscillator}
+
+This time there's no CSV and no noise. Instead, you're given the
+sequence directly as a \textbf{function} you can call for any index
+\texttt{n} --- exactly the way a sequence \((b_n)\) is usually presented
+in a calculus course. It models the position of an underdamped
+mechanical system (e.g.~a suspension, a sensor needle) responding to a
+step input:
+
+\[ b_n = x_{ss}\left(1 - e^{-\zeta \omega_n t_n}\left(\cos(\omega_d t_n) +
+\frac{\zeta}{\sqrt{1-\zeta^2}}\sin(\omega_d t_n)\right)\right), \qquad t_n = n \cdot dt \]
+
+with \(\omega_d = \omega_n\sqrt{1-\zeta^2}\). Unlike Dataset 1, this
+sequence \textbf{oscillates} around its limit before settling --- so
+``getting close once'' is not enough; you have to check it \emph{stays}
+close.
+
+Since it's an exact formula (not a fixed table), you can evaluate it at
+\emph{any} \texttt{n} you like, no matter how large --- there's no upper
+limit like there was with \texttt{a(n)}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_ss }\OperatorTok{=} \FloatTok{2.0}     \CommentTok{\# steady{-}state value}
+\NormalTok{zeta }\OperatorTok{=} \FloatTok{0.1}     \CommentTok{\# damping ratio}
+\NormalTok{wn }\OperatorTok{=} \FloatTok{10.0}      \CommentTok{\# natural frequency (rad/s)}
+\NormalTok{wd }\OperatorTok{=}\NormalTok{ wn }\OperatorTok{*}\NormalTok{ np.sqrt(}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ zeta}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
+\NormalTok{dt2 }\OperatorTok{=} \FloatTok{0.001}    \CommentTok{\# seconds per sample}
+
+\KeywordTok{def}\NormalTok{ b(n):}
+    \CommentTok{"""Return the n{-}th term of the damped step{-}response sequence, b\_n, as a}
+\CommentTok{    plain float (or array of floats if n is array{-}like). No noise: this is}
+\CommentTok{    the exact closed{-}form value."""}
+\NormalTok{    scalar\_input }\OperatorTok{=}\NormalTok{ np.ndim(n) }\OperatorTok{==} \DecValTok{0}
+\NormalTok{    t }\OperatorTok{=}\NormalTok{ np.atleast\_1d(np.asarray(n, dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{)) }\OperatorTok{*}\NormalTok{ dt2}
+\NormalTok{    vals }\OperatorTok{=}\NormalTok{ x\_ss }\OperatorTok{*}\NormalTok{ (}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ np.exp(}\OperatorTok{{-}}\NormalTok{zeta }\OperatorTok{*}\NormalTok{ wn }\OperatorTok{*}\NormalTok{ t) }\OperatorTok{*}
+\NormalTok{                    (np.cos(wd }\OperatorTok{*}\NormalTok{ t) }\OperatorTok{+}\NormalTok{ (zeta }\OperatorTok{/}\NormalTok{ np.sqrt(}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ zeta}\OperatorTok{**}\DecValTok{2}\NormalTok{)) }\OperatorTok{*}\NormalTok{ np.sin(wd }\OperatorTok{*}\NormalTok{ t)))}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(vals[}\DecValTok{0}\NormalTok{]) }\ControlFlowTok{if}\NormalTok{ scalar\_input }\ControlFlowTok{else}\NormalTok{ vals}
+
+\CommentTok{\# try it {-}{-} note n can be far larger than anything in Dataset 1\textquotesingle{}s table:}
+\NormalTok{b(}\DecValTok{0}\NormalTok{), b(}\DecValTok{3000}\NormalTok{), b(}\DecValTok{1\_000\_000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Task 3: Explore the
+Sequence}\label{task-3-explore-the-sequence}
+
+Same idea as Task 1: set \texttt{n\_start} and \texttt{n\_end} and
+re-run to see a table and plot of \(b_n\) over that window. Try zooming
+into the first couple thousand terms to see the oscillation, then look
+further out to see it settle.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_start }\OperatorTok{=} \DecValTok{0}
+\NormalTok{n\_end }\OperatorTok{=} \DecValTok{5000}
+
+\NormalTok{n\_vals }\OperatorTok{=}\NormalTok{ np.arange(n\_start, n\_end }\OperatorTok{+} \DecValTok{1}\NormalTok{)}
+\NormalTok{view2 }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{: n\_vals, }\StringTok{\textquotesingle{}b\_n\textquotesingle{}}\NormalTok{: b(n\_vals)\})}
+\NormalTok{display(view2)}
+
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\NormalTok{plt.plot(view2[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{], view2[}\StringTok{\textquotesingle{}b\_n\textquotesingle{}}\NormalTok{], }\StringTok{\textquotesingle{}.\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{\textquotesingle{}b\_n\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.title(}\SpecialStringTok{f\textquotesingle{}Damped step response, n = }\SpecialCharTok{\{}\NormalTok{n\_start}\SpecialCharTok{\}}\SpecialStringTok{ to }\SpecialCharTok{\{}\NormalTok{n\_end}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Questions to answer before moving
+on}\label{questions-to-answer-before-moving-on-1}
+
+\begin{itemize}
+\tightlist
+\item
+  What value does \(b_n\) appear to be converging to? Compare to your
+  guess for Dataset 1 --- how did you decide this time, given there's no
+  noise to average out?
+\item
+  Around how many terms does it take before the oscillation dies down to
+  something you'd call ``close'' to the limit?
+\item
+  Pick an \texttt{n} where the plot looks close to the limit, then check
+  a later \texttt{n} --- does it ever swing back out? Why might that
+  matter for choosing \texttt{N}?
+\end{itemize}
+
+\section{\texorpdfstring{Task 4: The \(\varepsilon\) Challenge,
+Again}{Task 4: The \textbackslash varepsilon Challenge, Again}}\label{task-4-the-varepsilon-challenge-again}
+
+Same process as Task 2 --- guess \texttt{L\_guess} and \texttt{N\_guess}
+for a given \texttt{epsilon}, and check them. The
+\texttt{check\_convergence}, \texttt{find\_smallest\_N}, and
+\texttt{plot\_challenge} functions from Task 2 work unchanged here; we
+just need a table of \(b_n\) values to check against. Since \(b_n\) is
+exact (no noise), we can build that table out to a very large \texttt{n}
+--- far past where anything interesting happens --- so the check is
+effectively verifying ``forever.''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_check }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{0}\NormalTok{, }\DecValTok{20000}\NormalTok{)      }\CommentTok{\# generous horizon {-}{-} well past where b\_n settles}
+\NormalTok{osc\_df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{: n\_check, }\StringTok{\textquotesingle{}b\_n\textquotesingle{}}\NormalTok{: b(n\_check)\})}
+
+\CommentTok{\# {-}{-}{-} Your answer {-}{-}{-}}
+\NormalTok{EPSILON2 }\OperatorTok{=} \FloatTok{0.08}          \CommentTok{\# \textless{}{-} instructor{-}assigned challenge value}
+
+\NormalTok{L\_guess2 }\OperatorTok{=} \DecValTok{2}          \CommentTok{\# }\AlertTok{TODO}\CommentTok{: your guessed limit}
+\NormalTok{N\_guess2 }\OperatorTok{=} \DecValTok{3000}          \CommentTok{\# }\AlertTok{TODO}\CommentTok{: your guessed N}
+
+\NormalTok{check\_convergence(osc\_df, L\_guess2, N\_guess2, EPSILON2, value\_col}\OperatorTok{=}\StringTok{\textquotesingle{}b\_n\textquotesingle{}}\NormalTok{)}
+\NormalTok{plot\_challenge(osc\_df, L\_guess2, N\_guess2, EPSILON2, value\_col}\OperatorTok{=}\StringTok{\textquotesingle{}b\_n\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{\texorpdfstring{Task 5: Convergence of
+\(\sqrt[n]{p}\)}{Task 5: Convergence of \textbackslash sqrt{[}n{]}\{p\}}}\label{task-5-convergence-of-sqrtnp}
+
+Finally, we want to study the convergence behavior of
+\(d_n = \sqrt[n]{p}\) for various \(p\). Set the parameters in the cell
+below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Set p}
+\NormalTok{p }\OperatorTok{=} \DecValTok{2}    \CommentTok{\# Experiment with different p}
+
+\CommentTok{\# Set the range of n you want to consider}
+\NormalTok{d\_start }\OperatorTok{=} \DecValTok{1}
+\NormalTok{d\_end }\OperatorTok{=} \DecValTok{100}
+
+\KeywordTok{def}\NormalTok{ d(n):}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(p}\OperatorTok{**}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{n))}
+\end{Highlighting}
+\end{Shaded}
+
+As above, to return just a single term of the sequence, use
+\texttt{d(n)}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now let's plot the sequence:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d\_array }\OperatorTok{=}\NormalTok{ np.arange(d\_start, d\_end)}
+\NormalTok{d\_vals }\OperatorTok{=}\NormalTok{ p}\OperatorTok{**}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{d\_array)}
+\NormalTok{view3 }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{: d\_array, }\StringTok{\textquotesingle{}d\_n\textquotesingle{}}\NormalTok{: d\_vals\})}
+\CommentTok{\# display(view3)}
+
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\NormalTok{plt.plot(view3[}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{], view3[}\StringTok{\textquotesingle{}d\_n\textquotesingle{}}\NormalTok{], }\StringTok{\textquotesingle{}.\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.7}\NormalTok{)}
+\NormalTok{plt.xlabel(}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.ylabel(}\StringTok{\textquotesingle{}d\_n\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.title(}\SpecialStringTok{f\textquotesingle{}Sequence n{-}th root of }\SpecialCharTok{\{}\NormalTok{p}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Questions:} - Does this sequence converge for all \(p>0\)? - If
+so, does the limit depend on \(p\)?
 
 
 

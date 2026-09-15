@@ -22,6 +22,7 @@ book:
     - part: Limits
       chapters:
         - 07_sequences_convergence.qmd
+        - notebooks/Week03_convergence.ipynb
 
 number-sections: true
 

@@ -245,7 +245,14 @@ window.Quarto = {
   <li><a href="#divergence" id="toc-divergence" class="nav-link" data-scroll-target="#divergence">Divergence</a></li>
   </ul></li>
   <li><a href="#limit-laws" id="toc-limit-laws" class="nav-link" data-scroll-target="#limit-laws"><span class="header-section-number">8.4</span> Limit Laws</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.5</span> Summary</a></li>
+  <li><a href="#comparison-and-the-squeeze-theorem" id="toc-comparison-and-the-squeeze-theorem" class="nav-link" data-scroll-target="#comparison-and-the-squeeze-theorem"><span class="header-section-number">8.5</span> Comparison and the Squeeze Theorem</a></li>
+  <li><a href="#monotone-and-bounded-sequences" id="toc-monotone-and-bounded-sequences" class="nav-link" data-scroll-target="#monotone-and-bounded-sequences"><span class="header-section-number">8.6</span> Monotone and Bounded Sequences</a></li>
+  <li><a href="#applications" id="toc-applications" class="nav-link" data-scroll-target="#applications"><span class="header-section-number">8.7</span> Applications</a>
+  <ul class="collapse">
+  <li><a href="#roots-sqrtnp-to-1" id="toc-roots-sqrtnp-to-1" class="nav-link" data-scroll-target="#roots-sqrtnp-to-1">Roots: <span class="math inline">\(\sqrt[n]{p} \to 1\)</span></a></li>
+  <li><a href="#the-number-e" id="toc-the-number-e" class="nav-link" data-scroll-target="#the-number-e">The Number <span class="math inline">\(e\)</span></a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.8</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -271,19 +278,11 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Companion reading
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This lecture corresponds to C&amp;J §1.6 (a selection). The arithmetic rules for limits are treated in C&amp;J §1.7.</p>
-</div>
-</div>
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.6 (a selection). The arithmetic rules for limits are treated in
+C&J §1.7.
+::: -->
 <section id="sequences" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="sequences"><span class="header-section-number">8.1</span> Sequences</h2>
 <p>A <strong>sequence</strong> is an unending list of real numbers <span class="math display">\[
@@ -345,7 +344,7 @@ We say <span class="math inline">\((a_n)\)</span> <strong>converges to <span cla
 <p><span class="theorem-title"><strong>Example 8.2</strong></span> <br>
 <span class="math inline">\(\lim_{n\to\infty} \tfrac1n = 0\)</span>.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -354,7 +353,7 @@ We say <span class="math inline">\((a_n)\)</span> <strong>converges to <span cla
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon&gt;0\)</span>. We must find <span class="math inline">\(N\)</span> so that <span class="math inline">\(\tfrac1n &lt; \varepsilon\)</span> for all <span class="math inline">\(n\ge N\)</span>. Now <span class="math display">\[
@@ -444,7 +443,7 @@ Let <span class="math inline">\(a\in\mathbb{R}\)</span>. We say <span class="mat
 <p><span class="theorem-title"><strong>Example 8.4</strong></span> <br>
 The sequence <span class="math inline">\(\big((-1)^n\big) = -1, 1, -1, 1, \ldots\)</span> diverges.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -453,7 +452,7 @@ The sequence <span class="math inline">\(\big((-1)^n\big) = -1, 1, -1, 1, \ldots
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Suppose <span class="math inline">\((-1)^n \to a\)</span> for some <span class="math inline">\(a\)</span>. Take <span class="math inline">\(\varepsilon= 1\)</span>. Then <span class="math inline">\(\lvert (-1)^n - a \rvert &lt; 1\)</span> for all large <span class="math inline">\(n\)</span>; applying this to an even and an odd <span class="math inline">\(n\)</span> gives <span class="math inline">\(\lvert 1 - a \rvert &lt; 1\)</span> and <span class="math inline">\(\lvert -1 - a \rvert &lt; 1\)</span>. But then <span class="math display">\[
@@ -533,13 +532,364 @@ Find <span class="math inline">\(\displaystyle\lim_{n\to\infty} \frac{2n^2 - 1}{
 </div>
 </div>
 </section>
-<section id="summary" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.5</span> Summary</h2>
+<section id="comparison-and-the-squeeze-theorem" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="comparison-and-the-squeeze-theorem"><span class="header-section-number">8.5</span> Comparison and the Squeeze Theorem</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-warmup-half-n" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.3</strong></span> <strong>Warm-up.</strong> Show that <span class="math inline">\(\lim_{n\to\infty} \dfrac{1}{2^n} = 0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Rather than hunting for <span class="math inline">\(N(\varepsilon)\)</span> from scratch every time, it is often easier to compare a sequence to one whose limit we already know.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-comparison" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 8.2 (Comparison test)</strong></span> Suppose <span class="math inline">\(0 \le b_n \le a_n\)</span> for all <span class="math inline">\(n\)</span>, and <span class="math inline">\(a_n \to 0\)</span>. Then <span class="math inline">\(b_n \to 0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon&gt;0\)</span>. Since <span class="math inline">\(a_n\to0\)</span> there is <span class="math inline">\(N\in\mathbb{N}\)</span> with <span class="math inline">\(a_n &lt; \varepsilon\)</span> for all <span class="math inline">\(n\ge N\)</span>. Then for <span class="math inline">\(n\ge N\)</span>, <span class="math display">\[
+0 \le b_n \le a_n &lt; \varepsilon,
+\]</span> so <span class="math inline">\(\lvert b_n - 0 \rvert = b_n &lt; \varepsilon\)</span>. Hence <span class="math inline">\(b_n \to 0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- ::: {#exm-half-n}
+\
+A quick induction shows $2^n > n$ for all $n\ge1$: it holds at $n=1$, and if $2^n>n$ then
+$2^{n+1} = 2\cdot 2^n > 2n \ge n+1$. Hence
+$$
+0 < \frac{1}{2^n} < \frac1n \qquad\text{for all } n\ge1.
+$$
+Since $\tfrac1n\to0$ (@exm-one-over-n), the comparison test gives $\tfrac{1}{2^n}\to0$ — this
+settles @exr-warmup-half-n.
+::: -->
+<p>We can generalize this by sandwiching a sequence between two others that converge to the <em>same</em> limit works for any target value.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-squeeze" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 8.3 (Squeeze theorem)</strong></span> Suppose <span class="math inline">\(a_n \le b_n \le c_n\)</span> for all <span class="math inline">\(n\)</span>, and <span class="math inline">\(a_n \to L\)</span>, <span class="math inline">\(c_n \to L\)</span> for the same <span class="math inline">\(L\in\mathbb{R}\)</span>. Then <span class="math inline">\(b_n \to L\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\varepsilon&gt;0\)</span>. Choose <span class="math inline">\(N_1\)</span> with <span class="math inline">\(\lvert a_n-L \rvert&lt;\varepsilon\)</span> for <span class="math inline">\(n\ge N_1\)</span>, and <span class="math inline">\(N_2\)</span> with <span class="math inline">\(\lvert c_n-L \rvert&lt;\varepsilon\)</span> for <span class="math inline">\(n\ge N_2\)</span>. Let <span class="math inline">\(N=\max(N_1,N_2)\)</span>. For <span class="math inline">\(n\ge N\)</span>, <span class="math display">\[
+L-\varepsilon&lt; a_n \le b_n \le c_n &lt; L+\varepsilon,
+\]</span> so <span class="math inline">\(\lvert b_n-L \rvert&lt;\varepsilon\)</span>. Hence <span class="math inline">\(b_n\to L\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-squeeze-comparison" class="proof remark">
+<p><span class="proof-title"><em>Remark 8.3</em>. </span><a href="#prp-comparison" class="quarto-xref">Proposition&nbsp;<span>8.2</span></a> is the special case of the squeeze theorem where the lower bounding sequence is constantly <span class="math inline">\(0\)</span> and <span class="math inline">\(L=0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="monotone-and-bounded-sequences" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="monotone-and-bounded-sequences"><span class="header-section-number">8.6</span> Monotone and Bounded Sequences</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-monotone" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 8.3</strong></span> <br>
+A sequence <span class="math inline">\((a_n)\)</span> is <strong>increasing</strong> if <span class="math inline">\(a_n \le a_{n+1}\)</span> for all <span class="math inline">\(n\)</span>, and <strong>decreasing</strong> if <span class="math inline">\(a_n \ge a_{n+1}\)</span> for all <span class="math inline">\(n\)</span>. It is <strong>monotone</strong> if it is increasing or decreasing.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-bounded" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 8.4</strong></span> <br>
+A sequence <span class="math inline">\((a_n)\)</span> is <strong>bounded</strong> if there is a constant <span class="math inline">\(C\)</span> such that <span class="math inline">\(\lvert a_n \rvert\le C\)</span> for all <span class="math inline">\(n\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-monotone-convergence" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.1 (Monotone Convergence Theorem)</strong></span> Every bounded monotone sequence converges.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-monotone-nip" class="proof remark">
+<p><span class="proof-title"><em>Remark 8.4</em>. </span>This theorem expresses the same completeness of <span class="math inline">\(\mathbb{R}\)</span> as the Nested Interval Axiom from <a href="./02_nested_intervals.html#the-nested-interval-axiom">The Nested Interval Axiom</a> — each can be derived from the other. We will not reprove the general statement here; instead we isolate the paired form that we actually use below, which follows directly from the axiom together with the comparison test.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="cor-monotone-squeeze" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 8.1</strong></span> Suppose <span class="math inline">\((a_n)\)</span> is increasing, <span class="math inline">\((b_n)\)</span> is decreasing, <span class="math inline">\(a_n\le b_n\)</span> for all <span class="math inline">\(n\)</span>, and <span class="math inline">\(b_n - a_n \to 0\)</span>. Then <span class="math inline">\((a_n)\)</span> and <span class="math inline">\((b_n)\)</span> converge to a common limit <span class="math inline">\(c\)</span>, the unique point in <span class="math inline">\(\bigcap_n [a_n,b_n]\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Since <span class="math inline">\((a_n)\)</span> is increasing and <span class="math inline">\((b_n)\)</span> is decreasing with <span class="math inline">\(a_n\le b_n\)</span>, the intervals <span class="math inline">\([a_n,b_n]\)</span> are nested: <span class="math inline">\([a_{n+1},b_{n+1}]\subseteq[a_n,b_n]\)</span> for all <span class="math inline">\(n\)</span>. By the Nested Interval Axiom there is a point <span class="math inline">\(c\)</span> with <span class="math inline">\(a_n \le c \le b_n\)</span> for every <span class="math inline">\(n\)</span>. Then <span class="math display">\[
+0 \le c - a_n \le b_n - a_n \to 0 \qquad\text{and}\qquad 0 \le b_n - c \le b_n - a_n \to 0,
+\]</span> so the comparison test (<a href="#prp-comparison" class="quarto-xref">Proposition&nbsp;<span>8.2</span></a>) gives <span class="math inline">\(a_n \to c\)</span> and <span class="math inline">\(b_n \to c\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="applications" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="applications"><span class="header-section-number">8.7</span> Applications</h2>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="lem-bernoulli" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 8.1 (Bernoulli’s inequality)</strong></span> For <span class="math inline">\(c \ge -1\)</span> and <span class="math inline">\(n\in\mathbb{N}\)</span>, <span class="math display">\[
+(1+c)^n \ge 1 + nc.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>(For <span class="math inline">\(c \geq 0\)</span> one can prove this by considering just the first two terms of the <a href="https://en.wikipedia.org/wiki/Binomial_theorem">binomial expansion</a> of <span class="math inline">\((1+c)^n\)</span>. The remaining terms are all non-negative, so by leaving them out, we obtain something smaller.)</p>
+<!-- ::: {.proof}
+Induction on $n$. For $n=1$ both sides equal $1+c$. Assume $(1+c)^n \ge 1+nc$. Since
+$1+c\ge0$, multiplying both sides by $1+c$ preserves the inequality:
+$$
+(1+c)^{n+1} = (1+c)^n(1+c) \ge (1+nc)(1+c) = 1+(n+1)c+nc^2 \ge 1+(n+1)c,
+$$
+using $nc^2\ge0$. This completes the induction.
+::: -->
+<section id="roots-sqrtnp-to-1" class="level3">
+<h3 class="anchored" data-anchor-id="roots-sqrtnp-to-1">Roots: <span class="math inline">\(\sqrt[n]{p} \to 1\)</span></h3>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-nth-root" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.2</strong></span> <br>
+For every <span class="math inline">\(p&gt;0\)</span>, <span class="math inline">\(\displaystyle\lim_{n\to\infty}\sqrt[n]{p} = 1\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>For <span class="math inline">\(p=1\)</span> the sequence is constant, so there is nothing to show.</p>
+<p>Suppose <span class="math inline">\(p&gt;1\)</span>. Write <span class="math inline">\(a_n := \sqrt[n]{p} = 1+\delta_n\)</span>; since <span class="math inline">\(p&gt;1\)</span> we have <span class="math inline">\(a_n&gt;1\)</span>, so <span class="math inline">\(\delta_n&gt;0\)</span>. Raising to the <span class="math inline">\(n\)</span>-th power and applying Bernoulli’s inequality (with <span class="math inline">\(c=\delta_n\ge0\)</span>), <span class="math display">\[
+p = (1+\delta_n)^n \ge 1+n\delta_n,
+\]</span> so <span class="math inline">\(0 &lt; \delta_n \le \dfrac{p-1}{n}\)</span>. Since <span class="math inline">\(\tfrac{p-1}{n}\to0\)</span>, the comparison test gives <span class="math inline">\(\delta_n\to0\)</span>, and hence <span class="math inline">\(a_n = 1+\delta_n \to 1\)</span>.</p>
+<p>Suppose <span class="math inline">\(0&lt;p&lt;1\)</span>. Then <span class="math inline">\(q:=1/p&gt;1\)</span>, and by the case just proved <span class="math inline">\(\sqrt[n]{q}\to1\)</span>. Since <span class="math inline">\(\sqrt[n]{q}\neq0\)</span> for all <span class="math inline">\(n\)</span> and its limit is nonzero, the quotient rule in <a href="#prp-limit-laws" class="quarto-xref">Proposition&nbsp;<span>8.1</span></a> gives <span class="math display">\[
+\sqrt[n]{p} = \frac{1}{\sqrt[n]{q}} \longrightarrow \frac11 = 1.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>This proves the claim recorded in <a href="#rem-sequences-limits-answers" class="quarto-xref">Remark&nbsp;<span>8.2</span></a> for <span class="math inline">\(d_n=\sqrt[n]{p}\)</span>.</p>
+</section>
+<section id="the-number-e" class="level3">
+<h3 class="anchored" data-anchor-id="the-number-e">The Number <span class="math inline">\(e\)</span></h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-e-increasing" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 8.4</strong></span> <br>
+The sequence <span class="math inline">\(e_n := \left(1+\tfrac1n\right)^n\)</span> is increasing.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>We must show <span class="math display">\[
+\left(1+\frac1n\right)^n \le \left(1+\frac1{n+1}\right)^{n+1}. \tag{$*$}
+\]</span> Writing both sides with a common fractional base and splitting off one factor of <span class="math inline">\(\tfrac{n+2}{n+1}\)</span> on the right, <span class="math display">\[
+(*) \iff \left(\frac{n+1}{n}\right)^n \le \left(\frac{n+2}{n+1}\right)^n \cdot \frac{n+2}{n+1}
+\iff \frac{n+1}{n+2} \le \left(\frac{n(n+2)}{(n+1)^2}\right)^{n}.
+\]</span> Since <span class="math inline">\((n+1)^2 = n^2+2n+1\)</span>, we have <span class="math inline">\(n(n+2) = n^2+2n = (n+1)^2-1\)</span>, so <span class="math display">\[
+\left(\frac{n(n+2)}{(n+1)^2}\right)^{n} = \left(1-\frac{1}{(n+1)^2}\right)^{n}.
+\]</span> By Bernoulli’s inequality (with <span class="math inline">\(c=-\tfrac{1}{(n+1)^2}\ge-1\)</span>), <span class="math display">\[
+\left(1-\frac{1}{(n+1)^2}\right)^{n} \ge 1 - \frac{n}{(n+1)^2}.
+\]</span> So it suffices to show <span class="math inline">\(\dfrac{n+1}{n+2} \le 1-\dfrac{n}{(n+1)^2}\)</span>, i.e. <span class="math display">\[
+\frac{1}{n+2} \ge \frac{n}{(n+1)^2} \iff (n+1)^2 \ge n(n+2) \iff n^2+2n+1 \ge n^2+2n,
+\]</span> which is always true. Chaining the inequalities back together proves <span class="math inline">\((*)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-f-decreasing" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.4</strong></span> Show that <span class="math inline">\(f_n := \left(1+\tfrac1n\right)^{n+1}\)</span> is decreasing. (Adapt the computation in the proof of <a href="#prp-e-increasing" class="quarto-xref">Proposition&nbsp;<span>8.4</span></a>.)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-e-exists" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.3</strong></span> <br>
+The limit <span class="math display">\[
+e := \lim_{n\to\infty}\left(1+\frac1n\right)^n
+\]</span> exists; numerically <span class="math inline">\(e \approx 2.71828\ldots\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(e_n = \left(1+\tfrac1n\right)^n\)</span> and <span class="math inline">\(f_n = \left(1+\tfrac1n\right)^{n+1} = e_n\left(1+\tfrac1n\right)\)</span>, so <span class="math inline">\(e_n \le f_n\)</span> for all <span class="math inline">\(n\)</span>. By <a href="#prp-e-increasing" class="quarto-xref">Proposition&nbsp;<span>8.4</span></a>, <span class="math inline">\((e_n)\)</span> is increasing; by <a href="#exr-f-decreasing" class="quarto-xref">Exercise&nbsp;<span>8.4</span></a>, <span class="math inline">\((f_n)\)</span> is decreasing. In particular <span class="math inline">\(e_n \le f_n \le f_1 = 4\)</span> for all <span class="math inline">\(n\)</span>, so <span class="math inline">\((e_n)\)</span> is bounded.</p>
+<p>Moreover <span class="math display">\[
+0 \le f_n - e_n = e_n\cdot\frac1n \le \frac{f_1}{n} = \frac4n \longrightarrow 0,
+\]</span> so <span class="math inline">\(f_n - e_n \to 0\)</span> by the comparison test. By <a href="#cor-monotone-squeeze" class="quarto-xref">Corollary&nbsp;<span>8.1</span></a>, <span class="math inline">\((e_n)\)</span> and <span class="math inline">\((f_n)\)</span> converge to a common limit — which we call <span class="math inline">\(e\)</span>. Numerically, <span class="math inline">\(e_{10} \approx 2.594\)</span>, <span class="math inline">\(e_{100}\approx 2.705\)</span>, <span class="math inline">\(e_{1000}\approx 2.7169\)</span>, consistent with <span class="math inline">\(e\approx 2.71828\ldots\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.8</span> Summary</h2>
 <ul>
 <li>A <strong>sequence</strong> is a function <span class="math inline">\(a\colon\mathbb{N}\to\mathbb{R}\)</span>, written <span class="math inline">\((a_n)\)</span>.</li>
 <li><span class="math inline">\((a_n)\)</span> <strong>converges to <span class="math inline">\(a\)</span></strong> (<a href="#def-limit" class="quarto-xref">Definition&nbsp;<span>8.2</span></a>) if for every tolerance <span class="math inline">\(\varepsilon&gt;0\)</span> there is an index <span class="math inline">\(N\)</span> such that <span class="math inline">\(\lvert a_n - a \rvert &lt; \varepsilon\)</span> for all <span class="math inline">\(n\ge N\)</span> — from some point on, all terms lie in the <span class="math inline">\(\varepsilon\)</span>-neighborhood of <span class="math inline">\(a\)</span>. The special case <span class="math inline">\(a=0\)</span> is <a href="#def-null-sequence" class="quarto-xref">Definition&nbsp;<span>8.1</span></a>.</li>
 <li>The limit, when it exists, is <strong>unique</strong> (<a href="#rem-limit-unique" class="quarto-xref">Remark&nbsp;<span>8.1</span></a>). A sequence with no limit, such as <span class="math inline">\(\big((-1)^n\big)\)</span> (<a href="#exm-alternating-diverges" class="quarto-xref">Example&nbsp;<span>8.4</span></a>), is <strong>divergent</strong>.</li>
 <li>The <strong>limit laws</strong> (<a href="#prp-limit-laws" class="quarto-xref">Proposition&nbsp;<span>8.1</span></a>) compute limits of sums, differences, products, and quotients termwise; dividing through by the highest power of <span class="math inline">\(n\)</span> turns a ratio of polynomials into a form where they apply (<a href="#exm-rational-sequence" class="quarto-xref">Example&nbsp;<span>8.5</span></a>).</li>
+<li>The <strong>comparison test</strong> and <strong>squeeze theorem</strong> (<a href="#prp-comparison" class="quarto-xref">Proposition&nbsp;<span>8.2</span></a>, <a href="#prp-squeeze" class="quarto-xref">Proposition&nbsp;<span>8.3</span></a>) let us find a limit by trapping a sequence between two others whose limits we already know.</li>
+<li>A <strong>bounded monotone sequence converges</strong> (<a href="#thm-monotone-convergence" class="quarto-xref">Theorem&nbsp;<span>8.1</span></a>), a fact equivalent to the Nested Interval Axiom; the paired form (<a href="#cor-monotone-squeeze" class="quarto-xref">Corollary&nbsp;<span>8.1</span></a>) — an increasing and a decreasing sequence squeezing together — is the version we use in practice.</li>
+<li><strong>Bernoulli’s inequality</strong> <span class="math inline">\((1+c)^n \ge 1+nc\)</span> (<a href="#lem-bernoulli" class="quarto-xref">Lemma&nbsp;<span>8.1</span></a>) drives two applications: every <span class="math inline">\(\sqrt[n]{p} \to 1\)</span> (<a href="#thm-nth-root" class="quarto-xref">Theorem&nbsp;<span>8.2</span></a>), and <span class="math inline">\(\left(1+\tfrac1n\right)^n\)</span> increases while <span class="math inline">\(\left(1+\tfrac1n\right)^{n+1}\)</span> decreases to the same limit, defining the number <span class="math inline">\(e\approx2.71828\ldots\)</span> (<a href="#thm-e-exists" class="quarto-xref">Theorem&nbsp;<span>8.3</span></a>).</li>
 </ul>
 
 

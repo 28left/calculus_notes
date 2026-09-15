@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -109,6 +109,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -317,7 +320,7 @@ window.Quarto = {
 </header>
 
 
-<div id="108f3790-47ef-4418-852d-9321bd48fdad" class="cell">
+<div id="108f3790-47ef-4418-852d-9321bd48fdad" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !!! RUN THIS FIRST !!!</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
@@ -427,34 +430,130 @@ window.Quarto = {
 <section id="a-simple-query-function" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="a-simple-query-function"><span class="header-section-number">9.1</span> A Simple Query Function</h2>
 <p>Sometimes you just want a single term of the sequence, <span class="math inline">\(a_n\)</span>, without pulling up the whole table. <code>a(n)</code> does that.</p>
-<div id="2a23b201" class="cell">
+<div id="2a23b201" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># try it:</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>a(<span class="dv">0</span>), a(<span class="dv">5000</span>), a(<span class="dv">9999</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>(0.0, 5.0165, 4.9733)</code></pre>
+</div>
 </div>
 </section>
 <section id="task-1-explore-the-data" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="task-1-explore-the-data"><span class="header-section-number">9.2</span> Task 1: Explore the Data</h2>
 <p>The full log has 10,000 samples. Set <code>n_start</code> and <code>n_end</code> below to pick a window and re-run the cell to see the table and plot over just that range — e.g.&nbsp;zoom into the early samples to see the initial behavior, or into the tail to see whether it’s still moving. Change the numbers and re-run as many times as you like.</p>
-<div id="f3f9a582" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EDIT HERE</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n_start <span class="op">=</span> <span class="dv">3000</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n_end <span class="op">=</span> <span class="dv">9000</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># No need to change anything down here</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>view <span class="op">=</span> df[(df[<span class="st">'n'</span>] <span class="op">&gt;=</span> n_start) <span class="op">&amp;</span> (df[<span class="st">'n'</span>] <span class="op">&lt;=</span> n_end)]</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>display(view)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>plt.plot(view[<span class="st">'n'</span>], view[<span class="st">'measured_value'</span>], <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'measured_value'</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Sensor log, n = </span><span class="sc">{</span>n_start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>n_end<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f3f9a582" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># EDIT HERE</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>n_start <span class="op">=</span> <span class="dv">3000</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>n_end <span class="op">=</span> <span class="dv">9000</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># No need to change anything down here</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>view <span class="op">=</span> df[(df[<span class="st">'n'</span>] <span class="op">&gt;=</span> n_start) <span class="op">&amp;</span> (df[<span class="st">'n'</span>] <span class="op">&lt;=</span> n_end)]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>display(view)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.plot(view[<span class="st">'n'</span>], view[<span class="st">'measured_value'</span>], <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'measured_value'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Sensor log, n = </span><span class="sc">{</span>n_start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>n_end<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">n</th>
+<th data-quarto-table-cell-role="th">t_seconds</th>
+<th data-quarto-table-cell-role="th">measured_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3000</th>
+<td>3000</td>
+<td>0.3000</td>
+<td>4.9917</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3001</th>
+<td>3001</td>
+<td>0.3001</td>
+<td>4.9966</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3002</th>
+<td>3002</td>
+<td>0.3002</td>
+<td>4.9946</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3003</th>
+<td>3003</td>
+<td>0.3003</td>
+<td>4.9709</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3004</th>
+<td>3004</td>
+<td>0.3004</td>
+<td>5.0027</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8996</th>
+<td>8996</td>
+<td>0.8996</td>
+<td>5.0257</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8997</th>
+<td>8997</td>
+<td>0.8997</td>
+<td>4.9995</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8998</th>
+<td>8998</td>
+<td>0.8998</td>
+<td>4.9907</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8999</th>
+<td>8999</td>
+<td>0.8999</td>
+<td>4.9952</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9000</th>
+<td>9000</td>
+<td>0.9000</td>
+<td>5.0096</td>
+</tr>
+</tbody>
+</table>
+
+<p>6001 rows × 3 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Week03_convergence_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <section id="questions-to-answer-before-moving-on" class="level3">
 <h3 class="anchored" data-anchor-id="questions-to-answer-before-moving-on">Questions to answer before moving on</h3>
@@ -477,15 +576,26 @@ window.Quarto = {
 <p>Note this checks self-consistency with your own guessed <span class="math inline">\(L\)</span> — it does not tell you the “true” limit, because the whole point is that you don’t get to see that. Two different reasonable guesses for <span class="math inline">\(L\)</span> can each have a valid <span class="math inline">\(N\)</span>.</p>
 <p>The checker also won’t just hand you the smallest possible <span class="math inline">\(N\)</span>: if your guess is close (within 50), it’ll tell you the exact smallest <span class="math inline">\(N\)</span>; if you’re further off, it’ll just tell you to try smaller.</p>
 <p><code>plot_challenge</code> zooms in by default: it starts a bit before your <code>N_guess</code> and runs to the end of the data, so you can see both whether the sequence was outside the band just before <code>N_guess</code> and that it stays inside all the way to the end. Pass <code>zoom=False</code> if you want to see the whole sequence instead.</p>
-<div id="8fa39cba" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Your answer ---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>EPSILON <span class="op">=</span> <span class="fl">0.08</span>          <span class="co"># &lt;- instructor-assigned challenge value</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>L_guess <span class="op">=</span> <span class="dv">5</span>         <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed limit</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>N_guess <span class="op">=</span> <span class="dv">2400</span>           <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed N</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>check_convergence(df, L_guess, N_guess, EPSILON)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plot_challenge(df, L_guess, N_guess, EPSILON)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8fa39cba" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Your answer ---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>EPSILON <span class="op">=</span> <span class="fl">0.08</span>          <span class="co"># &lt;- instructor-assigned challenge value</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>L_guess <span class="op">=</span> <span class="dv">5</span>         <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed limit</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>N_guess <span class="op">=</span> <span class="dv">2400</span>           <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed N</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>check_convergence(df, L_guess, N_guess, EPSILON)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plot_challenge(df, L_guess, N_guess, EPSILON)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Valid: for all n &gt;= 2400, |a_n - 5| &lt; 0.08.
+  Close! The smallest N that works is N = 2361 (you were only 39 away).</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Week03_convergence_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="dataset-2-damped-oscillator" class="level2" data-number="9.4">
@@ -495,44 +605,128 @@ window.Quarto = {
 \frac{\zeta}{\sqrt{1-\zeta^2}}\sin(\omega_d t_n)\right)\right), \qquad t_n = n \cdot dt \]</span></p>
 <p>with <span class="math inline">\(\omega_d = \omega_n\sqrt{1-\zeta^2}\)</span>. Unlike Dataset 1, this sequence <strong>oscillates</strong> around its limit before settling — so “getting close once” is not enough; you have to check it <em>stays</em> close.</p>
 <p>Since it’s an exact formula (not a fixed table), you can evaluate it at <em>any</em> <code>n</code> you like, no matter how large — there’s no upper limit like there was with <code>a(n)</code>.</p>
-<div id="f253d42e" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x_ss <span class="op">=</span> <span class="fl">2.0</span>     <span class="co"># steady-state value</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> <span class="fl">0.1</span>     <span class="co"># damping ratio</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>wn <span class="op">=</span> <span class="fl">10.0</span>      <span class="co"># natural frequency (rad/s)</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>wd <span class="op">=</span> wn <span class="op">*</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> zeta<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>dt2 <span class="op">=</span> <span class="fl">0.001</span>    <span class="co"># seconds per sample</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b(n):</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return the n-th term of the damped step-response sequence, b_n, as a</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">    plain float (or array of floats if n is array-like). No noise: this is</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">    the exact closed-form value."""</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    scalar_input <span class="op">=</span> np.ndim(n) <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.atleast_1d(np.asarray(n, dtype<span class="op">=</span><span class="bu">float</span>)) <span class="op">*</span> dt2</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span> x_ss <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> np.exp(<span class="op">-</span>zeta <span class="op">*</span> wn <span class="op">*</span> t) <span class="op">*</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                    (np.cos(wd <span class="op">*</span> t) <span class="op">+</span> (zeta <span class="op">/</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> zeta<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> np.sin(wd <span class="op">*</span> t)))</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(vals[<span class="dv">0</span>]) <span class="cf">if</span> scalar_input <span class="cf">else</span> vals</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># try it -- note n can be far larger than anything in Dataset 1's table:</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>b(<span class="dv">0</span>), b(<span class="dv">3000</span>), b(<span class="dv">1_000_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f253d42e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x_ss <span class="op">=</span> <span class="fl">2.0</span>     <span class="co"># steady-state value</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> <span class="fl">0.1</span>     <span class="co"># damping ratio</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>wn <span class="op">=</span> <span class="fl">10.0</span>      <span class="co"># natural frequency (rad/s)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>wd <span class="op">=</span> wn <span class="op">*</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> zeta<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>dt2 <span class="op">=</span> <span class="fl">0.001</span>    <span class="co"># seconds per sample</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b(n):</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return the n-th term of the damped step-response sequence, b_n, as a</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    plain float (or array of floats if n is array-like). No noise: this is</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">    the exact closed-form value."""</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    scalar_input <span class="op">=</span> np.ndim(n) <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.atleast_1d(np.asarray(n, dtype<span class="op">=</span><span class="bu">float</span>)) <span class="op">*</span> dt2</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span> x_ss <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> np.exp(<span class="op">-</span>zeta <span class="op">*</span> wn <span class="op">*</span> t) <span class="op">*</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                    (np.cos(wd <span class="op">*</span> t) <span class="op">+</span> (zeta <span class="op">/</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> zeta<span class="op">**</span><span class="dv">2</span>)) <span class="op">*</span> np.sin(wd <span class="op">*</span> t)))</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(vals[<span class="dv">0</span>]) <span class="cf">if</span> scalar_input <span class="cf">else</span> vals</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># try it -- note n can be far larger than anything in Dataset 1's table:</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>b(<span class="dv">0</span>), b(<span class="dv">3000</span>), b(<span class="dv">1_000_000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>(0.0, 2.0095601007352615, 2.0)</code></pre>
+</div>
 </div>
 </section>
 <section id="task-3-explore-the-sequence" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="task-3-explore-the-sequence"><span class="header-section-number">9.5</span> Task 3: Explore the Sequence</h2>
 <p>Same idea as Task 1: set <code>n_start</code> and <code>n_end</code> and re-run to see a table and plot of <span class="math inline">\(b_n\)</span> over that window. Try zooming into the first couple thousand terms to see the oscillation, then look further out to see it settle.</p>
-<div id="1f5b9cad" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n_start <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n_end <span class="op">=</span> <span class="dv">5000</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n_vals <span class="op">=</span> np.arange(n_start, n_end <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>view2 <span class="op">=</span> pd.DataFrame({<span class="st">'n'</span>: n_vals, <span class="st">'b_n'</span>: b(n_vals)})</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>display(view2)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.plot(view2[<span class="st">'n'</span>], view2[<span class="st">'b_n'</span>], <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'b_n'</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Damped step response, n = </span><span class="sc">{</span>n_start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>n_end<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1f5b9cad" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n_start <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n_end <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>n_vals <span class="op">=</span> np.arange(n_start, n_end <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>view2 <span class="op">=</span> pd.DataFrame({<span class="st">'n'</span>: n_vals, <span class="st">'b_n'</span>: b(n_vals)})</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>display(view2)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.plot(view2[<span class="st">'n'</span>], view2[<span class="st">'b_n'</span>], <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'b_n'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Damped step response, n = </span><span class="sc">{</span>n_start<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>n_end<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">n</th>
+<th data-quarto-table-cell-role="th">b_n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1</td>
+<td>0.000100</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2</td>
+<td>0.000399</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>3</td>
+<td>0.000898</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>4</td>
+<td>0.001596</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4996</th>
+<td>4996</td>
+<td>1.989225</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4997</th>
+<td>4997</td>
+<td>1.989154</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4998</th>
+<td>4998</td>
+<td>1.989084</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4999</th>
+<td>4999</td>
+<td>1.989015</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5000</th>
+<td>5000</td>
+<td>1.988948</td>
+</tr>
+</tbody>
+</table>
+
+<p>5001 rows × 2 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Week03_convergence_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <section id="questions-to-answer-before-moving-on-1" class="level3">
 <h3 class="anchored" data-anchor-id="questions-to-answer-before-moving-on-1">Questions to answer before moving on</h3>
@@ -546,51 +740,72 @@ window.Quarto = {
 <section id="task-4-the-varepsilon-challenge-again" class="level2" data-number="9.6">
 <h2 data-number="9.6" class="anchored" data-anchor-id="task-4-the-varepsilon-challenge-again"><span class="header-section-number">9.6</span> Task 4: The <span class="math inline">\(\varepsilon\)</span> Challenge, Again</h2>
 <p>Same process as Task 2 — guess <code>L_guess</code> and <code>N_guess</code> for a given <code>epsilon</code>, and check them. The <code>check_convergence</code>, <code>find_smallest_N</code>, and <code>plot_challenge</code> functions from Task 2 work unchanged here; we just need a table of <span class="math inline">\(b_n\)</span> values to check against. Since <span class="math inline">\(b_n\)</span> is exact (no noise), we can build that table out to a very large <code>n</code> — far past where anything interesting happens — so the check is effectively verifying “forever.”</p>
-<div id="a7279496" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n_check <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">20000</span>)      <span class="co"># generous horizon -- well past where b_n settles</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>osc_df <span class="op">=</span> pd.DataFrame({<span class="st">'n'</span>: n_check, <span class="st">'b_n'</span>: b(n_check)})</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Your answer ---</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>EPSILON2 <span class="op">=</span> <span class="fl">0.08</span>          <span class="co"># &lt;- instructor-assigned challenge value</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>L_guess2 <span class="op">=</span> <span class="dv">2</span>          <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed limit</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>N_guess2 <span class="op">=</span> <span class="dv">3000</span>          <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed N</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>check_convergence(osc_df, L_guess2, N_guess2, EPSILON2, value_col<span class="op">=</span><span class="st">'b_n'</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plot_challenge(osc_df, L_guess2, N_guess2, EPSILON2, value_col<span class="op">=</span><span class="st">'b_n'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a7279496" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n_check <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">20000</span>)      <span class="co"># generous horizon -- well past where b_n settles</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>osc_df <span class="op">=</span> pd.DataFrame({<span class="st">'n'</span>: n_check, <span class="st">'b_n'</span>: b(n_check)})</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Your answer ---</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>EPSILON2 <span class="op">=</span> <span class="fl">0.08</span>          <span class="co"># &lt;- instructor-assigned challenge value</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>L_guess2 <span class="op">=</span> <span class="dv">2</span>          <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed limit</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>N_guess2 <span class="op">=</span> <span class="dv">3000</span>          <span class="co"># </span><span class="al">TODO</span><span class="co">: your guessed N</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>check_convergence(osc_df, L_guess2, N_guess2, EPSILON2, value_col<span class="op">=</span><span class="st">'b_n'</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plot_challenge(osc_df, L_guess2, N_guess2, EPSILON2, value_col<span class="op">=</span><span class="st">'b_n'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✗ Not valid: at n = 3124, |a_n - 2| &gt;= 0.08.
+  The sequence leaves the epsilon-band after your N_guess. Try a larger N, or reconsider your L_guess.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Week03_convergence_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="task-5-convergence-of-sqrtnp" class="level2" data-number="9.7">
 <h2 data-number="9.7" class="anchored" data-anchor-id="task-5-convergence-of-sqrtnp"><span class="header-section-number">9.7</span> Task 5: Convergence of <span class="math inline">\(\sqrt[n]{p}\)</span></h2>
 <p>Finally, we want to study the convergence behavior of <span class="math inline">\(d_n = \sqrt[n]{p}\)</span> for various <span class="math inline">\(p\)</span>. Set the parameters in the cell below.</p>
-<div id="5011fb2e-51cf-48f0-9738-4fc90ec6ee58" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set p</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">2</span>    <span class="co"># Experiment with different p</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the range of n you want to consider</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>d_start <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>d_end <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> d(n):</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(p<span class="op">**</span>(<span class="dv">1</span><span class="op">/</span>n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5011fb2e-51cf-48f0-9738-4fc90ec6ee58" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set p</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">2</span>    <span class="co"># Experiment with different p</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the range of n you want to consider</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>d_start <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>d_end <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> d(n):</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">float</span>(p<span class="op">**</span>(<span class="dv">1</span><span class="op">/</span>n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As above, to return just a single term of the sequence, use <code>d(n)</code>:</p>
-<div id="cdcee84d-4777-4db6-aa74-c4e202a06ebe" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cdcee84d-4777-4db6-aa74-c4e202a06ebe" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>d(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>1.4142135623730951</code></pre>
+</div>
 </div>
 <p>Now let’s plot the sequence:</p>
-<div id="3a1c9fbe-0943-488e-907c-8c0cc7d2c5b4" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>d_array <span class="op">=</span> np.arange(d_start, d_end)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>d_vals <span class="op">=</span> p<span class="op">**</span>(<span class="dv">1</span><span class="op">/</span>d_array)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>view3 <span class="op">=</span> pd.DataFrame({<span class="st">'n'</span>: d_array, <span class="st">'d_n'</span>: d_vals})</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display(view3)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.plot(view3[<span class="st">'n'</span>], view3[<span class="st">'d_n'</span>], <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'d_n'</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Sequence n-th root of </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3a1c9fbe-0943-488e-907c-8c0cc7d2c5b4" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d_array <span class="op">=</span> np.arange(d_start, d_end)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>d_vals <span class="op">=</span> p<span class="op">**</span>(<span class="dv">1</span><span class="op">/</span>d_array)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>view3 <span class="op">=</span> pd.DataFrame({<span class="st">'n'</span>: d_array, <span class="st">'d_n'</span>: d_vals})</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display(view3)</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.plot(view3[<span class="st">'n'</span>], view3[<span class="st">'d_n'</span>], <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'n'</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'d_n'</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Sequence n-th root of </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Week03_convergence_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p><strong>Questions:</strong> - Does this sequence converge for all <span class="math inline">\(p&gt;0\)</span>? - If so, does the limit depend on <span class="math inline">\(p\)</span>?</p>
 

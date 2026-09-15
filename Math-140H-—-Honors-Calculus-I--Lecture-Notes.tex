@@ -204,6 +204,8 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
@@ -211,8 +213,6 @@
 \newtheorem{example}{Example}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -2201,6 +2201,249 @@ such \(x\) with \[
 \] Give such an \(\varepsilon\) for \(f\), and one for \(g\).
 
 \end{exercise}
+
+\part{Limits}
+
+\chapter{Sequences and Convergence}\label{sequences-and-convergence}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §1.6 (a selection). The arithmetic
+rules for limits are treated in C\&J §1.7.
+
+\end{tcolorbox}
+
+\section{Sequences}\label{sequences}
+
+A \textbf{sequence} is an unending list of real numbers \[
+a_1,\ a_2,\ a_3,\ \ldots
+\] We write \((a_n)_{n\in\mathbb{N}}\), or just \((a_n)\), and call
+\(a_n\) the \textbf{\(n\)-th term}. Formally, a sequence is nothing but
+a function \[
+a\colon \mathbb{N}\to \mathbb{R},
+\] where we write \(a_n\) instead of \(a(n)\).
+
+\begin{example}[]\protect\hypertarget{exm-sequences}{}\label{exm-sequences}
+
+\hfill\break
+\[
+\begin{aligned}
+a_n &= \tfrac{1}{n}: & &1,\ \tfrac12,\ \tfrac13,\ \tfrac14,\ \ldots \\[2pt]
+b_n &= \tfrac{(-1)^{n+1}}{n}: & &1,\ -\tfrac12,\ \tfrac13,\ -\tfrac14,\ \ldots \\[2pt]
+c_n &= \tfrac{n}{n+1}: & &\tfrac12,\ \tfrac23,\ \tfrac34,\ \tfrac45,\ \ldots \\[2pt]
+d_n &= \sqrt[n]{p}, \quad p>0 \text{ fixed} \\[2pt]
+e_n &= \alpha^n, \quad \alpha>1.
+\end{aligned}
+\]
+
+\end{example}
+
+\section{The Limit of a Sequence}\label{the-limit-of-a-sequence}
+
+Look at \(a_n = \tfrac1n\). What happens to the terms as \(n\) gets
+larger and larger? The values get smaller and smaller, coming
+\textbf{arbitrarily close to \(0\)} --- though no term is ever equal to
+\(0\). We want to make ``arbitrarily close'' precise.
+
+The idea is to use \(\varepsilon\)-neighborhoods
+(Definition~\ref{def-epsilon-neighborhood}): given a tolerance
+\(\varepsilon>0\), we ask that \emph{from some point on}, every term of
+the sequence lies within \(\varepsilon\) of \(0\).
+
+\begin{definition}[]\protect\hypertarget{def-null-sequence}{}\label{def-null-sequence}
+
+\hfill\break
+We say \((a_n)\) \textbf{converges to \(0\)}, written \[
+\lim_{n\to\infty} a_n = 0 \qquad\text{or}\qquad a_n \to 0,
+\] if for every \(\varepsilon>0\) there exists \(N\in\mathbb{N}\) such
+that \[
+\lvert a_n \rvert = \lvert a_n - 0 \rvert < \varepsilon\qquad\text{for all } n \ge N.
+\]
+
+\end{definition}
+
+The number \(N\) is allowed to depend on \(\varepsilon\) --- a smaller
+tolerance will in general require going further out in the sequence. To
+emphasize this dependence one sometimes writes \(N(\varepsilon)\).
+
+\begin{example}[]\protect\hypertarget{exm-one-over-n}{}\label{exm-one-over-n}
+
+\hfill\break
+\(\lim_{n\to\infty} \tfrac1n = 0\).
+
+\begin{proof}
+Let \(\varepsilon>0\). We must find \(N\) so that
+\(\tfrac1n < \varepsilon\) for all \(n\ge N\). Now \[
+\tfrac1n < \varepsilon\quad \Leftrightarrow \quad\tfrac1\varepsilon< n,
+\] so any \(N \in \mathbb{N}\) with \(N > \tfrac1\varepsilon\) works: if
+\(n \ge N > \tfrac1\varepsilon\), then \(\tfrac1n < \varepsilon\).
+
+Concretely, for \(\varepsilon= 0.05 = \tfrac{5}{100}\) we need
+\(n > \tfrac{100}{5} = 20\), so \(N = 21\) will do.
+\end{proof}
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-alternating-null}{}\label{exr-alternating-null}
+
+Show that \(\lim_{n\to\infty} \dfrac{(-1)^{n+1}}{n} = 0\). (Note
+\(\lvert b_n \rvert = \tfrac1n\).)
+
+\end{exercise}
+
+\section{Convergence to a General
+Limit}\label{convergence-to-a-general-limit}
+
+Now consider \(c_n = \tfrac{n}{n+1}\). The terms get closer and closer
+to \(1\), which suggests \(\lim_{n\to\infty} c_n = 1\). The definition
+is the same as before, with \(0\) replaced by the candidate limit.
+
+\begin{definition}[]\protect\hypertarget{def-limit}{}\label{def-limit}
+
+\hfill\break
+Let \(a\in\mathbb{R}\). We say \((c_n)\) \textbf{converges to \(a\)},
+written \(\lim_{n\to\infty} c_n = a\) or \(c_n \to a\), if for every
+\(\varepsilon>0\) there exists \(N\in\mathbb{N}\) such that \[
+\lvert c_n - a \rvert < \varepsilon\qquad\text{for all } n \ge N.
+\] Equivalently: from the \(N\)-th term on, all terms lie in the
+\(\varepsilon\)-neighborhood \((a-\varepsilon,\, a+\varepsilon)\). A
+sequence is \textbf{convergent} if it converges to some \(a\), and
+\textbf{divergent} otherwise.
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-n-over-n-plus-1}{}\label{exm-n-over-n-plus-1}
+
+\hfill\break
+\(\lim_{n\to\infty} \dfrac{n}{n+1} = 1\). Here \[
+\lvert c_n - 1 \rvert = \lvert \frac{n}{n+1} - 1 \rvert = 1 - \frac{n}{n+1} = \frac{1}{n+1}.
+\]
+
+Let us check two tolerances. For \(\varepsilon= 1\) we need
+\(\tfrac{1}{n+1} < 1\), which holds for every \(n\ge 1\); so \(N = 1\)
+works. For \(\varepsilon= \tfrac14\) we need \[
+\frac{1}{n+1} < \frac14 \quad \Leftrightarrow \quad 3 < n,
+\] so \(N = 4\) works.
+
+In general,
+\(\lvert c_n - 1 \rvert = \tfrac{1}{n+1} < \varepsilon\quad \Leftrightarrow \quad n > \tfrac1\varepsilon- 1\),
+so any \(N > \tfrac1\varepsilon- 1\) works, and \(c_n \to 1\).
+
+\end{example}
+
+\begin{refremark}
+When a limit exists it is \textbf{unique}: if \(c_n \to a\) and
+\(c_n \to a'\), then for every \(\varepsilon>0\) we have
+\(\lvert a - a' \rvert \le \lvert a - c_n \rvert + \lvert c_n - a' \rvert < 2\varepsilon\)
+for large \(n\), so \(\lvert a-a' \rvert = 0\). This is what justifies
+speaking of \emph{the} limit and the notation \(\lim_{n\to\infty} c_n\).
+
+\label{rem-limit-unique}
+
+\end{refremark}
+
+\subsection{Divergence}\label{divergence}
+
+To show a sequence \textbf{diverges} we must show it converges to no
+limit at all. Negating Definition~\ref{def-limit}: \((c_n)\) does not
+converge to \(a\) if there is some \(\varepsilon>0\) such that, no
+matter how far out we go, some later term is at least \(\varepsilon\)
+away from \(a\).
+
+\begin{example}[]\protect\hypertarget{exm-alternating-diverges}{}\label{exm-alternating-diverges}
+
+\hfill\break
+The sequence \(\big((-1)^n\big) = -1, 1, -1, 1, \ldots\) diverges.
+
+\begin{proof}
+Suppose \((-1)^n \to a\) for some \(a\). Take \(\varepsilon= 1\). Then
+\(\lvert (-1)^n - a \rvert < 1\) for all large \(n\); applying this to
+an even and an odd \(n\) gives \(\lvert 1 - a \rvert < 1\) and
+\(\lvert -1 - a \rvert < 1\). But then \[
+2 = \lvert 1 - (-1) \rvert \le \lvert 1 - a \rvert + \lvert a - (-1) \rvert < 1 + 1 = 2,
+\] a contradiction.
+\end{proof}
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-sequences-limits}{}\label{exr-sequences-limits}
+
+Investigate the remaining sequences from Example~\ref{exm-sequences}:
+\(d_n = \sqrt[n]{p}\) (with \(p>0\) fixed) and \(e_n = \alpha^n\) (with
+\(\alpha>1\)). One converges; the other diverges. Which is which, and
+what is the limit?
+
+\end{exercise}
+
+\begin{refremark}
+For reference: \(\sqrt[n]{p} \to 1\) for every \(p>0\), while
+\(\alpha^n\) diverges when \(\alpha>1\) (its terms grow without bound).
+Both facts are proved in C\&J §1.6.
+
+\label{rem-sequences-limits-answers}
+
+\end{refremark}
+
+\section{Limit Laws}\label{limit-laws}
+
+Computing \(N(\varepsilon)\) by hand for every sequence quickly becomes
+tedious. The following rules let us build limits of complicated
+sequences out of simpler ones.
+
+\begin{proposition}[Arithmetic of
+limits]\protect\hypertarget{prp-limit-laws}{}\label{prp-limit-laws}
+
+Suppose \(a_n \to a\) and \(b_n \to b\). Then \[
+\begin{aligned}
+a_n + b_n &\to a + b, & a_n - b_n &\to a - b, \\
+a_n \cdot b_n &\to a \cdot b, & \frac{a_n}{b_n} &\to \frac{a}{b} \quad (\text{provided } b \neq 0).
+\end{aligned}
+\]
+
+\end{proposition}
+
+\begin{example}[]\protect\hypertarget{exm-rational-sequence}{}\label{exm-rational-sequence}
+
+\hfill\break
+Find \(\displaystyle\lim_{n\to\infty} \frac{2n^2 - 1}{n^2 + n + 1}\).
+
+Divide numerator and denominator by \(n^2\): \[
+\frac{2n^2 - 1}{n^2 + n + 1}
+= \frac{2 - \tfrac{1}{n^2}}{1 + \tfrac1n + \tfrac{1}{n^2}}.
+\] Now \(\tfrac1n \to 0\) and \(\tfrac{1}{n^2} \to 0\), so by the limit
+laws the numerator tends to \(2 - 0 = 2\) and the denominator to
+\(1 + 0 + 0 = 1\). Since the denominator limit is nonzero, \[
+\lim_{n\to\infty} \frac{2n^2 - 1}{n^2 + n + 1} = \frac{2}{1} = 2.
+\]
+
+\end{example}
+
+\section{Summary}\label{summary-5}
+
+\begin{itemize}
+\tightlist
+\item
+  A \textbf{sequence} is a function \(a\colon\mathbb{N}\to\mathbb{R}\),
+  written \((a_n)\).
+\item
+  \((a_n)\) \textbf{converges to \(a\)} (Definition~\ref{def-limit}) if
+  for every tolerance \(\varepsilon>0\) there is an index \(N\) such
+  that \(\lvert a_n - a \rvert < \varepsilon\) for all \(n\ge N\) ---
+  from some point on, all terms lie in the \(\varepsilon\)-neighborhood
+  of \(a\). The special case \(a=0\) is
+  Definition~\ref{def-null-sequence}.
+\item
+  The limit, when it exists, is \textbf{unique}
+  (Remark~\ref{rem-limit-unique}). A sequence with no limit, such as
+  \(\big((-1)^n\big)\) (Example~\ref{exm-alternating-diverges}), is
+  \textbf{divergent}.
+\item
+  The \textbf{limit laws} (Proposition~\ref{prp-limit-laws}) compute
+  limits of sums, differences, products, and quotients termwise;
+  dividing through by the highest power of \(n\) turns a ratio of
+  polynomials into a form where they apply
+  (Example~\ref{exm-rational-sequence}).
+\end{itemize}
 
 
 

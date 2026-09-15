@@ -4,11 +4,11 @@
 
 # Sequences and Convergence
 
-::: {.callout-note}
+<!-- ::: {.callout-note}
 ## Companion reading
 This lecture corresponds to C&J §1.6 (a selection). The arithmetic rules for limits are treated in
 C&J §1.7.
-:::
+::: -->
 
 ## Sequences
 
@@ -184,6 +184,216 @@ $$
 $$
 :::
 
+## Comparison and the Squeeze Theorem
+
+::: {#exr-warmup-half-n}
+**Warm-up.** Show that $\lim_{n\to\infty} \dfrac{1}{2^n} = 0$.
+:::
+
+Rather than hunting for $N(\eps)$ from scratch every time, it is often easier to compare a sequence
+to one whose limit we already know.
+
+::: {#prp-comparison}
+## Comparison test
+Suppose $0 \le b_n \le a_n$ for all $n$, and $a_n \to 0$. Then $b_n \to 0$.
+:::
+
+::: {.proof}
+Let $\eps>0$. Since $a_n\to0$ there is $N\in\N$ with $a_n < \eps$ for all $n\ge N$. Then for
+$n\ge N$,
+$$
+0 \le b_n \le a_n < \eps,
+$$
+so $\abs{b_n - 0} = b_n < \eps$. Hence $b_n \to 0$.
+:::
+
+<!-- ::: {#exm-half-n}
+\
+A quick induction shows $2^n > n$ for all $n\ge1$: it holds at $n=1$, and if $2^n>n$ then
+$2^{n+1} = 2\cdot 2^n > 2n \ge n+1$. Hence
+$$
+0 < \frac{1}{2^n} < \frac1n \qquad\text{for all } n\ge1.
+$$
+Since $\tfrac1n\to0$ (@exm-one-over-n), the comparison test gives $\tfrac{1}{2^n}\to0$ — this
+settles @exr-warmup-half-n.
+::: -->
+
+We can generalize this by sandwiching a sequence between two others
+that converge to the *same* limit works for any target value.
+
+::: {#prp-squeeze}
+## Squeeze theorem
+Suppose $a_n \le b_n \le c_n$ for all $n$, and $a_n \to L$, $c_n \to L$ for the same $L\in\R$. Then
+$b_n \to L$.
+:::
+
+::: {.proof}
+Let $\eps>0$. Choose $N_1$ with $\abs{a_n-L}<\eps$ for $n\ge N_1$, and $N_2$ with
+$\abs{c_n-L}<\eps$ for $n\ge N_2$. Let $N=\max(N_1,N_2)$. For $n\ge N$,
+$$
+L-\eps < a_n \le b_n \le c_n < L+\eps,
+$$
+so $\abs{b_n-L}<\eps$. Hence $b_n\to L$.
+:::
+
+::: {#rem-squeeze-comparison}
+@prp-comparison is the special case of the squeeze theorem where the lower bounding sequence is
+constantly $0$ and $L=0$.
+:::
+
+## Monotone and Bounded Sequences
+
+::: {#def-monotone}
+\
+A sequence $(a_n)$ is **increasing** if $a_n \le a_{n+1}$ for all $n$, and **decreasing** if
+$a_n \ge a_{n+1}$ for all $n$. It is **monotone** if it is increasing or decreasing.
+:::
+
+::: {#def-bounded}
+\
+A sequence $(a_n)$ is **bounded** if there is a constant $C$ such that $\abs{a_n}\le C$ for all
+$n$.
+:::
+
+::: {#thm-monotone-convergence}
+## Monotone Convergence Theorem
+Every bounded monotone sequence converges.
+:::
+
+::: {#rem-monotone-nip}
+This theorem expresses the same completeness of $\R$ as the Nested Interval Axiom from
+[The Nested Interval Axiom](02_nested_intervals.qmd#the-nested-interval-axiom) — each can be
+derived from the other. We will not reprove the general statement here; instead we isolate the
+paired form that we actually use below, which follows directly from the axiom together with the
+comparison test.
+:::
+
+::: {#cor-monotone-squeeze}
+Suppose $(a_n)$ is increasing, $(b_n)$ is decreasing, $a_n\le b_n$ for all $n$, and
+$b_n - a_n \to 0$. Then $(a_n)$ and $(b_n)$ converge to a common limit $c$, the unique point in
+$\bigcap_n [a_n,b_n]$.
+:::
+
+::: {.proof}
+Since $(a_n)$ is increasing and $(b_n)$ is decreasing with $a_n\le b_n$, the intervals
+$[a_n,b_n]$ are nested: $[a_{n+1},b_{n+1}]\subseteq[a_n,b_n]$ for all $n$. By the Nested Interval
+Axiom there is a point $c$ with $a_n \le c \le b_n$ for every $n$. Then
+$$
+0 \le c - a_n \le b_n - a_n \to 0 \qquad\text{and}\qquad 0 \le b_n - c \le b_n - a_n \to 0,
+$$
+so the comparison test (@prp-comparison) gives $a_n \to c$ and $b_n \to c$.
+:::
+
+## Applications
+
+::: {#lem-bernoulli}
+## Bernoulli's inequality
+For $c \ge -1$ and $n\in\N$,
+$$
+(1+c)^n \ge 1 + nc.
+$$
+:::
+
+(For $c \geq 0$ one can prove this by considering just the first two terms of the [binomial expansion](https://en.wikipedia.org/wiki/Binomial_theorem) of $(1+c)^n$. The remaining terms are all non-negative, so by leaving them out, we obtain something smaller.)
+
+
+<!-- ::: {.proof}
+Induction on $n$. For $n=1$ both sides equal $1+c$. Assume $(1+c)^n \ge 1+nc$. Since
+$1+c\ge0$, multiplying both sides by $1+c$ preserves the inequality:
+$$
+(1+c)^{n+1} = (1+c)^n(1+c) \ge (1+nc)(1+c) = 1+(n+1)c+nc^2 \ge 1+(n+1)c,
+$$
+using $nc^2\ge0$. This completes the induction.
+::: -->
+
+### Roots: $\sqrt[n]{p} \to 1$
+
+::: {#thm-nth-root}
+\
+For every $p>0$, $\displaystyle\lim_{n\to\infty}\sqrt[n]{p} = 1$.
+:::
+
+::: {.proof}
+For $p=1$ the sequence is constant, so there is nothing to show.
+
+Suppose $p>1$. Write $a_n := \sqrt[n]{p} = 1+\delta_n$; since $p>1$ we have $a_n>1$, so
+$\delta_n>0$. Raising to the $n$-th power and applying Bernoulli's inequality (with $c=\delta_n\ge0$),
+$$
+p = (1+\delta_n)^n \ge 1+n\delta_n,
+$$
+so $0 < \delta_n \le \dfrac{p-1}{n}$. Since $\tfrac{p-1}{n}\to0$, the comparison test gives
+$\delta_n\to0$, and hence $a_n = 1+\delta_n \to 1$.
+
+Suppose $0<p<1$. Then $q:=1/p>1$, and by the case just proved $\sqrt[n]{q}\to1$. Since
+$\sqrt[n]{q}\neq0$ for all $n$ and its limit is nonzero, the quotient rule in @prp-limit-laws gives
+$$
+\sqrt[n]{p} = \frac{1}{\sqrt[n]{q}} \longrightarrow \frac11 = 1.
+$$
+:::
+
+This proves the claim recorded in @rem-sequences-limits-answers for $d_n=\sqrt[n]{p}$.
+
+### The Number $e$
+
+::: {#prp-e-increasing}
+\
+The sequence $e_n := \left(1+\tfrac1n\right)^n$ is increasing.
+:::
+
+::: {.proof}
+We must show
+$$
+\left(1+\frac1n\right)^n \le \left(1+\frac1{n+1}\right)^{n+1}. \tag{$*$}
+$$
+Writing both sides with a common fractional base and splitting off one factor of
+$\tfrac{n+2}{n+1}$ on the right,
+$$
+(*) \iff \left(\frac{n+1}{n}\right)^n \le \left(\frac{n+2}{n+1}\right)^n \cdot \frac{n+2}{n+1}
+\iff \frac{n+1}{n+2} \le \left(\frac{n(n+2)}{(n+1)^2}\right)^{n}.
+$$
+Since $(n+1)^2 = n^2+2n+1$, we have $n(n+2) = n^2+2n = (n+1)^2-1$, so
+$$
+\left(\frac{n(n+2)}{(n+1)^2}\right)^{n} = \left(1-\frac{1}{(n+1)^2}\right)^{n}.
+$$
+By Bernoulli's inequality (with $c=-\tfrac{1}{(n+1)^2}\ge-1$),
+$$
+\left(1-\frac{1}{(n+1)^2}\right)^{n} \ge 1 - \frac{n}{(n+1)^2}.
+$$
+So it suffices to show $\dfrac{n+1}{n+2} \le 1-\dfrac{n}{(n+1)^2}$, i.e.
+$$
+\frac{1}{n+2} \ge \frac{n}{(n+1)^2} \iff (n+1)^2 \ge n(n+2) \iff n^2+2n+1 \ge n^2+2n,
+$$
+which is always true. Chaining the inequalities back together proves $(*)$.
+:::
+
+::: {#exr-f-decreasing}
+Show that $f_n := \left(1+\tfrac1n\right)^{n+1}$ is decreasing. (Adapt the computation in the proof
+of @prp-e-increasing.)
+:::
+
+::: {#thm-e-exists}
+\
+The limit
+$$
+e := \lim_{n\to\infty}\left(1+\frac1n\right)^n
+$$
+exists; numerically $e \approx 2.71828\ldots$.
+:::
+
+::: {.proof}
+Let $e_n = \left(1+\tfrac1n\right)^n$ and $f_n = \left(1+\tfrac1n\right)^{n+1} = e_n\left(1+\tfrac1n\right)$,
+so $e_n \le f_n$ for all $n$. By @prp-e-increasing, $(e_n)$ is increasing; by @exr-f-decreasing,
+$(f_n)$ is decreasing. In particular $e_n \le f_n \le f_1 = 4$ for all $n$, so $(e_n)$ is bounded.
+
+Moreover
+$$
+0 \le f_n - e_n = e_n\cdot\frac1n \le \frac{f_1}{n} = \frac4n \longrightarrow 0,
+$$
+so $f_n - e_n \to 0$ by the comparison test. By @cor-monotone-squeeze, $(e_n)$ and $(f_n)$ converge
+to a common limit — which we call $e$. Numerically, $e_{10} \approx 2.594$, $e_{100}\approx 2.705$,
+$e_{1000}\approx 2.7169$, consistent with $e\approx 2.71828\ldots$.
+:::
+
 ## Summary
 
 - A **sequence** is a function $a\colon\N\to\R$, written $(a_n)$.
@@ -195,3 +405,12 @@ $$
 - The **limit laws** (@prp-limit-laws) compute limits of sums, differences, products, and quotients
   termwise; dividing through by the highest power of $n$ turns a ratio of polynomials into a form
   where they apply (@exm-rational-sequence).
+- The **comparison test** and **squeeze theorem** (@prp-comparison, @prp-squeeze) let us find a
+  limit by trapping a sequence between two others whose limits we already know.
+- A **bounded monotone sequence converges** (@thm-monotone-convergence), a fact equivalent to the
+  Nested Interval Axiom; the paired form (@cor-monotone-squeeze) — an increasing and a decreasing
+  sequence squeezing together — is the version we use in practice.
+- **Bernoulli's inequality** $(1+c)^n \ge 1+nc$ (@lem-bernoulli) drives two applications: every
+  $\sqrt[n]{p} \to 1$ (@thm-nth-root), and $\left(1+\tfrac1n\right)^n$ increases while
+  $\left(1+\tfrac1n\right)^{n+1}$ decreases to the same limit, defining the number
+  $e\approx2.71828\ldots$ (@thm-e-exists).

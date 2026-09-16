@@ -701,5 +701,93 @@
       "Limits",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Convergence of Sequences: Reading Data</span>"
     ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html",
+    "href": "08_limits_of_functions.html",
+    "title": "10  Limits of Functions",
+    "section": "",
+    "text": "10.1 From Sequences to Functions\nWe already know what it means for a sequence to converge (Definition 8.2). We now transfer this idea to functions: instead of asking what happens to \\(a_n\\) as \\(n\\to\\infty\\), we ask what happens to \\(f(x)\\) as \\(x\\) approaches some fixed point \\(a\\). The cheapest way to make this precise is to reduce it to something we already understand — sequences — by feeding every sequence approaching \\(a\\) into \\(f\\) and demanding that the outputs all converge to the same value.",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#from-sequences-to-functions",
+    "href": "08_limits_of_functions.html#from-sequences-to-functions",
+    "title": "10  Limits of Functions",
+    "section": "",
+    "text": "Definition 10.1 \nLet \\(f\\colon D\\to\\mathbb{R}\\) with \\(D\\subseteq\\mathbb{R}\\), and let \\(a\\in\\mathbb{R}\\). We say \\[\n\\lim_{x\\to a} f(x) = L\n\\] if for every sequence \\((x_n)\\) with \\(x_n\\in D\\), \\(x_n\\neq a\\), and \\(x_n\\to a\\), we have \\(f(x_n)\\to L\\).\n\n\n\n\n\n\n\n\n\n\n\nRemark 10.1. The word “every” is doing all the work: it is not enough to find some sequence \\(x_n\\to a\\) with \\(f(x_n)\\to L\\) — the same \\(L\\) must come out no matter which approaching sequence we feed in. This mirrors uniqueness of sequential limits (Remark 8.1): if two different sequences \\(x_n\\to a\\) and \\(x_n'\\to a\\) produced different outputs \\(f(x_n)\\to L\\) and \\(f(x_n')\\to L'\\neq L\\), the limit \\(\\lim_{x\\to a}f(x)\\) would simply not exist.\n\n\n\n\n\n\n\n\n\n\n\nExample 10.1 \nLet \\(f(x) = x^2\\). Then \\(\\displaystyle\\lim_{x\\to 0} f(x) = 0\\).\n\n\n\n\n\n\nNoteProof\n\n\n\n\n\n\nProof. Let \\((x_n)\\) be an arbitrary sequence with \\(x_n\\to 0\\). We may assume \\(\\lvert x_n \\rvert\\le 1\\) for all \\(n\\) (true eventually, since \\(x_n\\to0\\)). Then \\[\n0 \\le f(x_n) = x_n^2 \\le \\lvert x_n \\rvert,\n\\] and \\(\\lvert x_n \\rvert\\to 0\\), so by the comparison test (Proposition 8.2), \\(x_n^2 \\to 0\\). Since \\((x_n)\\) was an arbitrary sequence converging to \\(0\\), Definition 10.1 gives \\(\\lim_{x\\to0} f(x) = 0\\).",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#the-varepsilondelta-version",
+    "href": "08_limits_of_functions.html#the-varepsilondelta-version",
+    "title": "10  Limits of Functions",
+    "section": "10.2 The \\(\\varepsilon\\)–\\(\\delta\\) Version",
+    "text": "10.2 The \\(\\varepsilon\\)–\\(\\delta\\) Version\nJust as with continuity (Definition 6.2), the sequential definition of a function limit has an equivalent \\(\\varepsilon\\)–\\(\\delta\\) formulation.\n\n\n\n\n\n\n\nProposition 10.1 (\\(\\varepsilon\\)–\\(\\delta\\) characterization of a limit) Let \\(f\\colon D\\to\\mathbb{R}\\), \\(a\\in\\mathbb{R}\\), \\(L\\in\\mathbb{R}\\). Then \\[\n\\lim_{x\\to a} f(x) = L\n\\quad \\Leftrightarrow \\quad\n\\text{for every } \\varepsilon&gt;0 \\text{ there exists } \\delta&gt;0 \\text{ s.t. }\nx\\in D,\\ 0&lt;\\lvert x-a \\rvert&lt;\\delta \\quad \\Rightarrow \\quad\\lvert f(x)-L \\rvert&lt;\\varepsilon.\n\\]\n\n\n\n\nThe proof is the same idea as the equivalence used implicitly for continuity: if the \\(\\varepsilon\\)–\\(\\delta\\) condition holds and \\(x_n\\to a\\), choosing \\(N\\) so that \\(\\lvert x_n-a \\rvert&lt;\\delta\\) for \\(n\\ge N\\) forces \\(\\lvert f(x_n)-L \\rvert&lt;\\varepsilon\\) for \\(n\\ge N\\), i.e. \\(f(x_n)\\to L\\). Conversely, if the \\(\\varepsilon\\)–\\(\\delta\\) condition fails for some \\(\\varepsilon&gt;0\\), then for every \\(\\delta = \\tfrac1n\\) we can pick a point \\(x_n\\) with \\(0&lt;\\lvert x_n-a \\rvert&lt;\\tfrac1n\\) but \\(\\lvert f(x_n)-L \\rvert\\ge\\varepsilon\\) — producing a sequence \\(x_n\\to a\\) with \\(f(x_n)\\not\\to L\\), so the sequential definition fails too.\nThe only difference from Definition 6.2 is the punctured condition \\(0&lt;\\lvert x-a \\rvert\\): a limit does not care what happens (or fails to happen) at \\(a\\) itself, only nearby. This is what lets us connect the two notions.\n\n\n\n\n\n\n\nProposition 10.2 (Continuity, restated) Let \\(f\\colon D\\to\\mathbb{R}\\) and \\(a\\in D\\). Then \\(f\\) is continuous at \\(a\\) (Definition 6.2) if and only if \\[\n\\lim_{x\\to a} f(x) \\text{ exists and equals } f(a).\n\\]\n\n\n\n\nThis is exactly Definition 6.2 with the roles of \\(x\\) and \\(a\\) relabeled: continuity says \\(\\lvert x-a \\rvert&lt;\\delta \\quad \\Rightarrow \\quad\\lvert f(x)-f(a) \\rvert&lt;\\varepsilon\\), which is the \\(\\varepsilon\\)–\\(\\delta\\) condition of Proposition 10.1 with \\(L=f(a)\\) (the point \\(x=a\\) itself trivially satisfies \\(\\lvert f(x)-f(a) \\rvert=0&lt;\\varepsilon\\), so punctured and unpunctured versions agree once \\(L=f(a)\\)).",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#examples",
+    "href": "08_limits_of_functions.html#examples",
+    "title": "10  Limits of Functions",
+    "section": "10.3 Examples",
+    "text": "10.3 Examples\n\n\n\n\n\n\n\nExample 10.2 \n\\(f(x) = x^3\\) is continuous at every \\(a\\in\\mathbb{R}\\).\n\n\n\n\n\n\nNoteProof\n\n\n\n\n\n\nProof. Let \\(x_n\\to a\\). By the limit laws for sequences (Proposition 8.1), \\[\nx_n^3 = x_n\\cdot x_n\\cdot x_n \\longrightarrow a\\cdot a\\cdot a = a^3.\n\\] Hence \\(f(x_n)\\to f(a)\\) for every sequence \\(x_n\\to a\\), so \\(\\lim_{x\\to a} f(x) = f(a)\\), and Proposition 10.2 gives continuity at \\(a\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExample 10.3 \nThe Dirichlet function \\[\nf(x) = \\begin{cases} 1 & x\\in\\mathbb{Q}\\\\ 0 & x\\notin\\mathbb{Q}\\end{cases}\n\\] is discontinuous at every \\(a\\in\\mathbb{R}\\).\nTake \\(a=1\\). Consider the two sequences \\[\nx_n = 1+\\frac1n \\quad(\\text{rational}), \\qquad\\qquad y_n = 1+\\frac{\\sqrt2}{n} \\quad(\\text{irrational}).\n\\] Both converge to \\(1\\), but \\[\nf(x_n) \\equiv 1 \\to 1, \\qquad\\qquad f(y_n) \\equiv 0 \\to 0 \\neq f(1) = 1.\n\\] Since two sequences converging to \\(a=1\\) produce different limits for \\(f\\), \\(\\lim_{x\\to1}f(x)\\) does not exist (Remark 10.1), so \\(f\\) is not continuous at \\(1\\).\n\n\n\n\n\n\n\n\n\n\n\nExercise 10.1 Adapt the argument of Example 10.3 to an arbitrary \\(a\\in\\mathbb{R}\\): exhibit a rational sequence and an irrational sequence, both converging to \\(a\\), on which the Dirichlet function takes different limiting values. Conclude that \\(f\\) is discontinuous at every \\(a\\in\\mathbb{R}\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 10.4 \nLet \\[\nf(x) = \\begin{cases} x^3+16 & x&lt;0 \\\\ -2x+3 & x\\ge 0. \\end{cases}\n\\] Take \\(x_n = -\\tfrac1n \\to 0\\). Then \\[\nf(x_n) = \\left(-\\frac1n\\right)^{\\!3} + 16 \\longrightarrow 16 \\neq f(0) = 3,\n\\] so \\(f\\) is discontinuous at \\(0\\). We will see below exactly what kind of discontinuity this is.",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#one-sided-limits",
+    "href": "08_limits_of_functions.html#one-sided-limits",
+    "title": "10  Limits of Functions",
+    "section": "10.4 One-Sided Limits",
+    "text": "10.4 One-Sided Limits\nFor Example 10.4, the failure of continuity comes from the two “branches” of \\(f\\) disagreeing at \\(0\\) — approaching from the left gives a different answer than approaching from the right. To capture this we restrict which sequences \\(x_n\\to a\\) we are allowed to test with.\n\n\n\n\n\n\n\nDefinition 10.2 \nLet \\(f\\colon D\\to\\mathbb{R}\\) and \\(a\\in\\mathbb{R}\\).\n\n\\(\\displaystyle\\lim_{x\\to a^-} f(x) = L\\) (the left-sided limit) if \\(f(x_n)\\to L\\) for every increasing sequence \\(x_n \\nearrow a\\) with \\(x_n\\in D\\).\n\\(\\displaystyle\\lim_{x\\to a^+} f(x) = L\\) (the right-sided limit) if \\(f(x_n)\\to L\\) for every decreasing sequence \\(x_n \\searrow a\\) with \\(x_n\\in D\\).\n\n\n\n\n\n\n\n\n\n\n\n\nRemark 10.2. The left- and right-sided limits may disagree. For \\(f\\) as in Example 10.4, \\[\n\\lim_{x\\to0^-} f(x) = 16, \\qquad\\qquad \\lim_{x\\to0^+} f(x) = 3,\n\\] since \\(x^3+16\\to16\\) along any \\(x_n\\nearrow0\\), while \\(-2x+3\\to3\\) along any \\(x_n\\searrow0\\).\n\n\n\n\n\n\n\n\n\n\n\nDefinition 10.3 \n\\(f\\) has a jump discontinuity at \\(a\\) if both one-sided limits exist and are finite, but \\[\n\\lim_{x\\to a^-} f(x) \\neq \\lim_{x\\to a^+} f(x).\n\\] This makes precise the informal description from Remark 6.3, and excludes the unbounded case of Remark 6.4, where no finite one-sided limit exists at all. The function of Example 10.4 has a jump discontinuity at \\(0\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 10.1 \nLet \\(f\\colon D\\to\\mathbb{R}\\) and \\(a\\in D\\). Then \\(f\\) is continuous at \\(a\\) if and only if \\[\n\\lim_{x\\to a^-} f(x) = f(a) = \\lim_{x\\to a^+} f(x).\n\\]\n\n\n\n\nLike the two-sided limit (Proposition 10.1), each one-sided limit has an equivalent \\(\\varepsilon\\)–\\(\\delta\\) form obtained by restricting to one side: \\[\n\\lim_{x\\to a^-} f(x) = L \\quad \\Leftrightarrow \\quad\\forall\\varepsilon&gt;0\\ \\exists\\delta&gt;0:\\ a-\\delta&lt;x&lt;a \\quad \\Rightarrow \\quad\\lvert f(x)-L \\rvert&lt;\\varepsilon,\n\\] and symmetrically for \\(\\lim_{x\\to a^+}f(x)=L\\) with \\(a&lt;x&lt;a+\\delta\\).\n\n\n\n\n\n\nNoteProof\n\n\n\n\n\n\nProof. If \\(f\\) is continuous at \\(a\\), then \\(f(x_n)\\to f(a)\\) for every sequence \\(x_n\\to a\\) (Proposition 10.2) — in particular for every increasing sequence \\(x_n\\nearrow a\\) and every decreasing sequence \\(x_n\\searrow a\\), giving both one-sided limits equal to \\(f(a)\\).\nConversely, suppose both one-sided limits equal \\(f(a)\\), and let \\(\\varepsilon&gt;0\\). By the \\(\\varepsilon\\)–\\(\\delta\\) forms above there exist \\(\\delta_1,\\delta_2&gt;0\\) with \\[\na-\\delta_1&lt;x&lt;a \\quad \\Rightarrow \\quad\\lvert f(x)-f(a) \\rvert&lt;\\varepsilon, \\qquad\\qquad a&lt;x&lt;a+\\delta_2 \\quad \\Rightarrow \\quad\\lvert f(x)-f(a) \\rvert&lt;\\varepsilon.\n\\] Let \\(\\delta=\\min(\\delta_1,\\delta_2)\\). If \\(0&lt;\\lvert x-a \\rvert&lt;\\delta\\), then either \\(a-\\delta&lt;x&lt;a\\) or \\(a&lt;x&lt;a+\\delta\\), so in both cases \\(\\lvert f(x)-f(a) \\rvert&lt;\\varepsilon\\); and \\(x=a\\) trivially gives \\(\\lvert f(x)-f(a) \\rvert=0&lt;\\varepsilon\\). So \\(\\lvert x-a \\rvert&lt;\\delta \\quad \\Rightarrow \\quad\\lvert f(x)-f(a) \\rvert&lt;\\varepsilon\\), which is exactly Definition 6.2.",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#limit-laws-for-functions",
+    "href": "08_limits_of_functions.html#limit-laws-for-functions",
+    "title": "10  Limits of Functions",
+    "section": "10.5 Limit Laws for Functions",
+    "text": "10.5 Limit Laws for Functions\nBecause Definition 10.1 reduces everything to sequences, the arithmetic of function limits carries over directly from the arithmetic of sequence limits (Proposition 8.1).\n\n\n\n\n\n\n\nProposition 10.3 (Arithmetic of function limits) Suppose \\(\\lim_{x\\to a} f(x) = L\\) and \\(\\lim_{x\\to a} g(x) = M\\). Then \\[\n\\lim_{x\\to a} \\big(f(x)+g(x)\\big) = L+M, \\qquad\\qquad \\lim_{x\\to a} f(x)g(x) = LM,\n\\] and, if \\(M\\neq0\\), \\[\n\\lim_{x\\to a} \\frac{f(x)}{g(x)} = \\frac{L}{M}.\n\\]\n\n\n\n\n\n\n\n\n\n\n\nCorollary 10.1 If \\(a\\in\\operatorname{dom}(f)\\cap\\operatorname{dom}(g)\\) and \\(f,g\\) are continuous at \\(a\\), then \\(f+g\\), \\(f\\cdot g\\), and (provided \\(g(a)\\neq0\\)) \\(f/g\\) are continuous at \\(a\\).\n\n\n\n\n\n\n\n\n\n\n\nExample 10.5 \n\\[\n\\lim_{x\\to 0} \\frac{x^3-3x+4}{x^2+\\cos(x)}\n= \\frac{\\lim_{x\\to0}x^3 - \\lim_{x\\to0}3x + \\lim_{x\\to0}4}{\\lim_{x\\to0}x^2 + \\lim_{x\\to0}\\cos(x)}\n= \\frac{0-0+4}{0+1} = 4.\n\\]\n\n\n\n\n\n\n\n\n\n\n\nExample 10.6 \nCareful: the quotient rule requires the denominator’s limit to be nonzero — it says nothing when both numerator and denominator vanish. For \\[\n\\lim_{x\\to a} \\frac{x^2-a^2}{x-a},\n\\] we have \\(\\lim_{x\\to a}(x-a) = 0\\), so Proposition 10.3 simply does not apply. Instead, factor first: \\[\n\\frac{x^2-a^2}{x-a} = \\frac{(x-a)(x+a)}{x-a} = x+a \\qquad (x\\neq a),\n\\] and only then take the limit: \\(\\lim_{x\\to a}(x+a) = 2a\\).",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#the-intermediate-value-theorem",
+    "href": "08_limits_of_functions.html#the-intermediate-value-theorem",
+    "title": "10  Limits of Functions",
+    "section": "10.6 The Intermediate Value Theorem",
+    "text": "10.6 The Intermediate Value Theorem\n\n\n\n\n\n\n\nTheorem 10.2 (Intermediate Value Theorem) Let \\(f\\colon\\mathbb{R}\\to\\mathbb{R}\\) be continuous, and suppose \\(a&lt;b\\) with \\(f(a)&lt;0\\) and \\(f(b)&gt;0\\). Then there exists \\(c\\in(a,b)\\) with \\(f(c)=0\\).\n\n\n\n\n\n\n\n\n\n\nNoteProof\n\n\n\n\n\n\nProof. We construct \\(c\\) by bisection. Set \\(a_1=a\\), \\(b_1=b\\), so \\(f(a_1)\\le0\\le f(b_1)\\). Given \\(a_n,b_n\\) with \\(f(a_n)\\le0\\) and \\(f(b_n)\\ge0\\), let \\(m_n = \\tfrac{a_n+b_n}{2}\\).\n\nIf \\(f(m_n)=0\\), we are done — take \\(c=m_n\\).\nIf \\(f(m_n)&lt;0\\), set \\(a_{n+1}=m_n\\), \\(b_{n+1}=b_n\\).\nIf \\(f(m_n)&gt;0\\), set \\(a_{n+1}=a_n\\), \\(b_{n+1}=m_n\\).\n\nIn either of the last two cases \\(f(a_{n+1})\\le0\\le f(b_{n+1})\\), so the invariant is preserved, and we continue. If the process never terminates, this produces sequences with \\((a_n)\\) increasing, \\((b_n)\\) decreasing, \\(a_n\\le b_n\\) for all \\(n\\), and \\[\nb_n - a_n = \\frac{b-a}{2^{n-1}} \\longrightarrow 0\n\\] (the interval length halves at each step; compare Exercise 8.3). By Corollary 8.1, \\((a_n)\\) and \\((b_n)\\) converge to a common limit \\(c\\in[a,b]\\).\nSince \\(f\\) is continuous, Proposition 10.2 gives \\(f(a_n)\\to f(c)\\) and \\(f(b_n)\\to f(c)\\). Now \\(f(a_n)\\le0\\) for every \\(n\\); if we had \\(f(c)&gt;0\\), taking \\(\\varepsilon=f(c)/2\\) in the definition of convergence would force \\(f(a_n)&gt;f(c)/2&gt;0\\) for large \\(n\\), a contradiction. So \\(f(c)\\le0\\). The same argument with \\(f(b_n)\\ge0\\) gives \\(f(c)\\ge0\\). Hence \\(f(c)=0\\), and \\(a&lt;c&lt;b\\) since \\(f(a)&lt;0\\) and \\(f(b)&gt;0\\) rule out \\(c=a\\) or \\(c=b\\).\n\n\n\n\n\n\n\n\n\n\n\nRemark 10.3. The same bisection idea proves the more general statement: if \\(f\\) is continuous on \\([a,b]\\) and \\(y\\) lies between \\(f(a)\\) and \\(f(b)\\), then \\(f(c)=y\\) for some \\(c\\in[a,b]\\) — apply Theorem 10.2 to \\(f(x)-y\\).",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
+  },
+  {
+    "objectID": "08_limits_of_functions.html#summary",
+    "href": "08_limits_of_functions.html#summary",
+    "title": "10  Limits of Functions",
+    "section": "10.7 Summary",
+    "text": "10.7 Summary\n\n\\(\\displaystyle\\lim_{x\\to a} f(x) = L\\) (Definition 10.1) means \\(f(x_n)\\to L\\) for every sequence \\(x_n\\to a\\) in \\(\\operatorname{dom}(f)\\) — this reduces function limits to sequence limits, and is equivalent to the \\(\\varepsilon\\)–\\(\\delta\\) condition of Proposition 10.1.\nContinuity restated: \\(f\\) is continuous at \\(a\\) exactly when \\(\\lim_{x\\to a}f(x)\\) exists and equals \\(f(a)\\) (Proposition 10.2).\nOne-sided limits (Definition 10.2) test only monotone sequences approaching from one side. A jump discontinuity (Definition 10.3) is exactly a point where both one-sided limits exist (finitely) but disagree; \\(f\\) is continuous at \\(a\\) iff both one-sided limits equal \\(f(a)\\) (Theorem 10.1).\nThe limit laws (Proposition 10.3) compute limits of sums, products, and quotients termwise, and give continuity of \\(f+g\\), \\(f\\cdot g\\), \\(f/g\\) from continuity of \\(f\\) and \\(g\\)\n\n— but a \\(\\tfrac00\\) form must be simplified before the quotient rule applies (Example 10.6).\n\nThe Intermediate Value Theorem (Theorem 10.2): a continuous function that is negative at \\(a\\) and positive at \\(b\\) must vanish somewhere in between. The proof bisects \\([a,b]\\) into nested intervals shrinking to a point \\(c\\), then uses continuity to pass \\(f(a_n)\\le0\\le f(b_n)\\) to the limit.",
+    "crumbs": [
+      "Limits",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Limits of Functions</span>"
+    ]
   }
 ]

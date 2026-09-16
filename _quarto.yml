@@ -23,6 +23,7 @@ book:
       chapters:
         - 07_sequences_convergence.qmd
         - notebooks/Week03_convergence.ipynb
+        - 08_limits_of_functions.qmd
 
 number-sections: true
 

@@ -1,0 +1,315 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Limits of Functions
+
+::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §1.8 (the concept of limit for a function of a continuous
+variable), tying together §1.2.d (continuity) with the Intermediate Value Theorem of §1.2.e.
+:::
+
+## From Sequences to Functions
+
+We already know what it means for a *sequence* to converge (@def-limit). We now transfer this idea
+to functions: instead of asking what happens to $a_n$ as $n\to\infty$, we ask what happens to
+$f(x)$ as $x$ approaches some fixed point $a$. The cheapest way to make this precise is to reduce it
+to something we already understand — sequences — by feeding *every* sequence approaching $a$ into
+$f$ and demanding that the outputs all converge to the same value.
+
+::: {#def-function-limit}
+\
+Let $f\colon D\to\R$ with $D\subseteq\R$, and let $a\in\R$. We say
+$$
+\lim_{x\to a} f(x) = L
+$$
+if for **every** sequence $(x_n)$ with $x_n\in D$, $x_n\neq a$, and $x_n\to a$, we have
+$f(x_n)\to L$.
+:::
+
+::: {#rem-function-limit-every-sequence}
+The word "every" is doing all the work: it is not enough to find *some* sequence $x_n\to a$ with
+$f(x_n)\to L$ — the same $L$ must come out no matter which approaching sequence we feed in. This
+mirrors uniqueness of sequential limits (@rem-limit-unique): if two different sequences $x_n\to a$
+and $x_n'\to a$ produced different outputs $f(x_n)\to L$ and $f(x_n')\to L'\neq L$, the limit
+$\lim_{x\to a}f(x)$ would simply not exist.
+:::
+
+::: {#exm-x-squared-function-limit}
+\
+Let $f(x) = x^2$. Then $\displaystyle\lim_{x\to 0} f(x) = 0$.
+
+::: {.proof}
+Let $(x_n)$ be an arbitrary sequence with $x_n\to 0$. We may assume $\abs{x_n}\le 1$ for all $n$
+(true eventually, since $x_n\to0$). Then
+$$
+0 \le f(x_n) = x_n^2 \le \abs{x_n},
+$$
+and $\abs{x_n}\to 0$, so by the comparison test (@prp-comparison), $x_n^2 \to 0$. Since $(x_n)$ was
+an arbitrary sequence converging to $0$, @def-function-limit gives $\lim_{x\to0} f(x) = 0$.
+:::
+:::
+
+## The $\eps$–$\delta$ Version
+
+Just as with continuity (@def-continuity), the sequential definition of a function limit has an
+equivalent $\eps$–$\delta$ formulation.
+
+::: {#prp-function-limit-eps-delta}
+## $\eps$–$\delta$ characterization of a limit
+Let $f\colon D\to\R$, $a\in\R$, $L\in\R$. Then
+$$
+\lim_{x\to a} f(x) = L
+\Iff
+\text{for every } \eps>0 \text{ there exists } \delta>0 \text{ s.t. }
+x\in D,\ 0<\abs{x-a}<\delta \Imp \abs{f(x)-L}<\eps.
+$$
+:::
+
+The proof is the same idea as the equivalence used implicitly for continuity: if the $\eps$–$\delta$
+condition holds and $x_n\to a$, choosing $N$ so that $\abs{x_n-a}<\delta$ for $n\ge N$ forces
+$\abs{f(x_n)-L}<\eps$ for $n\ge N$, i.e. $f(x_n)\to L$. Conversely, if the $\eps$–$\delta$ condition
+*fails* for some $\eps>0$, then for every $\delta = \tfrac1n$ we can pick a point $x_n$ with
+$0<\abs{x_n-a}<\tfrac1n$ but $\abs{f(x_n)-L}\ge\eps$ — producing a sequence $x_n\to a$ with
+$f(x_n)\not\to L$, so the sequential definition fails too.
+
+The only difference from @def-continuity is the punctured condition $0<\abs{x-a}$: a limit does not
+care what happens (or fails to happen) *at* $a$ itself, only nearby. This is what lets us connect
+the two notions.
+
+::: {#prp-continuity-via-limit}
+## Continuity, restated
+Let $f\colon D\to\R$ and $a\in D$. Then $f$ is continuous at $a$ (@def-continuity) if and only if
+$$
+\lim_{x\to a} f(x) \text{ exists and equals } f(a).
+$$
+:::
+
+This is exactly @def-continuity with the roles of $x$ and $a$ relabeled: continuity says
+$\abs{x-a}<\delta \Imp \abs{f(x)-f(a)}<\eps$, which is the $\eps$–$\delta$ condition of
+@prp-function-limit-eps-delta with $L=f(a)$ (the point $x=a$ itself trivially satisfies
+$\abs{f(x)-f(a)}=0<\eps$, so punctured and unpunctured versions agree once $L=f(a)$).
+
+## Examples
+
+::: {#exm-cube-continuous}
+\
+$f(x) = x^3$ is continuous at every $a\in\R$.
+
+::: {.proof}
+Let $x_n\to a$. By the limit laws for sequences (@prp-limit-laws),
+$$
+x_n^3 = x_n\cdot x_n\cdot x_n \longrightarrow a\cdot a\cdot a = a^3.
+$$
+Hence $f(x_n)\to f(a)$ for every sequence $x_n\to a$, so $\lim_{x\to a} f(x) = f(a)$, and
+@prp-continuity-via-limit gives continuity at $a$.
+:::
+:::
+
+::: {#exm-dirichlet-discontinuous}
+\
+The **Dirichlet function**
+$$
+f(x) = \begin{cases} 1 & x\in\Q \\ 0 & x\notin\Q \end{cases}
+$$
+is discontinuous at every $a\in\R$.
+
+Take $a=1$. Consider the two sequences
+$$
+x_n = 1+\frac1n \quad(\text{rational}), \qquad\qquad y_n = 1+\frac{\sqrt2}{n} \quad(\text{irrational}).
+$$
+Both converge to $1$, but
+$$
+f(x_n) \equiv 1 \to 1, \qquad\qquad f(y_n) \equiv 0 \to 0 \neq f(1) = 1.
+$$
+Since two sequences converging to $a=1$ produce different limits for $f$, $\lim_{x\to1}f(x)$ does not
+exist (@rem-function-limit-every-sequence), so $f$ is not continuous at $1$.
+:::
+
+::: {#exr-dirichlet-general-a}
+Adapt the argument of @exm-dirichlet-discontinuous to an arbitrary $a\in\R$: exhibit a rational
+sequence and an irrational sequence, both converging to $a$, on which the Dirichlet function takes
+different limiting values. Conclude that $f$ is discontinuous at *every* $a\in\R$.
+:::
+
+::: {#exm-piecewise-jump}
+\
+Let
+$$
+f(x) = \begin{cases} x^3+16 & x<0 \\ -2x+3 & x\ge 0. \end{cases}
+$$
+Take $x_n = -\tfrac1n \to 0$. Then
+$$
+f(x_n) = \left(-\frac1n\right)^{\!3} + 16 \longrightarrow 16 \neq f(0) = 3,
+$$
+so $f$ is discontinuous at $0$. We will see below exactly what kind of discontinuity this is.
+:::
+
+## One-Sided Limits
+
+For @exm-piecewise-jump, the failure of continuity comes from the two "branches" of $f$ disagreeing
+at $0$ — approaching from the left gives a different answer than approaching from the right. To
+capture this we restrict which sequences $x_n\to a$ we are allowed to test with.
+
+::: {#def-one-sided-limits}
+\
+Let $f\colon D\to\R$ and $a\in\R$.
+
+- $\displaystyle\lim_{x\to a^-} f(x) = L$ (the **left-sided limit**) if $f(x_n)\to L$ for every
+  *increasing* sequence $x_n \nearrow a$ with $x_n\in D$.
+- $\displaystyle\lim_{x\to a^+} f(x) = L$ (the **right-sided limit**) if $f(x_n)\to L$ for every
+  *decreasing* sequence $x_n \searrow a$ with $x_n\in D$.
+:::
+
+::: {#rem-one-sided-disagree}
+The left- and right-sided limits may disagree. For $f$ as in @exm-piecewise-jump,
+$$
+\lim_{x\to0^-} f(x) = 16, \qquad\qquad \lim_{x\to0^+} f(x) = 3,
+$$
+since $x^3+16\to16$ along any $x_n\nearrow0$, while $-2x+3\to3$ along any $x_n\searrow0$.
+:::
+
+::: {#def-jump-discontinuity}
+\
+$f$ has a **jump discontinuity** at $a$ if both one-sided limits exist and are finite, but
+$$
+\lim_{x\to a^-} f(x) \neq \lim_{x\to a^+} f(x).
+$$
+This makes precise the informal description from @rem-jump-discontinuity, and excludes the
+unbounded case of @rem-infinite-discontinuity, where no finite one-sided limit exists at all. The
+function of @exm-piecewise-jump has a jump discontinuity at $0$.
+:::
+
+::: {#thm-continuity-one-sided}
+\
+Let $f\colon D\to\R$ and $a\in D$. Then $f$ is continuous at $a$ if and only if
+$$
+\lim_{x\to a^-} f(x) = f(a) = \lim_{x\to a^+} f(x).
+$$
+:::
+
+Like the two-sided limit (@prp-function-limit-eps-delta), each one-sided limit has an equivalent
+$\eps$–$\delta$ form obtained by restricting to one side:
+$$
+\lim_{x\to a^-} f(x) = L \Iff \forall\eps>0\ \exists\delta>0:\ a-\delta<x<a \Imp \abs{f(x)-L}<\eps,
+$$
+and symmetrically for $\lim_{x\to a^+}f(x)=L$ with $a<x<a+\delta$.
+
+::: {.proof}
+If $f$ is continuous at $a$, then $f(x_n)\to f(a)$ for *every* sequence $x_n\to a$
+(@prp-continuity-via-limit) — in particular for every increasing sequence $x_n\nearrow a$ and every
+decreasing sequence $x_n\searrow a$, giving both one-sided limits equal to $f(a)$.
+
+Conversely, suppose both one-sided limits equal $f(a)$, and let $\eps>0$. By the $\eps$–$\delta$
+forms above there exist $\delta_1,\delta_2>0$ with
+$$
+a-\delta_1<x<a \Imp \abs{f(x)-f(a)}<\eps, \qquad\qquad a<x<a+\delta_2 \Imp \abs{f(x)-f(a)}<\eps.
+$$
+Let $\delta=\min(\delta_1,\delta_2)$. If $0<\abs{x-a}<\delta$, then either $a-\delta<x<a$ or
+$a<x<a+\delta$, so in both cases $\abs{f(x)-f(a)}<\eps$; and $x=a$ trivially gives
+$\abs{f(x)-f(a)}=0<\eps$. So $\abs{x-a}<\delta \Imp \abs{f(x)-f(a)}<\eps$, which is exactly
+@def-continuity.
+:::
+
+## Limit Laws for Functions
+
+Because @def-function-limit reduces everything to sequences, the arithmetic of function limits
+carries over directly from the arithmetic of sequence limits (@prp-limit-laws).
+
+::: {#prp-function-limit-laws}
+## Arithmetic of function limits
+Suppose $\lim_{x\to a} f(x) = L$ and $\lim_{x\to a} g(x) = M$. Then
+$$
+\lim_{x\to a} \big(f(x)+g(x)\big) = L+M, \qquad\qquad \lim_{x\to a} f(x)g(x) = LM,
+$$
+and, if $M\neq0$,
+$$
+\lim_{x\to a} \frac{f(x)}{g(x)} = \frac{L}{M}.
+$$
+:::
+
+::: {#cor-continuity-algebra}
+If $a\in\dom(f)\cap\dom(g)$ and $f,g$ are continuous at $a$, then $f+g$, $f\cdot g$, and (provided
+$g(a)\neq0$) $f/g$ are continuous at $a$.
+:::
+
+::: {#exm-rational-function-limit}
+\
+$$
+\lim_{x\to 0} \frac{x^3-3x+4}{x^2+\cos(x)}
+= \frac{\lim_{x\to0}x^3 - \lim_{x\to0}3x + \lim_{x\to0}4}{\lim_{x\to0}x^2 + \lim_{x\to0}\cos(x)}
+= \frac{0-0+4}{0+1} = 4.
+$$
+:::
+
+::: {#exm-quotient-careful}
+\
+**Careful:** the quotient rule requires the *denominator's* limit to be nonzero — it says nothing
+when both numerator and denominator vanish. For
+$$
+\lim_{x\to a} \frac{x^2-a^2}{x-a},
+$$
+we have $\lim_{x\to a}(x-a) = 0$, so @prp-function-limit-laws simply does not apply. Instead,
+factor first:
+$$
+\frac{x^2-a^2}{x-a} = \frac{(x-a)(x+a)}{x-a} = x+a \qquad (x\neq a),
+$$
+and only *then* take the limit: $\lim_{x\to a}(x+a) = 2a$.
+:::
+
+## The Intermediate Value Theorem
+
+::: {#thm-ivt}
+## Intermediate Value Theorem
+Let $f\colon\R\to\R$ be continuous, and suppose $a<b$ with $f(a)<0$ and $f(b)>0$. Then there exists
+$c\in(a,b)$ with $f(c)=0$.
+:::
+
+::: {.proof}
+We construct $c$ by **bisection**. Set $a_1=a$, $b_1=b$, so $f(a_1)\le0\le f(b_1)$. Given $a_n,b_n$
+with $f(a_n)\le0$ and $f(b_n)\ge0$, let $m_n = \tfrac{a_n+b_n}{2}$.
+
+- If $f(m_n)=0$, we are done — take $c=m_n$.
+- If $f(m_n)<0$, set $a_{n+1}=m_n$, $b_{n+1}=b_n$.
+- If $f(m_n)>0$, set $a_{n+1}=a_n$, $b_{n+1}=m_n$.
+
+In either of the last two cases $f(a_{n+1})\le0\le f(b_{n+1})$, so the invariant is preserved, and we
+continue. If the process never terminates, this produces sequences with $(a_n)$ increasing,
+$(b_n)$ decreasing, $a_n\le b_n$ for all $n$, and
+$$
+b_n - a_n = \frac{b-a}{2^{n-1}} \longrightarrow 0
+$$
+(the interval length halves at each step; compare @exr-warmup-half-n). By @cor-monotone-squeeze,
+$(a_n)$ and $(b_n)$ converge to a common limit $c\in[a,b]$.
+
+Since $f$ is continuous, @prp-continuity-via-limit gives $f(a_n)\to f(c)$ and $f(b_n)\to f(c)$. Now
+$f(a_n)\le0$ for every $n$; if we had $f(c)>0$, taking $\eps=f(c)/2$ in the definition of
+convergence would force $f(a_n)>f(c)/2>0$ for large $n$, a contradiction. So $f(c)\le0$. The same
+argument with $f(b_n)\ge0$ gives $f(c)\ge0$. Hence $f(c)=0$, and $a<c<b$ since $f(a)<0$ and
+$f(b)>0$ rule out $c=a$ or $c=b$.
+:::
+
+::: {#rem-ivt-general}
+The same bisection idea proves the more general statement: if $f$ is continuous on $[a,b]$ and $y$
+lies between $f(a)$ and $f(b)$, then $f(c)=y$ for some $c\in[a,b]$ — apply @thm-ivt to $f(x)-y$.
+:::
+
+## Summary
+
+- $\displaystyle\lim_{x\to a} f(x) = L$ (@def-function-limit) means $f(x_n)\to L$ for **every**
+  sequence $x_n\to a$ in $\dom(f)$ — this reduces function limits to sequence limits, and is
+  equivalent to the $\eps$–$\delta$ condition of @prp-function-limit-eps-delta.
+- **Continuity restated:** $f$ is continuous at $a$ exactly when $\lim_{x\to a}f(x)$ exists and
+  equals $f(a)$ (@prp-continuity-via-limit).
+- **One-sided limits** (@def-one-sided-limits) test only monotone sequences approaching from one
+  side. A **jump discontinuity** (@def-jump-discontinuity) is exactly a point where both one-sided
+  limits exist (finitely) but disagree; $f$ is continuous at $a$ iff both one-sided limits equal
+  $f(a)$ (@thm-continuity-one-sided).
+- The **limit laws** (@prp-function-limit-laws) compute limits of sums, products, and quotients
+  termwise, and give continuity of $f+g$, $f\cdot g$, $f/g$ from continuity of $f$ and $g$
+  (@cor-continuity-algebra) — but a $\tfrac00$ form must be simplified *before* the quotient rule
+  applies (@exm-quotient-careful).
+- The **Intermediate Value Theorem** (@thm-ivt): a continuous function that is negative at $a$ and
+  positive at $b$ must vanish somewhere in between. The proof bisects $[a,b]$ into nested intervals
+  shrinking to a point $c$, then uses continuity to pass $f(a_n)\le0\le f(b_n)$ to the limit.

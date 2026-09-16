@@ -203,20 +203,20 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{corollary}{Corollary}[chapter]
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -2832,6 +2832,10 @@ pulling up the whole table. \texttt{a(n)} does that.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+(0.0, 5.0165, 4.9733)
+\end{verbatim}
+
 \section{Task 1: Explore the Data}\label{task-1-explore-the-data}
 
 The full log has 10,000 samples. Set \texttt{n\_start} and
@@ -2862,6 +2866,30 @@ moving. Change the numbers and re-run as many times as you like.
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+& n & t\_seconds & measured\_value \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+3000 & 3000 & 0.3000 & 4.9917 \\
+3001 & 3001 & 0.3001 & 4.9966 \\
+3002 & 3002 & 0.3002 & 4.9946 \\
+3003 & 3003 & 0.3003 & 4.9709 \\
+3004 & 3004 & 0.3004 & 5.0027 \\
+... & ... & ... & ... \\
+8996 & 8996 & 0.8996 & 5.0257 \\
+8997 & 8997 & 0.8997 & 4.9995 \\
+8998 & 8998 & 0.8998 & 4.9907 \\
+8999 & 8999 & 0.8999 & 4.9952 \\
+9000 & 9000 & 0.9000 & 5.0096 \\
+\end{longtable}
+}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week03_convergence_files/figure-pdf/cell-4-output-2.png}}
 
 \subsection{Questions to answer before moving
 on}\label{questions-to-answer-before-moving-on}
@@ -2930,6 +2958,13 @@ both whether the sequence was outside the band just before
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+✓ Valid: for all n >= 2400, |a_n - 5| < 0.08.
+  Close! The smallest N that works is N = 2361 (you were only 39 away).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week03_convergence_files/figure-pdf/cell-5-output-2.png}}
+
 \section{Dataset 2: Damped
 Oscillator}\label{dataset-2-damped-oscillator}
 
@@ -2975,6 +3010,10 @@ limit like there was with \texttt{a(n)}.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+(0.0, 2.0095601007352615, 2.0)
+\end{verbatim}
+
 \section{Task 3: Explore the
 Sequence}\label{task-3-explore-the-sequence}
 
@@ -3000,6 +3039,30 @@ further out to see it settle.
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+& n & b\_n \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & 0 & 0.000000 \\
+1 & 1 & 0.000100 \\
+2 & 2 & 0.000399 \\
+3 & 3 & 0.000898 \\
+4 & 4 & 0.001596 \\
+... & ... & ... \\
+4996 & 4996 & 1.989225 \\
+4997 & 4997 & 1.989154 \\
+4998 & 4998 & 1.989084 \\
+4999 & 4999 & 1.989015 \\
+5000 & 5000 & 1.988948 \\
+\end{longtable}
+}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week03_convergence_files/figure-pdf/cell-7-output-2.png}}
 
 \subsection{Questions to answer before moving
 on}\label{questions-to-answer-before-moving-on-1}
@@ -3047,6 +3110,13 @@ effectively verifying ``forever.''
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+✗ Not valid: at n = 3124, |a_n - 2| >= 0.08.
+  The sequence leaves the epsilon-band after your N_guess. Try a larger N, or reconsider your L_guess.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week03_convergence_files/figure-pdf/cell-8-output-2.png}}
+
 \section{\texorpdfstring{Task 5: Convergence of
 \(\sqrt[n]{p}\)}{Task 5: Convergence of \textbackslash sqrt{[}n{]}\{p\}}}\label{task-5-convergence-of-sqrtnp}
 
@@ -3077,6 +3147,10 @@ As above, to return just a single term of the sequence, use
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+1.4142135623730951
+\end{verbatim}
+
 Now let's plot the sequence:
 
 \begin{Shaded}
@@ -3094,6 +3168,8 @@ Now let's plot the sequence:
 \NormalTok{plt.show()}
 \end{Highlighting}
 \end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week03_convergence_files/figure-pdf/cell-11-output-1.png}}
 
 \textbf{Questions:} - Does this sequence converge for all \(p>0\)? - If
 so, does the limit depend on \(p\)?

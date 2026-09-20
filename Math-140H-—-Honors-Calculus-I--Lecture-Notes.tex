@@ -203,16 +203,16 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-09-14}
+\date{2026-09-20}
 \begin{document}
 \maketitle
 
@@ -3173,6 +3173,508 @@ Now let's plot the sequence:
 
 \textbf{Questions:} - Does this sequence converge for all \(p>0\)? - If
 so, does the limit depend on \(p\)?
+
+\chapter{Limits of Functions}\label{limits-of-functions}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §1.8 (the concept of limit for a
+function of a continuous variable), tying together §1.2.d (continuity)
+with the Intermediate Value Theorem of §1.2.e.
+
+\end{tcolorbox}
+
+\section{From Sequences to Functions}\label{from-sequences-to-functions}
+
+We already know what it means for a \emph{sequence} to converge
+(Definition~\ref{def-limit}). We now transfer this idea to functions:
+instead of asking what happens to \(a_n\) as \(n\to\infty\), we ask what
+happens to \(f(x)\) as \(x\) approaches some fixed point \(a\). The
+cheapest way to make this precise is to reduce it to something we
+already understand --- sequences --- by feeding \emph{every} sequence
+approaching \(a\) into \(f\) and demanding that the outputs all converge
+to the same value.
+
+\begin{definition}[]\protect\hypertarget{def-function-limit}{}\label{def-function-limit}
+
+\hfill\break
+Let \(f\colon D\to\mathbb{R}\) with \(D\subseteq\mathbb{R}\), and let
+\(a\in\mathbb{R}\). We say \[
+\lim_{x\to a} f(x) = L
+\] if for \textbf{every} sequence \((x_n)\) with \(x_n\in D\),
+\(x_n\neq a\), and \(x_n\to a\), we have \(f(x_n)\to L\).
+
+\end{definition}
+
+\begin{refremark}
+The word ``every'' is doing all the work: it is not enough to find
+\emph{some} sequence \(x_n\to a\) with \(f(x_n)\to L\) --- the same
+\(L\) must come out no matter which approaching sequence we feed in.
+This mirrors uniqueness of sequential limits
+(Remark~\ref{rem-limit-unique}): if two different sequences \(x_n\to a\)
+and \(x_n'\to a\) produced different outputs \(f(x_n)\to L\) and
+\(f(x_n')\to L'\neq L\), the limit \(\lim_{x\to a}f(x)\) would simply
+not exist.
+
+\label{rem-function-limit-every-sequence}
+
+\end{refremark}
+
+\begin{example}[]\protect\hypertarget{exm-x-squared-function-limit}{}\label{exm-x-squared-function-limit}
+
+\hfill\break
+Let \(f(x) = x^2\). Then \(\displaystyle\lim_{x\to 0} f(x) = 0\).
+
+\begin{proof}
+Let \((x_n)\) be an arbitrary sequence with \(x_n\to 0\). We may assume
+\(\lvert x_n \rvert\le 1\) for all \(n\) (true eventually, since
+\(x_n\to0\)). Then \[
+0 \le f(x_n) = x_n^2 \le \lvert x_n \rvert,
+\] and \(\lvert x_n \rvert\to 0\), so by the comparison test
+(Proposition~\ref{prp-comparison}), \(x_n^2 \to 0\). Since \((x_n)\) was
+an arbitrary sequence converging to \(0\),
+Definition~\ref{def-function-limit} gives \(\lim_{x\to0} f(x) = 0\).
+\end{proof}
+
+\end{example}
+
+\section{\texorpdfstring{The \(\varepsilon\)--\(\delta\)
+Version}{The \textbackslash varepsilon--\textbackslash delta Version}}\label{the-varepsilondelta-version}
+
+Just as with continuity (Definition~\ref{def-continuity}), the
+sequential definition of a function limit has an equivalent
+\(\varepsilon\)--\(\delta\) formulation.
+
+\begin{proposition}[\(\varepsilon\)--\(\delta\) characterization of a
+limit]\protect\hypertarget{prp-function-limit-eps-delta}{}\label{prp-function-limit-eps-delta}
+
+Let \(f\colon D\to\mathbb{R}\), \(a\in\mathbb{R}\), \(L\in\mathbb{R}\).
+Then \[
+\lim_{x\to a} f(x) = L
+\quad \Leftrightarrow \quad
+\text{for every } \varepsilon>0 \text{ there exists } \delta>0 \text{ s.t. }
+x\in D,\ 0<\lvert x-a \rvert<\delta \quad \Rightarrow \quad\lvert f(x)-L \rvert<\varepsilon.
+\]
+
+\end{proposition}
+
+The proof is the same idea as the equivalence used implicitly for
+continuity: if the \(\varepsilon\)--\(\delta\) condition holds and
+\(x_n\to a\), choosing \(N\) so that \(\lvert x_n-a \rvert<\delta\) for
+\(n\ge N\) forces \(\lvert f(x_n)-L \rvert<\varepsilon\) for \(n\ge N\),
+i.e.~\(f(x_n)\to L\). Conversely, if the \(\varepsilon\)--\(\delta\)
+condition \emph{fails} for some \(\varepsilon>0\), then for every
+\(\delta = \tfrac1n\) we can pick a point \(x_n\) with
+\(0<\lvert x_n-a \rvert<\tfrac1n\) but
+\(\lvert f(x_n)-L \rvert\ge\varepsilon\) --- producing a sequence
+\(x_n\to a\) with \(f(x_n)\not\to L\), so the sequential definition
+fails too.
+
+The only difference from Definition~\ref{def-continuity} is the
+punctured condition \(0<\lvert x-a \rvert\): a limit does not care what
+happens (or fails to happen) \emph{at} \(a\) itself, only nearby. This
+is what lets us connect the two notions.
+
+\begin{proposition}[Continuity,
+restated]\protect\hypertarget{prp-continuity-via-limit}{}\label{prp-continuity-via-limit}
+
+Let \(f\colon D\to\mathbb{R}\) and \(a\in D\). Then \(f\) is continuous
+at \(a\) (Definition~\ref{def-continuity}) if and only if \[
+\lim_{x\to a} f(x) \text{ exists and equals } f(a).
+\]
+
+\end{proposition}
+
+This is exactly Definition~\ref{def-continuity} with the roles of \(x\)
+and \(a\) relabeled: continuity says
+\(\lvert x-a \rvert<\delta \quad \Rightarrow \quad\lvert f(x)-f(a) \rvert<\varepsilon\),
+which is the \(\varepsilon\)--\(\delta\) condition of
+Proposition~\ref{prp-function-limit-eps-delta} with \(L=f(a)\) (the
+point \(x=a\) itself trivially satisfies
+\(\lvert f(x)-f(a) \rvert=0<\varepsilon\), so punctured and unpunctured
+versions agree once \(L=f(a)\)).
+
+\section{Examples}\label{examples}
+
+\begin{example}[]\protect\hypertarget{exm-cube-continuous}{}\label{exm-cube-continuous}
+
+\hfill\break
+\(f(x) = x^3\) is continuous at every \(a\in\mathbb{R}\).
+
+\begin{proof}
+Let \(x_n\to a\). By the limit laws for sequences
+(Proposition~\ref{prp-limit-laws}), \[
+x_n^3 = x_n\cdot x_n\cdot x_n \longrightarrow a\cdot a\cdot a = a^3.
+\] Hence \(f(x_n)\to f(a)\) for every sequence \(x_n\to a\), so
+\(\lim_{x\to a} f(x) = f(a)\), and
+Proposition~\ref{prp-continuity-via-limit} gives continuity at \(a\).
+\end{proof}
+
+\end{example}
+
+\begin{example}[]\protect\hypertarget{exm-dirichlet-discontinuous}{}\label{exm-dirichlet-discontinuous}
+
+\hfill\break
+The \textbf{Dirichlet function} \[
+f(x) = \begin{cases} 1 & x\in\mathbb{Q}\\ 0 & x\notin\mathbb{Q}\end{cases}
+\] is discontinuous at every \(a\in\mathbb{R}\).
+
+Take \(a=1\). Consider the two sequences \[
+x_n = 1+\frac1n \quad(\text{rational}), \qquad\qquad y_n = 1+\frac{\sqrt2}{n} \quad(\text{irrational}).
+\] Both converge to \(1\), but \[
+f(x_n) \equiv 1 \to 1, \qquad\qquad f(y_n) \equiv 0 \to 0 \neq f(1) = 1.
+\] Since two sequences converging to \(a=1\) produce different limits
+for \(f\), \(\lim_{x\to1}f(x)\) does not exist
+(Remark~\ref{rem-function-limit-every-sequence}), so \(f\) is not
+continuous at \(1\).
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-dirichlet-general-a}{}\label{exr-dirichlet-general-a}
+
+Adapt the argument of Example~\ref{exm-dirichlet-discontinuous} to an
+arbitrary \(a\in\mathbb{R}\): exhibit a rational sequence and an
+irrational sequence, both converging to \(a\), on which the Dirichlet
+function takes different limiting values. Conclude that \(f\) is
+discontinuous at \emph{every} \(a\in\mathbb{R}\).
+
+\end{exercise}
+
+\begin{example}[]\protect\hypertarget{exm-piecewise-jump}{}\label{exm-piecewise-jump}
+
+\hfill\break
+Let \[
+f(x) = \begin{cases} x^3+16 & x<0 \\ -2x+3 & x\ge 0. \end{cases}
+\] Take \(x_n = -\tfrac1n \to 0\). Then \[
+f(x_n) = \left(-\frac1n\right)^{\!3} + 16 \longrightarrow 16 \neq f(0) = 3,
+\] so \(f\) is discontinuous at \(0\). We will see below exactly what
+kind of discontinuity this is.
+
+\end{example}
+
+\section{One-Sided Limits}\label{one-sided-limits}
+
+For Example~\ref{exm-piecewise-jump}, the failure of continuity comes
+from the two ``branches'' of \(f\) disagreeing at \(0\) --- approaching
+from the left gives a different answer than approaching from the right.
+To capture this we restrict which sequences \(x_n\to a\) we are allowed
+to test with.
+
+\begin{definition}[]\protect\hypertarget{def-one-sided-limits}{}\label{def-one-sided-limits}
+
+\hfill\break
+Let \(f\colon D\to\mathbb{R}\) and \(a\in\mathbb{R}\).
+
+\begin{itemize}
+\tightlist
+\item
+  \(\displaystyle\lim_{x\to a^-} f(x) = L\) (the \textbf{left-sided
+  limit}) if \(f(x_n)\to L\) for every \emph{increasing} sequence
+  \(x_n \nearrow a\) with \(x_n\in D\).
+\item
+  \(\displaystyle\lim_{x\to a^+} f(x) = L\) (the \textbf{right-sided
+  limit}) if \(f(x_n)\to L\) for every \emph{decreasing} sequence
+  \(x_n \searrow a\) with \(x_n\in D\).
+\end{itemize}
+
+\end{definition}
+
+\begin{refremark}
+The left- and right-sided limits may disagree. For \(f\) as in
+Example~\ref{exm-piecewise-jump}, \[
+\lim_{x\to0^-} f(x) = 16, \qquad\qquad \lim_{x\to0^+} f(x) = 3,
+\] since \(x^3+16\to16\) along any \(x_n\nearrow0\), while \(-2x+3\to3\)
+along any \(x_n\searrow0\).
+
+\label{rem-one-sided-disagree}
+
+\end{refremark}
+
+\begin{definition}[]\protect\hypertarget{def-jump-discontinuity}{}\label{def-jump-discontinuity}
+
+\hfill\break
+\(f\) has a \textbf{jump discontinuity} at \(a\) if both one-sided
+limits exist and are finite, but \[
+\lim_{x\to a^-} f(x) \neq \lim_{x\to a^+} f(x).
+\] This makes precise the informal description from
+Remark~\ref{rem-jump-discontinuity}, and excludes the unbounded case of
+Remark~\ref{rem-infinite-discontinuity}, where no finite one-sided limit
+exists at all. The function of Example~\ref{exm-piecewise-jump} has a
+jump discontinuity at \(0\).
+
+\end{definition}
+
+\begin{theorem}[]\protect\hypertarget{thm-continuity-one-sided}{}\label{thm-continuity-one-sided}
+
+\hfill\break
+Let \(f\colon D\to\mathbb{R}\) and \(a\in D\). Then \(f\) is continuous
+at \(a\) if and only if \[
+\lim_{x\to a^-} f(x) = f(a) = \lim_{x\to a^+} f(x).
+\]
+
+\end{theorem}
+
+Like the two-sided limit
+(Proposition~\ref{prp-function-limit-eps-delta}), each one-sided limit
+has an equivalent \(\varepsilon\)--\(\delta\) form obtained by
+restricting to one side: \[
+\lim_{x\to a^-} f(x) = L \quad \Leftrightarrow \quad\forall\varepsilon>0\ \exists\delta>0:\ a-\delta<x<a \quad \Rightarrow \quad\lvert f(x)-L \rvert<\varepsilon,
+\] and symmetrically for \(\lim_{x\to a^+}f(x)=L\) with
+\(a<x<a+\delta\).
+
+\begin{proof}
+If \(f\) is continuous at \(a\), then \(f(x_n)\to f(a)\) for
+\emph{every} sequence \(x_n\to a\)
+(Proposition~\ref{prp-continuity-via-limit}) --- in particular for every
+increasing sequence \(x_n\nearrow a\) and every decreasing sequence
+\(x_n\searrow a\), giving both one-sided limits equal to \(f(a)\).
+
+Conversely, suppose both one-sided limits equal \(f(a)\), and let
+\(\varepsilon>0\). By the \(\varepsilon\)--\(\delta\) forms above there
+exist \(\delta_1,\delta_2>0\) with \[
+a-\delta_1<x<a \quad \Rightarrow \quad\lvert f(x)-f(a) \rvert<\varepsilon, \qquad\qquad a<x<a+\delta_2 \quad \Rightarrow \quad\lvert f(x)-f(a) \rvert<\varepsilon.
+\] Let \(\delta=\min(\delta_1,\delta_2)\). If
+\(0<\lvert x-a \rvert<\delta\), then either \(a-\delta<x<a\) or
+\(a<x<a+\delta\), so in both cases
+\(\lvert f(x)-f(a) \rvert<\varepsilon\); and \(x=a\) trivially gives
+\(\lvert f(x)-f(a) \rvert=0<\varepsilon\). So
+\(\lvert x-a \rvert<\delta \quad \Rightarrow \quad\lvert f(x)-f(a) \rvert<\varepsilon\),
+which is exactly Definition~\ref{def-continuity}.
+\end{proof}
+
+\section{Limit Laws for Functions}\label{limit-laws-for-functions}
+
+Because Definition~\ref{def-function-limit} reduces everything to
+sequences, the arithmetic of function limits carries over directly from
+the arithmetic of sequence limits (Proposition~\ref{prp-limit-laws}).
+
+\begin{proposition}[Arithmetic of function
+limits]\protect\hypertarget{prp-function-limit-laws}{}\label{prp-function-limit-laws}
+
+Suppose \(\lim_{x\to a} f(x) = L\) and \(\lim_{x\to a} g(x) = M\). Then
+\[
+\lim_{x\to a} \big(f(x)+g(x)\big) = L+M, \qquad\qquad \lim_{x\to a} f(x)g(x) = LM,
+\] and, if \(M\neq0\), \[
+\lim_{x\to a} \frac{f(x)}{g(x)} = \frac{L}{M}.
+\]
+
+\end{proposition}
+
+\begin{corollary}[]\protect\hypertarget{cor-continuity-algebra}{}\label{cor-continuity-algebra}
+
+If \(a\in\operatorname{dom}(f)\cap\operatorname{dom}(g)\) and \(f,g\)
+are continuous at \(a\), then \(f+g\), \(f\cdot g\), and (provided
+\(g(a)\neq0\)) \(f/g\) are continuous at \(a\).
+
+\end{corollary}
+
+\begin{example}[]\protect\hypertarget{exm-rational-function-limit}{}\label{exm-rational-function-limit}
+
+\hfill\break
+\[
+\lim_{x\to 0} \frac{x^3-3x+4}{x^2+\cos(x)}
+= \frac{\lim_{x\to0}x^3 - \lim_{x\to0}3x + \lim_{x\to0}4}{\lim_{x\to0}x^2 + \lim_{x\to0}\cos(x)}
+= \frac{0-0+4}{0+1} = 4.
+\]
+
+\end{example}
+
+\begin{example}[]\protect\hypertarget{exm-quotient-careful}{}\label{exm-quotient-careful}
+
+\hfill\break
+\textbf{Careful:} the quotient rule requires the \emph{denominator's}
+limit to be nonzero --- it says nothing when both numerator and
+denominator vanish. For \[
+\lim_{x\to a} \frac{x^2-a^2}{x-a},
+\] we have \(\lim_{x\to a}(x-a) = 0\), so
+Proposition~\ref{prp-function-limit-laws} simply does not apply.
+Instead, factor first: \[
+\frac{x^2-a^2}{x-a} = \frac{(x-a)(x+a)}{x-a} = x+a \qquad (x\neq a),
+\] and only \emph{then} take the limit: \(\lim_{x\to a}(x+a) = 2a\).
+
+\end{example}
+
+\section{Continuity of Combinations and
+Compositions}\label{continuity-of-combinations-and-compositions}
+
+Proposition~\ref{prp-continuity-via-limit} lets us move freely between
+``\(f\) is continuous at \(a\)'' and ``\(\lim_{x\to
+a}f(x)=f(a)\)''. The next fact is the one we have already been using
+informally whenever we wrote something like
+\(\lim_{x\to a}\cos(h(x)) = \cos\!\big(\lim_{x\to a}h(x)\big)\): a limit
+may be passed from the \emph{outside} of a continuous function to its
+\emph{inside}.
+
+\begin{proposition}[Limits pass through continuous
+functions]\protect\hypertarget{prp-limit-inside-continuous}{}\label{prp-limit-inside-continuous}
+
+Suppose \(\lim_{x\to a} f(x) = L\), and \(g\) is continuous at \(L\).
+Then \[
+\lim_{x\to a} g(f(x)) = g(L) = g\Big(\lim_{x\to a} f(x)\Big).
+\]
+
+\end{proposition}
+
+\begin{proof}
+Let \((x_n)\) be an arbitrary sequence with
+\(x_n\in\operatorname{dom}(f)\), \(x_n\neq a\), \(x_n\to a\). By
+hypothesis (Definition~\ref{def-function-limit}), \(f(x_n)\to L\). Since
+\(g\) is continuous at \(L\), feeding the sequence
+\(\big(f(x_n)\big)\to L\) into Definition~\ref{def-continuity} gives
+\(g(f(x_n))\to g(L)\). As \((x_n)\) was an arbitrary sequence
+approaching \(a\), Definition~\ref{def-function-limit} gives
+\(\lim_{x\to a}g(f(x)) = g(L)\).
+\end{proof}
+
+Taking \(L=f(a)\) recovers continuity of a composition:
+
+\begin{corollary}[Continuity of
+compositions]\protect\hypertarget{cor-continuity-composition}{}\label{cor-continuity-composition}
+
+If \(f\) is continuous at \(a\) and \(g\) is continuous at \(f(a)\),
+then \(g\circ f\) is continuous at \(a\).
+
+\end{corollary}
+
+\begin{proof}
+Since \(f\) is continuous at \(a\),
+Proposition~\ref{prp-continuity-via-limit} gives
+\(\lim_{x\to a}f(x) = f(a)\). Applying
+Proposition~\ref{prp-limit-inside-continuous} with \(L=f(a)\), \[
+\lim_{x\to a} (g\circ f)(x) = \lim_{x\to a} g(f(x)) = g(f(a)) = (g\circ f)(a),
+\] so \(g\circ f\) is continuous at \(a\) by
+Proposition~\ref{prp-continuity-via-limit}.
+\end{proof}
+
+Together with Corollary~\ref{cor-continuity-algebra} --- continuity of
+\(f+g\), \(f\cdot g\), and \(f/g\) (where \(g\neq0\)) from continuity of
+\(f\) and \(g\) --- Corollary~\ref{cor-continuity-composition} means
+that \emph{any} function built out of continuous building blocks by
+finitely many arithmetic operations and compositions is again continuous
+wherever it is defined. This is exactly the justification behind phrases
+like ``combination of continuous functions'' or ``composition of
+continuous functions'' used to evaluate a limit by plugging in, as in
+Example~\ref{exm-rational-function-limit} above.
+
+\begin{refremark}
+The \textbf{elementary functions} of
+\hyperref[the-elementary-functions]{The Elementary Functions} ---
+polynomials, rational functions, power and algebraic functions,
+exponentials, logarithms, and the trigonometric functions --- are
+continuous at every point of their domain. Each basic type can be
+checked directly from Definition~\ref{def-continuity}, the way we
+checked \(x^3\) in Example~\ref{exm-cube-continuous};
+Corollary~\ref{cor-continuity-algebra} and
+Corollary~\ref{cor-continuity-composition} then extend continuity to
+every function assembled from these by arithmetic and composition, such
+as \(\sqrt{2+\sqrt{2x}}\) or \(\cos\!\big(\pi\sin(x)/x\big)\). Once we
+develop differentiation, this will also follow a second way: every
+elementary function is differentiable wherever it is defined, and
+differentiability will turn out to imply continuity.
+
+\label{rem-elementary-continuous}
+
+\end{refremark}
+
+\section{The Intermediate Value
+Theorem}\label{the-intermediate-value-theorem}
+
+\begin{theorem}[Intermediate Value
+Theorem]\protect\hypertarget{thm-ivt}{}\label{thm-ivt}
+
+Let \(f\colon\mathbb{R}\to\mathbb{R}\) be continuous, and suppose
+\(a<b\) with \(f(a)<0\) and \(f(b)>0\). Then there exists \(c\in(a,b)\)
+with \(f(c)=0\).
+
+\end{theorem}
+
+\begin{proof}
+We construct \(c\) by \textbf{bisection}. Set \(a_1=a\), \(b_1=b\), so
+\(f(a_1)\le0\le f(b_1)\). Given \(a_n,b_n\) with \(f(a_n)\le0\) and
+\(f(b_n)\ge0\), let \(m_n = \tfrac{a_n+b_n}{2}\).
+
+\begin{itemize}
+\tightlist
+\item
+  If \(f(m_n)=0\), we are done --- take \(c=m_n\).
+\item
+  If \(f(m_n)<0\), set \(a_{n+1}=m_n\), \(b_{n+1}=b_n\).
+\item
+  If \(f(m_n)>0\), set \(a_{n+1}=a_n\), \(b_{n+1}=m_n\).
+\end{itemize}
+
+In either of the last two cases \(f(a_{n+1})\le0\le f(b_{n+1})\), so the
+invariant is preserved, and we continue. If the process never
+terminates, this produces sequences with \((a_n)\) increasing, \((b_n)\)
+decreasing, \(a_n\le b_n\) for all \(n\), and \[
+b_n - a_n = \frac{b-a}{2^{n-1}} \longrightarrow 0
+\] (the interval length halves at each step; compare
+Exercise~\ref{exr-warmup-half-n}). By
+Corollary~\ref{cor-monotone-squeeze}, \((a_n)\) and \((b_n)\) converge
+to a common limit \(c\in[a,b]\).
+
+Since \(f\) is continuous, Proposition~\ref{prp-continuity-via-limit}
+gives \(f(a_n)\to f(c)\) and \(f(b_n)\to f(c)\). Now \(f(a_n)\le0\) for
+every \(n\); if we had \(f(c)>0\), taking \(\varepsilon=f(c)/2\) in the
+definition of convergence would force \(f(a_n)>f(c)/2>0\) for large
+\(n\), a contradiction. So \(f(c)\le0\). The same argument with
+\(f(b_n)\ge0\) gives \(f(c)\ge0\). Hence \(f(c)=0\), and \(a<c<b\) since
+\(f(a)<0\) and \(f(b)>0\) rule out \(c=a\) or \(c=b\).
+\end{proof}
+
+\begin{refremark}
+The same bisection idea proves the more general statement: if \(f\) is
+continuous on \([a,b]\) and \(y\) lies between \(f(a)\) and \(f(b)\),
+then \(f(c)=y\) for some \(c\in[a,b]\) --- apply Theorem~\ref{thm-ivt}
+to \(f(x)-y\).
+
+\label{rem-ivt-general}
+
+\end{refremark}
+
+\section{Summary}\label{summary-6}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\displaystyle\lim_{x\to a} f(x) = L\)
+  (Definition~\ref{def-function-limit}) means \(f(x_n)\to L\) for
+  \textbf{every} sequence \(x_n\to a\) in \(\operatorname{dom}(f)\) ---
+  this reduces function limits to sequence limits, and is equivalent to
+  the \(\varepsilon\)--\(\delta\) condition of
+  Proposition~\ref{prp-function-limit-eps-delta}.
+\item
+  \textbf{Continuity restated:} \(f\) is continuous at \(a\) exactly
+  when \(\lim_{x\to a}f(x)\) exists and equals \(f(a)\)
+  (Proposition~\ref{prp-continuity-via-limit}).
+\item
+  \textbf{One-sided limits} (Definition~\ref{def-one-sided-limits}) test
+  only monotone sequences approaching from one side. A \textbf{jump
+  discontinuity} (Definition~\ref{def-jump-discontinuity}) is exactly a
+  point where both one-sided limits exist (finitely) but disagree; \(f\)
+  is continuous at \(a\) iff both one-sided limits equal \(f(a)\)
+  (Theorem~\ref{thm-continuity-one-sided}).
+\item
+  The \textbf{limit laws} (Proposition~\ref{prp-function-limit-laws})
+  compute limits of sums, products, and quotients termwise, and give
+  continuity of \(f+g\), \(f\cdot g\), \(f/g\) from continuity of \(f\)
+  and \(g\) (Corollary~\ref{cor-continuity-algebra}) --- but a
+  \(\tfrac00\) form must be simplified \emph{before} the quotient rule
+  applies (Example~\ref{exm-quotient-careful}).
+\item
+  \textbf{Compositions of continuous functions are continuous}
+  (Corollary~\ref{cor-continuity-composition}), and more generally a
+  limit may be passed through a continuous function from the outside in
+  (Proposition~\ref{prp-limit-inside-continuous}). Together with the
+  arithmetic rule above, this shows every \textbf{elementary function}
+  is continuous where defined (Remark~\ref{rem-elementary-continuous}).
+\item
+  The \textbf{Intermediate Value Theorem} (Theorem~\ref{thm-ivt}): a
+  continuous function that is negative at \(a\) and positive at \(b\)
+  must vanish somewhere in between. The proof bisects \([a,b]\) into
+  nested intervals shrinking to a point \(c\), then uses continuity to
+  pass \(f(a_n)\le0\le f(b_n)\) to the limit.
+\end{itemize}
 
 
 

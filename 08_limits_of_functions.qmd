@@ -61,7 +61,9 @@ equivalent $\eps$–$\delta$ formulation.
 Let $f\colon D\to\R$, $a\in\R$, $L\in\R$. Then
 $$
 \lim_{x\to a} f(x) = L
-\Iff
+$$
+if and only if
+$$
 \text{for every } \eps>0 \text{ there exists } \delta>0 \text{ s.t. }
 x\in D,\ 0<\abs{x-a}<\delta \Imp \abs{f(x)-L}<\eps.
 $$
@@ -258,6 +260,62 @@ $$
 and only *then* take the limit: $\lim_{x\to a}(x+a) = 2a$.
 :::
 
+## Continuity of Combinations and Compositions
+
+@prp-continuity-via-limit lets us move freely between "$f$ is continuous at $a$" and "$\lim_{x\to
+a}f(x)=f(a)$". The next fact is the one we have already been using informally whenever we wrote
+something like $\lim_{x\to a}\cos(h(x)) = \cos\!\big(\lim_{x\to a}h(x)\big)$: a limit may be passed
+from the *outside* of a continuous function to its *inside*.
+
+::: {#prp-limit-inside-continuous}
+## Limits pass through continuous functions
+Suppose $\lim_{x\to a} f(x) = L$, and $g$ is continuous at $L$. Then
+$$
+\lim_{x\to a} g(f(x)) = g(L) = g\Big(\lim_{x\to a} f(x)\Big).
+$$
+:::
+
+::: {.proof}
+Let $(x_n)$ be an arbitrary sequence with $x_n\in\dom(f)$, $x_n\neq a$, $x_n\to a$. By hypothesis
+(@def-function-limit), $f(x_n)\to L$. Since $g$ is continuous at $L$, feeding the sequence
+$\big(f(x_n)\big)\to L$ into @def-continuity gives $g(f(x_n))\to g(L)$. As $(x_n)$ was an arbitrary
+sequence approaching $a$, @def-function-limit gives $\lim_{x\to a}g(f(x)) = g(L)$.
+:::
+
+Taking $L=f(a)$ recovers continuity of a composition:
+
+::: {#cor-continuity-composition}
+## Continuity of compositions
+If $f$ is continuous at $a$ and $g$ is continuous at $f(a)$, then $g\circ f$ is continuous at $a$.
+:::
+
+::: {.proof}
+Since $f$ is continuous at $a$, @prp-continuity-via-limit gives $\lim_{x\to a}f(x) = f(a)$. Applying
+@prp-limit-inside-continuous with $L=f(a)$,
+$$
+\lim_{x\to a} (g\circ f)(x) = \lim_{x\to a} g(f(x)) = g(f(a)) = (g\circ f)(a),
+$$
+so $g\circ f$ is continuous at $a$ by @prp-continuity-via-limit.
+:::
+
+Together with @cor-continuity-algebra — continuity of $f+g$, $f\cdot g$, and $f/g$ (where
+$g\neq0$) from continuity of $f$ and $g$ — @cor-continuity-composition means that *any* function
+built out of continuous building blocks by finitely many arithmetic operations and compositions is
+again continuous wherever it is defined. This is exactly the justification behind phrases like
+"combination of continuous functions" or "composition of continuous functions" used to evaluate a
+limit by plugging in, as in @exm-rational-function-limit above.
+
+::: {#rem-elementary-continuous}
+The [elementary functions](04_elementary_functions.qmd) —
+polynomials, rational functions, power and algebraic functions, exponentials, logarithms, and the
+trigonometric functions — are continuous at every point of their domain. Each basic type can be
+checked directly from @def-continuity, the way we checked $x^3$ in @exm-cube-continuous; @cor-continuity-algebra and @cor-continuity-composition
+then extend continuity to every function assembled from these by arithmetic and composition, such
+as $\sqrt{2+\sqrt{2x}}$ or $\cos\!\big(\pi\sin(x)/x\big)$. Once we develop differentiation, this will
+also follow a second way: every elementary function is differentiable wherever it is defined, and
+differentiability will turn out to imply continuity.
+:::
+
 ## The Intermediate Value Theorem
 
 ::: {#thm-ivt}
@@ -307,9 +365,12 @@ lies between $f(a)$ and $f(b)$, then $f(c)=y$ for some $c\in[a,b]$ — apply @th
   limits exist (finitely) but disagree; $f$ is continuous at $a$ iff both one-sided limits equal
   $f(a)$ (@thm-continuity-one-sided).
 - The **limit laws** (@prp-function-limit-laws) compute limits of sums, products, and quotients
-  termwise, and give continuity of $f+g$, $f\cdot g$, $f/g$ from continuity of $f$ and $g$
-  (@cor-continuity-algebra) — but a $\tfrac00$ form must be simplified *before* the quotient rule
-  applies (@exm-quotient-careful).
+  termwise, and give continuity of $f+g$, $f\cdot g$, $f/g$ from continuity of $f$ and $g$ (@cor-continuity-algebra) —
+  but a $\tfrac00$ form must be simplified *before* the quotient rule applies (@exm-quotient-careful).
+- **Compositions of continuous functions are continuous** (@cor-continuity-composition), and more
+  generally a limit may be passed through a continuous function from the outside in
+  (@prp-limit-inside-continuous). Together with the arithmetic rule above, this shows every
+  **elementary function** is continuous where defined (@rem-elementary-continuous).
 - The **Intermediate Value Theorem** (@thm-ivt): a continuous function that is negative at $a$ and
   positive at $b$ must vanish somewhere in between. The proof bisects $[a,b]$ into nested intervals
   shrinking to a point $c$, then uses continuity to pass $f(a_n)\le0\le f(b_n)$ to the limit.

@@ -255,8 +255,9 @@ window.Quarto = {
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">10.3</span> Examples</a></li>
   <li><a href="#one-sided-limits" id="toc-one-sided-limits" class="nav-link" data-scroll-target="#one-sided-limits"><span class="header-section-number">10.4</span> One-Sided Limits</a></li>
   <li><a href="#limit-laws-for-functions" id="toc-limit-laws-for-functions" class="nav-link" data-scroll-target="#limit-laws-for-functions"><span class="header-section-number">10.5</span> Limit Laws for Functions</a></li>
-  <li><a href="#the-intermediate-value-theorem" id="toc-the-intermediate-value-theorem" class="nav-link" data-scroll-target="#the-intermediate-value-theorem"><span class="header-section-number">10.6</span> The Intermediate Value Theorem</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.7</span> Summary</a></li>
+  <li><a href="#continuity-of-combinations-and-compositions" id="toc-continuity-of-combinations-and-compositions" class="nav-link" data-scroll-target="#continuity-of-combinations-and-compositions"><span class="header-section-number">10.6</span> Continuity of Combinations and Compositions</a></li>
+  <li><a href="#the-intermediate-value-theorem" id="toc-the-intermediate-value-theorem" class="nav-link" data-scroll-target="#the-intermediate-value-theorem"><span class="header-section-number">10.7</span> The Intermediate Value Theorem</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.8</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -371,7 +372,7 @@ Let <span class="math inline">\(f(x) = x^2\)</span>. Then <span class="math inli
 <div id="prp-function-limit-eps-delta" class="theorem proposition">
 <p><span class="theorem-title"><strong>Proposition 10.1 (<span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> characterization of a limit)</strong></span> Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span>, <span class="math inline">\(a\in\mathbb{R}\)</span>, <span class="math inline">\(L\in\mathbb{R}\)</span>. Then <span class="math display">\[
 \lim_{x\to a} f(x) = L
-\quad \Leftrightarrow \quad
+\]</span> if and only if <span class="math display">\[
 \text{for every } \varepsilon&gt;0 \text{ there exists } \delta&gt;0 \text{ s.t. }
 x\in D,\ 0&lt;\lvert x-a \rvert&lt;\delta \quad \Rightarrow \quad\lvert f(x)-L \rvert&lt;\varepsilon.
 \]</span></p>
@@ -637,16 +638,20 @@ a-\delta_1&lt;x&lt;a \quad \Rightarrow \quad\lvert f(x)-f(a) \rvert&lt;\varepsil
 </div>
 </div>
 </section>
-<section id="the-intermediate-value-theorem" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="the-intermediate-value-theorem"><span class="header-section-number">10.6</span> The Intermediate Value Theorem</h2>
-<div class="callout callout-style-simple callout-warning no-icon">
+<section id="continuity-of-combinations-and-compositions" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="continuity-of-combinations-and-compositions"><span class="header-section-number">10.6</span> Continuity of Combinations and Compositions</h2>
+<p><a href="#prp-continuity-via-limit" class="quarto-xref">Proposition&nbsp;<span>10.2</span></a> lets us move freely between “<span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(a\)</span>” and “<span class="math inline">\(\lim_{x\to
+a}f(x)=f(a)\)</span>”. The next fact is the one we have already been using informally whenever we wrote something like <span class="math inline">\(\lim_{x\to a}\cos(h(x)) = \cos\!\big(\lim_{x\to a}h(x)\big)\)</span>: a limit may be passed from the <em>outside</em> of a continuous function to its <em>inside</em>.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-ivt" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 10.2 (Intermediate Value Theorem)</strong></span> Let <span class="math inline">\(f\colon\mathbb{R}\to\mathbb{R}\)</span> be continuous, and suppose <span class="math inline">\(a&lt;b\)</span> with <span class="math inline">\(f(a)&lt;0\)</span> and <span class="math inline">\(f(b)&gt;0\)</span>. Then there exists <span class="math inline">\(c\in(a,b)\)</span> with <span class="math inline">\(f(c)=0\)</span>.</p>
+<div id="prp-limit-inside-continuous" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 10.4 (Limits pass through continuous functions)</strong></span> Suppose <span class="math inline">\(\lim_{x\to a} f(x) = L\)</span>, and <span class="math inline">\(g\)</span> is continuous at <span class="math inline">\(L\)</span>. Then <span class="math display">\[
+\lim_{x\to a} g(f(x)) = g(L) = g\Big(\lim_{x\to a} f(x)\Big).
+\]</span></p>
 </div>
 </div>
 </div>
@@ -662,6 +667,85 @@ a-\delta_1&lt;x&lt;a \quad \Rightarrow \quad\lvert f(x)-f(a) \rvert&lt;\varepsil
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\((x_n)\)</span> be an arbitrary sequence with <span class="math inline">\(x_n\in\operatorname{dom}(f)\)</span>, <span class="math inline">\(x_n\neq a\)</span>, <span class="math inline">\(x_n\to a\)</span>. By hypothesis (<a href="#def-function-limit" class="quarto-xref">Definition&nbsp;<span>10.1</span></a>), <span class="math inline">\(f(x_n)\to L\)</span>. Since <span class="math inline">\(g\)</span> is continuous at <span class="math inline">\(L\)</span>, feeding the sequence <span class="math inline">\(\big(f(x_n)\big)\to L\)</span> into <a href="05_continuity.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a> gives <span class="math inline">\(g(f(x_n))\to g(L)\)</span>. As <span class="math inline">\((x_n)\)</span> was an arbitrary sequence approaching <span class="math inline">\(a\)</span>, <a href="#def-function-limit" class="quarto-xref">Definition&nbsp;<span>10.1</span></a> gives <span class="math inline">\(\lim_{x\to a}g(f(x)) = g(L)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Taking <span class="math inline">\(L=f(a)\)</span> recovers continuity of a composition:</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="cor-continuity-composition" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 10.2 (Continuity of compositions)</strong></span> If <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(a\)</span> and <span class="math inline">\(g\)</span> is continuous at <span class="math inline">\(f(a)\)</span>, then <span class="math inline">\(g\circ f\)</span> is continuous at <span class="math inline">\(a\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Since <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(a\)</span>, <a href="#prp-continuity-via-limit" class="quarto-xref">Proposition&nbsp;<span>10.2</span></a> gives <span class="math inline">\(\lim_{x\to a}f(x) = f(a)\)</span>. Applying <a href="#prp-limit-inside-continuous" class="quarto-xref">Proposition&nbsp;<span>10.4</span></a> with <span class="math inline">\(L=f(a)\)</span>, <span class="math display">\[
+\lim_{x\to a} (g\circ f)(x) = \lim_{x\to a} g(f(x)) = g(f(a)) = (g\circ f)(a),
+\]</span> so <span class="math inline">\(g\circ f\)</span> is continuous at <span class="math inline">\(a\)</span> by <a href="#prp-continuity-via-limit" class="quarto-xref">Proposition&nbsp;<span>10.2</span></a>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Together with <a href="#cor-continuity-algebra" class="quarto-xref">Corollary&nbsp;<span>10.1</span></a> — continuity of <span class="math inline">\(f+g\)</span>, <span class="math inline">\(f\cdot g\)</span>, and <span class="math inline">\(f/g\)</span> (where <span class="math inline">\(g\neq0\)</span>) from continuity of <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> — <a href="#cor-continuity-composition" class="quarto-xref">Corollary&nbsp;<span>10.2</span></a> means that <em>any</em> function built out of continuous building blocks by finitely many arithmetic operations and compositions is again continuous wherever it is defined. This is exactly the justification behind phrases like “combination of continuous functions” or “composition of continuous functions” used to evaluate a limit by plugging in, as in <a href="#exm-rational-function-limit" class="quarto-xref">Example&nbsp;<span>10.5</span></a> above.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-elementary-continuous" class="proof remark">
+<p><span class="proof-title"><em>Remark 10.3</em>. </span>The <a href="./04_elementary_functions.html">elementary functions</a> — polynomials, rational functions, power and algebraic functions, exponentials, logarithms, and the trigonometric functions — are continuous at every point of their domain. Each basic type can be checked directly from <a href="05_continuity.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>, the way we checked <span class="math inline">\(x^3\)</span> in <a href="#exm-cube-continuous" class="quarto-xref">Example&nbsp;<span>10.2</span></a>; <a href="#cor-continuity-algebra" class="quarto-xref">Corollary&nbsp;<span>10.1</span></a> and <a href="#cor-continuity-composition" class="quarto-xref">Corollary&nbsp;<span>10.2</span></a> then extend continuity to every function assembled from these by arithmetic and composition, such as <span class="math inline">\(\sqrt{2+\sqrt{2x}}\)</span> or <span class="math inline">\(\cos\!\big(\pi\sin(x)/x\big)\)</span>. Once we develop differentiation, this will also follow a second way: every elementary function is differentiable wherever it is defined, and differentiability will turn out to imply continuity.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-intermediate-value-theorem" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="the-intermediate-value-theorem"><span class="header-section-number">10.7</span> The Intermediate Value Theorem</h2>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-ivt" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 10.2 (Intermediate Value Theorem)</strong></span> Let <span class="math inline">\(f\colon\mathbb{R}\to\mathbb{R}\)</span> be continuous, and suppose <span class="math inline">\(a&lt;b\)</span> with <span class="math inline">\(f(a)&lt;0\)</span> and <span class="math inline">\(f(b)&gt;0\)</span>. Then there exists <span class="math inline">\(c\in(a,b)\)</span> with <span class="math inline">\(f(c)=0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>We construct <span class="math inline">\(c\)</span> by <strong>bisection</strong>. Set <span class="math inline">\(a_1=a\)</span>, <span class="math inline">\(b_1=b\)</span>, so <span class="math inline">\(f(a_1)\le0\le f(b_1)\)</span>. Given <span class="math inline">\(a_n,b_n\)</span> with <span class="math inline">\(f(a_n)\le0\)</span> and <span class="math inline">\(f(b_n)\ge0\)</span>, let <span class="math inline">\(m_n = \tfrac{a_n+b_n}{2}\)</span>.</p>
@@ -685,22 +769,20 @@ b_n - a_n = \frac{b-a}{2^{n-1}} \longrightarrow 0
 </div>
 <div class="callout-body-container">
 <div id="rem-ivt-general" class="proof remark">
-<p><span class="proof-title"><em>Remark 10.3</em>. </span>The same bisection idea proves the more general statement: if <span class="math inline">\(f\)</span> is continuous on <span class="math inline">\([a,b]\)</span> and <span class="math inline">\(y\)</span> lies between <span class="math inline">\(f(a)\)</span> and <span class="math inline">\(f(b)\)</span>, then <span class="math inline">\(f(c)=y\)</span> for some <span class="math inline">\(c\in[a,b]\)</span> — apply <a href="#thm-ivt" class="quarto-xref">Theorem&nbsp;<span>10.2</span></a> to <span class="math inline">\(f(x)-y\)</span>.</p>
+<p><span class="proof-title"><em>Remark 10.4</em>. </span>The same bisection idea proves the more general statement: if <span class="math inline">\(f\)</span> is continuous on <span class="math inline">\([a,b]\)</span> and <span class="math inline">\(y\)</span> lies between <span class="math inline">\(f(a)\)</span> and <span class="math inline">\(f(b)\)</span>, then <span class="math inline">\(f(c)=y\)</span> for some <span class="math inline">\(c\in[a,b]\)</span> — apply <a href="#thm-ivt" class="quarto-xref">Theorem&nbsp;<span>10.2</span></a> to <span class="math inline">\(f(x)-y\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="summary" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.7</span> Summary</h2>
+<section id="summary" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.8</span> Summary</h2>
 <ul>
 <li><span class="math inline">\(\displaystyle\lim_{x\to a} f(x) = L\)</span> (<a href="#def-function-limit" class="quarto-xref">Definition&nbsp;<span>10.1</span></a>) means <span class="math inline">\(f(x_n)\to L\)</span> for <strong>every</strong> sequence <span class="math inline">\(x_n\to a\)</span> in <span class="math inline">\(\operatorname{dom}(f)\)</span> — this reduces function limits to sequence limits, and is equivalent to the <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span> condition of <a href="#prp-function-limit-eps-delta" class="quarto-xref">Proposition&nbsp;<span>10.1</span></a>.</li>
 <li><strong>Continuity restated:</strong> <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(a\)</span> exactly when <span class="math inline">\(\lim_{x\to a}f(x)\)</span> exists and equals <span class="math inline">\(f(a)\)</span> (<a href="#prp-continuity-via-limit" class="quarto-xref">Proposition&nbsp;<span>10.2</span></a>).</li>
 <li><strong>One-sided limits</strong> (<a href="#def-one-sided-limits" class="quarto-xref">Definition&nbsp;<span>10.2</span></a>) test only monotone sequences approaching from one side. A <strong>jump discontinuity</strong> (<a href="#def-jump-discontinuity" class="quarto-xref">Definition&nbsp;<span>10.3</span></a>) is exactly a point where both one-sided limits exist (finitely) but disagree; <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(a\)</span> iff both one-sided limits equal <span class="math inline">\(f(a)\)</span> (<a href="#thm-continuity-one-sided" class="quarto-xref">Theorem&nbsp;<span>10.1</span></a>).</li>
-<li>The <strong>limit laws</strong> (<a href="#prp-function-limit-laws" class="quarto-xref">Proposition&nbsp;<span>10.3</span></a>) compute limits of sums, products, and quotients termwise, and give continuity of <span class="math inline">\(f+g\)</span>, <span class="math inline">\(f\cdot g\)</span>, <span class="math inline">\(f/g\)</span> from continuity of <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>
-<ol class="example" type="1">
-<li>— but a <span class="math inline">\(\tfrac00\)</span> form must be simplified <em>before</em> the quotient rule applies (<a href="#exm-quotient-careful" class="quarto-xref">Example&nbsp;<span>10.6</span></a>).</li>
-</ol></li>
+<li>The <strong>limit laws</strong> (<a href="#prp-function-limit-laws" class="quarto-xref">Proposition&nbsp;<span>10.3</span></a>) compute limits of sums, products, and quotients termwise, and give continuity of <span class="math inline">\(f+g\)</span>, <span class="math inline">\(f\cdot g\)</span>, <span class="math inline">\(f/g\)</span> from continuity of <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> (<a href="#cor-continuity-algebra" class="quarto-xref">Corollary&nbsp;<span>10.1</span></a>) — but a <span class="math inline">\(\tfrac00\)</span> form must be simplified <em>before</em> the quotient rule applies (<a href="#exm-quotient-careful" class="quarto-xref">Example&nbsp;<span>10.6</span></a>).</li>
+<li><strong>Compositions of continuous functions are continuous</strong> (<a href="#cor-continuity-composition" class="quarto-xref">Corollary&nbsp;<span>10.2</span></a>), and more generally a limit may be passed through a continuous function from the outside in (<a href="#prp-limit-inside-continuous" class="quarto-xref">Proposition&nbsp;<span>10.4</span></a>). Together with the arithmetic rule above, this shows every <strong>elementary function</strong> is continuous where defined (<a href="#rem-elementary-continuous" class="quarto-xref">Remark&nbsp;<span>10.3</span></a>).</li>
 <li>The <strong>Intermediate Value Theorem</strong> (<a href="#thm-ivt" class="quarto-xref">Theorem&nbsp;<span>10.2</span></a>): a continuous function that is negative at <span class="math inline">\(a\)</span> and positive at <span class="math inline">\(b\)</span> must vanish somewhere in between. The proof bisects <span class="math inline">\([a,b]\)</span> into nested intervals shrinking to a point <span class="math inline">\(c\)</span>, then uses continuity to pass <span class="math inline">\(f(a_n)\le0\le f(b_n)\)</span> to the limit.</li>
 </ul>
 

@@ -206,17 +206,17 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[chapter]
+\theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
-\theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -3251,7 +3251,7 @@ limit]\protect\hypertarget{prp-function-limit-eps-delta}{}\label{prp-function-li
 Let \(f\colon D\to\mathbb{R}\), \(a\in\mathbb{R}\), \(L\in\mathbb{R}\).
 Then \[
 \lim_{x\to a} f(x) = L
-\quad \Leftrightarrow \quad
+\] if and only if \[
 \text{for every } \varepsilon>0 \text{ there exists } \delta>0 \text{ s.t. }
 x\in D,\ 0<\lvert x-a \rvert<\delta \quad \Rightarrow \quad\lvert f(x)-L \rvert<\varepsilon.
 \]
@@ -3557,8 +3557,7 @@ continuous functions'' used to evaluate a limit by plugging in, as in
 Example~\ref{exm-rational-function-limit} above.
 
 \begin{refremark}
-The \textbf{elementary functions} of
-\hyperref[the-elementary-functions]{The Elementary Functions} ---
+The \hyperref[the-elementary-functions]{elementary functions} ---
 polynomials, rational functions, power and algebraic functions,
 exponentials, logarithms, and the trigonometric functions --- are
 continuous at every point of their domain. Each basic type can be

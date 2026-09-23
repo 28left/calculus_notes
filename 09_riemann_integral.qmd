@@ -1,0 +1,398 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Riemann Integral
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §2.1 (the integral: area under a curve, analytic definition) and
+§2.2.a–b (integration of linear functions and of $x^2$). The existence proof sketched in
+[Why the Choice Does Not Matter](#sec-choice-does-not-matter) is carried out in full, by a slightly
+different route, in the Supplement to C&J Chapter 2.
+::: -->
+
+## Area of the Circle
+
+We start with a problem from antiquity: what is the area of a circle of radius $1$? The classical
+idea (going back to Archimedes) is to approximate the circle by figures whose area we *can*
+compute — regular $n$-gons inscribed in the circle.
+
+Split the $n$-th polygon ($n\ge3$) into $n$ congruent triangles, each with its apex at the center of
+the circle, two sides of length $1$, and apex angle $\tfrac{2\pi}{n}$. Taking one of the two unit sides
+as base, the height of the triangle is $h = \sin\!\big(\tfrac{2\pi}{n}\big)$, so
+$$
+\text{area of one triangle} = \frac12\cdot 1\cdot h = \frac{\sin\!\big(\tfrac{2\pi}{n}\big)}{2},
+$$
+$$
+A_n := \text{area of the $n$-gon} = \frac{n}{2}\,\sin\!\Big(\frac{2\pi}{n}\Big).
+$$
+As $n$ grows, the polygons hug the circle more and more tightly, and $A_n$ should approximate the
+area of the circle better and better.
+
+Formally, we can say two things about the sequence $(A_n)$:
+
+- $(A_n)$ is **increasing**.
+- $(A_n)$ is **bounded**: every inscribed $n$-gon is contained in the square of side length $2$
+  circumscribing the circle, so $A_n\le 4$ for all $n$.
+
+By the Monotone Convergence Theorem (@thm-monotone-convergence), $(A_n)$ converges. Its limit is
+$\pi$.
+
+::: {#rem-circle-area-details}
+Two points are glossed over here. Monotonicity is not obvious from the picture, since the $n$-gon is
+not contained in the $(n+1)$-gon; it follows from the fact that $\sin(x)/x$ is decreasing on
+$(0,\pi]$, writing $A_n = \pi\cdot\dfrac{\sin(2\pi/n)}{2\pi/n}$. The same rewriting shows that
+identifying the limit as $\pi$ amounts to knowing $\lim_{x\to0}\frac{\sin x}{x} = 1$ — a limit we
+will return to when we study derivatives of the trigonometric functions.
+:::
+
+How can we generalize this idea to other areas? Triangles could work, but it is not clear how to set
+this up *methodically* for an arbitrary region. For regions under the graph of a function, there is a
+better choice: **rectangles**, whose area is as easy to compute as it gets.
+
+## Approximation of Areas by Rectangles
+
+Whatever approximation scheme we use, we want it to have the following properties:
+
+- It uses a geometric figure whose area is easily computable. Rectangles are as easy as it gets.
+- There is a **general method** to approximate an area by rectangles.
+- There is a **general method** to **refine** any approximation.
+
+### Areas under Curves
+
+Let $f\colon[a,b]\to\R$ be continuous with $f(x)\ge0$ for all $x\in[a,b]$. We want to compute
+$$
+A := \text{area between the graph of $f$ and the $x$-axis, between $x=a$ and $x=b$}.
+$$
+
+The idea is as follows.
+
+- **Partition** $[a,b]$ into finitely many segments
+  $$
+  a = x_0 < x_1 < \cdots < x_n = b.
+  $$
+  The segments $[x_{i-1},x_i]$ will form the *bases* of rectangles.
+- For each segment $[x_{i-1},x_i]$, pick a point $x_i^*\in[x_{i-1},x_i]$. The *height* of the $i$-th
+  rectangle is $f(x_i^*)$.
+
+If $R_i$ denotes the area of the $i$-th rectangle, then
+$$
+R_i = \abs{x_i - x_{i-1}}\cdot f(x_i^*) \qquad (i=1,\ldots,n),
+$$
+and $R_1+\cdots+R_n$ is an approximation to $A$.
+
+::: {#def-riemann-sum}
+\
+A finite set of points
+$$
+P:\quad a = x_0 < x_1 < \cdots < x_n = b
+$$
+is called a **partition** of $[a,b]$. Points $S = \{x_1^*,\ldots,x_n^*\}$ with
+$x_i^*\in[x_{i-1},x_i]$ are called **sample points**, and
+$$
+\Delta_i = \abs{x_i - x_{i-1}} = x_i - x_{i-1} \qquad (i=1,\ldots,n)
+$$
+is the length of the $i$-th segment. The **Riemann sum** for $f$ on $[a,b]$, given $P$ and $S$, is
+$$
+RS(P,S) = f(x_1^*)\,\Delta_1 + f(x_2^*)\,\Delta_2 + \cdots + f(x_n^*)\,\Delta_n
+= \sum_{i=1}^n f(x_i^*)\,\Delta_i .
+$$
+:::
+
+The symbol $\sum$ is **summation** (or **$\Sigma$-**) **notation**: $\sum_{i=1}^n c_i$ stands for
+$c_1+c_2+\cdots+c_n$. Note that @def-riemann-sum makes sense for *any* function $f$ on $[a,b]$ —
+neither continuity nor $f\ge0$ is needed to *form* the sum. (If $f$ takes negative values, the
+corresponding terms simply count as negative area.)
+
+**Refinement.** How do we make the approximation better? We *refine the partition* — add more
+division points so that the segments get shorter — and choose new sample points. The goal is to find
+a way to do this that is both *methodological* and *practical*. The natural requirement is that the
+length of **every** segment tends to $0$. It is convenient to measure this by the length of the
+longest segment,
+$$
+\|P\| := \max_{1\le i\le n}\Delta_i,
+$$
+called the **mesh** of $P$. (Other authors call it the *span*.)
+
+## Equipartitions and the Definition of the Integral
+
+It turns out the approximation process is remarkably robust — several approaches are possible,
+and they all give the same answer. The most practical one restricts to a special kind of partition.
+
+**Equipartitions.** All segments have the *same* length, so only the number of segments matters. With
+$n$ segments,
+$$
+\Delta_i = \frac{b-a}{n} =: \Delta \quad\text{for all } i, \qquad\qquad x_i = a + i\Delta.
+$$
+There are three standard ways to choose sample points:
+
+- **left endpoints:** $x_i^* = x_{i-1}$,
+- **right endpoints:** $x_i^* = x_i$,
+- **midpoints:** $x_i^* = \bar x_i := \dfrac{x_{i-1}+x_i}{2}$.
+
+This gives three sequences of Riemann sums:
+$$
+LHS_n = \sum_{i=1}^n f(x_{i-1})\,\Delta, \qquad
+RHS_n = \sum_{i=1}^n f(x_i)\,\Delta, \qquad
+MS_n = \sum_{i=1}^n f(\bar x_i)\,\Delta,
+$$
+the **left-hand sum**, the **right-hand sum**, and the **midpoint sum**.
+
+::: {#thm-riemann-equipartition}
+\
+If $f$ is continuous on $[a,b]$, then all three limits
+$$
+\lim_{n\to\infty} LHS_n, \qquad \lim_{n\to\infty} RHS_n, \qquad \lim_{n\to\infty} MS_n
+$$
+exist and are equal.
+:::
+
+::: {#def-riemann-integral}
+\
+Let $f$ be continuous on $[a,b]$. The **(Riemann) integral** of $f$ from $a$ to $b$ is the common
+value $L$ of the limits in @thm-riemann-equipartition:
+$$
+\int_a^b f(x)\,dx = L = \lim_{n\to\infty} LHS_n = \lim_{n\to\infty} RHS_n = \lim_{n\to\infty} MS_n.
+$$
+:::
+
+The notation is Leibniz's: the integral sign $\int$ is an elongated S for "sum", and $dx$ recalls the
+lengths $\Delta$. It is only notation — $dx$ on its own has no meaning here. Likewise, the name of the
+variable is irrelevant: $\int_a^b f(x)\,dx = \int_a^b f(t)\,dt$.
+
+## Why the Choice Does Not Matter {#sec-choice-does-not-matter}
+
+@thm-riemann-equipartition is a special case of a much stronger statement: for a continuous function
+it does not matter at all *how* we partition or *where* we sample, as long as the segments get
+uniformly short.
+
+::: {#thm-riemann-general}
+## Existence of the integral
+Let $f$ be continuous on $[a,b]$. There is a unique number $I$ with the following property: for
+**every** sequence of partitions $P_1,P_2,\ldots$ of $[a,b]$ with $\|P_n\|\to0$, and **every** choice of
+sample points $S_n$ for $P_n$,
+$$
+\lim_{n\to\infty} RS(P_n,S_n) = I.
+$$
+:::
+
+Since an equipartition into $n$ segments has mesh $\tfrac{b-a}{n}\to0$, @thm-riemann-equipartition
+follows at once, with $\int_a^b f(x)\,dx = I$. We now sketch *why* @thm-riemann-general is true. The
+argument is informal in two places, flagged in @rem-darboux-informal below.
+
+### Step 1: Trapping Every Riemann Sum
+
+A continuous function on a closed interval attains a maximum and a minimum there. (This is the
+*Extreme Value Theorem*, which we have not proved yet.) So for a partition $P$ we can put
+$$
+m_i = \min\{f(x) : x_{i-1}\le x\le x_i\}, \qquad
+M_i = \max\{f(x) : x_{i-1}\le x\le x_i\},
+$$
+and form the **lower** and **upper (Darboux) sums**
+$$
+L(P) = \sum_{i=1}^n m_i\,\Delta_i, \qquad\qquad U(P) = \sum_{i=1}^n M_i\,\Delta_i.
+$$
+Geometrically (for $f\ge0$), $L(P)$ is the area of the largest rectangles on the segments that fit
+*under* the graph, and $U(P)$ is the area of the smallest rectangles that reach *over* it.
+
+Whatever sample points $x_i^*$ we choose, $m_i\le f(x_i^*)\le M_i$, so
+$$
+L(P) \;\le\; RS(P,S) \;\le\; U(P) \qquad\text{for every choice of sample points } S.
+$$
+In other words, $L(P)$ and $U(P)$ are the *worst cases* over all choices of sample points. If we can
+show that they are close to each other, the choice of sample points becomes irrelevant.
+
+### Step 2: Refining Moves the Sums Toward Each Other
+
+Suppose $P'$ is **finer** than $P$, i.e. $P'$ contains all points of $P$ and possibly more. Adding a
+single point $z$ inside a segment $[x_{i-1},x_i]$ splits it into $[x_{i-1},z]$ and $[z,x_i]$. The
+minimum of $f$ over each smaller piece is *at least* the minimum $m_i$ over the whole segment, and the
+maximum over each piece is *at most* $M_i$. Adding points one at a time, we get
+$$
+L(P) \le L(P') \qquad\text{and}\qquad U(P') \le U(P).
+$$
+So refining can only push the lower sum up and the upper sum down.
+
+This has a useful consequence. Given *any* two partitions $P$ and $Q$, the partition $P\cup Q$ is
+finer than both, so
+$$
+L(P) \;\le\; L(P\cup Q) \;\le\; U(P\cup Q) \;\le\; U(Q).
+$$
+That is: **every lower sum is at most every upper sum**, no matter which partitions they come from. All
+lower sums sit to the left of all upper sums on the number line, and by the completeness of $\R$
+(compare the Nested Interval Axiom) there is at least one number $I$ in between:
+$$
+L(P) \le I \le U(Q) \qquad\text{for all partitions } P, Q.
+$$
+
+### Step 3: Closing the Gap
+
+The gap between upper and lower sum is
+$$
+U(P) - L(P) = \sum_{i=1}^n (M_i - m_i)\,\Delta_i.
+$$
+Here continuity enters. On a very short segment a continuous function cannot vary much. Suppose we
+know the following: for every $\eps>0$ there is a $\delta>0$ such that
+$$
+\abs{x-y}<\delta \Imp \abs{f(x)-f(y)}<\eps \qquad\text{for all } x,y\in[a,b].
+$$ {#eq-uniform-continuity}
+Then, as soon as $\|P\|<\delta$, any two points in the same segment are within $\delta$ of each other,
+so $M_i - m_i<\eps$ for every $i$, and
+$$
+U(P) - L(P) < \sum_{i=1}^n \eps\,\Delta_i = \eps\,(b-a).
+$$
+Since $\eps$ was arbitrary, the gap can be made as small as we like by making the mesh small.
+
+### Step 4: Conclusion
+
+Now let $\|P_n\|\to0$ and let $S_n$ be any sample points. By Steps 1 and 2, both $RS(P_n,S_n)$ and $I$
+lie in the interval $[L(P_n),U(P_n)]$, so
+$$
+\abs{RS(P_n,S_n) - I} \le U(P_n) - L(P_n).
+$$
+By Step 3 the right-hand side tends to $0$, so $RS(P_n,S_n)\to I$ (by the comparison test,
+@prp-comparison). The number $I$ is unique: any other $I'$ trapped between all lower and all upper
+sums satisfies $\abs{I-I'}\le U(P_n)-L(P_n)\to0$ as well. Nothing in this argument depended on
+*which* partitions or sample points we used — only on the mesh going to $0$.
+
+::: {#rem-darboux-informal}
+The sketch uses three facts we have not yet established:
+
+1. the **Extreme Value Theorem** (continuous functions attain a max and min on closed intervals),
+   used to define $m_i$ and $M_i$;
+2. the existence of a number $I$ between all lower and all upper sums, which is a consequence of the
+   completeness of $\R$;
+3. condition @eq-uniform-continuity, called **uniform continuity**.
+
+The third point is the subtle one. It looks like @def-continuity, but the quantifiers are in a
+different order: in @def-continuity, $\delta$ is chosen *after* the point $a$, so it may depend on $a$;
+in @eq-uniform-continuity, one $\delta$ must work *simultaneously for all points* of $[a,b]$. For
+instance, $f(x)=\tfrac1x$ is continuous on $(0,1]$, but near $0$ it becomes steeper and steeper, and
+no single $\delta$ works for a given $\eps$. On a **closed, bounded** interval this cannot happen: a
+continuous $f\colon[a,b]\to\R$ is automatically uniformly continuous. Like the Extreme Value Theorem,
+this can be proved with a bisection / nested interval argument in the spirit of the proof of
+@thm-ivt.
+:::
+
+::: {#rem-dirichlet-not-integrable}
+Continuity really matters. For the Dirichlet function of @exm-dirichlet-discontinuous on $[0,1]$,
+every segment of every partition contains both rational and irrational points. Choosing all sample
+points rational gives $RS(P,S) = \sum_i 1\cdot\Delta_i = 1$; choosing them all irrational gives
+$RS(P,S)=0$ — for *every* partition, however fine. So the Riemann sums have no common limit, and the
+Dirichlet function is not Riemann integrable.
+:::
+
+<!-- ::: {#rem-cj-existence-proof}
+Courant & John prove @thm-riemann-general without upper and lower sums: they compare an arbitrary Riemann sum
+directly with one for a refinement, show that any two Riemann sums with small mesh are close to each
+other, and conclude with the Cauchy convergence criterion. The key ingredient — uniform continuity —
+is the same.
+::: -->
+
+## Verifying the Riemann Integral
+
+Before computing anything new, let us check that @def-riemann-integral gives the right answer for
+areas we already know from geometry. By @thm-riemann-equipartition we may use whichever of the three
+sums is most convenient. Throughout, $\Delta = \frac{b-a}{n}$ and $x_i = a + i\Delta$.
+
+::: {#exm-integral-constant}
+\
+Let $f(x) = c$. Every sample point gives height $c$, so
+$$
+LHS_n = RHS_n = \sum_{i=1}^n \frac{b-a}{n}\cdot c = n\cdot\frac{b-a}{n}\cdot c = (b-a)\,c,
+$$
+and hence
+$$
+\int_a^b c\,dx = \lim_{n\to\infty} LHS_n = \lim_{n\to\infty}(b-a)\,c = (b-a)\,c,
+$$
+the area of a rectangle with base $b-a$ and height $c$. ✓
+:::
+
+::: {#exm-integral-x}
+\
+Let $f(x) = x$. Using right endpoints $x_i = a+\frac{b-a}{n}\,i$,
+$$
+\begin{aligned}
+RHS_n &= \sum_{i=1}^n \frac{b-a}{n}\cdot f\Big(a+\frac{b-a}{n}\,i\Big)
+= \frac{b-a}{n}\sum_{i=1}^n \Big(a+\frac{b-a}{n}\,i\Big) \\
+&= \frac{b-a}{n}\Big[\Big(a+\frac{b-a}{n}\cdot1\Big)+\Big(a+\frac{b-a}{n}\cdot2\Big)
++\cdots+\Big(a+\frac{b-a}{n}\cdot n\Big)\Big] \\
+&= \frac{b-a}{n}\Big(n\,a + \frac{b-a}{n}\cdot\frac{n(n+1)}{2}\Big) \\
+&= (b-a)\,a + \frac{b-a}{n}\cdot\frac{b-a}{n}\cdot\frac{n(n+1)}{2} \\
+&= (b-a)\,a + \frac{(b-a)^2}{2}\cdot\frac{n+1}{n}
+\;\xrightarrow{\;n\to\infty\;}\; (b-a)\,a + \frac{(b-a)^2}{2}.
+\end{aligned}
+$$
+Here we used $1+2+\cdots+n = \frac{n(n+1)}{2}$ and $\frac{n+1}{n}\to1$.
+
+For $0\le a<b$ this is exactly what geometry predicts: the region under $y=x$ between $a$ and $b$ is a
+rectangle of base $b-a$ and height $a$ (area $(b-a)\,a$), topped by a right triangle with both legs
+of length $b-a$ (area $\frac{(b-a)^2}{2}$). ✓ Simplifying,
+$$
+\int_a^b x\,dx = (b-a)\Big(a + \frac{b-a}{2}\Big) = \frac{(b-a)(b+a)}{2} = \frac{b^2-a^2}{2}.
+$$
+:::
+
+::: {#exr-integral-linear}
+Verify this for an arbitrary linear function $f(x) = mx + c$: compute $\lim_{n\to\infty}RHS_n$ and
+check that the result agrees with the area of the trapezoid under the graph (when $f\ge0$ on
+$[a,b]$).
+:::
+
+## "New" Functions: $x^2$
+
+The examples above only reproduced areas we already knew. The first genuinely new area is the one
+under a parabola. Let $f(x) = x^2$. Then
+$$
+RHS_n = \frac{b-a}{n}\sum_{i=1}^n f\Big(a+\frac{b-a}{n}\,i\Big)
+= \frac{b-a}{n}\sum_{i=1}^n\Big(a+\frac{b-a}{n}\,i\Big)^2.
+$$
+
+To make life a little easier, take $a=0$:
+$$
+\begin{aligned}
+RHS_n &= \frac{b}{n}\sum_{i=1}^n\Big(\frac{b}{n}\,i\Big)^2
+= \frac{b}{n}\cdot\frac{b^2}{n^2}\,\big(1^2+2^2+\cdots+n^2\big) \\
+&= \frac{b^3}{n^3}\cdot\frac{n(n+1)(2n+1)}{6}
+= \frac{b^3}{6}\Big(1+\frac1n\Big)\Big(2+\frac1n\Big)
+\;\xrightarrow{\;n\to\infty\;}\; \frac{b^3\cdot 2}{6} = \frac{b^3}{3}.
+\end{aligned}
+$$
+So
+$$
+\int_0^b x^2\,dx = \frac{b^3}{3}.
+$$
+
+::: {#exr-sum-of-squares}
+Prove by induction that $1^2+2^2+\cdots+n^2 = \dfrac{n(n+1)(2n+1)}{6}$ for all $n\in\N$.
+:::
+
+::: {#exr-integral-x-squared-general}
+Generalize the computation above to show that for arbitrary $a<b$,
+$$
+\int_a^b x^2\,dx = \frac{b^3-a^3}{3}.
+$$
+(Expand $\big(a+\frac{b-a}{n}\,i\big)^2$ and use the formulas for $\sum i$ and $\sum i^2$.)
+:::
+
+## Summary
+
+- The area of the unit circle is the limit of the areas $A_n = \frac n2\sin\!\big(\frac{2\pi}{n}\big)$
+  of inscribed regular $n$-gons; the sequence is increasing and bounded, so it converges by
+  @thm-monotone-convergence.
+- For areas under a graph we use **rectangles**: a **partition** $P$ of $[a,b]$ and **sample points**
+  $S$ give the **Riemann sum** $RS(P,S) = \sum_{i=1}^n f(x_i^*)\,\Delta_i$ (@def-riemann-sum). We improve
+  the approximation by refining the partition so that the **mesh** $\|P\|=\max_i\Delta_i$ tends to $0$.
+- Restricting to **equipartitions** with left endpoints, right endpoints, or midpoints gives three
+  sequences $LHS_n$, $RHS_n$, $MS_n$. For continuous $f$ they have a common limit
+  (@thm-riemann-equipartition), which *defines* $\int_a^b f(x)\,dx$ (@def-riemann-integral).
+- More generally, for continuous $f$ **every** sequence of Riemann sums with mesh $\to0$ converges to
+  the same number (@thm-riemann-general). The idea: every Riemann sum is trapped between the **lower
+  and upper sums** $L(P)\le RS(P,S)\le U(P)$; refining pushes these toward each other; and
+  **uniform continuity** makes the gap $U(P)-L(P)$ smaller than $\eps(b-a)$ once the mesh is small
+  (@rem-darboux-informal). Without continuity this can fail, as the Dirichlet function shows
+  (@rem-dirichlet-not-integrable).
+- The definition reproduces known areas — $\int_a^b c\,dx = (b-a)c$ (@exm-integral-constant) and
+  $\int_a^b x\,dx = \frac{b^2-a^2}{2}$ (@exm-integral-x) — and computes new ones:
+  $\int_0^b x^2\,dx = \frac{b^3}{3}$.

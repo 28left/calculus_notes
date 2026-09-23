@@ -24,6 +24,9 @@ book:
         - 07_sequences_convergence.qmd
         - notebooks/Week03_convergence.ipynb
         - 08_limits_of_functions.qmd
+    - part: The Riemann Integral
+      chapters:
+        - 09_riemann_integral.qmd
 
 number-sections: true
 

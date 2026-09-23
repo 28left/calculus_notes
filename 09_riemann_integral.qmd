@@ -2,7 +2,7 @@
 {{< include _macros.qmd >}}
 :::
 
-# The Riemann Integral
+# Riemann Sums
 
 <!-- ::: {.callout-note}
 ## Companion reading
@@ -161,7 +161,7 @@ The notation is Leibniz's: the integral sign $\int$ is an elongated S for "sum",
 lengths $\Delta$. It is only notation — $dx$ on its own has no meaning here. Likewise, the name of the
 variable is irrelevant: $\int_a^b f(x)\,dx = \int_a^b f(t)\,dt$.
 
-## Why the Choice Does Not Matter {#sec-choice-does-not-matter}
+## Why the Choice Does Not Matter (optional) {#sec-choice-does-not-matter}
 
 @thm-riemann-equipartition is a special case of a much stronger statement: for a continuous function
 it does not matter at all *how* we partition or *where* we sample, as long as the segments get

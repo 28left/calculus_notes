@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; The Riemann Integral – Math 140H — Honors Calculus I: Lecture Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08_limits_of_functions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_riemann_integral.html">The Riemann Integral</a></li><li class="breadcrumb-item"><a href="./09_riemann_integral.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Riemann Integral</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Math 140H — Honors Calculus I: Lecture Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Real Numbers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_real_numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Rational Numbers and the Number Line</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_nested_intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week01_Number_Bases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Functions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_continuity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_activity_properties_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Limits</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_sequences_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week03_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of Sequences: Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_limits_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Limits of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Riemann Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_riemann_integral.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Riemann Integral</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#area-of-the-circle" id="toc-area-of-the-circle" class="nav-link active" data-scroll-target="#area-of-the-circle"><span class="header-section-number">11.1</span> Area of the Circle</a></li>
+  <li><a href="#approximation-of-areas-by-rectangles" id="toc-approximation-of-areas-by-rectangles" class="nav-link" data-scroll-target="#approximation-of-areas-by-rectangles"><span class="header-section-number">11.2</span> Approximation of Areas by Rectangles</a>
+  <ul class="collapse">
+  <li><a href="#areas-under-curves" id="toc-areas-under-curves" class="nav-link" data-scroll-target="#areas-under-curves">Areas under Curves</a></li>
+  </ul></li>
+  <li><a href="#equipartitions-and-the-definition-of-the-integral" id="toc-equipartitions-and-the-definition-of-the-integral" class="nav-link" data-scroll-target="#equipartitions-and-the-definition-of-the-integral"><span class="header-section-number">11.3</span> Equipartitions and the Definition of the Integral</a></li>
+  <li><a href="#sec-choice-does-not-matter" id="toc-sec-choice-does-not-matter" class="nav-link" data-scroll-target="#sec-choice-does-not-matter"><span class="header-section-number">11.4</span> Why the Choice Does Not Matter (optional)</a>
+  <ul class="collapse">
+  <li><a href="#step-1-trapping-every-riemann-sum" id="toc-step-1-trapping-every-riemann-sum" class="nav-link" data-scroll-target="#step-1-trapping-every-riemann-sum">Step 1: Trapping Every Riemann Sum</a></li>
+  <li><a href="#step-2-refining-moves-the-sums-toward-each-other" id="toc-step-2-refining-moves-the-sums-toward-each-other" class="nav-link" data-scroll-target="#step-2-refining-moves-the-sums-toward-each-other">Step 2: Refining Moves the Sums Toward Each Other</a></li>
+  <li><a href="#step-3-closing-the-gap" id="toc-step-3-closing-the-gap" class="nav-link" data-scroll-target="#step-3-closing-the-gap">Step 3: Closing the Gap</a></li>
+  <li><a href="#step-4-conclusion" id="toc-step-4-conclusion" class="nav-link" data-scroll-target="#step-4-conclusion">Step 4: Conclusion</a></li>
+  </ul></li>
+  <li><a href="#verifying-the-riemann-integral" id="toc-verifying-the-riemann-integral" class="nav-link" data-scroll-target="#verifying-the-riemann-integral"><span class="header-section-number">11.5</span> Verifying the Riemann Integral</a></li>
+  <li><a href="#new-functions-x2" id="toc-new-functions-x2" class="nav-link" data-scroll-target="#new-functions-x2"><span class="header-section-number">11.6</span> “New” Functions: <span class="math inline">\(x^2\)</span></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.7</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_riemann_integral.html">The Riemann Integral</a></li><li class="breadcrumb-item"><a href="./09_riemann_integral.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Riemann Integral</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Riemann Integral</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §2.1 (the integral: area under a curve, analytic definition) and
+§2.2.a–b (integration of linear functions and of $x^2$). The existence proof sketched in
+[Why the Choice Does Not Matter](#sec-choice-does-not-matter) is carried out in full, by a slightly
+different route, in the Supplement to C&J Chapter 2.
+::: -->
+<section id="area-of-the-circle" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="area-of-the-circle"><span class="header-section-number">11.1</span> Area of the Circle</h2>
+<p>We start with a problem from antiquity: what is the area of a circle of radius <span class="math inline">\(1\)</span>? The classical idea (going back to Archimedes) is to approximate the circle by figures whose area we <em>can</em> compute — regular <span class="math inline">\(n\)</span>-gons inscribed in the circle.</p>
+<p>Split the <span class="math inline">\(n\)</span>-th polygon (<span class="math inline">\(n\ge3\)</span>) into <span class="math inline">\(n\)</span> congruent triangles, each with its apex at the center of the circle, two sides of length <span class="math inline">\(1\)</span>, and apex angle <span class="math inline">\(\tfrac{2\pi}{n}\)</span>. Taking one of the two unit sides as base, the height of the triangle is <span class="math inline">\(h = \sin\!\big(\tfrac{2\pi}{n}\big)\)</span>, so <span class="math display">\[
+\text{area of one triangle} = \frac12\cdot 1\cdot h = \frac{\sin\!\big(\tfrac{2\pi}{n}\big)}{2},
+\]</span> <span class="math display">\[
+A_n := \text{area of the $n$-gon} = \frac{n}{2}\,\sin\!\Big(\frac{2\pi}{n}\Big).
+\]</span> As <span class="math inline">\(n\)</span> grows, the polygons hug the circle more and more tightly, and <span class="math inline">\(A_n\)</span> should approximate the area of the circle better and better.</p>
+<p>Formally, we can say two things about the sequence <span class="math inline">\((A_n)\)</span>:</p>
+<ul>
+<li><span class="math inline">\((A_n)\)</span> is <strong>increasing</strong>.</li>
+<li><span class="math inline">\((A_n)\)</span> is <strong>bounded</strong>: every inscribed <span class="math inline">\(n\)</span>-gon is contained in the square of side length <span class="math inline">\(2\)</span> circumscribing the circle, so <span class="math inline">\(A_n\le 4\)</span> for all <span class="math inline">\(n\)</span>.</li>
+</ul>
+<p>By the Monotone Convergence Theorem (1), <span class="math inline">\((A_n)\)</span> converges. Its limit is <span class="math inline">\(\pi\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-circle-area-details" class="proof remark">
+<p><span class="proof-title"><em>Remark 11.1</em>. </span>Two points are glossed over here. Monotonicity is not obvious from the picture, since the <span class="math inline">\(n\)</span>-gon is not contained in the <span class="math inline">\((n+1)\)</span>-gon; it follows from the fact that <span class="math inline">\(\sin(x)/x\)</span> is decreasing on <span class="math inline">\((0,\pi]\)</span>, writing <span class="math inline">\(A_n = \pi\cdot\dfrac{\sin(2\pi/n)}{2\pi/n}\)</span>. The same rewriting shows that identifying the limit as <span class="math inline">\(\pi\)</span> amounts to knowing <span class="math inline">\(\lim_{x\to0}\frac{\sin x}{x} = 1\)</span> — a limit we will return to when we study derivatives of the trigonometric functions.</p>
+</div>
+</div>
+</div>
+</div>
+<p>How can we generalize this idea to other areas? Triangles could work, but it is not clear how to set this up <em>methodically</em> for an arbitrary region. For regions under the graph of a function, there is a better choice: <strong>rectangles</strong>, whose area is as easy to compute as it gets.</p>
+</section>
+<section id="approximation-of-areas-by-rectangles" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="approximation-of-areas-by-rectangles"><span class="header-section-number">11.2</span> Approximation of Areas by Rectangles</h2>
+<p>Whatever approximation scheme we use, we want it to have the following properties:</p>
+<ul>
+<li>It uses a geometric figure whose area is easily computable. Rectangles are as easy as it gets.</li>
+<li>There is a <strong>general method</strong> to approximate an area by rectangles.</li>
+<li>There is a <strong>general method</strong> to <strong>refine</strong> any approximation.</li>
+</ul>
+<section id="areas-under-curves" class="level3">
+<h3 class="anchored" data-anchor-id="areas-under-curves">Areas under Curves</h3>
+<p>Let <span class="math inline">\(f\colon[a,b]\to\mathbb{R}\)</span> be continuous with <span class="math inline">\(f(x)\ge0\)</span> for all <span class="math inline">\(x\in[a,b]\)</span>. We want to compute <span class="math display">\[
+A := \text{area between the graph of $f$ and the $x$-axis, between $x=a$ and $x=b$}.
+\]</span></p>
+<p>The idea is as follows.</p>
+<ul>
+<li><strong>Partition</strong> <span class="math inline">\([a,b]\)</span> into finitely many segments <span class="math display">\[
+a = x_0 &lt; x_1 &lt; \cdots &lt; x_n = b.
+\]</span> The segments <span class="math inline">\([x_{i-1},x_i]\)</span> will form the <em>bases</em> of rectangles.</li>
+<li>For each segment <span class="math inline">\([x_{i-1},x_i]\)</span>, pick a point <span class="math inline">\(x_i^*\in[x_{i-1},x_i]\)</span>. The <em>height</em> of the <span class="math inline">\(i\)</span>-th rectangle is <span class="math inline">\(f(x_i^*)\)</span>.</li>
+</ul>
+<p>If <span class="math inline">\(R_i\)</span> denotes the area of the <span class="math inline">\(i\)</span>-th rectangle, then <span class="math display">\[
+R_i = \lvert x_i - x_{i-1} \rvert\cdot f(x_i^*) \qquad (i=1,\ldots,n),
+\]</span> and <span class="math inline">\(R_1+\cdots+R_n\)</span> is an approximation to <span class="math inline">\(A\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-riemann-sum" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 11.1</strong></span> <br>
+A finite set of points <span class="math display">\[
+P:\quad a = x_0 &lt; x_1 &lt; \cdots &lt; x_n = b
+\]</span> is called a <strong>partition</strong> of <span class="math inline">\([a,b]\)</span>. Points <span class="math inline">\(S = \{x_1^*,\ldots,x_n^*\}\)</span> with <span class="math inline">\(x_i^*\in[x_{i-1},x_i]\)</span> are called <strong>sample points</strong>, and <span class="math display">\[
+\Delta_i = \lvert x_i - x_{i-1} \rvert = x_i - x_{i-1} \qquad (i=1,\ldots,n)
+\]</span> is the length of the <span class="math inline">\(i\)</span>-th segment. The <strong>Riemann sum</strong> for <span class="math inline">\(f\)</span> on <span class="math inline">\([a,b]\)</span>, given <span class="math inline">\(P\)</span> and <span class="math inline">\(S\)</span>, is <span class="math display">\[
+RS(P,S) = f(x_1^*)\,\Delta_1 + f(x_2^*)\,\Delta_2 + \cdots + f(x_n^*)\,\Delta_n
+= \sum_{i=1}^n f(x_i^*)\,\Delta_i .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The symbol <span class="math inline">\(\sum\)</span> is <strong>summation</strong> (or <strong><span class="math inline">\(\Sigma\)</span>-</strong>) <strong>notation</strong>: <span class="math inline">\(\sum_{i=1}^n c_i\)</span> stands for <span class="math inline">\(c_1+c_2+\cdots+c_n\)</span>. Note that <a href="#def-riemann-sum" class="quarto-xref">Definition&nbsp;<span>11.1</span></a> makes sense for <em>any</em> function <span class="math inline">\(f\)</span> on <span class="math inline">\([a,b]\)</span> — neither continuity nor <span class="math inline">\(f\ge0\)</span> is needed to <em>form</em> the sum. (If <span class="math inline">\(f\)</span> takes negative values, the corresponding terms simply count as negative area.)</p>
+<p><strong>Refinement.</strong> How do we make the approximation better? We <em>refine the partition</em> — add more division points so that the segments get shorter — and choose new sample points. The goal is to find a way to do this that is both <em>methodological</em> and <em>practical</em>. The natural requirement is that the length of <strong>every</strong> segment tends to <span class="math inline">\(0\)</span>. It is convenient to measure this by the length of the longest segment, <span class="math display">\[
+\|P\| := \max_{1\le i\le n}\Delta_i,
+\]</span> called the <strong>mesh</strong> of <span class="math inline">\(P\)</span>. (Other authors call it the <em>span</em>.)</p>
+</section>
+</section>
+<section id="equipartitions-and-the-definition-of-the-integral" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="equipartitions-and-the-definition-of-the-integral"><span class="header-section-number">11.3</span> Equipartitions and the Definition of the Integral</h2>
+<p>It turns out the approximation process is remarkably robust — several approaches are possible, and they all give the same answer. The most practical one restricts to a special kind of partition.</p>
+<p><strong>Equipartitions.</strong> All segments have the <em>same</em> length, so only the number of segments matters. With <span class="math inline">\(n\)</span> segments, <span class="math display">\[
+\Delta_i = \frac{b-a}{n} =: \Delta \quad\text{for all } i, \qquad\qquad x_i = a + i\Delta.
+\]</span> There are three standard ways to choose sample points:</p>
+<ul>
+<li><strong>left endpoints:</strong> <span class="math inline">\(x_i^* = x_{i-1}\)</span>,</li>
+<li><strong>right endpoints:</strong> <span class="math inline">\(x_i^* = x_i\)</span>,</li>
+<li><strong>midpoints:</strong> <span class="math inline">\(x_i^* = \bar x_i := \dfrac{x_{i-1}+x_i}{2}\)</span>.</li>
+</ul>
+<p>This gives three sequences of Riemann sums: <span class="math display">\[
+LHS_n = \sum_{i=1}^n f(x_{i-1})\,\Delta, \qquad
+RHS_n = \sum_{i=1}^n f(x_i)\,\Delta, \qquad
+MS_n = \sum_{i=1}^n f(\bar x_i)\,\Delta,
+\]</span> the <strong>left-hand sum</strong>, the <strong>right-hand sum</strong>, and the <strong>midpoint sum</strong>.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-riemann-equipartition" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 11.1</strong></span> <br>
+If <span class="math inline">\(f\)</span> is continuous on <span class="math inline">\([a,b]\)</span>, then all three limits <span class="math display">\[
+\lim_{n\to\infty} LHS_n, \qquad \lim_{n\to\infty} RHS_n, \qquad \lim_{n\to\infty} MS_n
+\]</span> exist and are equal.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-riemann-integral" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 11.2</strong></span> <br>
+Let <span class="math inline">\(f\)</span> be continuous on <span class="math inline">\([a,b]\)</span>. The <strong>(Riemann) integral</strong> of <span class="math inline">\(f\)</span> from <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span> is the common value <span class="math inline">\(L\)</span> of the limits in <a href="#thm-riemann-equipartition" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a>: <span class="math display">\[
+\int_a^b f(x)\,dx = L = \lim_{n\to\infty} LHS_n = \lim_{n\to\infty} RHS_n = \lim_{n\to\infty} MS_n.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>The notation is Leibniz’s: the integral sign <span class="math inline">\(\int\)</span> is an elongated S for “sum”, and <span class="math inline">\(dx\)</span> recalls the lengths <span class="math inline">\(\Delta\)</span>. It is only notation — <span class="math inline">\(dx\)</span> on its own has no meaning here. Likewise, the name of the variable is irrelevant: <span class="math inline">\(\int_a^b f(x)\,dx = \int_a^b f(t)\,dt\)</span>.</p>
+</section>
+<section id="sec-choice-does-not-matter" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="sec-choice-does-not-matter"><span class="header-section-number">11.4</span> Why the Choice Does Not Matter (optional)</h2>
+<p><a href="#thm-riemann-equipartition" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a> is a special case of a much stronger statement: for a continuous function it does not matter at all <em>how</em> we partition or <em>where</em> we sample, as long as the segments get uniformly short.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-riemann-general" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 11.2 (Existence of the integral)</strong></span> Let <span class="math inline">\(f\)</span> be continuous on <span class="math inline">\([a,b]\)</span>. There is a unique number <span class="math inline">\(I\)</span> with the following property: for <strong>every</strong> sequence of partitions <span class="math inline">\(P_1,P_2,\ldots\)</span> of <span class="math inline">\([a,b]\)</span> with <span class="math inline">\(\|P_n\|\to0\)</span>, and <strong>every</strong> choice of sample points <span class="math inline">\(S_n\)</span> for <span class="math inline">\(P_n\)</span>, <span class="math display">\[
+\lim_{n\to\infty} RS(P_n,S_n) = I.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Since an equipartition into <span class="math inline">\(n\)</span> segments has mesh <span class="math inline">\(\tfrac{b-a}{n}\to0\)</span>, <a href="#thm-riemann-equipartition" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a> follows at once, with <span class="math inline">\(\int_a^b f(x)\,dx = I\)</span>. We now sketch <em>why</em> <a href="#thm-riemann-general" class="quarto-xref">Theorem&nbsp;<span>11.2</span></a> is true. The argument is informal in two places, flagged in <a href="#rem-darboux-informal" class="quarto-xref">Remark&nbsp;<span>11.2</span></a> below.</p>
+<section id="step-1-trapping-every-riemann-sum" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-trapping-every-riemann-sum">Step 1: Trapping Every Riemann Sum</h3>
+<p>A continuous function on a closed interval attains a maximum and a minimum there. (This is the <em>Extreme Value Theorem</em>, which we have not proved yet.) So for a partition <span class="math inline">\(P\)</span> we can put <span class="math display">\[
+m_i = \min\{f(x) : x_{i-1}\le x\le x_i\}, \qquad
+M_i = \max\{f(x) : x_{i-1}\le x\le x_i\},
+\]</span> and form the <strong>lower</strong> and <strong>upper (Darboux) sums</strong> <span class="math display">\[
+L(P) = \sum_{i=1}^n m_i\,\Delta_i, \qquad\qquad U(P) = \sum_{i=1}^n M_i\,\Delta_i.
+\]</span> Geometrically (for <span class="math inline">\(f\ge0\)</span>), <span class="math inline">\(L(P)\)</span> is the area of the largest rectangles on the segments that fit <em>under</em> the graph, and <span class="math inline">\(U(P)\)</span> is the area of the smallest rectangles that reach <em>over</em> it.</p>
+<p>Whatever sample points <span class="math inline">\(x_i^*\)</span> we choose, <span class="math inline">\(m_i\le f(x_i^*)\le M_i\)</span>, so <span class="math display">\[
+L(P) \;\le\; RS(P,S) \;\le\; U(P) \qquad\text{for every choice of sample points } S.
+\]</span> In other words, <span class="math inline">\(L(P)\)</span> and <span class="math inline">\(U(P)\)</span> are the <em>worst cases</em> over all choices of sample points. If we can show that they are close to each other, the choice of sample points becomes irrelevant.</p>
+</section>
+<section id="step-2-refining-moves-the-sums-toward-each-other" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-refining-moves-the-sums-toward-each-other">Step 2: Refining Moves the Sums Toward Each Other</h3>
+<p>Suppose <span class="math inline">\(P'\)</span> is <strong>finer</strong> than <span class="math inline">\(P\)</span>, i.e.&nbsp;<span class="math inline">\(P'\)</span> contains all points of <span class="math inline">\(P\)</span> and possibly more. Adding a single point <span class="math inline">\(z\)</span> inside a segment <span class="math inline">\([x_{i-1},x_i]\)</span> splits it into <span class="math inline">\([x_{i-1},z]\)</span> and <span class="math inline">\([z,x_i]\)</span>. The minimum of <span class="math inline">\(f\)</span> over each smaller piece is <em>at least</em> the minimum <span class="math inline">\(m_i\)</span> over the whole segment, and the maximum over each piece is <em>at most</em> <span class="math inline">\(M_i\)</span>. Adding points one at a time, we get <span class="math display">\[
+L(P) \le L(P') \qquad\text{and}\qquad U(P') \le U(P).
+\]</span> So refining can only push the lower sum up and the upper sum down.</p>
+<p>This has a useful consequence. Given <em>any</em> two partitions <span class="math inline">\(P\)</span> and <span class="math inline">\(Q\)</span>, the partition <span class="math inline">\(P\cup Q\)</span> is finer than both, so <span class="math display">\[
+L(P) \;\le\; L(P\cup Q) \;\le\; U(P\cup Q) \;\le\; U(Q).
+\]</span> That is: <strong>every lower sum is at most every upper sum</strong>, no matter which partitions they come from. All lower sums sit to the left of all upper sums on the number line, and by the completeness of <span class="math inline">\(\mathbb{R}\)</span> (compare the Nested Interval Axiom) there is at least one number <span class="math inline">\(I\)</span> in between: <span class="math display">\[
+L(P) \le I \le U(Q) \qquad\text{for all partitions } P, Q.
+\]</span></p>
+</section>
+<section id="step-3-closing-the-gap" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-closing-the-gap">Step 3: Closing the Gap</h3>
+<p>The gap between upper and lower sum is <span class="math display">\[
+U(P) - L(P) = \sum_{i=1}^n (M_i - m_i)\,\Delta_i.
+\]</span> Here continuity enters. On a very short segment a continuous function cannot vary much. Suppose we know the following: for every <span class="math inline">\(\varepsilon&gt;0\)</span> there is a <span class="math inline">\(\delta&gt;0\)</span> such that <span id="eq-uniform-continuity"><span class="math display">\[
+\lvert x-y \rvert&lt;\delta \quad \Rightarrow \quad\lvert f(x)-f(y) \rvert&lt;\varepsilon\qquad\text{for all } x,y\in[a,b].
+\tag{11.1}\]</span></span> Then, as soon as <span class="math inline">\(\|P\|&lt;\delta\)</span>, any two points in the same segment are within <span class="math inline">\(\delta\)</span> of each other, so <span class="math inline">\(M_i - m_i&lt;\varepsilon\)</span> for every <span class="math inline">\(i\)</span>, and <span class="math display">\[
+U(P) - L(P) &lt; \sum_{i=1}^n \varepsilon\,\Delta_i = \varepsilon\,(b-a).
+\]</span> Since <span class="math inline">\(\varepsilon\)</span> was arbitrary, the gap can be made as small as we like by making the mesh small.</p>
+</section>
+<section id="step-4-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-conclusion">Step 4: Conclusion</h3>
+<p>Now let <span class="math inline">\(\|P_n\|\to0\)</span> and let <span class="math inline">\(S_n\)</span> be any sample points. By Steps 1 and 2, both <span class="math inline">\(RS(P_n,S_n)\)</span> and <span class="math inline">\(I\)</span> lie in the interval <span class="math inline">\([L(P_n),U(P_n)]\)</span>, so <span class="math display">\[
+\lvert RS(P_n,S_n) - I \rvert \le U(P_n) - L(P_n).
+\]</span> By Step 3 the right-hand side tends to <span class="math inline">\(0\)</span>, so <span class="math inline">\(RS(P_n,S_n)\to I\)</span> (by the comparison test, <a href="07_sequences_convergence.html#prp-comparison" class="quarto-xref">Proposition&nbsp;<span>8.2</span></a>). The number <span class="math inline">\(I\)</span> is unique: any other <span class="math inline">\(I'\)</span> trapped between all lower and all upper sums satisfies <span class="math inline">\(\lvert I-I' \rvert\le U(P_n)-L(P_n)\to0\)</span> as well. Nothing in this argument depended on <em>which</em> partitions or sample points we used — only on the mesh going to <span class="math inline">\(0\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-darboux-informal" class="proof remark">
+<p><span class="proof-title"><em>Remark 11.2</em>. </span>The sketch uses three facts we have not yet established:</p>
+<ol type="1">
+<li>the <strong>Extreme Value Theorem</strong> (continuous functions attain a max and min on closed intervals), used to define <span class="math inline">\(m_i\)</span> and <span class="math inline">\(M_i\)</span>;</li>
+<li>the existence of a number <span class="math inline">\(I\)</span> between all lower and all upper sums, which is a consequence of the completeness of <span class="math inline">\(\mathbb{R}\)</span>;</li>
+<li>condition <a href="#eq-uniform-continuity" class="quarto-xref">Equation&nbsp;<span>11.1</span></a>, called <strong>uniform continuity</strong>.</li>
+</ol>
+<p>The third point is the subtle one. It looks like <a href="05_continuity.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>, but the quantifiers are in a different order: in <a href="05_continuity.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>, <span class="math inline">\(\delta\)</span> is chosen <em>after</em> the point <span class="math inline">\(a\)</span>, so it may depend on <span class="math inline">\(a\)</span>; in <a href="#eq-uniform-continuity" class="quarto-xref">Equation&nbsp;<span>11.1</span></a>, one <span class="math inline">\(\delta\)</span> must work <em>simultaneously for all points</em> of <span class="math inline">\([a,b]\)</span>. For instance, <span class="math inline">\(f(x)=\tfrac1x\)</span> is continuous on <span class="math inline">\((0,1]\)</span>, but near <span class="math inline">\(0\)</span> it becomes steeper and steeper, and no single <span class="math inline">\(\delta\)</span> works for a given <span class="math inline">\(\varepsilon\)</span>. On a <strong>closed, bounded</strong> interval this cannot happen: a continuous <span class="math inline">\(f\colon[a,b]\to\mathbb{R}\)</span> is automatically uniformly continuous. Like the Extreme Value Theorem, this can be proved with a bisection / nested interval argument in the spirit of the proof of <a href="08_limits_of_functions.html#thm-ivt" class="quarto-xref">Theorem&nbsp;<span>10.2</span></a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-dirichlet-not-integrable" class="proof remark">
+<p><span class="proof-title"><em>Remark 11.3</em>. </span>Continuity really matters. For the Dirichlet function of <a href="08_limits_of_functions.html#exm-dirichlet-discontinuous" class="quarto-xref">Example&nbsp;<span>10.3</span></a> on <span class="math inline">\([0,1]\)</span>, every segment of every partition contains both rational and irrational points. Choosing all sample points rational gives <span class="math inline">\(RS(P,S) = \sum_i 1\cdot\Delta_i = 1\)</span>; choosing them all irrational gives <span class="math inline">\(RS(P,S)=0\)</span> — for <em>every</em> partition, however fine. So the Riemann sums have no common limit, and the Dirichlet function is not Riemann integrable.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- ::: {#rem-cj-existence-proof}
+Courant & John prove @thm-riemann-general without upper and lower sums: they compare an arbitrary Riemann sum
+directly with one for a refinement, show that any two Riemann sums with small mesh are close to each
+other, and conclude with the Cauchy convergence criterion. The key ingredient — uniform continuity —
+is the same.
+::: -->
+</section>
+</section>
+<section id="verifying-the-riemann-integral" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="verifying-the-riemann-integral"><span class="header-section-number">11.5</span> Verifying the Riemann Integral</h2>
+<p>Before computing anything new, let us check that <a href="#def-riemann-integral" class="quarto-xref">Definition&nbsp;<span>11.2</span></a> gives the right answer for areas we already know from geometry. By <a href="#thm-riemann-equipartition" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a> we may use whichever of the three sums is most convenient. Throughout, <span class="math inline">\(\Delta = \frac{b-a}{n}\)</span> and <span class="math inline">\(x_i = a + i\Delta\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-integral-constant" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.1</strong></span> <br>
+Let <span class="math inline">\(f(x) = c\)</span>. Every sample point gives height <span class="math inline">\(c\)</span>, so <span class="math display">\[
+LHS_n = RHS_n = \sum_{i=1}^n \frac{b-a}{n}\cdot c = n\cdot\frac{b-a}{n}\cdot c = (b-a)\,c,
+\]</span> and hence <span class="math display">\[
+\int_a^b c\,dx = \lim_{n\to\infty} LHS_n = \lim_{n\to\infty}(b-a)\,c = (b-a)\,c,
+\]</span> the area of a rectangle with base <span class="math inline">\(b-a\)</span> and height <span class="math inline">\(c\)</span>. ✓</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-integral-x" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.2</strong></span> <br>
+Let <span class="math inline">\(f(x) = x\)</span>. Using right endpoints <span class="math inline">\(x_i = a+\frac{b-a}{n}\,i\)</span>, <span class="math display">\[
+\begin{aligned}
+RHS_n &amp;= \sum_{i=1}^n \frac{b-a}{n}\cdot f\Big(a+\frac{b-a}{n}\,i\Big)
+= \frac{b-a}{n}\sum_{i=1}^n \Big(a+\frac{b-a}{n}\,i\Big) \\
+&amp;= \frac{b-a}{n}\Big[\Big(a+\frac{b-a}{n}\cdot1\Big)+\Big(a+\frac{b-a}{n}\cdot2\Big)
++\cdots+\Big(a+\frac{b-a}{n}\cdot n\Big)\Big] \\
+&amp;= \frac{b-a}{n}\Big(n\,a + \frac{b-a}{n}\cdot\frac{n(n+1)}{2}\Big) \\
+&amp;= (b-a)\,a + \frac{b-a}{n}\cdot\frac{b-a}{n}\cdot\frac{n(n+1)}{2} \\
+&amp;= (b-a)\,a + \frac{(b-a)^2}{2}\cdot\frac{n+1}{n}
+\;\xrightarrow{\;n\to\infty\;}\; (b-a)\,a + \frac{(b-a)^2}{2}.
+\end{aligned}
+\]</span> Here we used <span class="math inline">\(1+2+\cdots+n = \frac{n(n+1)}{2}\)</span> and <span class="math inline">\(\frac{n+1}{n}\to1\)</span>.</p>
+<p>For <span class="math inline">\(0\le a&lt;b\)</span> this is exactly what geometry predicts: the region under <span class="math inline">\(y=x\)</span> between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> is a rectangle of base <span class="math inline">\(b-a\)</span> and height <span class="math inline">\(a\)</span> (area <span class="math inline">\((b-a)\,a\)</span>), topped by a right triangle with both legs of length <span class="math inline">\(b-a\)</span> (area <span class="math inline">\(\frac{(b-a)^2}{2}\)</span>). ✓ Simplifying, <span class="math display">\[
+\int_a^b x\,dx = (b-a)\Big(a + \frac{b-a}{2}\Big) = \frac{(b-a)(b+a)}{2} = \frac{b^2-a^2}{2}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-integral-linear" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.1</strong></span> Verify this for an arbitrary linear function <span class="math inline">\(f(x) = mx + c\)</span>: compute <span class="math inline">\(\lim_{n\to\infty}RHS_n\)</span> and check that the result agrees with the area of the trapezoid under the graph (when <span class="math inline">\(f\ge0\)</span> on <span class="math inline">\([a,b]\)</span>).</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="new-functions-x2" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="new-functions-x2"><span class="header-section-number">11.6</span> “New” Functions: <span class="math inline">\(x^2\)</span></h2>
+<p>The examples above only reproduced areas we already knew. The first genuinely new area is the one under a parabola. Let <span class="math inline">\(f(x) = x^2\)</span>. Then <span class="math display">\[
+RHS_n = \frac{b-a}{n}\sum_{i=1}^n f\Big(a+\frac{b-a}{n}\,i\Big)
+= \frac{b-a}{n}\sum_{i=1}^n\Big(a+\frac{b-a}{n}\,i\Big)^2.
+\]</span></p>
+<p>To make life a little easier, take <span class="math inline">\(a=0\)</span>: <span class="math display">\[
+\begin{aligned}
+RHS_n &amp;= \frac{b}{n}\sum_{i=1}^n\Big(\frac{b}{n}\,i\Big)^2
+= \frac{b}{n}\cdot\frac{b^2}{n^2}\,\big(1^2+2^2+\cdots+n^2\big) \\
+&amp;= \frac{b^3}{n^3}\cdot\frac{n(n+1)(2n+1)}{6}
+= \frac{b^3}{6}\Big(1+\frac1n\Big)\Big(2+\frac1n\Big)
+\;\xrightarrow{\;n\to\infty\;}\; \frac{b^3\cdot 2}{6} = \frac{b^3}{3}.
+\end{aligned}
+\]</span> So <span class="math display">\[
+\int_0^b x^2\,dx = \frac{b^3}{3}.
+\]</span></p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-sum-of-squares" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.2</strong></span> Prove by induction that <span class="math inline">\(1^2+2^2+\cdots+n^2 = \dfrac{n(n+1)(2n+1)}{6}\)</span> for all <span class="math inline">\(n\in\mathbb{N}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-integral-x-squared-general" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.3</strong></span> Generalize the computation above to show that for arbitrary <span class="math inline">\(a&lt;b\)</span>, <span class="math display">\[
+\int_a^b x^2\,dx = \frac{b^3-a^3}{3}.
+\]</span> (Expand <span class="math inline">\(\big(a+\frac{b-a}{n}\,i\big)^2\)</span> and use the formulas for <span class="math inline">\(\sum i\)</span> and <span class="math inline">\(\sum i^2\)</span>.)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">11.7</span> Summary</h2>
+<ul>
+<li>The area of the unit circle is the limit of the areas <span class="math inline">\(A_n = \frac n2\sin\!\big(\frac{2\pi}{n}\big)\)</span> of inscribed regular <span class="math inline">\(n\)</span>-gons; the sequence is increasing and bounded, so it converges by
+<ol class="example" type="1">
+<li></li>
+</ol></li>
+<li>For areas under a graph we use <strong>rectangles</strong>: a <strong>partition</strong> <span class="math inline">\(P\)</span> of <span class="math inline">\([a,b]\)</span> and <strong>sample points</strong> <span class="math inline">\(S\)</span> give the <strong>Riemann sum</strong> <span class="math inline">\(RS(P,S) = \sum_{i=1}^n f(x_i^*)\,\Delta_i\)</span> (<a href="#def-riemann-sum" class="quarto-xref">Definition&nbsp;<span>11.1</span></a>). We improve the approximation by refining the partition so that the <strong>mesh</strong> <span class="math inline">\(\|P\|=\max_i\Delta_i\)</span> tends to <span class="math inline">\(0\)</span>.</li>
+<li>Restricting to <strong>equipartitions</strong> with left endpoints, right endpoints, or midpoints gives three sequences <span class="math inline">\(LHS_n\)</span>, <span class="math inline">\(RHS_n\)</span>, <span class="math inline">\(MS_n\)</span>. For continuous <span class="math inline">\(f\)</span> they have a common limit (<a href="#thm-riemann-equipartition" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a>), which <em>defines</em> <span class="math inline">\(\int_a^b f(x)\,dx\)</span> (<a href="#def-riemann-integral" class="quarto-xref">Definition&nbsp;<span>11.2</span></a>).</li>
+<li>More generally, for continuous <span class="math inline">\(f\)</span> <strong>every</strong> sequence of Riemann sums with mesh <span class="math inline">\(\to0\)</span> converges to the same number (<a href="#thm-riemann-general" class="quarto-xref">Theorem&nbsp;<span>11.2</span></a>). The idea: every Riemann sum is trapped between the <strong>lower and upper sums</strong> <span class="math inline">\(L(P)\le RS(P,S)\le U(P)\)</span>; refining pushes these toward each other; and <strong>uniform continuity</strong> makes the gap <span class="math inline">\(U(P)-L(P)\)</span> smaller than <span class="math inline">\(\varepsilon(b-a)\)</span> once the mesh is small (<a href="#rem-darboux-informal" class="quarto-xref">Remark&nbsp;<span>11.2</span></a>). Without continuity this can fail, as the Dirichlet function shows (<a href="#rem-dirichlet-not-integrable" class="quarto-xref">Remark&nbsp;<span>11.3</span></a>).</li>
+<li>The definition reproduces known areas — <span class="math inline">\(\int_a^b c\,dx = (b-a)c\)</span> (<a href="#exm-integral-constant" class="quarto-xref">Example&nbsp;<span>11.1</span></a>) and <span class="math inline">\(\int_a^b x\,dx = \frac{b^2-a^2}{2}\)</span> (<a href="#exm-integral-x" class="quarto-xref">Example&nbsp;<span>11.2</span></a>) — and computes new ones: <span class="math inline">\(\int_0^b x^2\,dx = \frac{b^3}{3}\)</span>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./08_limits_of_functions.html" class="pagination-link" aria-label="Limits of Functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Limits of Functions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

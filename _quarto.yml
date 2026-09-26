@@ -27,6 +27,7 @@ book:
     - part: The Riemann Integral
       chapters:
         - 09_riemann_integral.qmd
+        - notebooks/Week05_Riemann_Sumsipynb
 
 number-sections: true
 

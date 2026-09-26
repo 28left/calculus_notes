@@ -205,18 +205,18 @@
 \usepackage{amsthm}
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{plain}
 \newtheorem{corollary}{Corollary}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-09-22}
+\date{2026-09-25}
 \begin{document}
 \maketitle
 
@@ -4153,6 +4153,636 @@ Generalize the computation above to show that for arbitrary \(a<b\), \[
   \(\int_a^b x\,dx = \frac{b^2-a^2}{2}\) (Example~\ref{exm-integral-x})
   --- and computes new ones: \(\int_0^b x^2\,dx = \frac{b^3}{3}\).
 \end{itemize}
+
+\chapter{Lab: Riemann Sums}\label{lab-riemann-sums}
+
+Math 140H, Honors Calculus I
+
+In class we approximated the area under a curve by rectangles. This
+notebook lets you build those rectangles, look at them, and watch the
+Riemann sums approach the integral as the partition gets finer.
+
+How to use this notebook - Cells marked IN CLASS are the core we will do
+together. - Cells marked HOMEWORK extend the same ideas further. - Cells
+marked PREDICT ask you to write down a guess before running the next
+code cell. Do not skip these; the point is to notice when your intuition
+is wrong.
+
+\textbf{START BY RUNNNING THE NEXT CELL}, this will load the necessary
+libraries and define all Python functions needed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#}
+\CommentTok{\#}
+\CommentTok{\# ALWAYS RUN THIS CELL FIRST!!}
+\CommentTok{\#}
+\CommentTok{\#}
+
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ sympy }\ImportTok{as}\NormalTok{ sp}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{from}\NormalTok{ matplotlib.patches }\ImportTok{import}\NormalTok{ Patch}
+\ImportTok{from}\NormalTok{ IPython.display }\ImportTok{import}\NormalTok{ display, Math}
+
+\NormalTok{plt.rcParams[}\StringTok{\textquotesingle{}figure.figsize\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (}\DecValTok{8}\NormalTok{, }\FloatTok{4.5}\NormalTok{)}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ sp.Symbol(}\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{\_METHODS }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}lefthand\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}left{-}hand\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}r\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}righthand\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}right{-}hand\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}mid\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}m\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}middle\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{,}
+\NormalTok{\}}
+
+
+\KeywordTok{def}\NormalTok{ \_to\_exact(v):}
+    \CommentTok{"""Turn a number into an exact sympy number (0.25 {-}\textgreater{} 1/4, pi stays pi)."""}
+\NormalTok{    v }\OperatorTok{=}\NormalTok{ sp.sympify(v)}
+    \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(v, sp.Float):}
+\NormalTok{        v }\OperatorTok{=}\NormalTok{ sp.nsimplify(v, rational}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ v}
+
+
+\KeywordTok{def}\NormalTok{ \_fmt(v, digits}\OperatorTok{=}\DecValTok{6}\NormalTok{):}
+    \CommentTok{"""Format a float compactly, e.g. 0.0625, 1.41421, {-}3.2e{-}05."""}
+\NormalTok{    s }\OperatorTok{=} \SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(v)}\SpecialCharTok{:.}\NormalTok{\{digits\}g}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}
+    \ControlFlowTok{if} \StringTok{\textquotesingle{}e\textquotesingle{}} \KeywordTok{in}\NormalTok{ s:}
+\NormalTok{        mant, ex }\OperatorTok{=}\NormalTok{ s.split(}\StringTok{\textquotesingle{}e\textquotesingle{}}\NormalTok{)}
+\NormalTok{        s }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{mant}\SpecialCharTok{\}}\VerbatimStringTok{ }\ErrorTok{\textbackslash{}}\VerbatimStringTok{cdot 10}\DecValTok{\^{}}\CharTok{\{\{}\SpecialCharTok{\{}\BuiltInTok{int}\NormalTok{(ex)}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{\textquotesingle{}}
+    \ControlFlowTok{return}\NormalTok{ s}
+
+
+\KeywordTok{def}\NormalTok{ \_join\_terms(terms, n, max\_terms):}
+    \CommentTok{"""Join LaTeX terms with + and {-} signs; if n is large, abbreviate with + ... +."""}
+    \ControlFlowTok{if}\NormalTok{ n }\OperatorTok{\textgreater{}}\NormalTok{ max\_terms:}
+\NormalTok{        terms }\OperatorTok{=}\NormalTok{ terms[:}\DecValTok{3}\NormalTok{] }\OperatorTok{+}\NormalTok{ [}\VerbatimStringTok{r\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{cdots\textquotesingle{}}\NormalTok{] }\OperatorTok{+}\NormalTok{ terms[}\OperatorTok{{-}}\DecValTok{2}\NormalTok{:]}
+\NormalTok{    out }\OperatorTok{=}\NormalTok{ terms[}\DecValTok{0}\NormalTok{]}
+    \ControlFlowTok{for}\NormalTok{ t }\KeywordTok{in}\NormalTok{ terms[}\DecValTok{1}\NormalTok{:]:}
+        \ControlFlowTok{if}\NormalTok{ t.startswith(}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{):}
+\NormalTok{            out }\OperatorTok{+=} \StringTok{\textquotesingle{} {-} \textquotesingle{}} \OperatorTok{+}\NormalTok{ t[}\DecValTok{1}\NormalTok{:].lstrip()}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            out }\OperatorTok{+=} \StringTok{\textquotesingle{} + \textquotesingle{}} \OperatorTok{+}\NormalTok{ t}
+    \ControlFlowTok{return}\NormalTok{ out}
+
+
+\KeywordTok{def}\NormalTok{ riemann\_sum(f, a, b, n, method}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, x}\OperatorTok{=}\VariableTok{None}\NormalTok{, show}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{                show\_integral}\OperatorTok{=}\VariableTok{False}\NormalTok{, max\_terms}\OperatorTok{=}\DecValTok{6}\NormalTok{):}
+    \CommentTok{"""}
+\CommentTok{    Compute (and by default draw) a Riemann sum for f on [a, b].}
+
+\CommentTok{    Parameters}
+\CommentTok{    {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{    f : sympy expression in one variable, e.g. x**2 or sp.sin(x)}
+\CommentTok{    a, b : the integration bounds, a \textless{} b (numbers or sympy numbers like sp.pi)}
+\CommentTok{    n : number of subintervals of equal length}
+\CommentTok{    method : \textquotesingle{}left\textquotesingle{}, \textquotesingle{}right\textquotesingle{}, or \textquotesingle{}midpoint\textquotesingle{}}
+\CommentTok{    x : the variable of f (only needed if f has more than one symbol)}
+\CommentTok{    show : if False, just return the value (no picture, no computation lines)}
+\CommentTok{    show\_integral : also display the exact integral and the error of the sum}
+\CommentTok{    max\_terms : largest n for which every term of the sum is written out;}
+\CommentTok{                for larger n the sum is abbreviated with "+ ... +"}
+
+\CommentTok{    Returns}
+\CommentTok{    {-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{    The value of the Riemann sum as a float.}
+\CommentTok{    """}
+    \CommentTok{\# {-}{-}{-}{-} check and prepare the input {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{    method }\OperatorTok{=}\NormalTok{ \_METHODS.get(}\BuiltInTok{str}\NormalTok{(method).lower().replace(}\StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{))}
+    \ControlFlowTok{if}\NormalTok{ method }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"method must be \textquotesingle{}left\textquotesingle{}, \textquotesingle{}right\textquotesingle{}, or \textquotesingle{}midpoint\textquotesingle{}"}\NormalTok{)}
+\NormalTok{    n }\OperatorTok{=} \BuiltInTok{int}\NormalTok{(n)}
+    \ControlFlowTok{if}\NormalTok{ n }\OperatorTok{\textless{}} \DecValTok{1}\NormalTok{:}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{\textquotesingle{}n must be a positive integer\textquotesingle{}}\NormalTok{)}
+\NormalTok{    f }\OperatorTok{=}\NormalTok{ sp.sympify(f)}
+    \ControlFlowTok{if}\NormalTok{ x }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
+\NormalTok{        syms }\OperatorTok{=} \BuiltInTok{sorted}\NormalTok{(f.free\_symbols, key}\OperatorTok{=}\BuiltInTok{str}\NormalTok{)}
+        \ControlFlowTok{if} \BuiltInTok{len}\NormalTok{(syms) }\OperatorTok{\textgreater{}} \DecValTok{1}\NormalTok{:}
+            \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}f has several symbols }\SpecialCharTok{\{}\NormalTok{syms}\SpecialCharTok{\}}\SpecialStringTok{; pass the variable as x=...\textquotesingle{}}\NormalTok{)}
+\NormalTok{        x }\OperatorTok{=}\NormalTok{ syms[}\DecValTok{0}\NormalTok{] }\ControlFlowTok{if}\NormalTok{ syms }\ControlFlowTok{else}\NormalTok{ sp.Symbol(}\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
+\NormalTok{    a, b }\OperatorTok{=}\NormalTok{ \_to\_exact(a), \_to\_exact(b)}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ (sp.N(a) }\OperatorTok{\textless{}}\NormalTok{ sp.N(b)):}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{\textquotesingle{}need a \textless{} b\textquotesingle{}}\NormalTok{)}
+
+    \CommentTok{\# {-}{-}{-}{-} the partition and the sample points {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{    delta }\OperatorTok{=}\NormalTok{ (b }\OperatorTok{{-}}\NormalTok{ a) }\OperatorTok{/}\NormalTok{ n                    }\CommentTok{\# exact length of each subinterval}
+\NormalTok{    shift }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{: }\DecValTok{0}\NormalTok{, }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{: }\DecValTok{1}\NormalTok{, }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{: sp.Rational(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)\}[method]}
+\NormalTok{    offset }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{: }\DecValTok{1}\NormalTok{, }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{: }\DecValTok{0}\NormalTok{, }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{: sp.Rational(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)\}[method]}
+    \CommentTok{\# sample point x\_i\^{}* = a + (i {-} offset) * delta, for i = 1, ..., n}
+
+\NormalTok{    f\_num }\OperatorTok{=}\NormalTok{ sp.lambdify(x, f, }\StringTok{\textquotesingle{}numpy\textquotesingle{}}\NormalTok{)}
+\NormalTok{    a\_f, b\_f, d\_f }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(a), }\BuiltInTok{float}\NormalTok{(b), }\BuiltInTok{float}\NormalTok{(delta)}
+\NormalTok{    left\_edges }\OperatorTok{=}\NormalTok{ a\_f }\OperatorTok{+}\NormalTok{ d\_f }\OperatorTok{*}\NormalTok{ np.arange(n)}
+\NormalTok{    samples }\OperatorTok{=}\NormalTok{ left\_edges }\OperatorTok{+} \BuiltInTok{float}\NormalTok{(shift) }\OperatorTok{*}\NormalTok{ d\_f}
+    \ControlFlowTok{with}\NormalTok{ np.errstate(}\BuiltInTok{all}\OperatorTok{=}\StringTok{\textquotesingle{}ignore\textquotesingle{}}\NormalTok{):}
+\NormalTok{        heights }\OperatorTok{=}\NormalTok{ np.broadcast\_to(np.asarray(f\_num(samples), dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{), samples.shape)}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ np.}\BuiltInTok{all}\NormalTok{(np.isfinite(heights)):}
+\NormalTok{        bad }\OperatorTok{=}\NormalTok{ samples[}\OperatorTok{\textasciitilde{}}\NormalTok{np.isfinite(heights)][}\DecValTok{0}\NormalTok{]}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}f is not defined (or infinite) at the sample point }\SpecialCharTok{\{}\NormalTok{bad}\SpecialCharTok{:g\}}\SpecialStringTok{; \textquotesingle{}}
+                         \StringTok{\textquotesingle{}try a different method or interval\textquotesingle{}}\NormalTok{)}
+\NormalTok{    value }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{sum}\NormalTok{(heights) }\OperatorTok{*}\NormalTok{ d\_f)}
+    \ControlFlowTok{if} \BuiltInTok{abs}\NormalTok{(value) }\OperatorTok{\textless{}} \FloatTok{1e{-}12} \OperatorTok{*} \BuiltInTok{max}\NormalTok{(}\FloatTok{1.0}\NormalTok{, }\BuiltInTok{float}\NormalTok{(np.}\BuiltInTok{sum}\NormalTok{(np.}\BuiltInTok{abs}\NormalTok{(heights)) }\OperatorTok{*}\NormalTok{ d\_f)):}
+\NormalTok{        value }\OperatorTok{=} \FloatTok{0.0}          \CommentTok{\# the exact answer is 0; the rest is rounding noise}
+
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ show:}
+        \ControlFlowTok{return}\NormalTok{ value}
+
+    \CommentTok{\# {-}{-}{-}{-} the picture {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{    fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots()}
+\NormalTok{    colors }\OperatorTok{=}\NormalTok{ np.where(heights }\OperatorTok{\textgreater{}=} \DecValTok{0}\NormalTok{, }\StringTok{\textquotesingle{}tab:blue\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}tab:red\textquotesingle{}}\NormalTok{)}
+\NormalTok{    edge }\OperatorTok{=} \StringTok{\textquotesingle{}black\textquotesingle{}} \ControlFlowTok{if}\NormalTok{ n }\OperatorTok{\textless{}=} \DecValTok{100} \ControlFlowTok{else} \StringTok{\textquotesingle{}none\textquotesingle{}}
+\NormalTok{    ax.bar(left\_edges, heights, width}\OperatorTok{=}\NormalTok{d\_f, align}\OperatorTok{=}\StringTok{\textquotesingle{}edge\textquotesingle{}}\NormalTok{, color}\OperatorTok{=}\NormalTok{colors,}
+\NormalTok{           alpha}\OperatorTok{=}\FloatTok{0.35}\NormalTok{, edgecolor}\OperatorTok{=}\NormalTok{edge, linewidth}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}
+\NormalTok{    xs }\OperatorTok{=}\NormalTok{ np.linspace(a\_f, b\_f, }\DecValTok{1000}\NormalTok{)}
+    \ControlFlowTok{with}\NormalTok{ np.errstate(}\BuiltInTok{all}\OperatorTok{=}\StringTok{\textquotesingle{}ignore\textquotesingle{}}\NormalTok{):}
+\NormalTok{        ys }\OperatorTok{=}\NormalTok{ np.array(np.broadcast\_to(np.asarray(f\_num(xs), dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{), xs.shape))}
+\NormalTok{    ys[}\OperatorTok{\textasciitilde{}}\NormalTok{np.isfinite(ys)] }\OperatorTok{=}\NormalTok{ np.nan}
+\NormalTok{    ax.plot(xs, ys, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, linewidth}\OperatorTok{=}\DecValTok{2}\NormalTok{, label}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}$f(}\SpecialCharTok{\{}\NormalTok{x}\SpecialCharTok{\}}\SpecialStringTok{) = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\SpecialStringTok{$\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ n }\OperatorTok{\textless{}=} \DecValTok{60}\NormalTok{:}
+\NormalTok{        ax.plot(samples, heights, }\StringTok{\textquotesingle{}o\textquotesingle{}}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}darkorange\textquotesingle{}}\NormalTok{, markersize}\OperatorTok{=}\DecValTok{5}\NormalTok{,}
+\NormalTok{                label}\OperatorTok{=}\VerbatimStringTok{r\textquotesingle{}}\DecValTok{$}\KeywordTok{(}\VerbatimStringTok{x\_i}\DecValTok{\^{}}\OperatorTok{*}\VerbatimStringTok{, f}\KeywordTok{(}\VerbatimStringTok{x\_i}\DecValTok{\^{}}\OperatorTok{*}\KeywordTok{))}\DecValTok{$}\VerbatimStringTok{\textquotesingle{}}\NormalTok{)}
+\NormalTok{    ax.axhline(}\DecValTok{0}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}gray\textquotesingle{}}\NormalTok{, linewidth}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}
+\NormalTok{    pad }\OperatorTok{=} \FloatTok{0.05} \OperatorTok{*}\NormalTok{ (b\_f }\OperatorTok{{-}}\NormalTok{ a\_f)}
+\NormalTok{    ax.set\_xlim(a\_f }\OperatorTok{{-}}\NormalTok{ pad, b\_f }\OperatorTok{+}\NormalTok{ pad)}
+    \CommentTok{\# if f blows up somewhere, keep the rectangles in view instead of the spike}
+\NormalTok{    h\_lo, h\_hi }\OperatorTok{=} \BuiltInTok{min}\NormalTok{(}\FloatTok{0.0}\NormalTok{, heights.}\BuiltInTok{min}\NormalTok{()), }\BuiltInTok{max}\NormalTok{(}\FloatTok{0.0}\NormalTok{, heights.}\BuiltInTok{max}\NormalTok{())}
+\NormalTok{    span }\OperatorTok{=}\NormalTok{ h\_hi }\OperatorTok{{-}}\NormalTok{ h\_lo}
+\NormalTok{    y\_lo, y\_hi }\OperatorTok{=}\NormalTok{ np.nanmin(ys), np.nanmax(ys)}
+    \ControlFlowTok{if}\NormalTok{ span }\OperatorTok{\textgreater{}} \DecValTok{0} \KeywordTok{and}\NormalTok{ (y\_hi }\OperatorTok{\textgreater{}}\NormalTok{ h\_hi }\OperatorTok{+} \DecValTok{2} \OperatorTok{*}\NormalTok{ span }\KeywordTok{or}\NormalTok{ y\_lo }\OperatorTok{\textless{}}\NormalTok{ h\_lo }\OperatorTok{{-}} \DecValTok{2} \OperatorTok{*}\NormalTok{ span):}
+\NormalTok{        lo, hi }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(y\_lo, h\_lo }\OperatorTok{{-}} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ span), }\BuiltInTok{min}\NormalTok{(y\_hi, h\_hi }\OperatorTok{+} \FloatTok{0.5} \OperatorTok{*}\NormalTok{ span)}
+\NormalTok{        ax.set\_ylim(}\BuiltInTok{min}\NormalTok{(lo, h\_lo) }\OperatorTok{{-}} \FloatTok{0.05} \OperatorTok{*}\NormalTok{ span, }\BuiltInTok{max}\NormalTok{(hi, h\_hi) }\OperatorTok{+} \FloatTok{0.05} \OperatorTok{*}\NormalTok{ span)}
+\NormalTok{    ax.set\_xlabel(}\SpecialStringTok{f\textquotesingle{}$}\SpecialCharTok{\{}\NormalTok{x}\SpecialCharTok{\}}\SpecialStringTok{$\textquotesingle{}}\NormalTok{)}
+\NormalTok{    ax.set\_title(}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{method}\SpecialCharTok{.}\NormalTok{capitalize()}\SpecialCharTok{\}}\SpecialStringTok{ Riemann sum with n = }\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+\NormalTok{    handles, labels }\OperatorTok{=}\NormalTok{ ax.get\_legend\_handles\_labels()}
+    \ControlFlowTok{if}\NormalTok{ np.}\BuiltInTok{any}\NormalTok{(heights }\OperatorTok{\textless{}} \DecValTok{0}\NormalTok{):}
+\NormalTok{        handles }\OperatorTok{+=}\NormalTok{ [Patch(color}\OperatorTok{=}\StringTok{\textquotesingle{}tab:blue\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.35}\NormalTok{), Patch(color}\OperatorTok{=}\StringTok{\textquotesingle{}tab:red\textquotesingle{}}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.35}\NormalTok{)]}
+\NormalTok{        labels }\OperatorTok{+=}\NormalTok{ [}\VerbatimStringTok{r\textquotesingle{}}\DecValTok{$}\VerbatimStringTok{f}\KeywordTok{(}\VerbatimStringTok{x\_i}\DecValTok{\^{}}\OperatorTok{*}\KeywordTok{)}\VerbatimStringTok{ }\ErrorTok{\textbackslash{}}\VerbatimStringTok{geq 0}\DecValTok{$}\VerbatimStringTok{\textquotesingle{}}\NormalTok{, }\VerbatimStringTok{r\textquotesingle{}}\DecValTok{$}\VerbatimStringTok{f}\KeywordTok{(}\VerbatimStringTok{x\_i}\DecValTok{\^{}}\OperatorTok{*}\KeywordTok{)}\VerbatimStringTok{ \textless{} 0}\DecValTok{$}\VerbatimStringTok{\textquotesingle{}}\NormalTok{]}
+\NormalTok{    ax.legend(handles, labels, loc}\OperatorTok{=}\StringTok{\textquotesingle{}best\textquotesingle{}}\NormalTok{)}
+\NormalTok{    ax.grid(}\VariableTok{True}\NormalTok{, alpha}\OperatorTok{=}\FloatTok{0.3}\NormalTok{)}
+\NormalTok{    plt.show()}
+
+    \CommentTok{\# {-}{-}{-}{-} the computation, line by line {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{    A, B, D }\OperatorTok{=}\NormalTok{ sp.latex(a), sp.latex(b), sp.latex(delta)}
+\NormalTok{    fx }\OperatorTok{=}\NormalTok{ sp.latex(f)}
+\NormalTok{    sample\_rule }\OperatorTok{=}\NormalTok{ \{}
+        \StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{:     }\VerbatimStringTok{r\textquotesingle{}x\_i}\DecValTok{\^{}}\OperatorTok{*}\VerbatimStringTok{ = x\_\{i{-}1\} = a }\OperatorTok{+}\VerbatimStringTok{ }\KeywordTok{(}\VerbatimStringTok{i{-}1}\KeywordTok{)}\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta\textquotesingle{}}\NormalTok{,}
+        \StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{:    }\VerbatimStringTok{r\textquotesingle{}x\_i}\DecValTok{\^{}}\OperatorTok{*}\VerbatimStringTok{ = x\_i = a }\OperatorTok{+}\VerbatimStringTok{ i}\CharTok{\textbackslash{},}\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta\textquotesingle{}}\NormalTok{,}
+        \StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{: }\VerbatimStringTok{r\textquotesingle{}x\_i}\DecValTok{\^{}}\OperatorTok{*}\VerbatimStringTok{ = }\CharTok{\textbackslash{}f}\VerbatimStringTok{rac\{x\_\{i{-}1\} }\OperatorTok{+}\VerbatimStringTok{ x\_i\}}\OperatorTok{\{2\}}\VerbatimStringTok{ = a }\OperatorTok{+}\VerbatimStringTok{ }\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\KeywordTok{(}\VerbatimStringTok{i {-} }\CharTok{\textbackslash{}t}\VerbatimStringTok{frac}\OperatorTok{\{1\}\{2\}}\CharTok{\textbackslash{}r}\VerbatimStringTok{ight}\KeywordTok{)}\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta\textquotesingle{}}\NormalTok{,}
+\NormalTok{    \}[method]}
+
+\NormalTok{    display(Math(}\VerbatimStringTok{rf\textquotesingle{}f}\KeywordTok{(}\SpecialCharTok{\{}\NormalTok{x}\SpecialCharTok{\}}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{fx}\SpecialCharTok{\}}\VerbatimStringTok{, }\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad }\PreprocessorTok{[a, b]}\VerbatimStringTok{ = }\PreprocessorTok{[}\SpecialCharTok{\{}\NormalTok{A}\SpecialCharTok{\}}\PreprocessorTok{, }\SpecialCharTok{\{}\NormalTok{B}\SpecialCharTok{\}}\PreprocessorTok{]}\VerbatimStringTok{, }\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad n = }\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+\NormalTok{    a\_paren }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\KeywordTok{(}\SpecialCharTok{\{}\NormalTok{A}\SpecialCharTok{\}}\CharTok{\textbackslash{}r}\VerbatimStringTok{ight}\KeywordTok{)}\VerbatimStringTok{\textquotesingle{}} \ControlFlowTok{if}\NormalTok{ sp.N(a) }\OperatorTok{\textless{}} \DecValTok{0} \ControlFlowTok{else}\NormalTok{ A}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta = }\CharTok{\textbackslash{}f}\VerbatimStringTok{rac}\CharTok{\{\{}\VerbatimStringTok{b{-}a}\CharTok{\}\}\{\{}\VerbatimStringTok{n}\CharTok{\}\}}\VerbatimStringTok{ = }\CharTok{\textbackslash{}f}\VerbatimStringTok{rac}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{B}\SpecialCharTok{\}}\VerbatimStringTok{ {-} }\SpecialCharTok{\{}\NormalTok{a\_paren}\SpecialCharTok{\}}\CharTok{\}\}\{\{}\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{D}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}
+                 \OperatorTok{+}\NormalTok{ (}\VerbatimStringTok{rf\textquotesingle{} }\CharTok{\textbackslash{}a}\VerbatimStringTok{pprox }\SpecialCharTok{\{}\NormalTok{\_fmt(d\_f)}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}} \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ delta.is\_Rational }\ControlFlowTok{else} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
+                 \OperatorTok{+} \VerbatimStringTok{rf\textquotesingle{}, }\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad x\_i = a }\OperatorTok{+}\VerbatimStringTok{ i}\CharTok{\textbackslash{},}\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta }\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad }\KeywordTok{(}\VerbatimStringTok{i = 0, 1, }\ErrorTok{\textbackslash{}}\VerbatimStringTok{ldots, }\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\KeywordTok{)}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\CharTok{\textbackslash{}t}\VerbatimStringTok{ext}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{method}\SpecialCharTok{\}}\VerbatimStringTok{ sample points: }\CharTok{\}\}}\VerbatimStringTok{ }\SpecialCharTok{\{}\NormalTok{sample\_rule}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+
+    \CommentTok{\# which indices get written out}
+\NormalTok{    idx }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, n }\OperatorTok{+} \DecValTok{1}\NormalTok{)) }\ControlFlowTok{if}\NormalTok{ n }\OperatorTok{\textless{}=}\NormalTok{ max\_terms }\ControlFlowTok{else}\NormalTok{ [}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, n }\OperatorTok{{-}} \DecValTok{1}\NormalTok{, n]}
+\NormalTok{    pts }\OperatorTok{=}\NormalTok{ [a }\OperatorTok{+}\NormalTok{ (i }\OperatorTok{{-}}\NormalTok{ offset) }\OperatorTok{*}\NormalTok{ delta }\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in}\NormalTok{ idx]}
+\NormalTok{    pts }\OperatorTok{=}\NormalTok{ [sp.nsimplify(p) }\ControlFlowTok{if}\NormalTok{ p.is\_Rational }\ControlFlowTok{else}\NormalTok{ sp.simplify(p) }\ControlFlowTok{for}\NormalTok{ p }\KeywordTok{in}\NormalTok{ pts]}
+\NormalTok{    f\_terms }\OperatorTok{=}\NormalTok{ [}\VerbatimStringTok{rf\textquotesingle{}f}\CharTok{\textbackslash{}!}\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\KeywordTok{(}\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(p)}\SpecialCharTok{\}}\CharTok{\textbackslash{}r}\VerbatimStringTok{ight}\KeywordTok{)}\VerbatimStringTok{\textquotesingle{}} \ControlFlowTok{for}\NormalTok{ p }\KeywordTok{in}\NormalTok{ pts]}
+\NormalTok{    vals }\OperatorTok{=}\NormalTok{ [sp.nsimplify(sp.simplify(f.subs(x, p))) }\ControlFlowTok{for}\NormalTok{ p }\KeywordTok{in}\NormalTok{ pts]}
+    \ControlFlowTok{if} \BuiltInTok{all}\NormalTok{(v.is\_Rational }\KeywordTok{and} \BuiltInTok{len}\NormalTok{(sp.latex(v)) }\OperatorTok{\textless{}=} \DecValTok{14} \ControlFlowTok{for}\NormalTok{ v }\KeywordTok{in}\NormalTok{ vals):}
+\NormalTok{        val\_terms }\OperatorTok{=}\NormalTok{ [sp.latex(v) }\ControlFlowTok{for}\NormalTok{ v }\KeywordTok{in}\NormalTok{ vals]}
+    \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{        val\_terms }\OperatorTok{=}\NormalTok{ [\_fmt(sp.N(v)) }\ControlFlowTok{for}\NormalTok{ v }\KeywordTok{in}\NormalTok{ vals]}
+
+\NormalTok{    general }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}RS}\KeywordTok{(}\VerbatimStringTok{P, S}\KeywordTok{)}\VerbatimStringTok{ = }\DecValTok{\textbackslash{}s}\VerbatimStringTok{um\_}\CharTok{\{\{}\VerbatimStringTok{i=1}\CharTok{\}\}}\DecValTok{\^{}}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{ f}\KeywordTok{(}\VerbatimStringTok{x\_i}\DecValTok{\^{}}\OperatorTok{*}\KeywordTok{)}\CharTok{\textbackslash{},}\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta\textquotesingle{}}
+\NormalTok{    display(Math(general }\OperatorTok{+} \VerbatimStringTok{rf\textquotesingle{} = }\DecValTok{\textbackslash{}D}\VerbatimStringTok{elta }\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\PreprocessorTok{[ f(x\_1\^{}*) + f(x\_2\^{}*) + }\ErrorTok{\textbackslash{}}\PreprocessorTok{cdots + f(x\_}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{n}\SpecialCharTok{\}}\CharTok{\}\}}\PreprocessorTok{\^{}*) }\CharTok{\textbackslash{}r}\PreprocessorTok{ight]}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{phantom}\CharTok{\{\{}\VerbatimStringTok{RS}\KeywordTok{(}\VerbatimStringTok{P, S}\KeywordTok{)}\CharTok{\}\}}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{D}\SpecialCharTok{\}}\VerbatimStringTok{ }\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\PreprocessorTok{[ }\SpecialCharTok{\{}\NormalTok{\_join\_terms(f\_terms, n, max\_terms)}\SpecialCharTok{\}}\PreprocessorTok{ }\CharTok{\textbackslash{}r}\PreprocessorTok{ight]}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{phantom}\CharTok{\{\{}\VerbatimStringTok{RS}\KeywordTok{(}\VerbatimStringTok{P, S}\KeywordTok{)}\CharTok{\}\}}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{D}\SpecialCharTok{\}}\VerbatimStringTok{ }\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\PreprocessorTok{[ }\SpecialCharTok{\{}\NormalTok{\_join\_terms(val\_terms, n, max\_terms)}\SpecialCharTok{\}}\PreprocessorTok{ }\CharTok{\textbackslash{}r}\PreprocessorTok{ight]}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+
+    \CommentTok{\# exact value when it is a short rational number, else a decimal}
+\NormalTok{    exact }\OperatorTok{=} \VariableTok{None}
+    \ControlFlowTok{if}\NormalTok{ n }\OperatorTok{\textless{}=} \DecValTok{200}\NormalTok{:}
+\NormalTok{        total }\OperatorTok{=}\NormalTok{ sp.nsimplify(}\BuiltInTok{sum}\NormalTok{(f.subs(x, a }\OperatorTok{+}\NormalTok{ (i }\OperatorTok{{-}}\NormalTok{ offset) }\OperatorTok{*}\NormalTok{ delta) }\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, n }\OperatorTok{+} \DecValTok{1}\NormalTok{)) }\OperatorTok{*}\NormalTok{ delta)}
+        \ControlFlowTok{if}\NormalTok{ total.is\_Rational }\KeywordTok{and} \BuiltInTok{len}\NormalTok{(sp.latex(total)) }\OperatorTok{\textless{}=} \DecValTok{20}\NormalTok{:}
+\NormalTok{            exact }\OperatorTok{=}\NormalTok{ total}
+    \ControlFlowTok{if}\NormalTok{ exact }\KeywordTok{is} \KeywordTok{not} \VariableTok{None} \KeywordTok{and}\NormalTok{ exact.q }\OperatorTok{!=} \DecValTok{1}\NormalTok{:}
+\NormalTok{        result }\OperatorTok{=} \VerbatimStringTok{rf\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(exact)}\SpecialCharTok{\}}\VerbatimStringTok{ }\CharTok{\textbackslash{}a}\VerbatimStringTok{pprox }\SpecialCharTok{\{}\NormalTok{\_fmt(value, }\DecValTok{10}\NormalTok{)}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}
+    \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{        result }\OperatorTok{=}\NormalTok{ \_fmt(value, }\DecValTok{10}\NormalTok{)}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{phantom}\CharTok{\{\{}\VerbatimStringTok{RS}\KeywordTok{(}\VerbatimStringTok{P, S}\KeywordTok{)}\CharTok{\}\}}\VerbatimStringTok{ = }\DecValTok{\textbackslash{}m}\VerbatimStringTok{athbf}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{result}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+
+    \ControlFlowTok{if}\NormalTok{ show\_integral:}
+\NormalTok{        I }\OperatorTok{=}\NormalTok{ sp.integrate(f, (x, a, b))}
+\NormalTok{        I\_num }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(sp.N(I))}
+        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(I, sp.Integral):   }\CommentTok{\# no closed form found}
+\NormalTok{            display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{int\_}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{A}\SpecialCharTok{\}}\CharTok{\}\}}\DecValTok{\^{}}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{B}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{ }\SpecialCharTok{\{}\NormalTok{fx}\SpecialCharTok{\}}\CharTok{\textbackslash{},}\VerbatimStringTok{ d}\SpecialCharTok{\{}\NormalTok{x}\SpecialCharTok{\}}\VerbatimStringTok{ }\CharTok{\textbackslash{}a}\VerbatimStringTok{pprox }\SpecialCharTok{\{}\NormalTok{\_fmt(I\_num, }\DecValTok{10}\NormalTok{)}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            approx }\OperatorTok{=} \StringTok{\textquotesingle{}\textquotesingle{}} \ControlFlowTok{if}\NormalTok{ I.is\_Rational }\ControlFlowTok{else} \VerbatimStringTok{rf\textquotesingle{} }\CharTok{\textbackslash{}a}\VerbatimStringTok{pprox }\SpecialCharTok{\{}\NormalTok{\_fmt(I\_num, }\DecValTok{10}\NormalTok{)}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}
+\NormalTok{            display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{int\_}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{A}\SpecialCharTok{\}}\CharTok{\}\}}\DecValTok{\^{}}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{B}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{ }\SpecialCharTok{\{}\NormalTok{fx}\SpecialCharTok{\}}\CharTok{\textbackslash{},}\VerbatimStringTok{ d}\SpecialCharTok{\{}\NormalTok{x}\SpecialCharTok{\}}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(I)}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}} \OperatorTok{+}\NormalTok{ approx))}
+\NormalTok{        err }\OperatorTok{=}\NormalTok{ value }\OperatorTok{{-}}\NormalTok{ I\_num}
+\NormalTok{        err\_tex }\OperatorTok{=} \StringTok{\textquotesingle{}0\textquotesingle{}} \ControlFlowTok{if} \BuiltInTok{abs}\NormalTok{(err) }\OperatorTok{\textless{}} \FloatTok{1e{-}12} \ControlFlowTok{else}\NormalTok{ \_fmt(err, }\DecValTok{4}\NormalTok{)}
+\NormalTok{        display(Math(}\VerbatimStringTok{rf\textquotesingle{}}\CharTok{\textbackslash{}t}\VerbatimStringTok{ext}\CharTok{\{\{}\VerbatimStringTok{error: }\CharTok{\}\}}\VerbatimStringTok{ RS}\KeywordTok{(}\VerbatimStringTok{P, S}\KeywordTok{)}\VerbatimStringTok{ {-} }\ErrorTok{\textbackslash{}}\VerbatimStringTok{int\_}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{A}\SpecialCharTok{\}}\CharTok{\}\}}\DecValTok{\^{}}\CharTok{\{\{}\SpecialCharTok{\{}\NormalTok{B}\SpecialCharTok{\}}\CharTok{\}\}}\VerbatimStringTok{ f}\CharTok{\textbackslash{},}\VerbatimStringTok{d}\SpecialCharTok{\{}\NormalTok{x}\SpecialCharTok{\}}\VerbatimStringTok{ }\CharTok{\textbackslash{}a}\VerbatimStringTok{pprox }\SpecialCharTok{\{}\NormalTok{err\_tex}\SpecialCharTok{\}}\VerbatimStringTok{\textquotesingle{}}\NormalTok{))}
+
+    \ControlFlowTok{return}\NormalTok{ value}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Recap: the setup from
+lecture}\label{recap-the-setup-from-lecture}
+
+Let \(f : [a,b] \to \mathbb{R}\).
+
+\begin{itemize}
+\tightlist
+\item
+  A partition \(P\) of \([a,b]\) is a choice of points
+  \(a = x_0 < x_1 < \cdots < x_n = b\).
+\item
+  \(\Delta_i = x_i - x_{i-1}\) is the length of the \(i\)-th segment
+  \([x_{i-1}, x_i]\).
+\item
+  Sample points \(S = \{x_1^*, \ldots, x_n^*\}\) with
+  \(x_i^* \in [x_{i-1}, x_i]\) determine the heights \(f(x_i^*)\) of the
+  rectangles.
+\item
+  The Riemann sum is
+  \[RS(P,S) = f(x_1^*)\,\Delta_1 + \cdots + f(x_n^*)\,\Delta_n = \sum_{i=1}^n f(x_i^*)\,\Delta_i.\]
+\end{itemize}
+
+In this notebook we always split \([a,b]\) into \(n\) segments of equal
+length, so \(\Delta_i = \Delta = \frac{b-a}{n}\) and
+\(x_i = a + i\Delta\). There are three standard ways to pick the sample
+points:
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+method & sample point in \([x_{i-1}, x_i]\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{\textquotesingle{}left\textquotesingle{}} & \(x_i^* = x_{i-1}\),
+the left endpoint \\
+\texttt{\textquotesingle{}right\textquotesingle{}} & \(x_i^* = x_i\),
+the right endpoint \\
+\texttt{\textquotesingle{}midpoint\textquotesingle{}} &
+\(x_i^* = \frac{x_{i-1}+x_i}{2}\), the midpoint \\
+\end{longtable}
+}
+
+Run the next cell to define the function \texttt{riemann\_sum}. You do
+not need to read its code to use it.
+
+\subsection{\texorpdfstring{How to call
+\texttt{riemann\_sum}}{How to call riemann\_sum}}\label{how-to-call-riemann_sum}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(f, a, b, n, method)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{f} is an expression in \texttt{x}, for example \texttt{x**2},
+  \texttt{sp.sin(x)}, \texttt{sp.exp(-x**2)}, \texttt{1/x},
+  \texttt{sp.sqrt(1\ -\ x**2)} (Recall: exponentiation in Python is
+  \texttt{**}. The prefix \texttt{sp.} instructs python to use a library
+  for symbolic computation called \texttt{sympy}.)
+\item
+  \texttt{a}, \texttt{b} are the bounds with \texttt{a\ \textless{}\ b};
+  exact values like \texttt{sp.pi} or \texttt{sp.Rational(1,\ 3)} are
+  fine
+\item
+  \texttt{n} is the number of subintervals
+\item
+  \texttt{method} is \texttt{\textquotesingle{}left\textquotesingle{}},
+  \texttt{\textquotesingle{}right\textquotesingle{}}, or
+  \texttt{\textquotesingle{}midpoint\textquotesingle{}}
+\end{itemize}
+
+Optional arguments: - \texttt{show\_integral=True} also displays the
+exact integral and the error of the Riemann sum - \texttt{show=False}
+skips the picture and just returns the number (useful in loops) -
+\texttt{max\_terms=6} controls how many terms are written out before the
+sum is abbreviated with \(+ \cdots +\)
+
+The function returns the value of the sum. End the line with a semicolon
+\texttt{;} so Jupyter does not print that number a second time.
+
+\section{Part 1: Start}\label{part-1-start}
+
+We start with \(f(x) = x\) on \([1,2]\) and \(n = 5\) subintervals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(x, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-3-output-1.png}}
+
+$\displaystyle f(x) = x, \qquad [a, b] = [1, 2], \qquad n = 5$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{2 - 1}{5} = \frac{1}{5}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 5)$
+
+$\displaystyle \text{left sample points: } x_i^* = x_{i-1} = a + (i-1)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{5} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{5}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{5} \left[ f\!\left(1\right) + f\!\left(\frac{6}{5}\right) + f\!\left(\frac{7}{5}\right) + f\!\left(\frac{8}{5}\right) + f\!\left(\frac{9}{5}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{5} \left[ 1 + \frac{6}{5} + \frac{7}{5} + \frac{8}{5} + \frac{9}{5} \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{7}{5} \approx 1.4}$
+
+In class, we computed the actual value of the integral
+\(\int_a^b x dx\). How does this value compare? Increase \texttt{n} in
+the cell above and see what happens.
+
+\section{Part 2: Left, right, and midpoint
+sums}\label{part-2-left-right-and-midpoint-sums}
+
+Now we look at the function \(f(x) = x^2\) on \([0,1]\) and \(n = 4\)
+subintervals.
+
+\textbf{PREDICT} (on paper, before running anything): - Will the left
+sum overestimate or underestimate the area under \(x^2\)? What about the
+right sum? - Compute the left sum by hand. You should need nothing more
+than adding four fractions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-4-output-1.png}}
+
+$\displaystyle f(x) = x^{2}, \qquad [a, b] = [0, 1], \qquad n = 4$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{4} = \frac{1}{4}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 4)$
+
+$\displaystyle \text{left sample points: } x_i^* = x_{i-1} = a + (i-1)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{4} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{4}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{4} \left[ f\!\left(0\right) + f\!\left(\frac{1}{4}\right) + f\!\left(\frac{1}{2}\right) + f\!\left(\frac{3}{4}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{4} \left[ 0 + \frac{1}{16} + \frac{1}{4} + \frac{9}{16} \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{7}{32} \approx 0.21875}$
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-5-output-1.png}}
+
+$\displaystyle f(x) = x^{2}, \qquad [a, b] = [0, 1], \qquad n = 4$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{4} = \frac{1}{4}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 4)$
+
+$\displaystyle \text{right sample points: } x_i^* = x_i = a + i\,\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{4} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{4}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{4} \left[ f\!\left(\frac{1}{4}\right) + f\!\left(\frac{1}{2}\right) + f\!\left(\frac{3}{4}\right) + f\!\left(1\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{4} \left[ \frac{1}{16} + \frac{1}{4} + \frac{9}{16} + 1 \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{15}{32} \approx 0.46875}$
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{, show\_integral}\OperatorTok{=}\VariableTok{True}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-6-output-1.png}}
+
+$\displaystyle f(x) = x^{2}, \qquad [a, b] = [0, 1], \qquad n = 4$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{4} = \frac{1}{4}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 4)$
+
+$\displaystyle \text{midpoint sample points: } x_i^* = \frac{x_{i-1} + x_i}{2} = a + \left(i - \tfrac{1}{2}\right)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{4} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{4}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{4} \left[ f\!\left(\frac{1}{8}\right) + f\!\left(\frac{3}{8}\right) + f\!\left(\frac{5}{8}\right) + f\!\left(\frac{7}{8}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{4} \left[ \frac{1}{64} + \frac{9}{64} + \frac{25}{64} + \frac{49}{64} \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{21}{64} \approx 0.328125}$
+
+$\displaystyle \int_{0}^{1} x^{2}\, dx = \frac{1}{3}$
+
+$\displaystyle \text{error: } RS(P, S) - \int_{0}^{1} f\,dx \approx -0.005208$
+
+\textbf{VERIFY:} The left and right sums share almost all of their
+terms. Show that for any \(f\) and equally spaced partition,
+\[RS_{\text{right}} - RS_{\text{left}} = \Delta\,\bigl(f(b) - f(a)\bigr),\]
+and check this against the two numbers you just computed.
+
+\textbf{REFLECT:} Your prediction about over- and underestimates
+depended on a property of \(x^2\) on \([0,1]\). Which property? State a
+general claim about left and right sums for functions with that
+property.
+
+\section{Part 3: Refining the
+partition}\label{part-3-refining-the-partition}
+
+In lecture, the approximation got better by refining the partition. Let
+us watch that happen. Once \(n\) is larger than 6, the written-out sum
+is abbreviated with \(+ \cdots +\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{16}\NormalTok{, }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, show\_integral}\OperatorTok{=}\VariableTok{True}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-7-output-1.png}}
+
+$\displaystyle f(x) = x^{2}, \qquad [a, b] = [0, 1], \qquad n = 16$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{16} = \frac{1}{16}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 16)$
+
+$\displaystyle \text{left sample points: } x_i^* = x_{i-1} = a + (i-1)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{16} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{16}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{16} \left[ f\!\left(0\right) + f\!\left(\frac{1}{16}\right) + f\!\left(\frac{1}{8}\right) + \cdots + f\!\left(\frac{7}{8}\right) + f\!\left(\frac{15}{16}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{16} \left[ 0 + 0.00390625 + 0.015625 + \cdots + 0.765625 + 0.878906 \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{155}{512} \approx 0.302734375}$
+
+$\displaystyle \int_{0}^{1} x^{2}\, dx = \frac{1}{3}$
+
+$\displaystyle \text{error: } RS(P, S) - \int_{0}^{1} f\,dx \approx -0.0306$
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{200}\NormalTok{, }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, show\_integral}\OperatorTok{=}\VariableTok{True}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-8-output-1.png}}
+
+$\displaystyle f(x) = x^{2}, \qquad [a, b] = [0, 1], \qquad n = 200$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{200} = \frac{1}{200}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 200)$
+
+$\displaystyle \text{left sample points: } x_i^* = x_{i-1} = a + (i-1)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{200} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{200}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{200} \left[ f\!\left(0\right) + f\!\left(\frac{1}{200}\right) + f\!\left(\frac{1}{100}\right) + \cdots + f\!\left(\frac{99}{100}\right) + f\!\left(\frac{199}{200}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{200} \left[ 0 + 2.5 \cdot 10^{-5} + 0.0001 + \cdots + 0.9801 + 0.990025 \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{26467}{80000} \approx 0.3308375}$
+
+$\displaystyle \int_{0}^{1} x^{2}\, dx = \frac{1}{3}$
+
+$\displaystyle \text{error: } RS(P, S) - \int_{0}^{1} f\,dx \approx -0.002496$
+
+\section{Part 4: Back to the circle}\label{part-4-back-to-the-circle}
+
+We started the Riemann integral lecture by approximating the area
+\(\pi\) of the unit circle with regular \(n\)-gons. The quarter of the
+unit disk in the first quadrant is the region under
+\(f(x) = \sqrt{1 - x^2}\) on \([0,1]\), so
+\(4\int_0^1 \sqrt{1-x^2}\,dx = \pi\).
+
+\textbf{PREDICT:} Is the left sum of \(\sqrt{1-x^2}\) on \([0,1]\) an
+overestimate or an underestimate? Why?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(sp.sqrt(}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ x}\OperatorTok{**}\DecValTok{2}\NormalTok{), }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, show\_integral}\OperatorTok{=}\VariableTok{True}\NormalTok{)}\OperatorTok{;}
+
+\CommentTok{\# }\AlertTok{TODO}\CommentTok{: find the smallest n for which 4 * (left sum) is within 10**({-}3) of pi.}
+\CommentTok{\#   Use riemann\_sum(..., show=False) inside a loop.}
+\CommentTok{\# }\AlertTok{TODO}\CommentTok{: do the same for the midpoint sum. How much smaller is the n you need?}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-9-output-1.png}}
+
+$\displaystyle f(x) = \sqrt{1 - x^{2}}, \qquad [a, b] = [0, 1], \qquad n = 5$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{5} = \frac{1}{5}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 5)$
+
+$\displaystyle \text{left sample points: } x_i^* = x_{i-1} = a + (i-1)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{5} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{5}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{5} \left[ f\!\left(0\right) + f\!\left(\frac{1}{5}\right) + f\!\left(\frac{2}{5}\right) + f\!\left(\frac{3}{5}\right) + f\!\left(\frac{4}{5}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{5} \left[ 1 + 0.979796 + 0.916515 + 0.8 + 0.6 \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{0.8592622072}$
+
+$\displaystyle \int_{0}^{1} \sqrt{1 - x^{2}}\, dx = \frac{\pi}{4} \approx 0.7853981634$
+
+$\displaystyle \text{error: } RS(P, S) - \int_{0}^{1} f\,dx \approx 0.07386$
+
+\section{Part 5: Experiment on your
+own}\label{part-5-experiment-on-your-own}
+
+Change the function, bounds, \(n\), and method in the cell below and run
+it again. If \texttt{ipywidgets} is installed, the cell after it gives
+you sliders instead.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f }\OperatorTok{=}\NormalTok{ sp.exp(}\OperatorTok{{-}}\NormalTok{x}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
+\NormalTok{riemann\_sum(f, }\OperatorTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{, show\_integral}\OperatorTok{=}\VariableTok{True}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-10-output-1.png}}
+
+$\displaystyle f(x) = e^{- x^{2}}, \qquad [a, b] = [-2, 2], \qquad n = 10$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{2 - \left(-2\right)}{10} = \frac{2}{5}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 10)$
+
+$\displaystyle \text{midpoint sample points: } x_i^* = \frac{x_{i-1} + x_i}{2} = a + \left(i - \tfrac{1}{2}\right)\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{10} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{10}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{2}{5} \left[ f\!\left(- \frac{9}{5}\right) + f\!\left(- \frac{7}{5}\right) + f\!\left(-1\right) + \cdots + f\!\left(\frac{7}{5}\right) + f\!\left(\frac{9}{5}\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{2}{5} \left[ 0.0391639 + 0.140858 + 0.367879 + \cdots + 0.140858 + 0.0391639 \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{1.765094018}$
+
+$\displaystyle \int_{-2}^{2} e^{- x^{2}}\, dx = \sqrt{\pi} \operatorname{erf}{\left(2 \right)} \approx 1.764162782$
+
+$\displaystyle \text{error: } RS(P, S) - \int_{-2}^{2} f\,dx \approx 0.0009312$
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Interactive version: move the slider or change the method}
+\ControlFlowTok{try}\NormalTok{:}
+    \ImportTok{from}\NormalTok{ ipywidgets }\ImportTok{import}\NormalTok{ interact, IntSlider, Dropdown}
+
+    \KeywordTok{def}\NormalTok{ explore(n}\OperatorTok{=}\DecValTok{4}\NormalTok{, method}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{):}
+\NormalTok{        riemann\_sum(sp.sin(x) }\OperatorTok{+} \FloatTok{1.5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\OperatorTok{*}\NormalTok{sp.pi, n, method, show\_integral}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+
+\NormalTok{    interact(explore,}
+\NormalTok{             n}\OperatorTok{=}\NormalTok{IntSlider(}\BuiltInTok{min}\OperatorTok{=}\DecValTok{1}\NormalTok{, }\BuiltInTok{max}\OperatorTok{=}\DecValTok{100}\NormalTok{, step}\OperatorTok{=}\DecValTok{1}\NormalTok{, value}\OperatorTok{=}\DecValTok{4}\NormalTok{),}
+\NormalTok{             method}\OperatorTok{=}\NormalTok{Dropdown(options}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}midpoint\textquotesingle{}}\NormalTok{], value}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{))}\OperatorTok{;}
+\ControlFlowTok{except} \PreprocessorTok{ImportError}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}ipywidgets is not installed; use the cell above instead.\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+interactive(children=(IntSlider(value=4, description='n', min=1), Dropdown(description='method', options=('lef…
+\end{verbatim}
+
+\section{Part 6: when Riemann sums
+fail}\label{part-6-when-riemann-sums-fail}
+
+Riemann sums are defined for bounded functions. Look at what happens for
+\(f(x) = 1/x\) on \([0,1]\) using right sums (the left sum would need
+\(f(0)\), which does not exist).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{riemann\_sum(}\DecValTok{1}\OperatorTok{/}\NormalTok{x, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{)}\OperatorTok{;}
+
+\ControlFlowTok{for}\NormalTok{ n }\KeywordTok{in}\NormalTok{ [}\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{10000}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(n, riemann\_sum(}\DecValTok{1}\OperatorTok{/}\NormalTok{x, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, n, }\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, show}\OperatorTok{=}\VariableTok{False}\NormalTok{))}
+
+\CommentTok{\# }\AlertTok{TODO}\CommentTok{: what happens to the sums as n grows? Compare with 1/sp.sqrt(x) on [0, 1].}
+\CommentTok{\#   The first rectangle is always very tall in both cases, }
+\CommentTok{\#    so why do the two behave so differently?}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week05_Riemann_Sums_files/figure-pdf/cell-12-output-1.png}}
+
+$\displaystyle f(x) = \frac{1}{x}, \qquad [a, b] = [0, 1], \qquad n = 10$
+
+$\displaystyle \Delta = \frac{b-a}{n} = \frac{1 - 0}{10} = \frac{1}{10}, \qquad x_i = a + i\,\Delta \quad (i = 0, 1, \ldots, 10)$
+
+$\displaystyle \text{right sample points: } x_i^* = x_i = a + i\,\Delta$
+
+$\displaystyle RS(P, S) = \sum_{i=1}^{10} f(x_i^*)\,\Delta = \Delta \left[ f(x_1^*) + f(x_2^*) + \cdots + f(x_{10}^*) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{10} \left[ f\!\left(\frac{1}{10}\right) + f\!\left(\frac{1}{5}\right) + f\!\left(\frac{3}{10}\right) + \cdots + f\!\left(\frac{9}{10}\right) + f\!\left(1\right) \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \frac{1}{10} \left[ 10 + 5 + \frac{10}{3} + \cdots + \frac{10}{9} + 1 \right]$
+
+$\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{7381}{2520} \approx 2.928968254}$
+
+\begin{verbatim}
+10 2.9289682539682538
+100 5.187377517639621
+1000 7.485470860550345
+10000 9.78760603604438
+\end{verbatim}
 
 
 

@@ -203,18 +203,18 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[chapter]
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
 \theoremstyle{remark}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-09-25}
+\date{2026-09-29}
 \begin{document}
 \maketitle
 
@@ -4783,6 +4783,533 @@ $\displaystyle \phantom{RS(P, S)} = \mathbf{\frac{7381}{2520} \approx 2.92896825
 1000 7.485470860550345
 10000 9.78760603604438
 \end{verbatim}
+
+\chapter{Properties of the Integral}\label{properties-of-the-integral}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §2.3.a--d: additivity, the integral of
+a sum and of a constant multiple, estimating integrals, and the mean
+value theorem for integrals. The table of basic integrals draws on C\&J
+§2.2.c--e.
+
+\end{tcolorbox}
+
+\section{The Integral as Signed Area}\label{the-integral-as-signed-area}
+
+\begin{refremark}
+Nothing in Definition~\ref{def-riemann-sum} or
+Definition~\ref{def-riemann-integral} requires \(f\ge0\): the integral
+is defined for every continuous \(f\) on \([a,b]\). But the
+identification \[
+\int_a^b f(x)\,dx = \text{area under the graph of } f
+\] is only valid when \(f\ge 0\). If \(f\) takes negative values, the
+corresponding terms \(f(x_i^*)\,\Delta_i\) of a Riemann sum are
+negative. So in general the integral measures \textbf{signed area}: area
+above the \(x\)-axis counts positively, area below the \(x\)-axis counts
+negatively.
+
+\label{rem-signed-area}
+
+\end{refremark}
+
+\begin{example}[]\protect\hypertarget{exm-integral-x-symmetric}{}\label{exm-integral-x-symmetric}
+
+\hfill\break
+Let \(f(x)=x\) and \(b>0\). By Example~\ref{exm-integral-x}, \[
+\int_{-b}^{b} x\,dx = \frac{b^2-(-b)^2}{2} = 0 .
+\] Geometrically, the region between the graph and the \(x\)-axis
+consists of two triangles of area \(\tfrac{b^2}{2}\) each: one above the
+axis over \([0,b]\) (positive area) and one below the axis over
+\([-b,0]\) (negative area). They cancel.
+
+\end{example}
+
+If we want the \textbf{total} (unsigned) area between the graph of \(f\)
+and the \(x\)-axis, we can compute \(\int_a^b |f(x)| dx\)
+
+\section{Additivity}\label{additivity}
+
+\begin{proposition}[Additivity]\protect\hypertarget{prp-additivity}{}\label{prp-additivity}
+
+Let \(f\) be continuous on \([a,b]\) and \(a<c<b\). Then \[
+\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx.
+\]
+
+\end{proposition}
+
+For \(f\ge0\) this is what the area interpretation predicts: the
+vertical line \(x=c\) cuts the region under the graph into a part
+\(A_1\) over \([a,c]\) and a part \(A_2\) over \([c,b]\), and the total
+area is \(A_1+A_2\).
+
+\begin{proof}
+The idea is that any Riemann sum for \([a,b]\) in which \(c\) is a
+division point splits into a Riemann sum for \([a,c]\) plus one for
+\([c,b]\). If \(c = x_m\) is a point of the partition
+\(a=x_0<\cdots<x_n=b\), then \[
+\sum_{i=1}^n f(x_i^*)\,\Delta_i = \sum_{i=1}^m f(x_i^*)\,\Delta_i + \sum_{i=m+1}^n f(x_i^*)\,\Delta_i ,
+\] where the first sum on the right is a Riemann sum for a partition of
+\([a,c]\) into \(m\) segments, and the second one is a Riemann sum for a
+partition of \([c,b]\) into \(n-m\) segments.
+
+For equipartitions of \([a,b]\), the point \(c\) is usually not a
+division point. But by Theorem~\ref{thm-riemann-general} we may use
+\emph{any} partitions whose mesh tends to \(0\). So let \(P_n\) consist
+of an equipartition of \([a,c]\) into \(n\) segments followed by an
+equipartition of \([c,b]\) into \(n\) segments, and let \(S_n\) be the
+right endpoints of its segments. Then
+\(\|P_n\| = \max\big(\tfrac{c-a}{n},\tfrac{b-c}{n}\big)\to0\), and the
+splitting above reads \[
+RS(P_n,S_n) = RHS_n\big(f,[a,c]\big) + RHS_n\big(f,[c,b]\big).
+\] Letting \(n\to\infty\), the left side tends to \(\int_a^b f\) by
+Theorem~\ref{thm-riemann-general}, and the right side tends to
+\(\int_a^c f + \int_c^b f\) by Definition~\ref{def-riemann-integral} and
+the limit laws (Proposition~\ref{prp-limit-laws}).
+\end{proof}
+
+Rearranging gives a formula that is often helpful for computing areas.
+
+\begin{corollary}[]\protect\hypertarget{cor-integral-difference}{}\label{cor-integral-difference}
+
+\hfill\break
+Let \(f\) be continuous on \([a,b]\) and \(a<c<b\). Then \[
+\int_c^b f(x)\,dx = \int_a^b f(x)\,dx - \int_a^c f(x)\,dx .
+\]
+
+\end{corollary}
+
+\begin{example}[]\protect\hypertarget{exm-x-squared-difference}{}\label{exm-x-squared-difference}
+
+\hfill\break
+For \(0<a<b\), the computation of \(\int_0^b x^2\,dx = \frac{b^3}{3}\)
+from the previous chapter and Corollary~\ref{cor-integral-difference}
+give \[
+\int_a^b x^2\,dx = \int_0^b x^2\,dx - \int_0^a x^2\,dx = \frac{b^3}{3} - \frac{a^3}{3},
+\] without redoing the Riemann sum computation of
+Exercise~\ref{exr-integral-x-squared-general}.
+
+\end{example}
+
+\section{\texorpdfstring{Integrals with
+\(a\ge b\)}{Integrals with a\textbackslash ge b}}\label{integrals-with-age-b}
+
+So far \(\int_a^b f(x)\,dx\) was only defined for \(a<b\). What if
+\(a=b\) or \(a>b\)?
+
+In the case \(a=b\), we see that \(\Delta = \frac{b-a}{n} = 0\) for any
+\(n\), meaning that all Riemann sums are \(0\), too, which in turn makes
+the integral \(0\).
+
+If \(a > b\), \(\Delta\) becomes negative. The partition points \[
+a,\ a+\Delta,\ a+2\Delta,\ \ldots,\ a+n\Delta = b ,
+\] now count from \emph{right to left}. And since \(\Delta\) is
+negative, the Riemann sum will be \((-1)\) times the sum we get when we
+count from left to right. This yields \(\int_b^a f = -\int_a^b f\).
+
+\begin{definition}[]\protect\hypertarget{def-oriented-integral}{}\label{def-oriented-integral}
+
+\hfill\break
+Let \(f\) be continuous on an interval containing \(a\) and \(c\).
+
+\begin{itemize}
+\tightlist
+\item
+  \(\displaystyle\int_a^a f(x)\,dx = 0\) (this only requires \(f\) to be
+  defined at \(a\)).
+\item
+  If \(a<b\), then
+  \(\displaystyle\int_b^a f(x)\,dx = -\int_a^b f(x)\,dx\).
+\end{itemize}
+
+\end{definition}
+
+\begin{exercise}[]\protect\hypertarget{exr-additivity-any-order}{}\label{exr-additivity-any-order}
+
+Let \(f\) be continuous on an interval \(I\). Using
+Proposition~\ref{prp-additivity} and
+Definition~\ref{def-oriented-integral}, show that \[
+\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx
+\] holds for \textbf{all} \(a,b,c\in I\), in any order and also when
+some of them coincide. (Hint: there are six orderings of three distinct
+points. For \(b<c\) with \(a<b\), say, apply
+Proposition~\ref{prp-additivity} to \(a<b<c\).)
+
+\end{exercise}
+
+\section{Sums and Constant Multiples}\label{sums-and-constant-multiples}
+
+\begin{proposition}[Sum
+rule]\protect\hypertarget{prp-sum-rule}{}\label{prp-sum-rule}
+
+Let \(f\) and \(g\) be continuous on \([a,b]\). Then \[
+\int_a^b \big(f(x)+g(x)\big)\,dx = \int_a^b f(x)\,dx + \int_a^b g(x)\,dx .
+\]
+
+\end{proposition}
+
+\begin{proof}
+This follows directly from the definition via Riemann sums. For the
+right-hand sums with \(\Delta = \frac{b-a}{n}\), \[
+\begin{aligned}
+RHS_n(f+g) &= \sum_{i=1}^n \big(f(a+i\Delta) + g(a+i\Delta)\big)\,\Delta \\
+&= \sum_{i=1}^n f(a+i\Delta)\,\Delta + \sum_{i=1}^n g(a+i\Delta)\,\Delta
+= RHS_n(f) + RHS_n(g).
+\end{aligned}
+\] By the limit laws (Proposition~\ref{prp-limit-laws}), \begin{align}
+\int_a^b (f+g) & = \lim_{n\to\infty} RHS_n(f+g) = \lim_{n\to\infty}\big(RHS_n(f)+RHS_n(g)\big) \\
+ & = \lim_{n\to\infty} RHS_n(f) + \lim_{n\to\infty} RHS_n(g) = \int_a^b f + \int_a^b g .
+\end{align}
+\end{proof}
+
+\begin{proposition}[Constant multiple
+rule]\protect\hypertarget{prp-constant-multiple}{}\label{prp-constant-multiple}
+
+Let \(f\) be continuous on \([a,b]\) and \(c\in\mathbb{R}\). Then \[
+\int_a^b c\,f(x)\,dx = c\int_a^b f(x)\,dx .
+\]
+
+\end{proposition}
+
+The proof is the same: \(RHS_n(cf) = c\cdot RHS_n(f)\), and we let
+\(n\to\infty\). Combining the two rules,
+\(\int_a^b(\alpha f + \beta g) = \alpha\int_a^b f + \beta\int_a^b g\)
+for all constants \(\alpha,\beta\); in particular
+\(\int_a^b (f-g) = \int_a^b f - \int_a^b g\). Both rules remain true for
+\(a\ge b\), by Definition~\ref{def-oriented-integral}.
+
+\begin{refremark}
+What about \(\int_a^b f(x)\,g(x)\,dx\)? There is \textbf{no} analogous
+rule: the integral of a product is in general \emph{not} the product of
+the integrals. For instance, with \(f(x)=g(x)=x\) on \([0,1]\), \[
+\int_0^1 x\cdot x\,dx = \frac13
+\qquad\text{but}\qquad
+\int_0^1 x\,dx\cdot\int_0^1 x\,dx = \frac12\cdot\frac12 = \frac14 .
+\] The trouble is already visible in the Riemann sums:
+\(\sum f(x_i)g(x_i)\Delta\) does not factor into
+\(\big(\sum f(x_i)\Delta\big)\big(\sum g(x_i)\Delta\big)\).
+
+\label{rem-no-product-rule}
+
+\end{refremark}
+
+\section{Basic Rules for Integrals}\label{basic-rules-for-integrals}
+
+We collect the integrals of the elementary functions. Some of them can
+be computed directly from Riemann sums: we have done \(x^0\), \(x^1\),
+\(x^2\) (Example~\ref{exm-integral-constant},
+Example~\ref{exm-integral-x}, and the \(x^2\) computation of the
+previous chapter), and C\&J §2.2.c--e carry out \(x^\alpha\) and
+\(\sin\), \(\cos\). All of them will become easy consequences of the
+Fundamental Theorem of Calculus. For now we record them and use them
+freely.
+
+\begin{proposition}[Integrals of elementary
+functions]\protect\hypertarget{prp-basic-integrals}{}\label{prp-basic-integrals}
+
+\[
+\begin{aligned}
+\int_a^b x^\alpha\,dx &= \frac{1}{\alpha+1}\big(b^{\alpha+1}-a^{\alpha+1}\big) \qquad (\alpha\neq-1), \\
+\int_a^b x^{-1}\,dx &= \ln b - \ln a, \\
+\int_a^b \sin x\,dx &= -\big(\cos b - \cos a\big), \\
+\int_a^b \cos x\,dx &= \sin b - \sin a, \\
+\int_a^b e^x\,dx &= e^b - e^a .
+\end{aligned}
+\] Here the interval of integration must lie inside the domain on which
+the integrand is continuous: \(0<a<b\) for \(x^{-1}\) and for general
+real \(\alpha\); any \(a,b\) if \(\alpha\) is a nonnegative integer;
+\(a,b\) on the same side of \(0\) if \(\alpha\) is a negative integer.
+
+\end{proposition}
+
+What about \(\int_a^b \ln x\,dx\)? We will come back to it later.
+
+Combining Proposition~\ref{prp-basic-integrals} with the sum and
+constant multiple rules, we can integrate a wide range of functions, for
+instance every polynomial.
+
+\begin{example}[]\protect\hypertarget{exm-linear-combination}{}\label{exm-linear-combination}
+
+\hfill\break
+\[
+\begin{aligned}
+\int_a^b \big(2x^3 - 4\sin x\big)\,dx
+&= 2\int_a^b x^3\,dx - 4\int_a^b \sin x\,dx \\
+&= 2\Big(\frac14\big(b^4-a^4\big)\Big) - 4\Big(-\big(\cos b - \cos a\big)\Big) \\
+&= \frac12\big(b^4-a^4\big) + 4\big(\cos b-\cos a\big).
+\end{aligned}
+\]
+
+\end{example}
+
+\begin{refremark}
+This leaves open how to integrate products \(f(x)\,g(x)\)
+(Remark~\ref{rem-no-product-rule}) and compositions \(f(g(x))\). Both
+questions will be answered later, by \emph{integration by parts} and
+\emph{substitution}.
+
+\label{rem-products-compositions}
+
+\end{refremark}
+
+\section{Estimating Integrals}\label{estimating-integrals}
+
+Throughout this section, \(a<b\).
+
+\begin{proposition}[]\protect\hypertarget{prp-integral-nonneg}{}\label{prp-integral-nonneg}
+
+\hfill\break
+If \(f(x)\ge0\) for all \(x\in[a,b]\), then \[
+\int_a^b f(x)\,dx \ge 0 .
+\]
+
+\end{proposition}
+
+\begin{proof}
+Every term \(f(x_i^*)\,\Delta_i\) of every Riemann sum for \(f\) is
+\(\ge0\), so every Riemann sum is \(\ge0\). A limit of nonnegative
+numbers is nonnegative (compare the argument at the end of the proof of
+Theorem~\ref{thm-ivt}).
+\end{proof}
+
+\begin{proposition}[]\protect\hypertarget{prp-integral-monotone}{}\label{prp-integral-monotone}
+
+\hfill\break
+If \(f(x)\ge g(x)\) for all \(x\in[a,b]\), then \[
+\int_a^b f(x)\,dx \ge \int_a^b g(x)\,dx .
+\]
+
+\end{proposition}
+
+\begin{proof}
+Apply Proposition~\ref{prp-integral-nonneg} to \(f-g\ge0\) and use
+\(\int_a^b f - \int_a^b g = \int_a^b (f-g)\)
+(Proposition~\ref{prp-sum-rule},
+Proposition~\ref{prp-constant-multiple}).
+\end{proof}
+
+Now let \(f\colon[a,b]\to\mathbb{R}\) be continuous. As we will show
+later (this is the \emph{Extreme Value Theorem}, see
+Remark~\ref{rem-darboux-informal}), \(f\) assumes a maximum and a
+minimum on \([a,b]\). In particular, there exist \(m\), \(M\) such that
+\[
+m\le f(x)\le M \qquad\text{for all } x\in[a,b].
+\] Interpret \(m\) and \(M\) as constant functions on \([a,b]\) and
+apply Proposition~\ref{prp-integral-monotone}: \[
+\int_a^b m\,dx \le \int_a^b f(x)\,dx \le \int_a^b M\,dx .
+\] For any constant \(C\), \(\int_a^b C\,dx = C\int_a^b 1\,dx = C(b-a)\)
+(Example~\ref{exm-integral-constant}). Hence:
+
+\begin{corollary}[Min--max
+bound]\protect\hypertarget{cor-min-max-bound}{}\label{cor-min-max-bound}
+
+Let \(f\) be continuous on \([a,b]\), with minimum value \(m\) and
+maximum value \(M\). Then \[
+m(b-a) \le \int_a^b f(x)\,dx \le M(b-a).
+\]
+
+\end{corollary}
+
+Geometrically (for \(f\ge0\)), \(m(b-a)\) is the area of the rectangle
+of height \(m\) \emph{inscribed} under the graph, and \(M(b-a)\) is the
+area of the rectangle of height \(M\) \emph{circumscribing} it. The
+argument only used \(m\le f\le M\), so the bound holds for any lower
+bound \(m\) and upper bound \(M\) of \(f\) on \([a,b]\); the minimum and
+maximum give the best bound of this kind.
+
+This bound is simple but immensely useful. Crude on a single interval,
+it becomes powerful when applied on many small intervals and added up.
+
+\begin{example}[Harmonic
+series]\protect\hypertarget{exm-harmonic-divergence}{}\label{exm-harmonic-divergence}
+
+\hfill\break
+What happens to the sequence \[
+a_n = 1 + \frac12 + \frac13 + \cdots + \frac1n
+\] (the partial sums of the \textbf{harmonic series}) as \(n\to\infty\)?
+
+Let \(f(x)=\frac1x\) on \([k,k+1]\), \(k\in\mathbb{N}\). Since \(f\) is
+decreasing, its minimum and maximum on this interval are
+\(m=\frac1{k+1}\) and \(M=\frac1k\), attained at the endpoints.
+Corollary~\ref{cor-min-max-bound} gives \[
+\frac1{k+1} = \frac1{k+1}\big((k+1)-k\big) \;\le\; \int_k^{k+1}\frac1x\,dx
+\;\le\; \frac1k\big((k+1)-k\big) = \frac1k .
+\] Sum all these bounds for \(k=1,\ldots,n\): \[
+\frac12 + \frac13 + \cdots + \frac1{n+1}
+\;\le\; \int_1^2 \frac1x\,dx + \int_2^3\frac1x\,dx + \cdots + \int_n^{n+1}\frac1x\,dx
+\;\le\; 1 + \frac12 + \cdots + \frac1n .
+\] By repeated use of Proposition~\ref{prp-additivity}, the integrals in
+the middle combine into a single integral, and by
+Proposition~\ref{prp-basic-integrals}, \[
+\frac12 + \frac13 + \cdots + \frac1{n+1} \;\le\; \int_1^{n+1}\frac1x\,dx = \ln(n+1) - \ln 1 = \ln(n+1)
+\;\le\; a_n .
+\] Since \(\ln\) is increasing with range \(\mathbb{R}\)
+(Definition~\ref{def-logarithm}), for every \(C\) there is an \(N\) with
+\(\ln(N+1) > C\), and then \(a_n\ge\ln(n+1)>C\) for all \(n\ge N\). So
+\(a_n\to\infty\): the harmonic series diverges.
+
+\end{example}
+
+\section{The Integral as a Mean
+Value}\label{the-integral-as-a-mean-value}
+
+Consider the right-hand sum with \(\Delta=\frac{b-a}{n}\) and
+\(x_i = a+i\Delta\): \[
+RHS_n(f) = \sum_{i=1}^n f(x_i)\,\Delta = \frac{b-a}{n}\big(f(x_1)+\cdots+f(x_n)\big)
+= (b-a)\cdot\frac{f(x_1)+\cdots+f(x_n)}{n} .
+\] The fraction on the right is the \textbf{average} (or
+\textbf{arithmetic mean}) of the \(n\) values \(f(x_1),\ldots,f(x_n)\).
+So \[
+\frac{RHS_n(f)}{b-a} = \operatorname{avg}\big(f(x_1),\ldots,f(x_n)\big)
+\] is the average of \(f\) over \(n\) equally spaced sample points --- a
+``level-\(n\) average''. As \(n\to\infty\),
+\(RHS_n(f)\to\int_a^b f(x)\,dx\), hence \[
+\frac{RHS_n(f)}{b-a} \longrightarrow \frac1{b-a}\int_a^b f(x)\,dx .
+\] The limit is an ``\(\infty\)-average'': the average of \emph{all}
+values of \(f\) on \([a,b]\).
+
+\begin{definition}[]\protect\hypertarget{def-average-value}{}\label{def-average-value}
+
+\hfill\break
+Let \(f\) be continuous on \([a,b]\). The \textbf{average} or
+\textbf{mean value} of \(f\) on \([a,b]\) is \[
+\operatorname{avg}\big(f,[a,b]\big) := \frac1{b-a}\int_a^b f(x)\,dx .
+\]
+
+\end{definition}
+
+\begin{example}[]\protect\hypertarget{exm-averages}{}\label{exm-averages}
+
+\hfill\break
+Using Proposition~\ref{prp-basic-integrals}: \[
+\begin{aligned}
+\operatorname{avg}\big(x,[0,1]\big) &= \frac11\int_0^1 x\,dx = \frac{1^2}{2}-\frac{0^2}{2} = \frac12, \\[4pt]
+\operatorname{avg}\big(\sin x,[0,2\pi]\big) &= \frac1{2\pi}\int_0^{2\pi}\sin x\,dx
+= \frac1{2\pi}\Big(-\big(\cos 2\pi - \cos 0\big)\Big) = \frac1{2\pi}\big(-(1-1)\big) = 0, \\[4pt]
+\operatorname{avg}\big(\sin x,[0,\pi]\big) &= \frac1\pi\Big(-\big(\cos\pi-\cos0\big)\Big)
+= \frac1\pi\big(-(-1-1)\big) = \frac2\pi, \\[4pt]
+\operatorname{avg}\big(x^2,[0,2]\big) &= \frac12\int_0^2x^2\,dx = \frac12\Big(\frac{2^3}{3}-\frac{0^3}{3}\Big)
+= \frac43 .
+\end{aligned}
+\] Over the full period \([0,2\pi]\) the positive and negative areas of
+\(\sin\) cancel (Remark~\ref{rem-signed-area}), so the average is \(0\).
+Over \([0,\pi]\), where \(\sin\ge0\), the average
+\(\frac2\pi\approx0.64\) lies strictly between the minimum \(0\) and the
+maximum \(1\).
+
+\end{example}
+
+\textbf{Connection with the min--max bound.} Let \(f\) be continuous on
+\([a,b]\). Then \(f\) assumes its minimum \(m\) and its maximum \(M\) on
+\([a,b]\): there exist \(x_m, x_M\in[a,b]\) with \[
+f(x_m) = m, \qquad f(x_M)=M, \qquad\text{and}\qquad m\le f(x)\le M \ \text{ for all } a\le x\le b.
+\] Dividing the inequality of Corollary~\ref{cor-min-max-bound} by
+\(b-a>0\) gives \[
+m \;\le\; \underbrace{\frac1{b-a}\int_a^b f(x)\,dx}_{=\operatorname{avg}(f,[a,b])} \;\le\; M .
+\] The average of a continuous function lies between its smallest and
+its largest value. By the Intermediate Value Theorem, \(f\) assumes
+\textbf{every} value between \(m\) and \(M\) --- in particular its
+average.
+
+\begin{theorem}[Mean Value Theorem for
+Integrals]\protect\hypertarget{thm-mvt-integrals}{}\label{thm-mvt-integrals}
+
+Let \(f\) be continuous on \([a,b]\). Then there exists \(c\in[a,b]\)
+with \[
+\frac1{b-a}\int_a^b f(x)\,dx = f(c),
+\qquad\text{i.e.}\qquad
+\int_a^b f(x)\,dx = f(c)\,(b-a).
+\]
+
+\end{theorem}
+
+\begin{proof}
+Let \(\mu = \operatorname{avg}(f,[a,b])\). As shown above,
+\(f(x_m)=m\le\mu\le M=f(x_M)\). Apply the general form of the
+Intermediate Value Theorem (Remark~\ref{rem-ivt-general}) to \(f\) on
+the closed interval with endpoints \(x_m\) and \(x_M\) (if \(x_m=x_M\),
+then \(m=M\), \(f\) is constant, and any \(c\) works). It yields a point
+\(c\) between \(x_m\) and \(x_M\), hence in \([a,b]\), with
+\(f(c)=\mu\).
+\end{proof}
+
+Geometrically (for \(f\ge0\)): the area under the graph of \(f\) equals
+the area of the rectangle over \([a,b]\) of height \(f(c)\). The parts
+of the region under the graph that stick out above the rectangle exactly
+make up for the parts of the rectangle that lie above the graph.
+
+\begin{refremark}
+\leavevmode
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The theorem only asserts that \emph{some} \(c\) exists; it gives no
+  information about where it is, and \(c\) need not be unique. For
+  \(\sin\) on \([0,2\pi]\) (Example~\ref{exm-averages}), each of
+  \(c=0,\pi,2\pi\) works.
+\item
+  Continuity is essential. Let \(f(x)=0\) for \(x<1\) and \(f(x)=1\) for
+  \(x\ge1\), on \([0,2]\). Computing piece by piece,
+  \(\int_0^2 f = 0 + 1 = 1\), so the average is \(\frac12\) --- a value
+  \(f\) never takes.
+\item
+  Since both sides of \(\int_a^b f = f(c)(b-a)\) change sign when \(a\)
+  and \(b\) are interchanged (Definition~\ref{def-oriented-integral}),
+  the theorem also holds for \(a>b\), with \(c\) between \(b\) and
+  \(a\).
+\end{enumerate}
+
+\label{rem-mvt-remarks}
+
+\end{refremark}
+
+\section{Summary}\label{summary-8}
+
+\begin{itemize}
+\tightlist
+\item
+  The integral of a continuous function is defined whether or not
+  \(f\ge0\); in general it is a \textbf{signed area}
+  (Remark~\ref{rem-signed-area}), and positive and negative
+  contributions can cancel (Example~\ref{exm-integral-x-symmetric}). The
+  \textbf{total area} is \(\int_a^b\lvert f \rvert\).
+\item
+  \textbf{Additivity} (Proposition~\ref{prp-additivity}):
+  \(\int_a^b f = \int_a^c f + \int_c^b f\) for \(a<c<b\). Requiring that
+  additivity survive forces \(\int_a^a f = 0\) and
+  \(\int_b^a f = -\int_a^b f\) (Definition~\ref{def-oriented-integral}):
+  integrating from right to left counts area negatively.
+\item
+  \textbf{Linearity}: \(\int(f+g) = \int f + \int g\) and
+  \(\int cf = c\int f\) (Proposition~\ref{prp-sum-rule},
+  Proposition~\ref{prp-constant-multiple}), both straight from the
+  Riemann sums and the limit laws. There is no such rule for products
+  (Remark~\ref{rem-no-product-rule}).
+\item
+  Together with the \textbf{integrals of elementary functions}
+  (Proposition~\ref{prp-basic-integrals}), linearity lets us integrate
+  all linear combinations of them
+  (Example~\ref{exm-linear-combination}).
+\item
+  \textbf{Estimates}: \(f\ge0\Rightarrow\int f\ge0\) and
+  \(f\ge g\Rightarrow\int f\ge\int g\)
+  (Proposition~\ref{prp-integral-nonneg},
+  Proposition~\ref{prp-integral-monotone}). For continuous \(f\) with
+  minimum \(m\) and maximum \(M\), \(m(b-a)\le\int_a^b f\le M(b-a)\)
+  (Corollary~\ref{cor-min-max-bound}). Applied to \(\frac1x\) on the
+  intervals \([k,k+1]\), this shows
+  \(1+\frac12+\cdots+\frac1n\ge\ln(n+1)\to\infty\)
+  (Example~\ref{exm-harmonic-divergence}).
+\item
+  \(\frac1{b-a}\int_a^b f\) is the \textbf{average value} of \(f\) on
+  \([a,b]\) (Definition~\ref{def-average-value}), the limit of the
+  averages of \(f\) over \(n\) equally spaced points. By the
+  Intermediate Value Theorem it is actually attained:
+  \(\int_a^b f = f(c)(b-a)\) for some \(c\in[a,b]\)
+  (Theorem~\ref{thm-mvt-integrals}).
+\end{itemize}
 
 
 

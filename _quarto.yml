@@ -29,6 +29,7 @@ book:
         - 09_riemann_integral.qmd
         - notebooks/Week05_Riemann_Sums.ipynb
         - 10_properties_of_integral.qmd
+        - 11_indefinite_integral.qmd
 
 number-sections: true
 

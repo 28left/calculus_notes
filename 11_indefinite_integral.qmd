@@ -1,0 +1,161 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Indefinite Integral
+
+::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §2.4 (the integral as a function of the upper limit).
+:::
+
+So far we have treated the integral $\int_a^b f(x)\,dx$ (@def-riemann-integral) as a *number*
+attached to a function and an interval. But this number depends on the limits of integration $a$ and
+$b$. If we hold the lower limit fixed and let the upper limit vary, the integral becomes a *function*
+of that upper limit — and it is worth asking what kind of function we get.
+
+## Definition and Basic Formula
+
+To make clear that the upper limit is now the variable, we rename it $x$ and use a different letter,
+say $u$, for the variable of integration. (Recall that the name of the integration variable is
+irrelevant: $\int_a^b f(x)\,dx = \int_a^b f(u)\,du$.)
+
+::: {#def-indefinite-integral}
+\
+Let $f$ be continuous on an interval $I$, and let $\alpha\in I$. The function
+$$
+\Phi_\alpha(x) = \int_\alpha^x f(u)\,du \qquad (x\in I)
+$$
+is called **an indefinite integral** of $f$. For $x<\alpha$ and $x=\alpha$ the integral is understood
+in the sense of @def-oriented-integral; in particular $\Phi_\alpha(\alpha)=0$.
+:::
+
+::: {#rem-an-indefinite-integral}
+Note the article: *an* indefinite integral, not *the* indefinite integral. If we choose a different
+lower limit $\beta$, we obtain a different indefinite integral,
+$$
+\Phi_\beta(x) = \int_\beta^x f(u)\,du.
+$$
+As we will see in a moment, the choice of the lower limit is not that important. So we fix $\alpha$
+once and for all and simply write
+$$
+\Phi(x) = \Phi_\alpha(x).
+$$
+:::
+
+::: {#prp-indefinite-integral-basic}
+## Basic properties of the indefinite integral
+Let $f$ be continuous on $I$ and $\Phi(x) = \int_\alpha^x f(u)\,du$.
+
+1. If we know $\Phi$, we can compute **any** definite integral of $f$: for all $a,b\in I$,
+   $$
+   \int_a^b f(x)\,dx = \Phi(b) - \Phi(a).
+   $$
+2. Any other indefinite integral differs from $\Phi$ by a constant: for every $\beta\in I$,
+   $$
+   \Phi_\beta(x) = \int_\beta^x f(u)\,du = \Phi(x) - \Phi(\beta).
+   $$
+
+::: {.proof}
+(1) By additivity of the integral (@prp-additivity, in the general form of
+@exr-additivity-any-order, since $a$, $b$, $\alpha$ may lie in any order) and by
+@def-oriented-integral,
+$$
+\begin{aligned}
+\int_a^b f(x)\,dx
+  &= \int_a^\alpha f(x)\,dx + \int_\alpha^b f(x)\,dx \\
+  &= -\int_\alpha^a f(x)\,dx + \int_\alpha^b f(x)\,dx \\
+  &= \Phi(b) - \Phi(a).
+\end{aligned}
+$$
+
+(2) This is the special case $a = \beta$, $b = x$ of (1).
+:::
+:::
+
+::: {#rem-constant-is-fixed}
+In (2) the constant $-\Phi(\beta)$ depends on $\beta$, but **not** on $x$. So all the indefinite
+integrals of $f$ have graphs that are vertical translates of one another; changing the lower limit only
+shifts the graph up or down. Part (1) generalizes @cor-integral-difference: there the lower limit $a$
+played the role of $\alpha$.
+:::
+
+## Properties of $\Phi$ as a Function
+
+What properties does $\Phi(x)$ have as a function? Geometrically, $\Phi(x)$ is the signed area
+(@rem-signed-area) under the graph of $f$ between $\alpha$ and $x$, and moving $x$ to the right adds
+the signed area over the new piece of the interval.
+
+::: {#prp-indefinite-integral-monotone}
+\
+
+- If $f\ge 0$ on $I$, then $\Phi$ is increasing (@def-monotone): as $x$ gets bigger we add positive
+  area.
+- If $f\le 0$ on $I$, then $\Phi$ is decreasing: as $x$ gets bigger we add negative area.
+
+::: {.proof}
+Let $x<y$ in $I$ (for $x=y$ there is nothing to show). By @prp-indefinite-integral-basic,
+$$
+\Phi(y) - \Phi(x) = \int_x^y f(u)\,du.
+$$
+If $f\ge 0$, this integral is $\ge 0$ by @prp-integral-nonneg, so $\Phi(x)\le\Phi(y)$. If $f\le 0$,
+apply @prp-integral-nonneg to $-f\ge0$ and use @prp-constant-multiple to get
+$\int_x^y f(u)\,du\le 0$, so $\Phi(x)\ge\Phi(y)$.
+:::
+:::
+
+### Continuity of the indefinite integral
+
+::: {#thm-indefinite-integral-continuous}
+\
+If $f$ is continuous on $I$, then $\Phi$ is continuous on $I$.
+
+::: {.proof}
+Let $x, y\in I$. By @prp-indefinite-integral-basic and the Mean Value Theorem for Integrals
+(@thm-mvt-integrals, which requires $f$ continuous; for $y<x$ use @rem-mvt-remarks, part 3),
+$$
+\Phi(y) - \Phi(x) = \int_x^y f(u)\,du = f(c)\,(y-x) \qquad (\ast)
+$$
+for some $c$ between $x$ and $y$.
+
+What happens if $y\to x$? For $\Phi$ to be continuous at $x$, we need $\Phi(y)\to\Phi(x)$
+(@prp-continuity-via-limit). Using $(\ast)$ and the limit laws (@prp-function-limit-laws),
+$$
+\begin{aligned}
+\lim_{y\to x}\Phi(y)
+  &= \lim_{y\to x}\bigl[\Phi(x) + f(c)\,(y-x)\bigr] \\
+  &= \lim_{y\to x}\Phi(x) + \lim_{y\to x} f(c)\,(y-x) \\
+  &= \Phi(x) + f(x)\cdot 0 = \Phi(x).
+\end{aligned}
+$$
+:::
+:::
+
+::: {#rem-c-depends-on-y}
+The point $c$ in $(\ast)$ depends on $y$, so a little care is needed in the last step. Since $c$ lies
+between $x$ and $y$, we have $c\to x$ as $y\to x$, and hence $f(c)\to f(x)$ by continuity of $f$. In
+fact, all we really need is that $f(c)$ stays **bounded** while $y-x\to 0$ — which is exactly what the
+next result exploits.
+:::
+
+::: {#prp-indefinite-integral-lipschitz}
+## Lipschitz continuity
+Let $f$ be continuous on $I$, let $[a,b]\subseteq I$, and let $M = \max_{[a,b]}\abs{f}$ (this maximum
+exists by the Extreme Value Theorem, see @rem-darboux-informal). Then for all $x, y\in[a,b]$,
+$$
+\abs{\Phi(y) - \Phi(x)} \le M\,\abs{y-x}.
+$$
+A function satisfying an estimate of this kind is called **Lipschitz continuous**.
+
+::: {.proof}
+By $(\ast)$, $\abs{\Phi(y)-\Phi(x)} = \abs{f(c)}\,\abs{y-x}$ with $c$ between $x$ and $y$, so
+$c\in[a,b]$ and $\abs{f(c)}\le M$.
+:::
+:::
+
+::: {#rem-lipschitz-stronger}
+Lipschitz continuity is a stronger property than continuity: given $\eps>0$, the choice
+$\delta = \eps/(M+1)$ works at **every** point of $[a,b]$ simultaneously (compare @exm-linear-continuous,
+where the same kind of $\delta$ appeared). In other words, $\Phi$ is *uniformly continuous* on $[a,b]$
+in the sense of @eq-uniform-continuity, and here we get this directly, with an explicit $\delta$.
+:::

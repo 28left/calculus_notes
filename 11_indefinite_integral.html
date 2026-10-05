@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; The Concept of Function – Math 140H — Honors Calculus I: Lecture Notes</title>
+<title>14&nbsp; The Indefinite Integral – Math 140H — Honors Calculus I: Lecture Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04_elementary_functions.html" rel="next">
-<link href="./notebooks/Week01_Number_Bases.html" rel="prev">
+<link href="./10_properties_of_integral.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +116,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./03_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_riemann_integral.html">The Riemann Integral</a></li><li class="breadcrumb-item"><a href="./11_indefinite_integral.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_functions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03_functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span></a>
   </div>
 </li>
@@ -270,7 +269,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_indefinite_integral.html" class="sidebar-item-text sidebar-link">
+  <a href="./11_indefinite_integral.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></span></a>
   </div>
 </li>
@@ -286,26 +285,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#functions-domain-and-range" id="toc-functions-domain-and-range" class="nav-link active" data-scroll-target="#functions-domain-and-range"><span class="header-section-number">4.1</span> Functions, Domain, and Range</a></li>
-  <li><a href="#injective-functions" id="toc-injective-functions" class="nav-link" data-scroll-target="#injective-functions"><span class="header-section-number">4.2</span> Injective Functions</a></li>
-  <li><a href="#monotone-functions" id="toc-monotone-functions" class="nav-link" data-scroll-target="#monotone-functions"><span class="header-section-number">4.3</span> Monotone Functions</a></li>
-  <li><a href="#even-and-odd-functions" id="toc-even-and-odd-functions" class="nav-link" data-scroll-target="#even-and-odd-functions"><span class="header-section-number">4.4</span> Even and Odd Functions</a></li>
-  <li><a href="#building-new-functions-from-old" id="toc-building-new-functions-from-old" class="nav-link" data-scroll-target="#building-new-functions-from-old"><span class="header-section-number">4.5</span> Building New Functions from Old</a>
+  <li><a href="#definition-and-basic-formula" id="toc-definition-and-basic-formula" class="nav-link active" data-scroll-target="#definition-and-basic-formula"><span class="header-section-number">14.1</span> Definition and Basic Formula</a></li>
+  <li><a href="#properties-of-phi-as-a-function" id="toc-properties-of-phi-as-a-function" class="nav-link" data-scroll-target="#properties-of-phi-as-a-function"><span class="header-section-number">14.2</span> Properties of <span class="math inline">\(\Phi\)</span> as a Function</a>
   <ul class="collapse">
-  <li><a href="#arithmetic-combinations" id="toc-arithmetic-combinations" class="nav-link" data-scroll-target="#arithmetic-combinations">Arithmetic combinations</a></li>
-  <li><a href="#composition" id="toc-composition" class="nav-link" data-scroll-target="#composition">Composition</a></li>
-  <li><a href="#inverse-functions" id="toc-inverse-functions" class="nav-link" data-scroll-target="#inverse-functions">Inverse functions</a></li>
+  <li><a href="#continuity-of-the-indefinite-integral" id="toc-continuity-of-the-indefinite-integral" class="nav-link" data-scroll-target="#continuity-of-the-indefinite-integral">Continuity of the indefinite integral</a></li>
   </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_functions.html">Functions</a></li><li class="breadcrumb-item"><a href="./03_functions.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09_riemann_integral.html">The Riemann Integral</a></li><li class="breadcrumb-item"><a href="./11_indefinite_integral.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></h1>
 </div>
 
 
@@ -322,296 +315,36 @@ window.Quarto = {
 </header>
 
 
-<!-- ::: {.callout-note}
-## Companion reading
-This lecture corresponds to C&J §1.2.
-::: -->
-<p>With the number line in hand, we can start doing calculus — but calculus is not really about individual numbers. It is about <em>dependence</em>: how one quantity changes as another one does. The area of a circle depends on its radius, the height of a falling stone depends on the elapsed time, the pressure of a gas depends on its volume. The mathematical object that captures such a dependence is a <strong>function</strong>, and getting comfortable with the vocabulary now will pay off for the rest of the course.</p>
-<section id="functions-domain-and-range" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="functions-domain-and-range"><span class="header-section-number">4.1</span> Functions, Domain, and Range</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.1</strong></span> <br>
-A <strong>function</strong> <span class="math inline">\(f\)</span> is a rule that assigns to every element <span class="math inline">\(x\)</span> of a set <span class="math inline">\(D\)</span> — the <strong>domain</strong> of <span class="math inline">\(f\)</span> — one single, unambiguously determined object <span class="math inline">\(f(x)\)</span>, its <strong>value</strong> at <span class="math inline">\(x\)</span>, lying in a set <span class="math inline">\(E\)</span> — the <strong>codomain</strong>. We write <span class="math display">\[
-f\colon D \to E, \qquad x \mapsto f(x).
-\]</span> In this course the domain is almost always a subset of the number line, <span class="math inline">\(D\subseteq\mathbb{R}\)</span>, and the codomain is <span class="math inline">\(E=\mathbb{R}\)</span>; we then call <span class="math inline">\(f\)</span> a <strong>real-valued function of a real variable</strong> and write simply <span class="math inline">\(f\colon D\to\mathbb{R}\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p>The word <em>unambiguously</em> is the heart of the definition: for each input <span class="math inline">\(x\in D\)</span> there must be <strong>exactly one</strong> output <span class="math inline">\(f(x)\)</span> — no more (that would not be a rule) and no fewer (every point of the domain must get a value). The domain is part of the data of a function: <span class="math inline">\(x\mapsto x^2\)</span> on <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\(x\mapsto x^2\)</span> on <span class="math inline">\([0,\infty)\)</span> are, strictly speaking, different functions.</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-natural-domain" class="proof remark">
-<p><span class="proof-title"><em>Remark 4.1</em>. </span>When a function is specified by a formula with no domain stated, we adopt the convention that its domain is the <strong>natural domain</strong>: the largest set of real numbers for which the formula makes sense. For <span class="math inline">\(x\mapsto 1/(x-1)\)</span> this is <span class="math inline">\(\mathbb{R}\setminus\{1\}\)</span>; for <span class="math inline">\(x\mapsto\sqrt{x}\)</span> it is <span class="math inline">\([0,\infty)\)</span>. We are always free to <em>restrict</em> to a smaller domain when we want to.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-range" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.2</strong></span> <br>
-The <strong>range</strong> (or <strong>image</strong>) of <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is the set of values it actually attains: <span class="math display">\[
-\operatorname{ran}(f) \;=\; \{\, y\in\mathbb{R}: y = f(x) \text{ for some } x\in D \,\}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="rem-range-vs-codomain" class="proof remark">
-<p><span class="proof-title"><em>Remark 4.2</em>. </span>The range need not fill up the codomain. For <span class="math inline">\(f\colon\mathbb{R}\to\mathbb{R}\)</span>, <span class="math inline">\(f(x)=x^2\)</span>, the codomain is <span class="math inline">\(\mathbb{R}\)</span> but <span class="math display">\[
-\operatorname{ran}(f) = [0,\infty),
-\]</span> since squares are never negative and every <span class="math inline">\(y\ge 0\)</span> is <span class="math inline">\((\sqrt y)^2\)</span>. Saying “<span class="math inline">\(f\)</span> maps into <span class="math inline">\(\mathbb{R}\)</span>” is a statement about where the values are <em>allowed</em> to live; the range records where they <em>actually</em> land.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="injective-functions" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="injective-functions"><span class="header-section-number">4.2</span> Injective Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-injection" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.3</strong></span> <br>
-A function <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is <strong>injective</strong> (or <strong>one-to-one</strong>) if it sends distinct inputs to distinct outputs: <span class="math display">\[
-x\neq y \quad \Rightarrow \quad f(x)\neq f(y),
-\]</span> or equivalently, taking the contrapositive, <span class="math inline">\(f(x)=f(y) \quad \Rightarrow \quad x=y\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-injection" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.1</strong></span> &nbsp;</p>
-<ul>
-<li><span class="math inline">\(f(x)=x^3\)</span> is injective on <span class="math inline">\(\mathbb{R}\)</span>: if <span class="math inline">\(x^3 = y^3\)</span> then <span class="math inline">\(x=y\)</span> (taking cube roots).</li>
-<li><span class="math inline">\(g(x)=x^2\)</span> is <strong>not</strong> injective on <span class="math inline">\(\mathbb{R}\)</span>: <span class="math inline">\(g(-1) = 1 = g(1)\)</span>, yet <span class="math inline">\(-1\neq 1\)</span>. Restricted to <span class="math inline">\([0,\infty)\)</span>, however, <span class="math inline">\(g\)</span> <em>is</em> injective.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<p>Injectivity is exactly the property that lets us run a function backwards; we return to this when we discuss inverse functions below.</p>
-</section>
-<section id="monotone-functions" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="monotone-functions"><span class="header-section-number">4.3</span> Monotone Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-monotone" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.4</strong></span> <br>
-Let <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> with <span class="math inline">\(D\subseteq\mathbb{R}\)</span>. For all <span class="math inline">\(x,w\in D\)</span>, we say <span class="math inline">\(f\)</span> is</p>
-<ul>
-<li><strong>increasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\le f(w)\)</span>;</li>
-<li><strong>strictly increasing</strong> if <span class="math inline">\(\;x &lt; w \quad \Rightarrow \quad f(x) &lt; f(w)\)</span>;</li>
-<li><strong>decreasing</strong> if <span class="math inline">\(\;x\le w \quad \Rightarrow \quad f(x)\ge f(w)\)</span>;</li>
-<li><strong>strictly decreasing</strong> if <span class="math inline">\(\;x &lt; w \quad \Rightarrow \quad f(x) &gt; f(w)\)</span>.</li>
-</ul>
-<p>A function of any of these four types is called <strong>monotone</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-monotone" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.2</strong></span> &nbsp;</p>
-<ul>
-<li><span class="math inline">\(f(x)=x^3\)</span> is strictly increasing on all of <span class="math inline">\(\mathbb{R}\)</span>.</li>
-<li><span class="math inline">\(g\colon[0,\pi]\to\mathbb{R}\)</span>, <span class="math inline">\(g(x)=\cos x\)</span>, is strictly decreasing: as the angle runs from <span class="math inline">\(0\)</span> to <span class="math inline">\(\pi\)</span>, the <span class="math inline">\(x\)</span>-coordinate on the unit circle drops steadily from <span class="math inline">\(1\)</span> to <span class="math inline">\(-1\)</span>.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exr-strict-mono-injective" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> Show that a strictly increasing function is injective (and likewise for strictly decreasing). Is the converse true — must an injective function be monotone?</p>
-</div>
-</div>
-</div>
-</div>
-<!-- ::: {.solution}
-If $f$ is strictly increasing and $x\neq y$, then either $x<y$, giving $f(x)<f(y)$, or $x>y$, giving
-$f(x)>f(y)$; either way $f(x)\neq f(y)$. So $f$ is injective.
-
-The converse fails. Define $f\colon\R\to\R$ by $f(x) = x$ for $x\neq 0,1$, with $f(0)=1$ and
-$f(1)=0$. This is a bijection of $\R$ (it just swaps two values), hence injective, but it is neither
-increasing nor decreasing.
-::: -->
-</section>
-<section id="even-and-odd-functions" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="even-and-odd-functions"><span class="header-section-number">4.4</span> Even and Odd Functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-even-odd" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.5</strong></span> <br>
-Suppose the domain <span class="math inline">\(D\)</span> is symmetric about <span class="math inline">\(0\)</span>, i.e.&nbsp;<span class="math inline">\(x\in D \quad \Rightarrow \quad-x\in D\)</span>. A function <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is</p>
-<ul>
-<li><strong>even</strong> if <span class="math inline">\(f(-x)=f(x)\)</span> for all <span class="math inline">\(x\in D\)</span> — its graph is symmetric about the <span class="math inline">\(y\)</span>-axis;</li>
-<li><strong>odd</strong> if <span class="math inline">\(f(-x)=-f(x)\)</span> for all <span class="math inline">\(x\in D\)</span> — its graph is symmetric about the origin.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-even-odd" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.3</strong></span> <br>
-<span class="math inline">\(x^2\)</span>, <span class="math inline">\(\lvert x \rvert\)</span>, and <span class="math inline">\(\cos x\)</span> are even; <span class="math inline">\(x\)</span>, <span class="math inline">\(x^3\)</span>, and <span class="math inline">\(\sin x\)</span> are odd; <span class="math inline">\(x + x^2\)</span> is neither. Most functions are neither even nor odd.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exr-even-odd-decomposition" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 4.2</strong></span> Show that every function <span class="math inline">\(f\)</span> on a symmetric domain can be written <em>uniquely</em> as a sum <span class="math inline">\(f = f_{\mathrm e} + f_{\mathrm o}\)</span> of an even function <span class="math inline">\(f_{\mathrm e}\)</span> and an odd function <span class="math inline">\(f_{\mathrm o}\)</span>. (Hint: what must <span class="math inline">\(\tfrac12\bigl(f(x)+f(-x)\bigr)\)</span> and <span class="math inline">\(\tfrac12\bigl(f(x)-f(-x)\bigr)\)</span> be?)</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="building-new-functions-from-old" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="building-new-functions-from-old"><span class="header-section-number">4.5</span> Building New Functions from Old</h2>
-<p>Most functions we work with are assembled from simpler ones by a few standard operations.</p>
-<section id="arithmetic-combinations" class="level3">
-<h3 class="anchored" data-anchor-id="arithmetic-combinations">Arithmetic combinations</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-arithmetic-combinations" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.6</strong></span> <br>
-Let <span class="math inline">\(f,g\colon D\to\mathbb{R}\)</span> be two functions on the same domain, and <span class="math inline">\(c\in\mathbb{R}\)</span>. Then <span class="math display">\[
-f+g,\qquad c\,f,\qquad f\cdot g
-\]</span> are again functions on <span class="math inline">\(D\)</span>, defined <strong>pointwise</strong>: <span class="math inline">\((f+g)(x) = f(x)+g(x)\)</span>, <span class="math inline">\((c\,f)(x) = c\,f(x)\)</span>, <span class="math inline">\((f\cdot g)(x) = f(x)\,g(x)\)</span>. The <strong>quotient</strong> <span class="math inline">\(f/g\)</span>, given by <span class="math inline">\((f/g)(x) = f(x)/g(x)\)</span>, is a function on the smaller domain <span class="math display">\[
-D\setminus\{\, x\in D : g(x)=0 \,\}.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="composition" class="level3">
-<h3 class="anchored" data-anchor-id="composition">Composition</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-composition" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.7</strong></span> <br>
-Let <span class="math inline">\(g\colon D\to\mathbb{R}\)</span> and <span class="math inline">\(f\colon D'\to\mathbb{R}\)</span> with <span class="math inline">\(\operatorname{ran}(g)\subseteq D'\)</span>. The <strong>composition</strong> <span class="math inline">\(f\circ g\)</span> (“first <span class="math inline">\(g\)</span>, then <span class="math inline">\(f\)</span>”) is <span class="math display">\[
-(f\circ g)(x) \;:=\; f\bigl(g(x)\bigr), \qquad x\in D,
-\]</span> a function with domain <span class="math inline">\(\operatorname{dom}(f\circ g) = \operatorname{dom}(g)\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="exm-composition" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.4</strong></span> <br>
-With <span class="math inline">\(f(x)=\sqrt{x}\)</span> and <span class="math inline">\(g(x)=1+x^2\)</span>: <span class="math display">\[
-(f\circ g)(x) = \sqrt{1+x^2} \quad(\text{all } x\in\mathbb{R}), \qquad
-(g\circ f)(x) = 1 + x \quad(x\ge 0).
-\]</span> The order matters: <span class="math inline">\(f\circ g\)</span> and <span class="math inline">\(g\circ f\)</span> are different functions.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="inverse-functions" class="level3">
-<h3 class="anchored" data-anchor-id="inverse-functions">Inverse functions</h3>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-inverse" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4.8</strong></span> <br>
-If <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> is injective, then for each <span class="math inline">\(y\in\operatorname{ran}(f)\)</span> there is <strong>exactly one</strong> <span class="math inline">\(x\in D\)</span> with <span class="math inline">\(f(x)=y\)</span>. Sending each such <span class="math inline">\(y\)</span> to that <span class="math inline">\(x\)</span> defines the <strong>inverse function</strong> <span class="math display">\[
-f^{-1}\colon \operatorname{ran}(f)\to D, \qquad f^{-1}\bigl(f(x)\bigr) = x \ \text{ for all } x\in D, \qquad
-f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
-\]</span> Its domain is <span class="math inline">\(\operatorname{ran}(f)\)</span> and its range is <span class="math inline">\(D\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Notation trap
+<span class="screen-reader-only">Note</span>Companion reading
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><span class="math inline">\(f^{-1}\)</span> denotes the <strong>inverse function</strong>, not the reciprocal <span class="math inline">\(1/f\)</span>. For <span class="math inline">\(f(x)=x^3\)</span> we have <span class="math inline">\(f^{-1}(y)=\sqrt[3]{y}\)</span>, whereas <span class="math inline">\(\dfrac{1}{f(x)} = x^{-3}\)</span>.</p>
+<p>This lecture corresponds to C&amp;J §2.4 (the integral as a function of the upper limit).</p>
+</div>
+</div>
+<p>So far we have treated the integral <span class="math inline">\(\int_a^b f(x)\,dx\)</span> (<a href="09_riemann_integral.html#def-riemann-integral" class="quarto-xref">Definition&nbsp;<span>11.2</span></a>) as a <em>number</em> attached to a function and an interval. But this number depends on the limits of integration <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. If we hold the lower limit fixed and let the upper limit vary, the integral becomes a <em>function</em> of that upper limit — and it is worth asking what kind of function we get.</p>
+<section id="definition-and-basic-formula" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="definition-and-basic-formula"><span class="header-section-number">14.1</span> Definition and Basic Formula</h2>
+<p>To make clear that the upper limit is now the variable, we rename it <span class="math inline">\(x\)</span> and use a different letter, say <span class="math inline">\(u\)</span>, for the variable of integration. (Recall that the name of the integration variable is irrelevant: <span class="math inline">\(\int_a^b f(x)\,dx = \int_a^b f(u)\,du\)</span>.)</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-indefinite-integral" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 14.1</strong></span> <br>
+Let <span class="math inline">\(f\)</span> be continuous on an interval <span class="math inline">\(I\)</span>, and let <span class="math inline">\(\alpha\in I\)</span>. The function <span class="math display">\[
+\Phi_\alpha(x) = \int_\alpha^x f(u)\,du \qquad (x\in I)
+\]</span> is called <strong>an indefinite integral</strong> of <span class="math inline">\(f\)</span>. For <span class="math inline">\(x&lt;\alpha\)</span> and <span class="math inline">\(x=\alpha\)</span> the integral is understood in the sense of <a href="10_properties_of_integral.html#def-oriented-integral" class="quarto-xref">Definition&nbsp;<span>13.1</span></a>; in particular <span class="math inline">\(\Phi_\alpha(\alpha)=0\)</span>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -620,8 +353,61 @@ f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="rem-inverse-graph" class="proof remark">
-<p><span class="proof-title"><em>Remark 4.3</em>. </span>The point <span class="math inline">\((a,b)\)</span> lies on the graph of <span class="math inline">\(f\)</span> exactly when <span class="math inline">\((b,a)\)</span> lies on the graph of <span class="math inline">\(f^{-1}\)</span>. So the graph of <span class="math inline">\(f^{-1}\)</span> is the mirror image of the graph of <span class="math inline">\(f\)</span> across the line <span class="math inline">\(y=x\)</span>.</p>
+<div id="rem-an-indefinite-integral" class="proof remark">
+<p><span class="proof-title"><em>Remark 14.1</em>. </span>Note the article: <em>an</em> indefinite integral, not <em>the</em> indefinite integral. If we choose a different lower limit <span class="math inline">\(\beta\)</span>, we obtain a different indefinite integral, <span class="math display">\[
+\Phi_\beta(x) = \int_\beta^x f(u)\,du.
+\]</span> As we will see in a moment, the choice of the lower limit is not that important. So we fix <span class="math inline">\(\alpha\)</span> once and for all and simply write <span class="math display">\[
+\Phi(x) = \Phi_\alpha(x).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-indefinite-integral-basic" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 14.1 (Basic properties of the indefinite integral)</strong></span> Let <span class="math inline">\(f\)</span> be continuous on <span class="math inline">\(I\)</span> and <span class="math inline">\(\Phi(x) = \int_\alpha^x f(u)\,du\)</span>.</p>
+<ol type="1">
+<li>If we know <span class="math inline">\(\Phi\)</span>, we can compute <strong>any</strong> definite integral of <span class="math inline">\(f\)</span>: for all <span class="math inline">\(a,b\in I\)</span>, <span class="math display">\[
+\int_a^b f(x)\,dx = \Phi(b) - \Phi(a).
+\]</span></li>
+<li>Any other indefinite integral differs from <span class="math inline">\(\Phi\)</span> by a constant: for every <span class="math inline">\(\beta\in I\)</span>, <span class="math display">\[
+\Phi_\beta(x) = \int_\beta^x f(u)\,du = \Phi(x) - \Phi(\beta).
+\]</span></li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span></p>
+<ol type="1">
+<li><p>By additivity of the integral (<a href="10_properties_of_integral.html#prp-additivity" class="quarto-xref">Proposition&nbsp;<span>13.1</span></a>, in the general form of <a href="10_properties_of_integral.html#exr-additivity-any-order" class="quarto-xref">Exercise&nbsp;<span>13.1</span></a>, since <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(\alpha\)</span> may lie in any order) and by <a href="10_properties_of_integral.html#def-oriented-integral" class="quarto-xref">Definition&nbsp;<span>13.1</span></a>, <span class="math display">\[
+\begin{aligned}
+\int_a^b f(x)\,dx
+  &amp;= \int_a^\alpha f(x)\,dx + \int_\alpha^b f(x)\,dx \\
+  &amp;= -\int_\alpha^a f(x)\,dx + \int_\alpha^b f(x)\,dx \\
+  &amp;= \Phi(b) - \Phi(a).
+\end{aligned}
+\]</span></p></li>
+<li><p>This is the special case <span class="math inline">\(a = \beta\)</span>, <span class="math inline">\(b = x\)</span> of (1).</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -632,28 +418,155 @@ f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="exm-inverse" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.5</strong></span> <br>
-<span class="math inline">\(f(x)=x^3\)</span> is injective on <span class="math inline">\(\mathbb{R}\)</span> with <span class="math inline">\(\operatorname{ran}(f)=\mathbb{R}\)</span>, and <span class="math inline">\(f^{-1}(y)=\sqrt[3]{y}\)</span>. By contrast <span class="math inline">\(g(x)=x^2\)</span> on <span class="math inline">\(\mathbb{R}\)</span> has no inverse (it is not injective); restricted to <span class="math inline">\([0,\infty)\)</span> it does, namely <span class="math inline">\(g^{-1}(y)=\sqrt{y}\)</span>.</p>
+<div id="rem-constant-is-fixed" class="proof remark">
+<p><span class="proof-title"><em>Remark 14.2</em>. </span>In (2) the constant <span class="math inline">\(-\Phi(\beta)\)</span> depends on <span class="math inline">\(\beta\)</span>, but <strong>not</strong> on <span class="math inline">\(x\)</span>. So all the indefinite integrals of <span class="math inline">\(f\)</span> have graphs that are vertical translates of one another; changing the lower limit only shifts the graph up or down. Part (1) generalizes <a href="10_properties_of_integral.html#cor-integral-difference" class="quarto-xref">Corollary&nbsp;<span>13.1</span></a>: there the lower limit <span class="math inline">\(a\)</span> played the role of <span class="math inline">\(\alpha\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-</section>
-<section id="summary" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.6</span> Summary</h2>
+<section id="properties-of-phi-as-a-function" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="properties-of-phi-as-a-function"><span class="header-section-number">14.2</span> Properties of <span class="math inline">\(\Phi\)</span> as a Function</h2>
+<p>What properties does <span class="math inline">\(\Phi(x)\)</span> have as a function? Geometrically, <span class="math inline">\(\Phi(x)\)</span> is the signed area (<a href="10_properties_of_integral.html#rem-signed-area" class="quarto-xref">Remark&nbsp;<span>13.1</span></a>) under the graph of <span class="math inline">\(f\)</span> between <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(x\)</span>, and moving <span class="math inline">\(x\)</span> to the right adds the signed area over the new piece of the interval.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-indefinite-integral-monotone" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 14.2</strong></span> <br>
+</p>
 <ul>
-<li>A <strong>function</strong> <span class="math inline">\(f\colon D\to\mathbb{R}\)</span> (<a href="#def-function" class="quarto-xref">Definition&nbsp;<span>4.1</span></a>) assigns to each point of its <strong>domain</strong> <span class="math inline">\(D\)</span> exactly one real value; the set of values attained is its <strong>range</strong> (<a href="#def-range" class="quarto-xref">Definition&nbsp;<span>4.2</span></a>), which may be a proper subset of the codomain.</li>
-<li><span class="math inline">\(f\)</span> is <strong>injective</strong> (<a href="#def-injection" class="quarto-xref">Definition&nbsp;<span>4.3</span></a>) if distinct inputs give distinct outputs, and <strong>monotone</strong>
-<ol class="example" type="1">
-<li>if it consistently preserves or reverses order; strict monotonicity implies injectivity (<a href="#exr-strict-mono-injective" class="quarto-xref">Exercise&nbsp;<span>4.1</span></a>).</li>
-</ol></li>
-<li>On a symmetric domain, <span class="math inline">\(f\)</span> may be <strong>even</strong> or <strong>odd</strong> (<a href="#def-even-odd" class="quarto-xref">Definition&nbsp;<span>4.5</span></a>), i.e.&nbsp;symmetric about the <span class="math inline">\(y\)</span>-axis or the origin.</li>
-<li>New functions are built from old ones by pointwise <strong>arithmetic</strong> (<a href="#def-arithmetic-combinations" class="quarto-xref">Definition&nbsp;<span>4.6</span></a>), <strong>composition</strong> (<a href="#def-composition" class="quarto-xref">Definition&nbsp;<span>4.7</span></a>), and — when <span class="math inline">\(f\)</span> is injective — by forming the <strong>inverse</strong> <span class="math inline">\(f^{-1}\)</span> (<a href="#def-inverse" class="quarto-xref">Definition&nbsp;<span>4.8</span></a>), whose graph is the reflection of that of <span class="math inline">\(f\)</span> across <span class="math inline">\(y=x\)</span>.</li>
+<li>If <span class="math inline">\(f\ge 0\)</span> on <span class="math inline">\(I\)</span>, then <span class="math inline">\(\Phi\)</span> is increasing (<a href="07_sequences_convergence.html#def-monotone" class="quarto-xref">Definition&nbsp;<span>8.3</span></a>): as <span class="math inline">\(x\)</span> gets bigger we add positive area.</li>
+<li>If <span class="math inline">\(f\le 0\)</span> on <span class="math inline">\(I\)</span>, then <span class="math inline">\(\Phi\)</span> is decreasing: as <span class="math inline">\(x\)</span> gets bigger we add negative area.</li>
 </ul>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(x&lt;y\)</span> in <span class="math inline">\(I\)</span> (for <span class="math inline">\(x=y\)</span> there is nothing to show). By <a href="#prp-indefinite-integral-basic" class="quarto-xref">Proposition&nbsp;<span>14.1</span></a>, <span class="math display">\[
+\Phi(y) - \Phi(x) = \int_x^y f(u)\,du.
+\]</span> If <span class="math inline">\(f\ge 0\)</span>, this integral is <span class="math inline">\(\ge 0\)</span> by <a href="10_properties_of_integral.html#prp-integral-nonneg" class="quarto-xref">Proposition&nbsp;<span>13.5</span></a>, so <span class="math inline">\(\Phi(x)\le\Phi(y)\)</span>. If <span class="math inline">\(f\le 0\)</span>, apply <a href="10_properties_of_integral.html#prp-integral-nonneg" class="quarto-xref">Proposition&nbsp;<span>13.5</span></a> to <span class="math inline">\(-f\ge0\)</span> and use <a href="10_properties_of_integral.html#prp-constant-multiple" class="quarto-xref">Proposition&nbsp;<span>13.3</span></a> to get <span class="math inline">\(\int_x^y f(u)\,du\le 0\)</span>, so <span class="math inline">\(\Phi(x)\ge\Phi(y)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="continuity-of-the-indefinite-integral" class="level3">
+<h3 class="anchored" data-anchor-id="continuity-of-the-indefinite-integral">Continuity of the indefinite integral</h3>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-indefinite-integral-continuous" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 14.1</strong></span> <br>
+If <span class="math inline">\(f\)</span> is continuous on <span class="math inline">\(I\)</span>, then <span class="math inline">\(\Phi\)</span> is continuous on <span class="math inline">\(I\)</span>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(x, y\in I\)</span>. By <a href="#prp-indefinite-integral-basic" class="quarto-xref">Proposition&nbsp;<span>14.1</span></a> and the Mean Value Theorem for Integrals (<a href="10_properties_of_integral.html#thm-mvt-integrals" class="quarto-xref">Theorem&nbsp;<span>13.1</span></a>, which requires <span class="math inline">\(f\)</span> continuous; for <span class="math inline">\(y&lt;x\)</span> use <a href="10_properties_of_integral.html#rem-mvt-remarks" class="quarto-xref">Remark&nbsp;<span>13.4</span></a>, part 3), <span class="math display">\[
+\Phi(y) - \Phi(x) = \int_x^y f(u)\,du = f(c)\,(y-x) \qquad (\ast)
+\]</span> for some <span class="math inline">\(c\)</span> between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p>What happens if <span class="math inline">\(y\to x\)</span>? For <span class="math inline">\(\Phi\)</span> to be continuous at <span class="math inline">\(x\)</span>, we need <span class="math inline">\(\Phi(y)\to\Phi(x)\)</span> (<a href="08_limits_of_functions.html#prp-continuity-via-limit" class="quarto-xref">Proposition&nbsp;<span>10.2</span></a>). Using <span class="math inline">\((\ast)\)</span> and the limit laws (<a href="08_limits_of_functions.html#prp-function-limit-laws" class="quarto-xref">Proposition&nbsp;<span>10.3</span></a>), <span class="math display">\[
+\begin{aligned}
+\lim_{y\to x}\Phi(y)
+  &amp;= \lim_{y\to x}\bigl[\Phi(x) + f(c)\,(y-x)\bigr] \\
+  &amp;= \lim_{y\to x}\Phi(x) + \lim_{y\to x} f(c)\,(y-x) \\
+  &amp;= \Phi(x) + f(x)\cdot 0 = \Phi(x).
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-c-depends-on-y" class="proof remark">
+<p><span class="proof-title"><em>Remark 14.3</em>. </span>The point <span class="math inline">\(c\)</span> in <span class="math inline">\((\ast)\)</span> depends on <span class="math inline">\(y\)</span>, so a little care is needed in the last step. Since <span class="math inline">\(c\)</span> lies between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we have <span class="math inline">\(c\to x\)</span> as <span class="math inline">\(y\to x\)</span>, and hence <span class="math inline">\(f(c)\to f(x)\)</span> by continuity of <span class="math inline">\(f\)</span>. In fact, all we really need is that <span class="math inline">\(f(c)\)</span> stays <strong>bounded</strong> while <span class="math inline">\(y-x\to 0\)</span> — which is exactly what the next result exploits.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-indefinite-integral-lipschitz" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 14.3 (Lipschitz continuity)</strong></span> Let <span class="math inline">\(f\)</span> be continuous on <span class="math inline">\(I\)</span>, let <span class="math inline">\([a,b]\subseteq I\)</span>, and let <span class="math inline">\(M = \max_{[a,b]}\lvert f \rvert\)</span> (this maximum exists by the Extreme Value Theorem, see <a href="09_riemann_integral.html#rem-darboux-informal" class="quarto-xref">Remark&nbsp;<span>11.2</span></a>). Then for all <span class="math inline">\(x, y\in[a,b]\)</span>, <span class="math display">\[
+\lvert \Phi(y) - \Phi(x) \rvert \le M\,\lvert y-x \rvert.
+\]</span> A function satisfying an estimate of this kind is called <strong>Lipschitz continuous</strong>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>By <span class="math inline">\((\ast)\)</span>, <span class="math inline">\(\lvert \Phi(y)-\Phi(x) \rvert = \lvert f(c) \rvert\,\lvert y-x \rvert\)</span> with <span class="math inline">\(c\)</span> between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, so <span class="math inline">\(c\in[a,b]\)</span> and <span class="math inline">\(\lvert f(c) \rvert\le M\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-lipschitz-stronger" class="proof remark">
+<p><span class="proof-title"><em>Remark 14.4</em>. </span>Lipschitz continuity is a stronger property than continuity: given <span class="math inline">\(\varepsilon&gt;0\)</span>, the choice <span class="math inline">\(\delta = \varepsilon/(M+1)\)</span> works at <strong>every</strong> point of <span class="math inline">\([a,b]\)</span> simultaneously (compare <a href="05_continuity.html#exm-linear-continuous" class="quarto-xref">Example&nbsp;<span>6.3</span></a>, where the same kind of <span class="math inline">\(\delta\)</span> appeared). In other words, <span class="math inline">\(\Phi\)</span> is <em>uniformly continuous</em> on <span class="math inline">\([a,b]\)</span> in the sense of <a href="09_riemann_integral.html#eq-uniform-continuity" class="quarto-xref">Equation&nbsp;<span>11.1</span></a>, and here we get this directly, with an explicit <span class="math inline">\(\delta\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1059,14 +972,11 @@ f\bigl(f^{-1}(y)\bigr) = y \ \text{ for all } y\in\operatorname{ran}(f).
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./notebooks/Week01_Number_Bases.html" class="pagination-link" aria-label="Jupyter Activity: p-ary Expansions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span>
+      <a href="./10_properties_of_integral.html" class="pagination-link" aria-label="Properties of the Integral">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Properties of the Integral</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04_elementary_functions.html" class="pagination-link" aria-label="The Elementary Functions">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

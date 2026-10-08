@@ -1119,5 +1119,82 @@
       "The Riemann Integral",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>The Indefinite Integral</span>"
     ]
+  },
+  {
+    "objectID": "12_derivative.html",
+    "href": "12_derivative.html",
+    "title": "15  The Derivative",
+    "section": "",
+    "text": "15.1 The Tangent Problem\nHow should we define the tangent to a given curve \\(y=f(x)\\) at a point \\(P\\) on the curve? Intuitively, the tangent is the line through \\(P\\) that points in the direction in which the curve is heading at \\(P\\). Since every candidate line passes through \\(P\\), a line is completely characterized by its direction: the angle \\(\\alpha\\) it makes with the line through \\(P\\) parallel to the \\(x\\)-axis, measured counterclockwise (Figure 15.1).\nFigure 15.1: The tangent at \\(P\\) is completely characterized by the angle \\(\\alpha\\) it makes with the line through \\(P\\) parallel to the \\(x\\)-axis.\nTwo observations guide the definition.\nFigure 15.2: Changing the curve away from \\(P\\) (solid) does not change the tangent at \\(P\\): the original curve (dashed) and the modified one agree near \\(P\\).\nTogether, these observations suggest that the tangent should be defined via a limiting process.",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
+  },
+  {
+    "objectID": "12_derivative.html#the-tangent-problem",
+    "href": "12_derivative.html#the-tangent-problem",
+    "title": "15  The Derivative",
+    "section": "",
+    "text": "Knowing the point \\(P=(x,f(x))\\) alone does not determine the tangent: infinitely many lines pass through \\(P\\). We need to know the curve at other points, too.\nOn the other hand, only the points very, very close — “infinitesimally close” — to \\(P\\) have an influence on the tangent. At any point \\(Q\\neq P\\) we can change the curve without changing the tangent at \\(P\\), as long as we leave the curve alone in some small neighborhood of \\(P\\) (Figure 15.2).",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
+  },
+  {
+    "objectID": "12_derivative.html#secants",
+    "href": "12_derivative.html#secants",
+    "title": "15  The Derivative",
+    "section": "15.2 Secants",
+    "text": "15.2 Secants\nA secant is a line through \\(P\\) and a second point \\(P_1\\) of the curve. Unlike the tangent, a secant is easy to describe, since it is determined by two points. Now move \\(P_1\\) towards \\(P\\) along the curve. As \\(P_1\\) approaches \\(P\\), the secant should approach the tangent (Figure 15.3): \\[\n\\text{secant} \\longrightarrow \\text{tangent}.\n\\]\n\n\n\n\n\n\n\n\nFigure 15.3: As \\(P_1\\) moves along the curve towards \\(P\\), the secants through \\(P\\) and \\(P_1\\) approach the tangent at \\(P\\). The limiting position should not depend on the side from which \\(P_1\\) approaches \\(P\\).\n\n\n\n\n\nThis picture rests on an assumption: that the secants actually settle down to a definite limiting position, and that this position is independent of the side from which \\(P_1\\) approaches \\(P\\). In other words, we are assuming that the tangent exists. This is a strong assumption, and it need not be true.\n\n\n\n\n\n\n\nExample 15.1 \nLet \\(f(x)=\\lvert x \\rvert\\) and \\(P=(0,0)\\). For \\(x_1&gt;0\\), the secant through \\(P\\) and \\(P_1=(x_1,x_1)\\) is the line \\(y=x\\), no matter how close \\(x_1\\) is to \\(0\\). For \\(x_1&lt;0\\), the secant through \\(P\\) and \\(P_1=(x_1,-x_1)\\) is the line \\(y=-x\\). Each side produces a perfectly definite limiting position, but the two sides disagree, just as one-sided limits can (Remark 10.2). So \\(\\lvert x \\rvert\\) has no tangent at \\((0,0)\\): the graph has a corner there (Figure 15.4, left).\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 15.4: Two curves without a tangent at the origin. Left: for \\(\\lvert x \\rvert\\), secants from the right are all the line \\(y=x\\), secants from the left are all the line \\(y=-x\\). Right: the graph of \\(\\sin(1/x)\\) (with value \\(0\\) at \\(x=0\\)) near the origin.\n\n\n\n\n\n\n\n\n\n\n\n\nExercise 15.1 Let \\(f(x)=\\sin(1/x)\\) for \\(x\\neq 0\\) and \\(f(0)=0\\) (Remark 6.5). Does the curve \\(y=f(x)\\) have a tangent at \\(P=(0,0)\\)?\n\n\n\n\n\n\n\n\n\n\nNoteSolution\n\n\n\n\n\n\nSolution. No. The secant through \\(P\\) and \\(P_1=\\big(x_1,\\sin(1/x_1)\\big)\\) has slope \\(\\sin(1/x_1)/x_1\\).\n\nFor \\(x_1 = \\dfrac{1}{n\\pi}\\) the slope is \\(0\\): the secant is the \\(x\\)-axis.\nFor \\(x_1 = \\dfrac{1}{2\\pi n+\\pi/2}\\) the slope is \\(2\\pi n + \\pi/2\\), which grows without bound: these secants become steeper and steeper.\n\nPoints of both kinds come arbitrarily close to \\(P\\) as \\(n\\to\\infty\\), so the secants do not settle down to any single limiting position. (In fact \\(f\\) is not even continuous at \\(0\\), so the graph does not pass through \\(P\\) in any reasonable sense.)\nDamping the oscillation does not help. For \\(g(x)=x\\sin(1/x)\\), \\(g(0)=0\\), which is continuous at \\(0\\) (Example 6.4), the secant through \\((0,0)\\) and \\(\\big(x_1,g(x_1)\\big)\\) has slope \\(\\sin(1/x_1)\\), which keeps oscillating between \\(-1\\) and \\(1\\) as \\(x_1\\to0\\). So continuity alone does not guarantee a tangent.",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
+  },
+  {
+    "objectID": "12_derivative.html#from-angles-to-slopes",
+    "href": "12_derivative.html#from-angles-to-slopes",
+    "title": "15  The Derivative",
+    "section": "15.3 From Angles to Slopes",
+    "text": "15.3 From Angles to Slopes\nIf the tangent at \\(P\\) exists, how do we formulate it analytically, that is, in terms of \\(f\\)? We use angles. Let \\(\\alpha_1\\) be the angle between the line through \\(P\\) parallel to the \\(x\\)-axis and the secant \\(PP_1\\), again measured counterclockwise (Figure 15.5). Informally, \\[\n\\lim_{P_1\\to P}\\alpha_1 = \\alpha .\n\\]\n\n\n\n\n\n\n\n\nFigure 15.5: The secant through \\(P=(x,y)\\) and \\(P_1=(x_1,y_1)\\) forms a right triangle with legs \\(x_1-x\\) and \\(y_1-y\\), so \\(\\tan(\\alpha_1) = (y_1-y)/(x_1-x)\\).\n\n\n\n\n\nWrite \\(P=(x,y)\\) and \\(P_1=(x_1,y_1)\\), where \\(y=f(x)\\) and \\(y_1=f(x_1)\\). The secant is the hypotenuse of a right triangle with horizontal leg \\(x_1-x\\) and vertical leg \\(y_1-y\\), so by trigonometry \\[\n\\tan(\\alpha_1) = \\frac{y_1-y}{x_1-x} = \\frac{f(x_1)-f(x)}{x_1-x}.\n\\] (If \\(x_1&lt;x\\), both the numerator and the denominator change sign, and the formula remains valid.) Hence we can express the limiting process of finding the tangent at \\(P\\) as \\[\n\\lim_{x_1\\to x} \\frac{f(x_1)-f(x)}{x_1-x} = \\lim_{x_1\\to x}\\tan(\\alpha_1) = \\tan(\\alpha).\n\\]\n\n\n\n\n\n\n\nRemark 15.1. Measuring counterclockwise from the horizontal, we take angles in \\(-\\tfrac\\pi2&lt;\\alpha&lt;\\tfrac\\pi2\\) (clockwise counts as negative). These angles cover every non-vertical line through \\(P\\), and \\(\\tan\\) maps this interval one-to-one onto all of \\(\\mathbb{R}\\). So a non-vertical line through \\(P\\) is described equally well by its angle \\(\\alpha\\) or by its slope \\(m=\\tan(\\alpha)\\), and since \\(\\tan\\) is continuous (Remark 10.3), \\(\\alpha_1\\to\\alpha\\) gives \\(\\tan(\\alpha_1)\\to\\tan(\\alpha)\\) (Proposition 10.4). From now on we work with slopes: they come directly from \\(f\\) and need no trigonometry. (C&J measure angles in \\(0\\le\\alpha&lt;\\pi\\) instead; with slopes the convention does not matter.)\nA vertical tangent (\\(\\alpha=\\tfrac\\pi2\\)) has no slope, and this approach excludes it. We will meet one in Example 15.4.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 15.1 \nThe quotient \\[\n\\frac{f(x_1)-f(x)}{x_1-x} = \\frac{y_1-y}{x_1-x} = \\frac{\\Delta y}{\\Delta x}\n\\] is called the difference quotient of \\(f\\) at \\(x\\). Here \\(\\Delta y = y_1-y\\) and \\(\\Delta x = x_1-x\\) denote the differences of the function values and of the independent variable. The symbol \\(\\Delta\\) is an abbreviation for “difference”, not a factor.",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
+  },
+  {
+    "objectID": "12_derivative.html#the-derivative",
+    "href": "12_derivative.html#the-derivative",
+    "title": "15  The Derivative",
+    "section": "15.4 The Derivative",
+    "text": "15.4 The Derivative\n\n\n\n\n\n\n\nDefinition 15.2 \nLet \\(f\\) be defined on an open interval containing \\(x\\). If the limit \\[\nf'(x) = \\lim_{x_1\\to x}\\frac{f(x_1)-f(x)}{x_1-x}\n\\] exists, we say \\(f\\) is differentiable at \\(x\\), and the limit is called the derivative of \\(f\\) at \\(x\\).\n\n\n\n\nThe tangent to \\(y=f(x)\\) at \\(P=(x,f(x))\\) is then the line through \\(P\\) with slope \\(f'(x)\\), that is, the graph of \\(t\\mapsto f(x)+f'(x)\\,(t-x)\\).\n\n\n\n\n\n\n\nRemark 15.2. The difference quotient, as a function of \\(x_1\\), is not defined at \\(x_1=x\\): there it would read \\(\\frac00\\). This is no obstacle. Definition 10.1 only tests sequences \\(x_n\\to x\\) with \\(x_n\\neq x\\), so the limit depends only on the values of the difference quotient near \\(x\\), never at \\(x\\). This is exactly what observation (2) above asks for.\n\n\n\n\nNotation. There are two common notations for the derivative: \\[\nf'(x) \\quad \\text{(Lagrange)}, \\qquad\\qquad \\frac{df(x)}{dx} \\quad\\text{or}\\quad \\frac{d}{dx}f(x)\n\\quad \\text{(Leibniz)}.\n\\] If \\(y=f(x)\\), one also writes \\(y'\\) or \\(\\dfrac{dy}{dx}\\). Leibniz’s notation is meant to recall the difference quotient \\(\\frac{\\Delta y}{\\Delta x}\\), as a quotient of “infinitely small” differences. For us, however, \\(\\frac{dy}{dx}\\) is a single symbol standing for the limit in Definition 15.2, not a quotient of two numbers \\(dy\\) and \\(dx\\).\n\n\n\n\n\n\n\nRemark 15.3. Important: the derivative is itself a function of \\(x\\). For each \\(x\\) at which \\(f\\) is differentiable we get a number \\(f'(x)\\), so \\(f'\\) is a new function \\(x\\mapsto f'(x)\\), defined at (at least some of) the points of the domain of \\(f\\). Figure 15.6 shows this for \\(f(x)=x^2\\).\n\n\n\n\nSubstituting \\(x_1 = x+h\\) gives an alternative form of the difference quotient, which is often more convenient for calculations: \\[\nf'(x) = \\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}.\n\\] The two limits are the same: sequences \\(x_n\\to x\\) with \\(x_n\\neq x\\) correspond exactly to sequences \\(h_n = x_n - x\\to 0\\) with \\(h_n\\neq0\\), and the corresponding difference quotients agree term by term. In the notation of Definition 15.1, \\(h=\\Delta x\\).",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
+  },
+  {
+    "objectID": "12_derivative.html#examples",
+    "href": "12_derivative.html#examples",
+    "title": "15  The Derivative",
+    "section": "15.5 Examples",
+    "text": "15.5 Examples\n\n\n\n\n\n\n\nExample 15.2 \nLet \\(f(x)=x^2\\). For \\(x_1\\neq x\\), \\[\n\\frac{f(x_1)-f(x)}{x_1-x} = \\frac{x_1^2-x^2}{x_1-x} = \\frac{(x_1-x)(x_1+x)}{x_1-x} = x_1+x.\n\\] Cancelling the factor \\(x_1-x\\) is allowed precisely because \\(x_1\\neq x\\) (Remark 15.2). Since \\(x_1\\mapsto x_1+x\\) is continuous, \\[\n\\lim_{x_1\\to x}\\frac{f(x_1)-f(x)}{x_1-x} = \\lim_{x_1\\to x}(x_1+x) = 2x\n\\] by Proposition 10.2. Hence \\(f\\) is differentiable at every \\(x\\in\\mathbb{R}\\), with \\[\nf'(x) = 2x.\n\\]\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 15.6: Left: \\(f(x)=x^2\\) with its tangents at several points. Right: the derivative \\(f'(x)=2x\\). The height of each dot on the right is the slope of the tangent of the same color on the left.\n\n\n\n\n\n\n\n\n\n\n\n\nExample 15.3 \nLet \\(f(x)=x^3\\). This time we use the \\(h\\)-form. For \\(h\\neq0\\), \\[\n\\frac{f(x+h)-f(x)}{h} = \\frac{x^3+3x^2h+3xh^2+h^3-x^3}{h} = 3x^2+3xh+h^2.\n\\] Hence \\[\n\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h} = \\lim_{h\\to0}\\big(3x^2+3xh+h^2\\big) = 3x^2,\n\\] so \\[\nf'(x) = 3x^2.\n\\]\nAlternatively, we can work with \\(x_1\\) directly and factor: \\[\n\\frac{x_1^3-x^3}{x_1-x} = \\frac{(x_1-x)(x_1^2+x_1x+x^2)}{x_1-x} = x_1^2+x_1x+x^2,\n\\] and therefore \\[\n\\lim_{x_1\\to x}\\frac{x_1^3-x^3}{x_1-x} = \\lim_{x_1\\to x}\\big(x_1^2+x_1x+x^2\\big) = 3x^2.\n\\] In both versions, the limit is evaluated by plugging in, since the expression is a polynomial in \\(h\\) (respectively \\(x_1\\)) and polynomials are continuous.\n\n\n\n\n\n\n\n\n\n\n\nExample 15.4 \nLet \\(f(x)=\\sqrt{x}\\) and \\(x&gt;0\\). For \\(x_1\\geq0\\), \\(x_1\\neq x\\), we rationalize the numerator: \\[\n\\frac{f(x_1)-f(x)}{x_1-x} = \\frac{\\sqrt{x_1}-\\sqrt{x}}{x_1-x}\n= \\frac{\\big(\\sqrt{x_1}-\\sqrt{x}\\big)\\big(\\sqrt{x_1}+\\sqrt{x}\\big)}{(x_1-x)\\big(\\sqrt{x_1}+\\sqrt{x}\\big)}\n= \\frac{x_1-x}{(x_1-x)\\big(\\sqrt{x_1}+\\sqrt{x}\\big)}\n= \\frac{1}{\\sqrt{x_1}+\\sqrt{x}}.\n\\] Since \\(\\sqrt{\\phantom{x}}\\) is continuous (Remark 10.3) and the denominator tends to \\(2\\sqrt x\\neq0\\), the limit laws (Proposition 10.3) give \\[\n\\lim_{x_1\\to x}\\frac{f(x_1)-f(x)}{x_1-x} = \\lim_{x_1\\to x}\\frac{1}{\\sqrt{x_1}+\\sqrt{x}} = \\frac{1}{2\\sqrt{x}},\n\\qquad\\text{so}\\qquad\nf'(x) = \\frac{1}{2\\sqrt{x}} \\quad (x&gt;0).\n\\]\nSingularity at \\(x=0\\). The formula \\(\\frac1{2\\sqrt x}\\) breaks down at \\(x=0\\), and so does differentiability. Since \\(\\sqrt x\\) is only defined for \\(x\\geq0\\), \\(P_1\\) can only approach \\(P=(0,0)\\) from the right, and the difference quotient there is \\[\n\\frac{\\sqrt{x_1}-0}{x_1-0} = \\frac{1}{\\sqrt{x_1}} \\longrightarrow \\infty \\qquad (x_1\\to0^+).\n\\] So even the one-sided limit (Definition 10.2) does not exist as a real number: the secants become steeper and steeper, and their limiting position is the \\(y\\)-axis. The curve has a vertical tangent at the origin, the case excluded in Remark 15.1 (Figure 15.7).\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 15.7: Tangents to \\(y=\\sqrt{x}\\) with slopes \\(1/(2\\sqrt{x})\\). As the point of tangency approaches \\(0\\) the tangents become steeper without bound; at the origin the tangent is vertical and \\(\\sqrt{x}\\) is not differentiable.",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
+  },
+  {
+    "objectID": "12_derivative.html#summary",
+    "href": "12_derivative.html#summary",
+    "title": "15  The Derivative",
+    "section": "15.6 Summary",
+    "text": "15.6 Summary\n\nThe tangent to \\(y=f(x)\\) at \\(P\\) is determined by its angle with the horizontal. That angle cannot be read off from \\(P\\) alone, but it depends only on the curve arbitrarily close to \\(P\\). This calls for a limiting process (Figure 15.1, Figure 15.2).\nThe tangent is the limiting position of the secants \\(PP_1\\) as \\(P_1\\to P\\) along the curve, from either side (Figure 15.3). Such a limiting position need not exist: \\(\\lvert x \\rvert\\) has a corner at the origin (Example 15.1), and \\(\\sin(1/x)\\) oscillates too wildly (Exercise 15.1).\nThe slope of the secant is the difference quotient \\(\\frac{\\Delta y}{\\Delta x} =\n\\frac{f(x_1)-f(x)}{x_1-x} = \\tan(\\alpha_1)\\) (Definition 15.1). Working with slopes instead of angles loses nothing except vertical tangents (Remark 15.1).\nThe derivative is the limit of the difference quotient, \\(f'(x) = \\lim_{x_1\\to x}\\frac{f(x_1)-f(x)}{x_1-x} = \\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}\\) (Definition 15.2), written \\(f'(x)\\) (Lagrange) or \\(\\frac{df}{dx}\\) (Leibniz). It is itself a function of \\(x\\) (Remark 15.3).\nFirst examples: \\((x^2)' = 2x\\), \\((x^3)'=3x^2\\), and \\((\\sqrt x)' = \\frac{1}{2\\sqrt x}\\) for \\(x&gt;0\\) (Example 15.2, Example 15.3, Example 15.4). In each case the trick is to cancel the factor \\(x_1-x\\) (or \\(h\\)), which is legitimate because \\(x_1\\neq x\\). The square root is not differentiable at \\(0\\), where its graph has a vertical tangent.",
+    "crumbs": [
+      "The Derivative",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>The Derivative</span>"
+    ]
   }
 ]

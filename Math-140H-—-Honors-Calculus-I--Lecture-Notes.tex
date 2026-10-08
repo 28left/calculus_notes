@@ -203,20 +203,20 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{plain}
 \newtheorem{corollary}{Corollary}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-10-05}
+\date{2026-10-08}
 \begin{document}
 \maketitle
 
@@ -5528,6 +5528,163 @@ appeared). In other words, \(\Phi\) is \emph{uniformly continuous} on
 we get this directly, with an explicit \(\delta\).
 
 \label{rem-lipschitz-stronger}
+
+\end{refremark}
+
+\section{Examples: Volumes and
+Dipsticks}\label{examples-volumes-and-dipsticks}
+
+Indefinite integrals arise naturally whenever a quantity accumulates as
+a variable grows. A good example is the volume of liquid in a container,
+as a function of the fill height.
+
+Suppose a container has a vertical axis, and let \(A(u)\) be the area of
+its horizontal cross-section at height \(u\) above the bottom. Slicing
+the container into thin horizontal layers of thickness \(\Delta_i\), the
+volume up to height \(x\) is approximately \(\sum_i A(u_i^*)\,\Delta_i\)
+--- a Riemann sum (Definition~\ref{def-riemann-sum}) for \(A\) on
+\([0,x]\). Letting the layers get thinner, we obtain the volume as an
+indefinite integral of \(A\) with lower limit \(\alpha = 0\): \[
+V(x) = \int_0^x A(u)\,du.
+\]
+
+\subsection{A cone-shaped glass}\label{a-cone-shaped-glass}
+
+\begin{example}[Constructing a
+dipstick]\protect\hypertarget{exm-dipstick-cone}{}\label{exm-dipstick-cone}
+
+A glass has the shape of an (upside-down) cone with rim radius \(R\) and
+height \(H\). At which height \(h\) is the glass half full?
+
+The cross-section at height \(u\) is a disk. Its radius grows linearly
+from \(0\) at the bottom to \(R\) at the rim, so it equals
+\(R\cdot\frac{u}{H}\), and \[
+A(u) = \pi\Big(\frac{R\,u}{H}\Big)^2 = \pi\,\frac{R^2}{H^2}\,u^2 .
+\] By Proposition~\ref{prp-constant-multiple} and
+Proposition~\ref{prp-basic-integrals} (or directly by the Riemann sum
+computation of \(\int_0^b x^2\,dx\) in the previous chapters), \[
+V(x) = \int_0^x A(u)\,du = \pi\,\frac{R^2}{H^2}\int_0^x u^2\,du = \pi\,\frac{R^2}{H^2}\cdot\frac{x^3}{3}.
+\] In particular, the total volume is \[
+V_T = V(H) = \pi\,\frac{R^2}{H^2}\cdot\frac{H^3}{3} = \frac{\pi}{3}R^2H,
+\] the familiar formula for the volume of a cone.
+
+We want to know for which \(x\) we have \(V(x) = \frac12 V_T\): \[
+\pi\,\frac{R^2}{H^2}\cdot\frac{x^3}{3} = \pi\,\frac{R^2}{H^2}\cdot\frac{H^3}{3}\cdot\frac12
+\quad \Leftrightarrow \quad x^3 = \frac{H^3}{2}
+\quad \Leftrightarrow \quad x = \frac{H}{\sqrt[3]{2}} \approx 0.79\,H .
+\] So the ``half full'' mark on the dipstick sits at about \(79\%\) of
+the height, not at \(50\%\). Indeed, filling the glass to half its
+height gives only \[
+V\big(\tfrac12 H\big) = \pi\,\frac{R^2}{H^2}\cdot\frac{H^3}{24} = \frac18\,V(H),
+\] an eighth of the total volume.
+
+\end{example}
+
+\begin{refremark}
+\textbf{Why does a height \(x\) with \(V(x) = \frac12 V_T\) exist?} Here
+we found \(x\) explicitly, but there is a reason that works for
+\emph{any} container. By
+Theorem~\ref{thm-indefinite-integral-continuous}, \(V\) is continuous on
+\([0,H]\). Moreover \(V(0) = 0\) and \(V(H) = V_T\), so \[
+V(0) = 0 < \tfrac12 V_T < V_T = V(H).
+\] By the Intermediate Value Theorem (Theorem~\ref{thm-ivt}, in the
+general form of Remark~\ref{rem-ivt-general}), there exists
+\(c\in(0,H)\) with \(V(c) = \frac12 V_T\). The same argument gives a
+mark for every fraction of the total volume --- a dipstick can always be
+calibrated, even if we cannot compute \(V\) in closed form.
+
+\label{rem-dipstick-existence}
+
+\end{refremark}
+
+\subsection{A horizontal oil tank}\label{a-horizontal-oil-tank}
+
+\begin{example}[Oil
+tank]\protect\hypertarget{exm-oil-tank}{}\label{exm-oil-tank}
+
+An oil tank is a cylinder of radius \(R\) and length \(L\), buried
+\textbf{horizontally} in the ground. A measuring stick lowered
+vertically through the top measures the height \(x\) of the oil in the
+tank. Reading the stick, how much oil (volume) is left?
+
+(Why not bury the tank vertically? The math would be easier: then every
+cross-section is a disk of area \(\pi R^2\), and \(V(x) = \pi R^2 x\) is
+linear in \(x\).)
+
+\textbf{Step 1: the area of the cross-section, as a function of \(u\).}
+At height \(u\) (with \(0\le u\le 2R\)) the oil surface is a rectangle
+of length \(L\) and width \(W(u)\), so \(A(u) = L\cdot W(u)\). To find
+\(W(u)\), look at the circular end of the tank. The center of the circle
+lies at height \(R\), so the horizontal chord at height \(u\) is at
+distance \(\lvert R-u \rvert\) from the center. By Pythagoras, half the
+chord has length \[
+r(u) = \sqrt{R^2 - (R-u)^2} = \sqrt{2Ru - u^2} = \sqrt{u\,(2R-u)},
+\] and therefore \[
+W(u) = 2\sqrt{u\,(2R-u)}, \qquad A(u) = 2L\sqrt{u\,(2R-u)} .
+\]
+
+\textbf{Step 2: the volume.} Hence the volume at height \(x\) is \[
+V(x) = \int_0^x 2L\sqrt{u\,(2R-u)}\,du, \qquad 0\le x\le 2R .
+\] We do not know how to integrate this function yet --- it is not
+covered by Proposition~\ref{prp-basic-integrals}. But we can still
+compute \(V(x)\) as accurately as we like using Riemann sums
+(Theorem~\ref{thm-riemann-equipartition}).
+
+\end{example}
+
+The interactive figure below shows the end view of the tank. Move the
+slider to change the fill height \(x\) (shown in units of \(R\)). The
+coral strip is a typical thin slice of a Riemann sum for \(V(x)\). The
+graph on the right plots the volume \(V(x)\), as a percentage of the
+full tank, horizontally against the height \(x\) vertically. The orange
+dashed guides show how the \(25\%\), \(50\%\) and \(75\%\) marks on the
+dipstick are found: start at the desired volume, go up to the curve,
+then across to read off the height. This is solving \(V(x) = c\), whose
+solvability is guaranteed by the argument of
+Remark~\ref{rem-dipstick-existence}.
+
+\emph{An interactive version of this figure, with a slider for the fill
+height, is included in the HTML version of these notes.}
+
+Two things can be seen directly in the picture. First, the \(25\%\) and
+\(75\%\) marks sit closer to the \(50\%\) mark than to the ends of the
+stick, because the tank is widest in the middle. Second, the volume
+changes fastest near mid-height, where the cross-section \(A(u)\) is
+largest (on the graph, the curve is flattest there, since the height is
+plotted vertically). This is the Lipschitz bound of
+Remark~\ref{rem-oil-tank-properties} below in action: a misread of the
+stick costs the most volume where the tank is widest.
+
+\begin{refremark}
+\textbf{Some remarks.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(V(y) - V(x)\) is the \textbf{total change} in volume between heights
+  \(x\) and \(y\), and by
+  Proposition~\ref{prp-indefinite-integral-basic}, \[
+  V(y) - V(x) = \int_x^y A(u)\,du .
+  \]
+\item
+  Lipschitz continuity of \(V\)
+  (Proposition~\ref{prp-indefinite-integral-lipschitz}) is of practical
+  use. Suppose we botch our measurement. How wrong can our calculated
+  volume at most be? Let \(x_*\) be our measurement and \(x\) the actual
+  height. Then \[
+  \lvert V(x_*) - V(x) \rvert \le M\,\lvert x_* - x \rvert,
+  \] where \(M = \max_{[0,2R]} A\). So the error in the volume is at
+  most a constant multiple of the error in the measurement. For the oil
+  tank we can even give \(M\) explicitly: since
+  \(u(2R-u) = R^2 - (R-u)^2 \le R^2\), the cross-section is widest at
+  the center height \(u=R\), and \(M = A(R) = 2LR\). So a reading that
+  is off by \(1\,\text{cm}\) misjudges the volume by at most
+  \(2LR\cdot 1\,\text{cm}\) --- the volume of a layer \(1\,\text{cm}\)
+  thick through the widest part of the tank.
+\end{enumerate}
+
+\label{rem-oil-tank-properties}
 
 \end{refremark}
 

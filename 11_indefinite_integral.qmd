@@ -159,3 +159,220 @@ $\delta = \eps/(M+1)$ works at **every** point of $[a,b]$ simultaneously (compar
 where the same kind of $\delta$ appeared). In other words, $\Phi$ is *uniformly continuous* on $[a,b]$
 in the sense of @eq-uniform-continuity, and here we get this directly, with an explicit $\delta$.
 :::
+
+## Examples: Volumes and Dipsticks
+
+Indefinite integrals arise naturally whenever a quantity accumulates as a variable grows. A good
+example is the volume of liquid in a container, as a function of the fill height.
+
+Suppose a container has a vertical axis, and let $A(u)$ be the area of its horizontal cross-section at
+height $u$ above the bottom. Slicing the container into thin horizontal layers of thickness $\Delta_i$,
+the volume up to height $x$ is approximately $\sum_i A(u_i^*)\,\Delta_i$ — a Riemann sum
+(@def-riemann-sum) for $A$ on $[0,x]$. Letting the layers get thinner, we obtain the volume as an
+indefinite integral of $A$ with lower limit $\alpha = 0$:
+$$
+V(x) = \int_0^x A(u)\,du.
+$$
+
+### A cone-shaped glass
+
+::: {#exm-dipstick-cone}
+## Constructing a dipstick
+A glass has the shape of an (upside-down) cone with rim radius $R$ and height $H$. At which height
+$h$ is the glass half full?
+
+The cross-section at height $u$ is a disk. Its radius grows linearly from $0$ at the bottom to $R$ at
+the rim, so it equals $R\cdot\frac{u}{H}$, and
+$$
+A(u) = \pi\Big(\frac{R\,u}{H}\Big)^2 = \pi\,\frac{R^2}{H^2}\,u^2 .
+$$
+By @prp-constant-multiple and @prp-basic-integrals (or directly by the Riemann sum computation of
+$\int_0^b x^2\,dx$ in the previous chapters),
+$$
+V(x) = \int_0^x A(u)\,du = \pi\,\frac{R^2}{H^2}\int_0^x u^2\,du = \pi\,\frac{R^2}{H^2}\cdot\frac{x^3}{3}.
+$$
+In particular, the total volume is
+$$
+V_T = V(H) = \pi\,\frac{R^2}{H^2}\cdot\frac{H^3}{3} = \frac{\pi}{3}R^2H,
+$$
+the familiar formula for the volume of a cone.
+
+We want to know for which $x$ we have $V(x) = \frac12 V_T$:
+$$
+\pi\,\frac{R^2}{H^2}\cdot\frac{x^3}{3} = \pi\,\frac{R^2}{H^2}\cdot\frac{H^3}{3}\cdot\frac12
+\Iff x^3 = \frac{H^3}{2}
+\Iff x = \frac{H}{\sqrt[3]{2}} \approx 0.79\,H .
+$$
+So the "half full" mark on the dipstick sits at about $79\%$ of the height, not at $50\%$. Indeed,
+filling the glass to half its height gives only
+$$
+V\big(\tfrac12 H\big) = \pi\,\frac{R^2}{H^2}\cdot\frac{H^3}{24} = \frac18\,V(H),
+$$
+an eighth of the total volume.
+:::
+
+::: {#rem-dipstick-existence}
+**Why does a height $x$ with $V(x) = \frac12 V_T$ exist?** Here we found $x$ explicitly, but there is
+a reason that works for *any* container. By @thm-indefinite-integral-continuous, $V$ is continuous on
+$[0,H]$. Moreover $V(0) = 0$ and $V(H) = V_T$, so
+$$
+V(0) = 0 < \tfrac12 V_T < V_T = V(H).
+$$
+By the Intermediate Value Theorem (@thm-ivt, in the general form of @rem-ivt-general), there exists
+$c\in(0,H)$ with $V(c) = \frac12 V_T$. The same argument gives a mark for every fraction of the total
+volume — a dipstick can always be calibrated, even if we cannot compute $V$ in closed form.
+:::
+
+### A horizontal oil tank
+
+::: {#exm-oil-tank}
+## Oil tank
+An oil tank is a cylinder of radius $R$ and length $L$, buried **horizontally** in the ground. A
+measuring stick lowered vertically through the top measures the height $x$ of the oil in the tank.
+Reading the stick, how much oil (volume) is left?
+
+(Why not bury the tank vertically? The math would be easier: then every cross-section is a disk of
+area $\pi R^2$, and $V(x) = \pi R^2 x$ is linear in $x$.)
+
+**Step 1: the area of the cross-section, as a function of $u$.** At height $u$ (with $0\le u\le 2R$)
+the oil surface is a rectangle of length $L$ and width $W(u)$, so $A(u) = L\cdot W(u)$. To find
+$W(u)$, look at the circular end of the tank. The center of the circle lies at height $R$, so the
+horizontal chord at height $u$ is at distance $\abs{R-u}$ from the center. By Pythagoras, half the
+chord has length
+$$
+r(u) = \sqrt{R^2 - (R-u)^2} = \sqrt{2Ru - u^2} = \sqrt{u\,(2R-u)},
+$$
+and therefore
+$$
+W(u) = 2\sqrt{u\,(2R-u)}, \qquad A(u) = 2L\sqrt{u\,(2R-u)} .
+$$
+
+**Step 2: the volume.** Hence the volume at height $x$ is
+$$
+V(x) = \int_0^x 2L\sqrt{u\,(2R-u)}\,du, \qquad 0\le x\le 2R .
+$$
+We do not know how to integrate this function yet — it is not covered by @prp-basic-integrals. But
+we can still compute $V(x)$ as accurately as we like using Riemann sums (@thm-riemann-equipartition).
+:::
+
+The interactive figure below shows the end view of the tank. Move the slider to change the fill
+height $x$ (shown in units of $R$). The coral strip is a typical thin slice of a Riemann sum for
+$V(x)$. The graph on the right plots the volume $V(x)$, as a percentage of the full tank,
+horizontally against the height $x$ vertically. The orange dashed guides show how the $25\%$, $50\%$
+and $75\%$ marks on the dipstick are found: start at the desired volume, go up to the curve, then
+across to read off the height. This is solving $V(x) = c$, whose solvability is guaranteed by the
+argument of @rem-dipstick-existence.
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="dsw" style="max-width:680px;margin:1.5rem auto;">
+<style>
+.dsw svg text.dsw-ts { font-size: 12px; fill: #5f5e5a; }
+.dsw .dsw-liq { fill: #85B7EB; }
+.dsw .dsw-strip { fill: #F0997B; }
+.dsw .dsw-pt { fill: #F0997B; stroke: #993C1D; }
+.dsw .dsw-box { fill: #F1EFE8; stroke: #888780; }
+.dsw .dsw-controls { display: flex; align-items: center; gap: 14px; margin-top: 8px; font-size: 13px; color: #5f5e5a; }
+.dsw .dsw-read { min-width: 190px; text-align: right; white-space: pre; font-family: var(--bs-font-monospace, monospace); }
+</style>
+<svg width="100%" viewBox="0 0 680 370" role="img" aria-labelledby="dsw-title dsw-desc">
+<title id="dsw-title">Dipstick calibration for a horizontal cylindrical tank</title>
+<desc id="dsw-desc">Left: circular cross-section of the tank with liquid up to height x and a thin strip at height u. Far left: dipstick with marks at 25, 50 and 75 percent of full volume. Right: graph with height on the vertical axis and volume percentage on the horizontal axis; dashed guides show how the marks are found by inverting V.</desc>
+<defs><clipPath id="dsw-tank"><circle cx="200" cy="190" r="120"/></clipPath></defs>
+<g clip-path="url(#dsw-tank)">
+<rect id="dsw-liq" class="dsw-liq" x="80" y="190" width="240" height="120"/>
+<rect id="dsw-strip" class="dsw-strip" x="80" y="247" width="240" height="6"/>
+</g>
+<circle cx="200" cy="190" r="120" fill="none" stroke="#343a40" stroke-width="1.5"/>
+<rect class="dsw-box" x="24" y="70" width="8" height="240" rx="2" stroke-width="0.5"/>
+<rect id="dsw-wet" x="24" y="190" width="8" height="120" rx="2" fill="#378ADD" opacity="0.7"/>
+<g id="dsw-marks"></g>
+<line id="dsw-lvl" x1="320" y1="190" x2="400" y2="190" stroke="#343a40" stroke-width="0.8" stroke-dasharray="4 4"/>
+<line x1="400" y1="70" x2="400" y2="310" stroke="#343a40" stroke-width="1"/>
+<line x1="400" y1="310" x2="640" y2="310" stroke="#343a40" stroke-width="1"/>
+<g id="dsw-guides"></g>
+<path id="dsw-curve" fill="none" stroke="#378ADD" stroke-width="2"/>
+<circle id="dsw-pt" class="dsw-pt" cx="520" cy="190" r="5" stroke-width="1"/>
+<text class="dsw-ts" x="408" y="62">liquid height x</text>
+<text class="dsw-ts" x="400" y="326" text-anchor="middle">0</text>
+<text class="dsw-ts" x="460" y="326" text-anchor="middle">25</text>
+<text class="dsw-ts" x="520" y="326" text-anchor="middle">50</text>
+<text class="dsw-ts" x="580" y="326" text-anchor="middle">75</text>
+<text class="dsw-ts" x="640" y="326" text-anchor="middle">100</text>
+<text class="dsw-ts" x="520" y="350" text-anchor="middle">V(x), percent of full</text>
+<text class="dsw-ts" x="200" y="342" text-anchor="middle">Coral strip at height u has width 2√(u(2R − u))</text>
+</svg>
+<div class="dsw-controls">
+<label for="dsw-lev">Liquid level</label>
+<input type="range" id="dsw-lev" min="0" max="1000" value="500" style="flex:1">
+<span id="dsw-read" class="dsw-read"></span>
+</div>
+<script>
+(function () {
+  const B = 310, H = 240, GX = 400, GW = 240;
+  // Fraction of the full volume when filled to fraction t of the diameter (circular segment area / disk area).
+  function f(t) { const s = 2*t, c = 1 - s; return (Math.acos(Math.max(-1, Math.min(1, c))) - c*Math.sqrt(Math.max(0, 2*s - s*s))) / Math.PI; }
+  // Invert f by bisection.
+  function inv(c) { let a = 0, b = 1; for (let i = 0; i < 40; i++) { const m = (a + b)/2; if (f(m) < c) a = m; else b = m; } return (a + b)/2; }
+  const ns = 'http://www.w3.org/2000/svg';
+  const $ = id => document.getElementById(id);
+  function el(tag, attrs, parent) { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+  let d = ''; for (let i = 0; i <= 200; i++) { const t = i/200; d += (i ? 'L' : 'M') + (GX + f(t)*GW).toFixed(2) + ' ' + (B - t*H).toFixed(2); }
+  $('dsw-curve').setAttribute('d', d);
+  const marks = $('dsw-marks'), guides = $('dsw-guides');
+  for (let k = 1; k < 10; k++) { const y = B - inv(k/10)*H;
+    el('line', {x1: 20, y1: y, x2: 36, y2: y, stroke: '#343a40', 'stroke-width': k === 5 ? 1.2 : 0.6}, marks); }
+  [0.25, 0.5, 0.75].forEach(c => { const y = B - inv(c)*H, gx = GX + c*GW;
+    el('line', {x1: 20, y1: y, x2: 38, y2: y, stroke: '#343a40', 'stroke-width': 1.4}, marks);
+    const tx = el('text', {class: 'dsw-ts', x: 42, y: y + 4}, marks); tx.textContent = Math.round(c*100) + '%';
+    el('path', {d: `M${gx} ${B}L${gx} ${y}L${GX} ${y}`, fill: 'none', stroke: '#D85A30', 'stroke-width': 0.8, 'stroke-dasharray': '3 3', opacity: 0.8}, guides); });
+  function draw(t) { const y = B - t*H, h = t*H;
+    $('dsw-liq').setAttribute('y', y); $('dsw-liq').setAttribute('height', h);
+    $('dsw-wet').setAttribute('y', y); $('dsw-wet').setAttribute('height', h);
+    const st = $('dsw-strip'); st.setAttribute('y', B - 0.5*h - 3); st.style.opacity = t > 0.03 ? 1 : 0;
+    const v = f(t), lv = $('dsw-lvl');
+    lv.setAttribute('y1', y); lv.setAttribute('y2', y);
+    lv.setAttribute('x1', 200 + Math.sqrt(Math.max(0, 120*120 - (y - 190)*(y - 190)))); lv.setAttribute('x2', GX + v*GW);
+    $('dsw-pt').setAttribute('cx', GX + v*GW); $('dsw-pt').setAttribute('cy', y);
+    $('dsw-read').textContent = 'x = ' + (2*t).toFixed(2) + 'R   V = ' + (v*100).toFixed(1) + '%'; }
+  $('dsw-lev').addEventListener('input', e => draw(e.target.value/1000));
+  draw(0.5);
+})();
+</script>
+</div>
+```
+:::
+
+::: {.content-visible unless-format="html"}
+*An interactive version of this figure, with a slider for the fill height, is included in the HTML
+version of these notes.*
+:::
+
+Two things can be seen directly in the picture. First, the $25\%$ and $75\%$ marks sit closer to the
+$50\%$ mark than to the ends of the stick, because the tank is widest in the middle. Second, the
+volume changes fastest near mid-height, where the cross-section $A(u)$ is largest (on the graph, the
+curve is flattest there, since the height is plotted vertically). This is the Lipschitz bound of
+@rem-oil-tank-properties below in action: a misread of the stick costs the most volume where the tank
+is widest.
+
+::: {#rem-oil-tank-properties}
+**Some remarks.**
+
+1. $V(y) - V(x)$ is the **total change** in volume between heights $x$ and $y$, and by
+   @prp-indefinite-integral-basic,
+   $$
+   V(y) - V(x) = \int_x^y A(u)\,du .
+   $$
+2. Lipschitz continuity of $V$ (@prp-indefinite-integral-lipschitz) is of practical use. Suppose we
+   botch our measurement. How wrong can our calculated volume at most be? Let $x_*$ be our
+   measurement and $x$ the actual height. Then
+   $$
+   \abs{V(x_*) - V(x)} \le M\,\abs{x_* - x},
+   $$
+   where $M = \max_{[0,2R]} A$. So the error in the volume is at most a constant multiple of the
+   error in the measurement. For the oil tank we can even give $M$ explicitly: since
+   $u(2R-u) = R^2 - (R-u)^2 \le R^2$, the cross-section is widest at the center height $u=R$, and
+   $M = A(R) = 2LR$. So a reading that is off by $1\,\text{cm}$ misjudges the volume by at most
+   $2LR\cdot 1\,\text{cm}$ — the volume of a layer $1\,\text{cm}$ thick through the widest part of the
+   tank.
+:::

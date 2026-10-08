@@ -204,19 +204,19 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{plain}
 \newtheorem{corollary}{Corollary}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-09-29}
+\date{2026-10-05}
 \begin{document}
 \maketitle
 
@@ -5310,6 +5310,226 @@ make up for the parts of the rectangle that lie above the graph.
   \(\int_a^b f = f(c)(b-a)\) for some \(c\in[a,b]\)
   (Theorem~\ref{thm-mvt-integrals}).
 \end{itemize}
+
+\chapter{The Indefinite Integral}\label{the-indefinite-integral}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Companion reading}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+This lecture corresponds to C\&J §2.4 (the integral as a function of the
+upper limit).
+
+\end{tcolorbox}
+
+So far we have treated the integral \(\int_a^b f(x)\,dx\)
+(Definition~\ref{def-riemann-integral}) as a \emph{number} attached to a
+function and an interval. But this number depends on the limits of
+integration \(a\) and \(b\). If we hold the lower limit fixed and let
+the upper limit vary, the integral becomes a \emph{function} of that
+upper limit --- and it is worth asking what kind of function we get.
+
+\section{Definition and Basic
+Formula}\label{definition-and-basic-formula}
+
+To make clear that the upper limit is now the variable, we rename it
+\(x\) and use a different letter, say \(u\), for the variable of
+integration. (Recall that the name of the integration variable is
+irrelevant: \(\int_a^b f(x)\,dx = \int_a^b f(u)\,du\).)
+
+\begin{definition}[]\protect\hypertarget{def-indefinite-integral}{}\label{def-indefinite-integral}
+
+\hfill\break
+Let \(f\) be continuous on an interval \(I\), and let \(\alpha\in I\).
+The function \[
+\Phi_\alpha(x) = \int_\alpha^x f(u)\,du \qquad (x\in I)
+\] is called \textbf{an indefinite integral} of \(f\). For \(x<\alpha\)
+and \(x=\alpha\) the integral is understood in the sense of
+Definition~\ref{def-oriented-integral}; in particular
+\(\Phi_\alpha(\alpha)=0\).
+
+\end{definition}
+
+\begin{refremark}
+Note the article: \emph{an} indefinite integral, not \emph{the}
+indefinite integral. If we choose a different lower limit \(\beta\), we
+obtain a different indefinite integral, \[
+\Phi_\beta(x) = \int_\beta^x f(u)\,du.
+\] As we will see in a moment, the choice of the lower limit is not that
+important. So we fix \(\alpha\) once and for all and simply write \[
+\Phi(x) = \Phi_\alpha(x).
+\]
+
+\label{rem-an-indefinite-integral}
+
+\end{refremark}
+
+\begin{proposition}[Basic properties of the indefinite
+integral]\protect\hypertarget{prp-indefinite-integral-basic}{}\label{prp-indefinite-integral-basic}
+
+Let \(f\) be continuous on \(I\) and
+\(\Phi(x) = \int_\alpha^x f(u)\,du\).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  If we know \(\Phi\), we can compute \textbf{any} definite integral of
+  \(f\): for all \(a,b\in I\), \[
+  \int_a^b f(x)\,dx = \Phi(b) - \Phi(a).
+  \]
+\item
+  Any other indefinite integral differs from \(\Phi\) by a constant: for
+  every \(\beta\in I\), \[
+  \Phi_\beta(x) = \int_\beta^x f(u)\,du = \Phi(x) - \Phi(\beta).
+  \]
+\end{enumerate}
+
+\begin{proof}
+\leavevmode
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  By additivity of the integral (Proposition~\ref{prp-additivity}, in
+  the general form of Exercise~\ref{exr-additivity-any-order}, since
+  \(a\), \(b\), \(\alpha\) may lie in any order) and by
+  Definition~\ref{def-oriented-integral}, \[
+  \begin{aligned}
+  \int_a^b f(x)\,dx
+    &= \int_a^\alpha f(x)\,dx + \int_\alpha^b f(x)\,dx \\
+    &= -\int_\alpha^a f(x)\,dx + \int_\alpha^b f(x)\,dx \\
+    &= \Phi(b) - \Phi(a).
+  \end{aligned}
+  \]
+\item
+  This is the special case \(a = \beta\), \(b = x\) of (1).
+\end{enumerate}
+
+\end{proof}
+
+\end{proposition}
+
+\begin{refremark}
+In (2) the constant \(-\Phi(\beta)\) depends on \(\beta\), but
+\textbf{not} on \(x\). So all the indefinite integrals of \(f\) have
+graphs that are vertical translates of one another; changing the lower
+limit only shifts the graph up or down. Part (1) generalizes
+Corollary~\ref{cor-integral-difference}: there the lower limit \(a\)
+played the role of \(\alpha\).
+
+\label{rem-constant-is-fixed}
+
+\end{refremark}
+
+\section{\texorpdfstring{Properties of \(\Phi\) as a
+Function}{Properties of \textbackslash Phi as a Function}}\label{properties-of-phi-as-a-function}
+
+What properties does \(\Phi(x)\) have as a function? Geometrically,
+\(\Phi(x)\) is the signed area (Remark~\ref{rem-signed-area}) under the
+graph of \(f\) between \(\alpha\) and \(x\), and moving \(x\) to the
+right adds the signed area over the new piece of the interval.
+
+\begin{proposition}[]\protect\hypertarget{prp-indefinite-integral-monotone}{}\label{prp-indefinite-integral-monotone}
+
+\hfill\break
+
+\begin{itemize}
+\tightlist
+\item
+  If \(f\ge 0\) on \(I\), then \(\Phi\) is increasing (1): as \(x\) gets
+  bigger we add positive area.
+\item
+  If \(f\le 0\) on \(I\), then \(\Phi\) is decreasing: as \(x\) gets
+  bigger we add negative area.
+\end{itemize}
+
+\begin{proof}
+Let \(x<y\) in \(I\) (for \(x=y\) there is nothing to show). By
+Proposition~\ref{prp-indefinite-integral-basic}, \[
+\Phi(y) - \Phi(x) = \int_x^y f(u)\,du.
+\] If \(f\ge 0\), this integral is \(\ge 0\) by
+Proposition~\ref{prp-integral-nonneg}, so \(\Phi(x)\le\Phi(y)\). If
+\(f\le 0\), apply Proposition~\ref{prp-integral-nonneg} to \(-f\ge0\)
+and use Proposition~\ref{prp-constant-multiple} to get
+\(\int_x^y f(u)\,du\le 0\), so \(\Phi(x)\ge\Phi(y)\).
+\end{proof}
+
+\end{proposition}
+
+\subsection{Continuity of the indefinite
+integral}\label{continuity-of-the-indefinite-integral}
+
+\begin{theorem}[]\protect\hypertarget{thm-indefinite-integral-continuous}{}\label{thm-indefinite-integral-continuous}
+
+\hfill\break
+If \(f\) is continuous on \(I\), then \(\Phi\) is continuous on \(I\).
+
+\begin{proof}
+Let \(x, y\in I\). By Proposition~\ref{prp-indefinite-integral-basic}
+and the Mean Value Theorem for Integrals
+(Theorem~\ref{thm-mvt-integrals}, which requires \(f\) continuous; for
+\(y<x\) use Remark~\ref{rem-mvt-remarks}, part 3), \[
+\Phi(y) - \Phi(x) = \int_x^y f(u)\,du = f(c)\,(y-x) \qquad (\ast)
+\] for some \(c\) between \(x\) and \(y\).
+
+What happens if \(y\to x\)? For \(\Phi\) to be continuous at \(x\), we
+need \(\Phi(y)\to\Phi(x)\) (Proposition~\ref{prp-continuity-via-limit}).
+Using \((\ast)\) and the limit laws
+(Proposition~\ref{prp-function-limit-laws}), \[
+\begin{aligned}
+\lim_{y\to x}\Phi(y)
+  &= \lim_{y\to x}\bigl[\Phi(x) + f(c)\,(y-x)\bigr] \\
+  &= \lim_{y\to x}\Phi(x) + \lim_{y\to x} f(c)\,(y-x) \\
+  &= \Phi(x) + f(x)\cdot 0 = \Phi(x).
+\end{aligned}
+\]
+\end{proof}
+
+\end{theorem}
+
+\begin{refremark}
+The point \(c\) in \((\ast)\) depends on \(y\), so a little care is
+needed in the last step. Since \(c\) lies between \(x\) and \(y\), we
+have \(c\to x\) as \(y\to x\), and hence \(f(c)\to f(x)\) by continuity
+of \(f\). In fact, all we really need is that \(f(c)\) stays
+\textbf{bounded} while \(y-x\to 0\) --- which is exactly what the next
+result exploits.
+
+\label{rem-c-depends-on-y}
+
+\end{refremark}
+
+\begin{proposition}[Lipschitz
+continuity]\protect\hypertarget{prp-indefinite-integral-lipschitz}{}\label{prp-indefinite-integral-lipschitz}
+
+Let \(f\) be continuous on \(I\), let \([a,b]\subseteq I\), and let
+\(M = \max_{[a,b]}\lvert f \rvert\) (this maximum exists by the Extreme
+Value Theorem, see Remark~\ref{rem-darboux-informal}). Then for all
+\(x, y\in[a,b]\), \[
+\lvert \Phi(y) - \Phi(x) \rvert \le M\,\lvert y-x \rvert.
+\] A function satisfying an estimate of this kind is called
+\textbf{Lipschitz continuous}.
+
+\begin{proof}
+By \((\ast)\),
+\(\lvert \Phi(y)-\Phi(x) \rvert = \lvert f(c) \rvert\,\lvert y-x \rvert\)
+with \(c\) between \(x\) and \(y\), so \(c\in[a,b]\) and
+\(\lvert f(c) \rvert\le M\).
+\end{proof}
+
+\end{proposition}
+
+\begin{refremark}
+Lipschitz continuity is a stronger property than continuity: given
+\(\varepsilon>0\), the choice \(\delta = \varepsilon/(M+1)\) works at
+\textbf{every} point of \([a,b]\) simultaneously (compare
+Example~\ref{exm-linear-continuous}, where the same kind of \(\delta\)
+appeared). In other words, \(\Phi\) is \emph{uniformly continuous} on
+\([a,b]\) in the sense of Equation~\ref{eq-uniform-continuity}, and here
+we get this directly, with an explicit \(\delta\).
+
+\label{rem-lipschitz-stronger}
+
+\end{refremark}
 
 
 

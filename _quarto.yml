@@ -33,6 +33,7 @@ book:
     - part: The Derivative
       chapters:
         - 12_derivative.qmd
+        - 13_differentiation_rules.qmd
 
 number-sections: true
 

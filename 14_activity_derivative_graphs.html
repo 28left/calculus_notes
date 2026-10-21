@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>17&nbsp; Activity: Reading Derivatives from Graphs – Math 140H — Honors Calculus I: Lecture Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./15_mean_value_theorem.html" rel="next">
+<link href="./13_differentiation_rules.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./12_derivative.html">The Derivative</a></li><li class="breadcrumb-item"><a href="./14_activity_derivative_graphs.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Activity: Reading Derivatives from Graphs</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Math 140H — Honors Calculus I: Lecture Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Real Numbers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_real_numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Rational Numbers and the Number Line</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_nested_intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week01_Number_Bases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Functions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_continuity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_activity_properties_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Limits</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_sequences_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week03_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of Sequences: Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_limits_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Limits of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Riemann Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_riemann_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Riemann Sums</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week05_Riemann_Sums.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab: Riemann Sums</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_properties_of_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Properties of the Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_indefinite_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Derivative</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_derivative.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The Derivative</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_differentiation_rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working with Derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_activity_derivative_graphs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Activity: Reading Derivatives from Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_mean_value_theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The Mean Value Theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_linear_approximation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">The Derivative as Linear Approximation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_activity_euler_method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Linear Approximation and Euler’s Method</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">17.1</span> Background</a></li>
+  <li><a href="#warm-up-a-dictionary" id="toc-warm-up-a-dictionary" class="nav-link" data-scroll-target="#warm-up-a-dictionary"><span class="header-section-number">17.2</span> Warm-up: a dictionary</a></li>
+  <li><a href="#part-i-from-f-to-f" id="toc-part-i-from-f-to-f" class="nav-link" data-scroll-target="#part-i-from-f-to-f"><span class="header-section-number">17.3</span> Part I: From <span class="math inline">\(f\)</span> to <span class="math inline">\(f'\)</span></a>
+  <ul class="collapse">
+  <li><a href="#problem-1" id="toc-problem-1" class="nav-link" data-scroll-target="#problem-1">Problem 1</a></li>
+  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a></li>
+  </ul></li>
+  <li><a href="#part-ii-from-f-back-to-f" id="toc-part-ii-from-f-back-to-f" class="nav-link" data-scroll-target="#part-ii-from-f-back-to-f"><span class="header-section-number">17.4</span> Part II: From <span class="math inline">\(f'\)</span> back to <span class="math inline">\(f\)</span></a>
+  <ul class="collapse">
+  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a></li>
+  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a></li>
+  </ul></li>
+  <li><a href="#going-further" id="toc-going-further" class="nav-link" data-scroll-target="#going-further"><span class="header-section-number">17.5</span> Going further</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./12_derivative.html">The Derivative</a></li><li class="breadcrumb-item"><a href="./14_activity_derivative_graphs.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Activity: Reading Derivatives from Graphs</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Activity: Reading Derivatives from Graphs</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- ::: {.callout-note}
+## About this activity
+An in-class, pencil-and-paper worksheet. You will practice passing between the graph of a
+function $f$ and the graph of its derivative $f'$ — in both directions. Going from $f$ to $f'$
+always has a single answer; going from $f'$ back to $f$ does not, and finding out exactly how
+much is missing is the main point of the second half.
+Companion reading: C&J §2.8.a, §2.8.e–f, and §2.9.b.
+::: -->
+<section id="background" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="background"><span class="header-section-number">17.1</span> Background</h2>
+<p>For now we use the geometric meaning of the derivative: <span class="math inline">\(f'(x_0)\)</span> is the <strong>slope of the tangent line</strong> to the graph of <span class="math inline">\(f\)</span> at the point <span class="math inline">\((x_0, f(x_0))\)</span>. Reading off a slope from a graph means laying a ruler along the curve at <span class="math inline">\(x_0\)</span> and measuring rise over run, using the grid squares. Doing this at every <span class="math inline">\(x\)</span> produces a new function, <span class="math inline">\(x \mapsto f'(x)\)</span>, with its own graph.</p>
+</section>
+<section id="warm-up-a-dictionary" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="warm-up-a-dictionary"><span class="header-section-number">17.2</span> Warm-up: a dictionary</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-deriv-dictionary" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 17.1</strong></span> Complete the right-hand column. Each row translates a feature of the graph of <span class="math inline">\(f\)</span> into a feature of the graph of <span class="math inline">\(f'\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">If the graph of <span class="math inline">\(f\)</span> …</th>
+<th style="text-align: left;">… then the graph of <span class="math inline">\(f'\)</span> …</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">is increasing on an interval</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">is decreasing on an interval</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has a horizontal tangent at <span class="math inline">\(x_0\)</span></td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">is a straight line of slope <span class="math inline">\(m\)</span> on an interval</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bends upward (is concave up) on an interval</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bends downward (is concave down) on an interval</td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">changes from bending down to bending up (inflection point) at <span class="math inline">\(x_0\)</span></td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">has a corner at <span class="math inline">\(x_0\)</span></td>
+<td style="text-align: left;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">If the graph of <span class="math inline">\(f\)</span> …</th>
+<th style="text-align: left;">… then the graph of <span class="math inline">\(f'\)</span> …</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">is increasing on an interval</td>
+<td style="text-align: left;">lies on or above the <span class="math inline">\(x\)</span>-axis there</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">is decreasing on an interval</td>
+<td style="text-align: left;">lies on or below the <span class="math inline">\(x\)</span>-axis there</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has a horizontal tangent at <span class="math inline">\(x_0\)</span></td>
+<td style="text-align: left;">meets the <span class="math inline">\(x\)</span>-axis at <span class="math inline">\(x_0\)</span>: <span class="math inline">\(f'(x_0)=0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">is a straight line of slope <span class="math inline">\(m\)</span> on an interval</td>
+<td style="text-align: left;">is the horizontal line at height <span class="math inline">\(m\)</span> there</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bends upward (is concave up) on an interval</td>
+<td style="text-align: left;">is increasing there</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bends downward (is concave down) on an interval</td>
+<td style="text-align: left;">is decreasing there</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">changes from bending down to bending up at <span class="math inline">\(x_0\)</span></td>
+<td style="text-align: left;">has a local minimum at <span class="math inline">\(x_0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">has a corner at <span class="math inline">\(x_0\)</span></td>
+<td style="text-align: left;">has no value at <span class="math inline">\(x_0\)</span>; it typically jumps there</td>
+</tr>
+</tbody>
+</table>
+<p>Note “on or above” in the first row, not “above”: <span class="math inline">\(x \mapsto x^3\)</span> is strictly increasing, yet its tangent at <span class="math inline">\(0\)</span> is horizontal. A zero of <span class="math inline">\(f'\)</span> does <em>not</em> by itself signal a maximum or minimum. Problems 2 and 4 contain exactly this situation.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="part-i-from-f-to-f" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="part-i-from-f-to-f"><span class="header-section-number">17.3</span> Part I: From <span class="math inline">\(f\)</span> to <span class="math inline">\(f'\)</span></h2>
+<p>In each problem, the top panel shows the graph of <span class="math inline">\(f\)</span>. Sketch the graph of <span class="math inline">\(f'\)</span> on the empty axes below it; the <span class="math inline">\(x\)</span>-axes are aligned, so you can transfer <span class="math inline">\(x\)</span>-coordinates straight down.</p>
+<section id="problem-1" class="level3">
+<h3 class="anchored" data-anchor-id="problem-1">Problem 1</h3>
+<div id="cell-fig-deriv-p1" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p1-output-1.png" width="635" height="660" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.1: Problem 1: the graph of <span class="math inline">\(f\)</span> (top) and axes for your sketch of <span class="math inline">\(f'\)</span> (bottom).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-deriv-p1" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 17.2</strong></span> &nbsp;</p>
+<ol type="1">
+<li><p>Find all points where the tangent to <span class="math inline">\(f\)</span> is horizontal. Mark the corresponding zeros of <span class="math inline">\(f'\)</span> on the lower axes.</p></li>
+<li><p>Between these points, decide whether <span class="math inline">\(f\)</span> is increasing or decreasing, and hence whether the graph of <span class="math inline">\(f'\)</span> lies above or below the <span class="math inline">\(x\)</span>-axis.</p></li>
+<li><p>Where is <span class="math inline">\(f\)</span> <em>steepest</em> while going down? What does that tell you about <span class="math inline">\(f'\)</span> there?</p></li>
+<li><p>Estimate slopes with a ruler and fill in the table. Plot the points on the lower axes.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-4\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(f'(x)\approx\)</span></td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+<td style="text-align: center;">&nbsp;</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Connect your points to a smooth sketch of <span class="math inline">\(f'\)</span>. Check it against the dictionary: where <span class="math inline">\(f\)</span> bends up, is your <span class="math inline">\(f'\)</span> increasing?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>The function is <span class="math inline">\(f(x) = \tfrac18(x^3 - 12x)\)</span>, so <span class="math inline">\(f'(x) = \tfrac38(x^2-4)\)</span>, an upward parabola.</p>
+<div id="cell-fig-deriv-p1-sol" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p1-sol" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p1-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p1-sol-output-1.png" width="635" height="660" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p1-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.2: Solution to Problem 1.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-4\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(-1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(3\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(f'(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4.5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.875\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1.125\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1.5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-1.125\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1.875\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4.5\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Horizontal tangents at <span class="math inline">\(x=\pm2\)</span> (local max at <span class="math inline">\(-2\)</span>, local min at <span class="math inline">\(2\)</span>), so <span class="math inline">\(f'(\pm2)=0\)</span>.</li>
+<li><span class="math inline">\(f\)</span> increases on <span class="math inline">\([-4,-2]\)</span> and <span class="math inline">\([2,4]\)</span> (<span class="math inline">\(f'\ge 0\)</span>) and decreases on <span class="math inline">\([-2,2]\)</span> (<span class="math inline">\(f'\le 0\)</span>).</li>
+<li>The steepest descent is at the inflection point <span class="math inline">\(x=0\)</span>, where <span class="math inline">\(f'\)</span> has its minimum <span class="math inline">\(-1.5\)</span>.</li>
+<li><span class="math inline">\(f\)</span> bends down on <span class="math inline">\([-4,0]\)</span> and up on <span class="math inline">\([0,4]\)</span>, matching <span class="math inline">\(f'\)</span> decreasing, then increasing.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2" class="level3">
+<h3 class="anchored" data-anchor-id="problem-2">Problem 2</h3>
+<div id="cell-fig-deriv-p2" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p2-output-1.png" width="635" height="626" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.3: Problem 2: the graph of <span class="math inline">\(f\)</span> (top) and axes for your sketch of <span class="math inline">\(f'\)</span> (bottom).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-deriv-p2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 17.3</strong></span> &nbsp;</p>
+<ol type="1">
+<li>At <span class="math inline">\(x=-1\)</span> the tangent to <span class="math inline">\(f\)</span> is horizontal. Does <span class="math inline">\(f\)</span> have a maximum or a minimum there? What does the graph of <span class="math inline">\(f'\)</span> do near <span class="math inline">\(x=-1\)</span> — does it cross the <span class="math inline">\(x\)</span>-axis or only touch it?</li>
+<li>To the right of <span class="math inline">\(x=1\)</span> the graph of <span class="math inline">\(f\)</span> is a straight line. What is its slope, and what does <span class="math inline">\(f'\)</span> look like there?</li>
+<li>What happens at <span class="math inline">\(x = 1\)</span>? Compare the slopes just to the left and just to the right of <span class="math inline">\(1\)</span>. Is there a sensible value for <span class="math inline">\(f'(1)\)</span>? How do you show this in your sketch?</li>
+<li>Sketch <span class="math inline">\(f'\)</span> on the whole interval <span class="math inline">\([-3,3]\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>On <span class="math inline">\([-3,1]\)</span>, <span class="math inline">\(f(x) = \tfrac14(x+1)^3 + 1\)</span>, so <span class="math inline">\(f'(x) = \tfrac34(x+1)^2\)</span>; on <span class="math inline">\([1,3]\)</span>, <span class="math inline">\(f(x) = 4-x\)</span>, so <span class="math inline">\(f'(x) = -1\)</span>.</p>
+<div id="cell-fig-deriv-p2-sol" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p2-sol" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p2-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p2-sol-output-1.png" width="635" height="626" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p2-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.4: Solution to Problem 2. The open circles mark that <span class="math inline">\(f'(1)\)</span> is undefined.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>At <span class="math inline">\(x=-1\)</span> the tangent is horizontal, yet <span class="math inline">\(f\)</span> keeps increasing on both sides: there is no extremum. Accordingly the graph of <span class="math inline">\(f'\)</span> <strong>touches</strong> the <span class="math inline">\(x\)</span>-axis at <span class="math inline">\(-1\)</span> without crossing it. (A “flat” inflection point, as for <span class="math inline">\(x^3\)</span> at <span class="math inline">\(0\)</span>.)</li>
+<li>On <span class="math inline">\((1,3]\)</span> the graph is a line of slope <span class="math inline">\(-1\)</span>, so <span class="math inline">\(f'\)</span> is constantly <span class="math inline">\(-1\)</span>.</li>
+<li>Just left of <span class="math inline">\(1\)</span> the slope is close to <span class="math inline">\(3\)</span>; just right of <span class="math inline">\(1\)</span> it is <span class="math inline">\(-1\)</span>. No single tangent line fits at the corner, so <span class="math inline">\(f'(1)\)</span> is undefined, and the graph of <span class="math inline">\(f'\)</span> <strong>jumps</strong> from <span class="math inline">\(3\)</span> to <span class="math inline">\(-1\)</span>. We draw open circles at both ends. Note that <span class="math inline">\(f\)</span> itself is continuous at <span class="math inline">\(1\)</span>: continuity does not guarantee a derivative (C&amp;J §2.8.e).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="part-ii-from-f-back-to-f" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="part-ii-from-f-back-to-f"><span class="header-section-number">17.4</span> Part II: From <span class="math inline">\(f'\)</span> back to <span class="math inline">\(f\)</span></h2>
+<p>Now the roles are reversed: the top panel shows the graph of the <strong>derivative</strong> <span class="math inline">\(f'\)</span>, and your task is to sketch <span class="math inline">\(f\)</span> itself.</p>
+<section id="problem-3" class="level3">
+<h3 class="anchored" data-anchor-id="problem-3">Problem 3</h3>
+<div id="cell-fig-deriv-p3" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p3-output-1.png" width="635" height="1140" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.5: Problem 3: the graph of <span class="math inline">\(f'\)</span> (top) and two sets of axes for your sketches of <span class="math inline">\(f\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-deriv-p3" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 17.4</strong></span> &nbsp;</p>
+<ol type="1">
+<li>Read off from the graph of <span class="math inline">\(f'\)</span>: on which intervals is <span class="math inline">\(f\)</span> increasing or decreasing? Where does <span class="math inline">\(f\)</span> have a local maximum or minimum? Where does <span class="math inline">\(f\)</span> bend up, where does it bend down, and where is it a straight line (with what slope)?</li>
+<li>Sketch <strong>a</strong> function <span class="math inline">\(f\)</span> with this derivative on axes A.</li>
+<li>Compare your sketch with your neighbor’s. Are they the same? On axes A, sketch a <em>second</em> function that also has the derivative shown, but is different from your first one. How are the two graphs related to each other?</li>
+<li>Describe all functions whose derivative is the one shown. How much information about <span class="math inline">\(f\)</span> is the graph of <span class="math inline">\(f'\)</span> missing?</li>
+<li>Now suppose you are also told that <span class="math display">\[
+f(-2) = -1.
+\]</span> Sketch <span class="math inline">\(f\)</span> on axes B. Is there now only one possible graph? Read off approximate values of <span class="math inline">\(f(-4)\)</span>, <span class="math inline">\(f(0)\)</span>, <span class="math inline">\(f(2)\)</span>, <span class="math inline">\(f(3)\)</span>, and <span class="math inline">\(f(4)\)</span> from your sketch.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<div id="cell-fig-deriv-p3-sol" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p3-sol" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p3-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p3-sol-output-1.png" width="635" height="798" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p3-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.6: Solution to Problem 3. Gray: several functions with the given derivative. Red: the one with <span class="math inline">\(f(-2) = -1\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><span class="math inline">\(f' &lt; 0\)</span> on <span class="math inline">\([-4,-2)\)</span> and <span class="math inline">\((3,4]\)</span>, <span class="math inline">\(f'&gt;0\)</span> on <span class="math inline">\((-2,3)\)</span>: <span class="math inline">\(f\)</span> decreases, then increases, then decreases, with a local minimum at <span class="math inline">\(x=-2\)</span> and a local maximum at <span class="math inline">\(x=3\)</span>. Since <span class="math inline">\(f'\)</span> increases on <span class="math inline">\([-4,0]\)</span>, <span class="math inline">\(f\)</span> bends up there; on <span class="math inline">\([0,2]\)</span>, <span class="math inline">\(f'=2\)</span> is constant, so <span class="math inline">\(f\)</span> is a straight line of slope <span class="math inline">\(2\)</span>; on <span class="math inline">\([2,4]\)</span>, <span class="math inline">\(f'\)</span> decreases, so <span class="math inline">\(f\)</span> bends down.</li>
+<li>A correct sketch has all the features from part 1; where it sits vertically is up to you.</li>
+<li>Any two correct sketches differ by a <strong>vertical shift</strong>: the derivative only records slopes, and sliding a graph up or down changes no slope.</li>
+<li>If <span class="math inline">\(f\)</span> is one such function, the others are exactly the functions <span class="math inline">\(f + C\)</span>, <span class="math inline">\(C\)</span> a constant. That every function with the same derivative arises this way is a real theorem, not just a picture: it says that a function with derivative <span class="math inline">\(0\)</span> on an interval is constant, which follows from the mean value theorem (C&amp;J §2.8.h, §2.9.b). The graph of <span class="math inline">\(f'\)</span> determines <span class="math inline">\(f\)</span> only up to this one unknown number.</li>
+<li>The condition <span class="math inline">\(f(-2) = -1\)</span> pins down the constant: of all the vertical shifts, exactly one passes through the point <span class="math inline">\((-2,-1)\)</span>. The red graph is the unique answer, with <span class="math inline">\(f(-4)=1\)</span>, <span class="math inline">\(f(0)=1\)</span>, <span class="math inline">\(f(2)=5\)</span>, <span class="math inline">\(f(3)=6\)</span>, <span class="math inline">\(f(4)=5\)</span>. (Explicitly: <span class="math inline">\(f(x)=\tfrac12x^2+2x+1\)</span> on <span class="math inline">\([-4,0]\)</span>, <span class="math inline">\(f(x)=2x+1\)</span> on <span class="math inline">\([0,2]\)</span>, <span class="math inline">\(f(x)=-x^2+6x-3\)</span> on <span class="math inline">\([2,4]\)</span>.)</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-4" class="level3">
+<h3 class="anchored" data-anchor-id="problem-4">Problem 4</h3>
+<p>Here <span class="math inline">\(f\)</span> is continuous on <span class="math inline">\([-3,3]\)</span> and differentiable everywhere except at <span class="math inline">\(x=0\)</span>; its derivative is shown below.</p>
+<div id="cell-fig-deriv-p4" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p4-output-1.png" width="635" height="933" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.7: Problem 4: the graph of <span class="math inline">\(f'\)</span> (top) and two sets of axes for your sketches of <span class="math inline">\(f\)</span>. The open circles indicate that <span class="math inline">\(f'(0)\)</span> is undefined.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-deriv-p4" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 17.5</strong></span> &nbsp;</p>
+<ol type="1">
+<li>Read off the main features of <span class="math inline">\(f\)</span>. In particular: what kind of point is <span class="math inline">\(x=-1\)</span>? What does the graph of <span class="math inline">\(f\)</span> look like at <span class="math inline">\(x=0\)</span>? Does <span class="math inline">\(f\)</span> have a maximum or minimum at <span class="math inline">\(x=2\)</span>?</li>
+<li>On axes A, sketch two different functions with the derivative shown.</li>
+<li>Now you are told that <span class="math display">\[
+f(2) = 1.
+\]</span> Sketch <span class="math inline">\(f\)</span> on axes B. Read off approximate values of <span class="math inline">\(f(-3)\)</span>, <span class="math inline">\(f(-1)\)</span>, <span class="math inline">\(f(0)\)</span>, and <span class="math inline">\(f(3)\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<div id="cell-fig-deriv-p4-sol" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div id="fig-deriv-p4-sol" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deriv-p4-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14_activity_derivative_graphs_files/figure-html/fig-deriv-p4-sol-output-1.png" width="635" height="626" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deriv-p4-sol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17.8: Solution to Problem 4. Gray: several functions with the given derivative. Red: the one with <span class="math inline">\(f(2) = 1\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><span class="math inline">\(f'\)</span> changes sign from <span class="math inline">\(-\)</span> to <span class="math inline">\(+\)</span> at <span class="math inline">\(x=-1\)</span>: a local minimum. At <span class="math inline">\(x=0\)</span> the slope jumps from <span class="math inline">\(1\)</span> to <span class="math inline">\(3\)</span>: <span class="math inline">\(f\)</span> has a <strong>corner</strong> there (the reverse of Problem 2). At <span class="math inline">\(x=2\)</span>, <span class="math inline">\(f'\)</span> touches zero without changing sign: <span class="math inline">\(f\)</span> has a horizontal tangent but keeps increasing — no extremum. <span class="math inline">\(f\)</span> bends up on <span class="math inline">\([-3,0]\)</span> and on <span class="math inline">\([2,3]\)</span>, and bends down on <span class="math inline">\([0,2]\)</span>.</li>
+<li>Again, any two answers differ by a vertical shift.</li>
+<li>Only one shift passes through <span class="math inline">\((2,1)\)</span>: <span class="math inline">\(f(-3)=0.5\)</span>, <span class="math inline">\(f(-1)=-1.5\)</span>, <span class="math inline">\(f(0)=-1\)</span>, <span class="math inline">\(f(3)=1.25\)</span>. To reach the left half from the given point you must pass <em>through</em> the corner, and this is where the continuity of <span class="math inline">\(f\)</span> at <span class="math inline">\(0\)</span> is used (see Going Further, question 3).</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="going-further" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="going-further"><span class="header-section-number">17.5</span> Going further</h2>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-deriv-further" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 17.6</strong></span> &nbsp;</p>
+<ol type="1">
+<li><strong>Change as area.</strong> In Problem 3, compute the signed area between the graph of <span class="math inline">\(f'\)</span> and the <span class="math inline">\(x\)</span>-axis from <span class="math inline">\(x=-2\)</span> to <span class="math inline">\(x=3\)</span> (it is made of triangles and a rectangle). Compare it with <span class="math inline">\(f(3) - f(-2)\)</span> from your sketch. Repeat for another pair of points. What do you conjecture?</li>
+<li><strong>Why the real numbers matter.</strong> Define <span class="math inline">\(h\)</span> on the <em>rational</em> numbers by <span class="math inline">\(h(x) = 0\)</span> if <span class="math inline">\(x &lt; \sqrt2\)</span> and <span class="math inline">\(h(x) = 1\)</span> if <span class="math inline">\(x &gt; \sqrt2\)</span>. Convince yourself that at every rational <span class="math inline">\(x\)</span>, the graph of <span class="math inline">\(h\)</span> is flat nearby, so its “derivative” is <span class="math inline">\(0\)</span> everywhere on <span class="math inline">\(\mathbb{Q}\)</span>. Yet <span class="math inline">\(h\)</span> is not constant. Which property of <span class="math inline">\(\mathbb{R}\)</span> (from the first weeks of the course) rules this out for functions on a real interval?</li>
+<li><strong>Is one value always enough?</strong> In Problem 4, drop the assumption that <span class="math inline">\(f\)</span> is continuous at <span class="math inline">\(0\)</span>, so <span class="math inline">\(f\)</span> is only required to have the given derivative on <span class="math inline">\([-3,0)\)</span> and on <span class="math inline">\((0,3]\)</span>. Does <span class="math inline">\(f(2) = 1\)</span> still determine <span class="math inline">\(f\)</span>? How many function values would you need?</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span></p>
+<ol type="1">
+<li>The area is <span class="math inline">\(2\)</span> (triangle on <span class="math inline">\([-2,0]\)</span>) <span class="math inline">\(+\ 4\)</span> (rectangle on <span class="math inline">\([0,2]\)</span>) <span class="math inline">\(+\ 1\)</span> (triangle on <span class="math inline">\([2,3]\)</span>) <span class="math inline">\(= 7\)</span>, and indeed <span class="math inline">\(f(3) - f(-2) = 6 - (-1) = 7\)</span>. The conjecture <span class="math display">\[
+f(b) - f(a) = \int_a^b f'(x)\,dx
+\]</span> is the <strong>fundamental theorem of calculus</strong> (C&amp;J §2.9). It explains the ambiguity in a second way: <span class="math inline">\(f'\)</span> determines every <em>difference</em> <span class="math inline">\(f(b)-f(a)\)</span>, but not the starting height.</li>
+<li>On <span class="math inline">\(\mathbb{Q}\)</span> the jump of <span class="math inline">\(h\)</span> happens across a “hole” at <span class="math inline">\(\sqrt2\)</span> that contains no input of <span class="math inline">\(h\)</span>. On <span class="math inline">\(\mathbb{R}\)</span> there are no such holes: this is completeness (the nested interval principle). The proof that <span class="math inline">\(f'=0\)</span> forces <span class="math inline">\(f\)</span> constant goes through the mean value theorem, which in turn rests on completeness.</li>
+<li>No.&nbsp;On each of the two pieces <span class="math inline">\(f\)</span> is determined up to its own constant, and without continuity the two constants are independent: the left half of the graph can be shifted up or down on its own. You need one value from each side of <span class="math inline">\(0\)</span> — for instance <span class="math inline">\(f(2)\)</span> and <span class="math inline">\(f(-1)\)</span>. The principle is: one value per <em>interval</em> on which <span class="math inline">\(f\)</span> is differentiable.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./13_differentiation_rules.html" class="pagination-link" aria-label="Working with Derivatives">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working with Derivatives</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./15_mean_value_theorem.html" class="pagination-link" aria-label="The Mean Value Theorem">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The Mean Value Theorem</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

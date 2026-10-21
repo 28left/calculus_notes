@@ -1,0 +1,212 @@
+---
+jupyter: python3
+---
+
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Activity: Linear Approximation and Euler's Method
+
+::: {.callout-note}
+## About this activity
+An in-class, pencil-and-paper worksheet. It builds on the linear approximation from lecture,
+$$
+L(x) = f(a) + f'(a)(x-a),
+$$
+the tangent line to the graph of $f$ at $x=a$. Here we use it in a new way: to estimate values of a
+function we do *not* have a formula for, but whose derivative we know through a
+**differential equation**.
+:::
+
+## Background: Differential Equations
+
+Consider the equation
+$$
+\frac{dy}{dx} = -2y .
+$$
+This is an example of a **differential equation**. A **solution** of this differential equation is a
+function $y = f(x)$ that makes the equation true, i.e. $f'(x) = -2f(x)$ for all $x$.
+
+Notice that the equation does not tell us what $f$ is. It tells us something more indirect: at any
+point $(x, y)$ on the graph of a solution, the slope of the tangent line is $-2y$. If we know *one*
+point on the graph, that is exactly what we need to build a linear approximation there.
+
+## Step 1: A worked example
+
+Suppose we want a solution $y = f(x)$ with the **initial data** $f(0) = 10$, and we wish to estimate
+$f(0.1)$.
+
+1.  Since we know $f(0)$, we use the linear approximation about $a = 0$:
+    $$
+    L(x) = f(0) + f'(0)(x - 0).
+    $$
+2.  Use the initial data and the differential equation to compute $f'(0)$. At $x = 0$ we have
+    $y = f(0) = 10$, so
+    $$
+    f'(0) = \left.\frac{dy}{dx}\right|_{x=0} = -2(10) = -20.
+    $$
+3.  Use $f(0)$ and $f'(0)$ to build the linear approximation about $a = 0$:
+    $$
+    L(x) = 10 - 20x.
+    $$
+4.  Use it to estimate $f(0.1)$:
+    $$
+    f(0.1) \approx L(0.1) = 10 - 20(0.1) = 8.
+    $$
+
+```{python}
+#| label: fig-euler-first-step
+#| fig-cap: "One step of Euler's method for $dy/dx = -2y$, $f(0) = 10$: follow the tangent line at $(0, 10)$ for a horizontal distance $0.1$."
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 0.32, 200)
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.plot(x, 10 * np.exp(-2 * x), color="C0", lw=2, label="solution $y = f(x)$")
+xt = np.linspace(-0.02, 0.16, 50)
+ax.plot(xt, 10 - 20 * xt, color="C1", lw=1.5, ls="--",
+        label="tangent line $L(x) = 10 - 20x$")
+ax.plot([0], [10], "o", color="C0")
+ax.plot([0.1], [8], "o", color="C1")
+ax.annotate("$(0,\\,10)$", (0, 10), textcoords="offset points", xytext=(8, 4))
+ax.annotate("$(0.1,\\,8)$", (0.1, 8), textcoords="offset points",
+            xytext=(-6, -16), ha="right")
+ax.vlines(0.1, 4.5, 10 * np.exp(-0.2), color="0.6", lw=0.8, ls=":")
+ax.set_xlim(-0.02, 0.32)
+ax.set_ylim(4.5, 10.8)
+ax.set_xlabel("$x$")
+ax.set_ylabel("$y$")
+ax.grid(True, color="0.85", lw=0.6)
+for side in ("top", "right"):
+    ax.spines[side].set_visible(False)
+ax.legend(frameon=False, loc="upper right")
+fig.tight_layout()
+plt.show()
+```
+
+We now know $f(0) = 10$ and (approximately) $f(0.1) = 8$. Nothing stops us from repeating the
+process: use the differential equation to get the slope at $x = 0.1$, build the linear approximation
+about $a = 0.1$, and use it to estimate $f(0.2)$. And so on. This method of solving a differential
+equation numerically, one small tangent-line step at a time, is called **Euler's method**.
+
+::: {#exr-activity-euler-steps}
+1.  Using $f(0.1) \approx 8$, find the linear approximation about $a = 0.1$ and use it to estimate
+    $f(0.2)$.
+2.  Take one more step to estimate $f(0.3)$.
+3.  Do you notice a pattern? Find a formula for the Euler estimate of $f(x)$ if we go from $0$ to
+    $x$ in $n$ equal steps of size $h = x/n$.
+:::
+
+<!-- ::: {.solution}
+1.  Slope at $x = 0.1$: $-2(8) = -16$. So $L(x) = 8 - 16(x - 0.1)$ and
+    $f(0.2) \approx 8 - 1.6 = 6.4$.
+2.  Slope at $x = 0.2$: $-2(6.4) = -12.8$, so $f(0.3) \approx 6.4 - 1.28 = 5.12$.
+3.  Each step replaces $y$ by $y + h(-2y) = (1 - 2h)\,y$. After $n$ steps of size $h = x/n$,
+    $$
+    f(x) \approx 10\left(1 - \frac{2x}{n}\right)^{n}.
+    $$
+    (For comparison: the exact solution is $f(x) = 10e^{-2x}$, so $f(0.1) \approx 8.187$,
+    $f(0.2) \approx 6.703$, $f(0.3) \approx 5.488$. All Euler estimates are too low, and the
+    error accumulates with each step. As $n \to \infty$ the formula in 3. tends to $10e^{-2x}$.)
+::: -->
+
+## Step 2: Exponential growth
+
+Let $N(t)$ denote the mass of a population of bacteria, in milligrams (mg), at time $t$ (in days).
+Assume that the per capita growth rate is $10\%$ per day:
+$$
+\frac{1}{N}\frac{dN}{dt} = 0.1, \qquad\text{or}\qquad \frac{dN}{dt} = 0.1\,N.
+$$
+Suppose we observe that at time $t = 10$ days the mass of the population is $300$ mg, so that
+$N(10) = 300$.
+
+::: {#exr-activity-exponential-growth}
+1.  Find the linear approximation for $N(t)$ about $a = 10$:
+    $$
+    L(t) = N(10) + N'(10)(t - 10).
+    $$
+2.  Use your linear approximation to estimate the mass of the population when $t = 10.5$.
+:::
+
+<!-- ::: {.solution}
+1.  $N'(10) = 0.1\,N(10) = 0.1(300) = 30$, so $L(t) = 300 + 30(t - 10)$.
+2.  $N(10.5) \approx L(10.5) = 300 + 30(0.5) = 315$ mg.
+    (Exact: $N(t) = 300e^{0.1(t-10)}$, so $N(10.5) \approx 315.38$ mg.)
+::: -->
+
+## Step 3: Logistic growth
+
+Let $N(t)$ again denote the mass of a population of bacteria, in mg, at time $t$ (in days). This time
+the population is modeled by a **logistic growth model**
+$$
+\frac{dN}{dt} = \frac{1}{2}\,N\left(1 - \frac{N}{1000}\right).
+$$
+Suppose we observe that at time $t = 20$ days the mass of the population is $500$ mg, so that
+$N(20) = 500$.
+
+::: {#exr-activity-logistic-growth}
+1.  Find the linear approximation for $N(t)$ about $a = 20$:
+    $$
+    L(t) = N(20) + N'(20)(t - 20).
+    $$
+2.  Use your linear approximation to estimate the mass of the population when $t = 20.1$.
+:::
+
+<!-- ::: {.solution}
+1.  $N'(20) = \tfrac12 (500)\left(1 - \tfrac{500}{1000}\right) = \tfrac12 \cdot 500 \cdot \tfrac12
+    = 125$, so $L(t) = 500 + 125(t - 20)$.
+2.  $N(20.1) \approx L(20.1) = 500 + 125(0.1) = 512.5$ mg.
+    (Exact: $N(t) = 1000/(1 + e^{-(t-20)/2})$, so $N(20.1) \approx 512.497$ mg.)
+::: -->
+
+## Step 4: Pollution in a lake
+
+Let $P(t)$ denote the amount of phosphorus pollution in a lake, in tons, $t$ months after monitoring
+has begun. Assume that the amount of pollution is modeled by the differential equation
+$$
+\frac{dP}{dt} = 20 - \frac{1}{5}\,P .
+$$
+This says that pollution flows into the lake at a constant rate of $20$ tons per month and flows out
+at a rate proportional to the current amount $P$, with proportionality constant $\tfrac15$, i.e.
+$20\%$ per month. Suppose we observe that at time $t = 3$ months the amount of phosphorus pollution
+is $40$ tons, so that $P(3) = 40$.
+
+::: {#exr-activity-pollution}
+1.  Find the linear approximation for $P(t)$ about $a = 3$:
+    $$
+    L(t) = P(3) + P'(3)(t - 3).
+    $$
+2.  Use your linear approximation to estimate the amount of phosphorus pollution in the lake one
+    month later, at $t = 4$.
+:::
+
+<!-- ::: {.solution}
+1.  $P'(3) = 20 - \tfrac15(40) = 12$, so $L(t) = 40 + 12(t - 3)$.
+2.  $P(4) \approx L(4) = 40 + 12 = 52$ tons.
+    (Exact: $P(t) = 100 - 60e^{-(t-3)/5}$, so $P(4) \approx 50.88$ tons.)
+::: -->
+
+## Over or under?
+
+In each of the three models, you can decide whether your estimate is too high or too low *without*
+knowing a formula for the solution, just by reading the differential equation.
+
+::: {#exr-activity-over-under}
+For each of Steps 2–4: as $t$ increases past the base point $a$, does the solution increase or
+decrease? And does the **slope** given by the differential equation then get larger or smaller?
+Use this to decide whether your linear approximation is an **overestimate** or an
+**underestimate**. Which of the three estimates do you expect to be most accurate, and why?
+:::
+
+<!-- ::: {.solution}
+- **Exponential growth.** $N' = 0.1N > 0$, so $N$ increases, and then so does the slope $0.1N$.
+  The graph bends upward away from its tangent line: $L(10.5) = 315$ is an underestimate.
+- **Pollution.** $P'(3) = 12 > 0$, so $P$ increases, and then the slope $20 - P/5$ decreases.
+  The graph bends below its tangent line: $L(4) = 52$ is an overestimate.
+- **Logistic growth.** $N$ increases, and the slope $\tfrac12 N(1 - N/1000)$, a downward parabola in
+  $N$, is *largest* exactly at $N = 500$. So the slope barely changes near $t = 20$, which makes
+  $512.5$ an excellent estimate; since the slope does decrease slightly once $N > 500$, it is a
+  (tiny) overestimate. Also, the step $0.1$ is short.
+::: -->

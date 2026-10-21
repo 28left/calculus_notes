@@ -34,6 +34,12 @@ book:
       chapters:
         - 12_derivative.qmd
         - 13_differentiation_rules.qmd
+        - 14_activity_derivative_graphs.qmd
+        - 15_mean_value_theorem.qmd
+        - 16_linear_approximation.qmd
+        - 17_activity_euler_method.qmd
+
+
 
 number-sections: true
 

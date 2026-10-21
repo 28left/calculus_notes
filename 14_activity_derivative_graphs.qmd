@@ -1,0 +1,412 @@
+---
+jupyter: python3
+---
+
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Activity: Reading Derivatives from Graphs
+
+<!-- ::: {.callout-note}
+## About this activity
+An in-class, pencil-and-paper worksheet. You will practice passing between the graph of a
+function $f$ and the graph of its derivative $f'$ — in both directions. Going from $f$ to $f'$
+always has a single answer; going from $f'$ back to $f$ does not, and finding out exactly how
+much is missing is the main point of the second half.
+Companion reading: C&J §2.8.a, §2.8.e–f, and §2.9.b.
+::: -->
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+BLUE, RED, GRAY = "C0", "C3", "0.6"
+
+
+def grid_axes(ax, xlim, ylim, title, ylabel="$y$"):
+    xmin, xmax = xlim
+    ymin, ymax = ylim
+    ax.set_xticks(range(xmin, xmax + 1))
+    ax.set_yticks(range(ymin, ymax + 1))
+    ax.grid(True, color="0.85", lw=0.6)
+    ax.axhline(0, color="0.25", lw=1.1)
+    ax.axvline(0, color="0.25", lw=1.1)
+    ax.set_xlim(xmin - 0.3, xmax + 0.3)
+    ax.set_ylim(ymin - 0.3, ymax + 0.3)
+    ax.set_xlabel("$x$")
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+
+
+def stacked(xlim, panels, width=6.5, unit=0.36):
+    """Axes stacked vertically with a common x-range, so that x-positions line up.
+    panels: list of (ylim, title, ylabel)."""
+    heights = [p[0][1] - p[0][0] + 1.5 for p in panels]
+    fig, axes = plt.subplots(
+        len(panels), 1,
+        figsize=(width, unit * sum(heights) + 0.5 * len(panels)),
+        gridspec_kw={"height_ratios": heights},
+        layout="constrained",
+    )
+    for ax, (ylim, title, ylabel) in zip(axes, panels):
+        grid_axes(ax, xlim, ylim, title, ylabel)
+    return fig, axes
+
+
+def curve(ax, f, a, b, color=BLUE, lw=2.2, **kw):
+    x = np.linspace(a, b, 400)
+    ax.plot(x, f(x), color=color, lw=lw, solid_capstyle="round", **kw)
+
+
+def hole(ax, x, y, color=BLUE):
+    ax.plot([x], [y], "o", ms=6, mfc="white", mec=color, mew=1.8, zorder=5)
+
+
+def dot(ax, x, y, color=RED):
+    ax.plot([x], [y], "o", ms=6, color=color, zorder=5)
+
+
+def guides(axes, xs):
+    for ax in axes:
+        for x in xs:
+            ax.axvline(x, color=GRAY, lw=1, ls="--", zorder=0)
+
+
+# ---- Problem 1 ------------------------------------------------------------
+f1 = lambda x: (x**3 - 12 * x) / 8
+f1p = lambda x: 3 * (x**2 - 4) / 8
+
+# ---- Problem 2 (corner at x = 1) ------------------------------------------
+f2_left = lambda x: (x + 1) ** 3 / 4 + 1      # on [-3, 1]
+f2_right = lambda x: 4 - x                    # on [1, 3]
+f2p_left = lambda x: 3 * (x + 1) ** 2 / 4     # on [-3, 1)
+f2p_right = lambda x: -1 + 0 * x              # on (1, 3]
+
+# ---- Problem 3 (piecewise-linear derivative) -------------------------------
+P3_pts = np.array([[-4, -2], [0, 2], [2, 2], [4, -2]])
+def f3p(x):
+    return np.interp(x, P3_pts[:, 0], P3_pts[:, 1])
+def f3(x, c):                                  # c = f(0)
+    x = np.asarray(x, float)
+    return np.where(x <= 0, x**2 / 2 + 2 * x + c,
+           np.where(x <= 2, 2 * x + c, -x**2 + 6 * x + c - 4))
+
+# ---- Problem 4 (jump in the derivative at x = 0) ---------------------------
+f4p_left = lambda x: x + 1                     # on [-3, 0)
+f4p_right = lambda x: 3 * (x - 2) ** 2 / 4     # on (0, 3]
+def f4(x, c):                                  # c = f(0)
+    x = np.asarray(x, float)
+    return np.where(x <= 0, x**2 / 2 + x + c, c + ((x - 2) ** 3 + 8) / 4)
+```
+
+## Background
+
+For now we use the geometric meaning of the derivative: $f'(x_0)$ is the **slope of the tangent
+line** to the graph of $f$ at the point $(x_0, f(x_0))$. Reading off a slope from a graph means
+laying a ruler along the curve at $x_0$ and measuring rise over run, using the grid squares.
+Doing this at every $x$ produces a new function, $x \mapsto f'(x)$, with its own graph.
+
+## Warm-up: a dictionary
+
+::: {#exr-deriv-dictionary}
+Complete the right-hand column. Each row translates a feature of the graph of $f$ into a feature
+of the graph of $f'$.
+
+| If the graph of $f$ … | … then the graph of $f'$ … |
+|:--|:--|
+| is increasing on an interval | &nbsp; |
+| is decreasing on an interval | &nbsp; |
+| has a horizontal tangent at $x_0$ | &nbsp; |
+| is a straight line of slope $m$ on an interval | &nbsp; |
+| bends upward (is concave up) on an interval | &nbsp; |
+| bends downward (is concave down) on an interval | &nbsp; |
+| changes from bending down to bending up (inflection point) at $x_0$ | &nbsp; |
+| has a corner at $x_0$ | &nbsp; |
+:::
+
+::: {.solution}
+| If the graph of $f$ … | … then the graph of $f'$ … |
+|:--|:--|
+| is increasing on an interval | lies on or above the $x$-axis there |
+| is decreasing on an interval | lies on or below the $x$-axis there |
+| has a horizontal tangent at $x_0$ | meets the $x$-axis at $x_0$: $f'(x_0)=0$ |
+| is a straight line of slope $m$ on an interval | is the horizontal line at height $m$ there |
+| bends upward (is concave up) on an interval | is increasing there |
+| bends downward (is concave down) on an interval | is decreasing there |
+| changes from bending down to bending up at $x_0$ | has a local minimum at $x_0$ |
+| has a corner at $x_0$ | has no value at $x_0$; it typically jumps there |
+
+Note "on or above" in the first row, not "above": $x \mapsto x^3$ is strictly increasing,
+yet its tangent at $0$ is horizontal. A zero of $f'$ does *not* by itself signal a maximum or
+minimum. Problems 2 and 4 contain exactly this situation.
+:::
+
+## Part I: From $f$ to $f'$
+
+In each problem, the top panel shows the graph of $f$. Sketch the graph of $f'$ on the empty
+axes below it; the $x$-axes are aligned, so you can transfer $x$-coordinates straight down.
+
+### Problem 1
+
+```{python}
+#| label: fig-deriv-p1
+#| fig-cap: "Problem 1: the graph of $f$ (top) and axes for your sketch of $f'$ (bottom)."
+#| echo: false
+fig, (ax_f, ax_d) = stacked((-4, 4), [((-3, 3), "Graph of $f$", "$y$"),
+                                      ((-2, 5), "Sketch the graph of $f'$ here", "$y$")])
+curve(ax_f, f1, -4, 4)
+plt.show()
+```
+
+::: {#exr-deriv-p1}
+1.  Find all points where the tangent to $f$ is horizontal. Mark the corresponding zeros of $f'$
+    on the lower axes.
+2.  Between these points, decide whether $f$ is increasing or decreasing, and hence whether the
+    graph of $f'$ lies above or below the $x$-axis.
+3.  Where is $f$ *steepest* while going down? What does that tell you about $f'$ there?
+4.  Estimate slopes with a ruler and fill in the table. Plot the points on the lower axes.
+
+    | $x$ | $-4$ | $-3$ | $-2$ | $-1$ | $0$ | $1$ | $2$ | $3$ | $4$ |
+    |:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+    | $f'(x)\approx$ | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; |
+
+5.  Connect your points to a smooth sketch of $f'$. Check it against the dictionary: where $f$
+    bends up, is your $f'$ increasing?
+:::
+
+::: {.solution}
+The function is $f(x) = \tfrac18(x^3 - 12x)$, so $f'(x) = \tfrac38(x^2-4)$, an upward parabola.
+
+```{python}
+#| label: fig-deriv-p1-sol
+#| fig-cap: "Solution to Problem 1."
+#| echo: false
+fig, (ax_f, ax_d) = stacked((-4, 4), [((-3, 3), "$f$", "$y$"), ((-2, 5), "$f'$", "$y$")])
+curve(ax_f, f1, -4, 4)
+curve(ax_d, f1p, -4, 4, color=RED)
+for x0 in (-2, 0, 2):
+    dot(ax_f, x0, f1(x0), color=BLUE); dot(ax_d, x0, f1p(x0))
+guides((ax_f, ax_d), (-2, 0, 2))
+plt.show()
+```
+
+| $x$ | $-4$ | $-3$ | $-2$ | $-1$ | $0$ | $1$ | $2$ | $3$ | $4$ |
+|:--|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| $f'(x)$ | $4.5$ | $1.875$ | $0$ | $-1.125$ | $-1.5$ | $-1.125$ | $0$ | $1.875$ | $4.5$ |
+
+- Horizontal tangents at $x=\pm2$ (local max at $-2$, local min at $2$), so $f'(\pm2)=0$.
+- $f$ increases on $[-4,-2]$ and $[2,4]$ ($f'\ge 0$) and decreases on $[-2,2]$ ($f'\le 0$).
+- The steepest descent is at the inflection point $x=0$, where $f'$ has its minimum $-1.5$.
+- $f$ bends down on $[-4,0]$ and up on $[0,4]$, matching $f'$ decreasing, then increasing.
+:::
+
+### Problem 2
+
+```{python}
+#| label: fig-deriv-p2
+#| fig-cap: "Problem 2: the graph of $f$ (top) and axes for your sketch of $f'$ (bottom)."
+#| echo: false
+fig, (ax_f, ax_d) = stacked((-3, 3), [((-2, 4), "Graph of $f$", "$y$"),
+                                      ((-2, 4), "Sketch the graph of $f'$ here", "$y$")])
+curve(ax_f, f2_left, -3, 1)
+curve(ax_f, f2_right, 1, 3)
+plt.show()
+```
+
+::: {#exr-deriv-p2}
+1.  At $x=-1$ the tangent to $f$ is horizontal. Does $f$ have a maximum or a minimum there? What
+    does the graph of $f'$ do near $x=-1$ — does it cross the $x$-axis or only touch it?
+2.  To the right of $x=1$ the graph of $f$ is a straight line. What is its slope, and what does
+    $f'$ look like there?
+3.  What happens at $x = 1$? Compare the slopes just to the left and just to the right of $1$.
+    Is there a sensible value for $f'(1)$? How do you show this in your sketch?
+4.  Sketch $f'$ on the whole interval $[-3,3]$.
+:::
+
+::: {.solution}
+On $[-3,1]$, $f(x) = \tfrac14(x+1)^3 + 1$, so $f'(x) = \tfrac34(x+1)^2$; on $[1,3]$,
+$f(x) = 4-x$, so $f'(x) = -1$.
+
+```{python}
+#| label: fig-deriv-p2-sol
+#| fig-cap: "Solution to Problem 2. The open circles mark that $f'(1)$ is undefined."
+#| echo: false
+fig, (ax_f, ax_d) = stacked((-3, 3), [((-2, 4), "$f$", "$y$"), ((-2, 4), "$f'$", "$y$")])
+curve(ax_f, f2_left, -3, 1); curve(ax_f, f2_right, 1, 3)
+curve(ax_d, f2p_left, -3, 1, color=RED); curve(ax_d, f2p_right, 1, 3, color=RED)
+hole(ax_d, 1, 3, RED); hole(ax_d, 1, -1, RED)
+dot(ax_f, -1, 1, color=BLUE); dot(ax_d, -1, 0)
+guides((ax_f, ax_d), (-1, 1))
+plt.show()
+```
+
+- At $x=-1$ the tangent is horizontal, yet $f$ keeps increasing on both sides: there is no
+  extremum. Accordingly the graph of $f'$ **touches** the $x$-axis at $-1$ without crossing it.
+  (A "flat" inflection point, as for $x^3$ at $0$.)
+- On $(1,3]$ the graph is a line of slope $-1$, so $f'$ is constantly $-1$.
+- Just left of $1$ the slope is close to $3$; just right of $1$ it is $-1$. No single tangent
+  line fits at the corner, so $f'(1)$ is undefined, and the graph of $f'$ **jumps** from $3$ to
+  $-1$. We draw open circles at both ends. Note that $f$ itself is continuous at $1$: continuity
+  does not guarantee a derivative (C&J §2.8.e).
+:::
+
+## Part II: From $f'$ back to $f$
+
+Now the roles are reversed: the top panel shows the graph of the **derivative** $f'$, and your
+task is to sketch $f$ itself.
+
+### Problem 3
+
+```{python}
+#| label: fig-deriv-p3
+#| fig-cap: "Problem 3: the graph of $f'$ (top) and two sets of axes for your sketches of $f$."
+#| echo: false
+fig, (ax_d, ax_a, ax_b) = stacked((-4, 4), [((-3, 3), "Graph of $f'$", "$y$"),
+                                             ((-2, 7), "Axes A: sketches for parts 2 and 3", "$y$"),
+                                             ((-2, 7), "Axes B: sketch for part 5", "$y$")])
+curve(ax_d, f3p, -4, 4)
+plt.show()
+```
+
+::: {#exr-deriv-p3}
+1.  Read off from the graph of $f'$: on which intervals is $f$ increasing or decreasing? Where
+    does $f$ have a local maximum or minimum? Where does $f$ bend up, where does it bend down, and
+    where is it a straight line (with what slope)?
+2.  Sketch **a** function $f$ with this derivative on axes A.
+3.  Compare your sketch with your neighbor's. Are they the same? On axes A, sketch a *second*
+    function that also has the derivative shown, but is different from your first one. How are
+    the two graphs related to each other?
+4.  Describe all functions whose derivative is the one shown. How much information about $f$ is
+    the graph of $f'$ missing?
+5.  Now suppose you are also told that
+    $$
+    f(-2) = -1.
+    $$
+    Sketch $f$ on axes B. Is there now only one possible graph? Read off approximate values of
+    $f(-4)$, $f(0)$, $f(2)$, $f(3)$, and $f(4)$ from your sketch.
+:::
+
+::: {.solution}
+```{python}
+#| label: fig-deriv-p3-sol
+#| fig-cap: "Solution to Problem 3. Gray: several functions with the given derivative. Red: the one with $f(-2) = -1$."
+#| echo: false
+fig, (ax_d, ax_s) = stacked((-4, 4), [((-3, 3), "$f'$", "$y$"), ((-3, 8), "$f$", "$y$")])
+curve(ax_d, f3p, -4, 4)
+for c in (-1, 0, 2, 3):
+    curve(ax_s, lambda x, c=c: f3(x, c), -4, 4, color=GRAY, lw=1.3)
+curve(ax_s, lambda x: f3(x, 1), -4, 4, color=RED)
+dot(ax_s, -2, -1)
+guides((ax_d, ax_s), (-2, 0, 2, 3))
+plt.show()
+```
+
+1.  $f' < 0$ on $[-4,-2)$ and $(3,4]$, $f'>0$ on $(-2,3)$: $f$ decreases, then increases, then
+    decreases, with a local minimum at $x=-2$ and a local maximum at $x=3$. Since $f'$ increases
+    on $[-4,0]$, $f$ bends up there; on $[0,2]$, $f'=2$ is constant, so $f$ is a straight line
+    of slope $2$; on $[2,4]$, $f'$ decreases, so $f$ bends down.
+2.  A correct sketch has all the features from part 1; where it sits vertically is up to you.
+3.  Any two correct sketches differ by a **vertical shift**: the derivative only records
+    slopes, and sliding a graph up or down changes no slope.
+4.  If $f$ is one such function, the others are exactly the functions $f + C$, $C$ a constant.
+    That every function with the same derivative arises this way is a real theorem, not just a
+    picture: it says that a function with derivative $0$ on an interval is constant, which
+    follows from the mean value theorem (C&J §2.8.h, §2.9.b). The graph of $f'$ determines
+    $f$ only up to this one unknown number.
+5.  The condition $f(-2) = -1$ pins down the constant: of all the vertical shifts, exactly one
+    passes through the point $(-2,-1)$. The red graph is the unique answer, with
+    $f(-4)=1$, $f(0)=1$, $f(2)=5$, $f(3)=6$, $f(4)=5$. (Explicitly: $f(x)=\tfrac12x^2+2x+1$ on
+    $[-4,0]$, $f(x)=2x+1$ on $[0,2]$, $f(x)=-x^2+6x-3$ on $[2,4]$.)
+:::
+
+### Problem 4
+
+Here $f$ is continuous on $[-3,3]$ and differentiable everywhere except at $x=0$; its derivative
+is shown below.
+
+```{python}
+#| label: fig-deriv-p4
+#| fig-cap: "Problem 4: the graph of $f'$ (top) and two sets of axes for your sketches of $f$. The open circles indicate that $f'(0)$ is undefined."
+#| echo: false
+fig, (ax_d, ax_a, ax_b) = stacked((-3, 3), [((-2, 4), "Graph of $f'$", "$y$"),
+                                             ((-3, 3), "Axes A: sketches for part 2", "$y$"),
+                                             ((-3, 3), "Axes B: sketch for part 3", "$y$")])
+curve(ax_d, f4p_left, -3, 0); curve(ax_d, f4p_right, 0, 3)
+hole(ax_d, 0, 1); hole(ax_d, 0, 3)
+plt.show()
+```
+
+::: {#exr-deriv-p4}
+1.  Read off the main features of $f$. In particular: what kind of point is $x=-1$? What does the
+    graph of $f$ look like at $x=0$? Does $f$ have a maximum or minimum at $x=2$?
+2.  On axes A, sketch two different functions with the derivative shown.
+3.  Now you are told that
+    $$
+    f(2) = 1.
+    $$
+    Sketch $f$ on axes B. Read off approximate values of $f(-3)$, $f(-1)$, $f(0)$, and $f(3)$.
+:::
+
+::: {.solution}
+```{python}
+#| label: fig-deriv-p4-sol
+#| fig-cap: "Solution to Problem 4. Gray: several functions with the given derivative. Red: the one with $f(2) = 1$."
+#| echo: false
+fig, (ax_d, ax_s) = stacked((-3, 3), [((-2, 4), "$f'$", "$y$"), ((-3, 3), "$f$", "$y$")])
+curve(ax_d, f4p_left, -3, 0); curve(ax_d, f4p_right, 0, 3)
+hole(ax_d, 0, 1); hole(ax_d, 0, 3)
+for c in (-2.5, -2, 0, 0.5):
+    curve(ax_s, lambda x, c=c: f4(x, c), -3, 3, color=GRAY, lw=1.3)
+curve(ax_s, lambda x: f4(x, -1), -3, 3, color=RED)
+dot(ax_s, 2, 1)
+guides((ax_d, ax_s), (-1, 0, 2))
+plt.show()
+```
+
+1.  $f'$ changes sign from $-$ to $+$ at $x=-1$: a local minimum. At $x=0$ the slope jumps from
+    $1$ to $3$: $f$ has a **corner** there (the reverse of Problem 2). At $x=2$, $f'$ touches
+    zero without changing sign: $f$ has a horizontal tangent but keeps increasing — no extremum.
+    $f$ bends up on $[-3,0]$ and on $[2,3]$, and bends down on $[0,2]$.
+2.  Again, any two answers differ by a vertical shift.
+3.  Only one shift passes through $(2,1)$: $f(-3)=0.5$, $f(-1)=-1.5$, $f(0)=-1$, $f(3)=1.25$.
+    To reach the left half from the given point you must pass *through* the corner, and this is
+    where the continuity of $f$ at $0$ is used (see Going Further, question 3).
+:::
+
+## Going further
+
+::: {#exr-deriv-further}
+1.  **Change as area.** In Problem 3, compute the signed area between the graph of $f'$ and the
+    $x$-axis from $x=-2$ to $x=3$ (it is made of triangles and a rectangle). Compare it with
+    $f(3) - f(-2)$ from your sketch. Repeat for another pair of points. What do you conjecture?
+2.  **Why the real numbers matter.** Define $h$ on the *rational* numbers by $h(x) = 0$ if
+    $x < \sqrt2$ and $h(x) = 1$ if $x > \sqrt2$. Convince yourself that at every rational $x$,
+    the graph of $h$ is flat nearby, so its "derivative" is $0$ everywhere on $\Q$. Yet $h$ is not
+    constant. Which property of $\R$ (from the first weeks of the course) rules this out for
+    functions on a real interval?
+3.  **Is one value always enough?** In Problem 4, drop the assumption that $f$ is continuous at
+    $0$, so $f$ is only required to have the given derivative on $[-3,0)$ and on $(0,3]$. Does
+    $f(2) = 1$ still determine $f$? How many function values would you need?
+:::
+
+::: {.solution}
+1.  The area is $2$ (triangle on $[-2,0]$) $+\ 4$ (rectangle on $[0,2]$) $+\ 1$ (triangle on
+    $[2,3]$) $= 7$, and indeed $f(3) - f(-2) = 6 - (-1) = 7$. The conjecture
+    $$
+    f(b) - f(a) = \int_a^b f'(x)\,dx
+    $$
+    is the **fundamental theorem of calculus** (C&J §2.9). It explains the ambiguity in a second
+    way: $f'$ determines every *difference* $f(b)-f(a)$, but not the starting height.
+2.  On $\Q$ the jump of $h$ happens across a "hole" at $\sqrt2$ that contains no input of $h$.
+    On $\R$ there are no such holes: this is completeness (the nested interval principle). The
+    proof that $f'=0$ forces $f$ constant goes through the mean value theorem, which in turn
+    rests on completeness.
+3.  No. On each of the two pieces $f$ is determined up to its own constant, and without
+    continuity the two constants are independent: the left half of the graph can be shifted
+    up or down on its own. You need one value from each side of $0$ — for instance $f(2)$ and
+    $f(-1)$. The principle is: one value per *interval* on which $f$ is differentiable.
+:::

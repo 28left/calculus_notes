@@ -1,0 +1,274 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Mean Value Theorem
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §2.8.h–i: the mean value theorem of differential calculus and its
+proof by way of Rolle's theorem.
+::: -->
+
+## Local and Global Information
+
+The derivative
+$$
+f'(x) = \lim_{h\to0}\frac{f(x+h)-f(x)}{h}
+$$
+is a **local** quantity: it only depends on the values of $f$ in an arbitrarily small neighborhood
+of $x$. A difference quotient
+$$
+\frac{f(b)-f(a)}{b-a},
+$$
+on the other hand, compares the values of $f$ at two points that may be far apart, so it reflects
+a **global** property of $f$. The Mean Value Theorem connects the two. It is the most important tool
+for deriving *global* properties of a function from *local* properties of its derivative.
+
+**Geometric picture.** The difference quotient $\frac{f(b)-f(a)}{b-a}$ is the slope of the
+**secant** through the points $(a,f(a))$ and $(b,f(b))$ of the graph of $f$. Imagine shifting this
+secant parallel to itself, away from the graph. At some point $\xi$ between $a$ and $b$ the shifted
+line will just touch the graph without crossing it: it becomes the **tangent** at $\xi$. (One such
+point is the point of the graph that is farthest from the secant.) Since the tangent is parallel to
+the secant, the two have the same slope:
+$$
+f'(\xi) = \frac{f(b)-f(a)}{b-a}.
+$$
+
+::: {#exr-mvt-fails}
+Try to draw the graph of a function on $[a,b]$ for which there is **no** point $\xi\in(a,b)$ at which
+the tangent is parallel to the secant. Is your function continuous? Does it have a tangent at every
+point?
+:::
+
+## The Mean Value Theorem
+
+::: {#thm-mvt}
+## Mean Value Theorem
+Suppose $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$. Then there exists $\xi$ with
+$a<\xi<b$ and
+$$
+f'(\xi) = \frac{f(b)-f(a)}{b-a}.
+$$
+:::
+
+Equivalently, $f(b)-f(a) = f'(\xi)\,(b-a)$. The theorem asserts only that such a $\xi$ *exists*; it
+says nothing about where in $(a,b)$ it lies, and there may be several such points. Note also that
+$f$ must be continuous on the *closed* interval, but differentiability is only required on the
+*open* interval: the derivative need not exist at the endpoints.
+
+Why do we need to assume that $f'(x)$ exists for **all** $x\in(a,b)$? A single point of
+non-differentiability is enough to break the theorem.
+
+::: {#exm-abs-no-mvt}
+\
+Let $f(x) = \abs{x}$ on $[-1,1]$. Then $f$ is continuous on $[-1,1]$, and the secant has slope
+$$
+\frac{f(1)-f(-1)}{1-(-1)} = \frac{1-1}{2} = 0 .
+$$
+But $f'(x) = -1$ for $x<0$ and $f'(x)=1$ for $x>0$, while $f'(0)$ does not exist (the left- and
+right-sided limits of the difference quotient are $-1$ and $1$). So there is no $\xi\in(-1,1)$ with
+$f'(\xi)=0$. The graph has a corner at $0$, and no tangent is parallel to the secant.
+:::
+
+::: {#exm-driving}
+## Driving
+\
+Suppose you drive for $2$ hours and end up $120$ miles from where you started. Let $s(t)$ be your
+distance from the starting point at time $t\in[0,2]$. Assume that your movement is continuous and
+that your velocity $s'(t)$ exists at all times. By @thm-mvt, there is a moment $\xi\in(0,2)$ at which
+your velocity was
+$$
+s'(\xi) = \frac{s(2)-s(0)}{2-0} = \frac{120-0}{2-0} = 60 \text{ mph}.
+$$
+Here the numerator is a distance and the denominator a time. In particular, you cannot claim to
+have driven at less than $50$ mph the whole time. On the other hand, the theorem does not tell us
+*when* you were going exactly $60$ mph.
+:::
+
+## Rolle's Theorem
+
+We prove the Mean Value Theorem by first establishing the special case of a horizontal secant.
+
+::: {#thm-rolle}
+## Rolle's Theorem
+Suppose $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, and $f(a)=f(b)=0$. Then there
+exists $\xi$ with $a<\xi<b$ and
+$$
+f'(\xi) = 0.
+$$
+:::
+
+This is the Mean Value Theorem with a horizontal tangent: if the graph of $f$ meets the $x$-axis at
+$a$ and at $b$, it must have a horizontal tangent somewhere in between.
+
+The proof rests on the following key fact, which we have used before (see @rem-darboux-informal)
+and will prove later.
+
+::: {#thm-evt}
+## Extreme Value Theorem
+A continuous function on a closed interval $[a,b]$ assumes a global maximum and a global minimum.
+That is, there exist $M$ and $m$ such that
+$$
+m \le f(x) \le M \qquad\text{for all } x\in[a,b],
+$$
+and there are points $x_m, x_M\in[a,b]$ with $f(x_m)=m$ and $f(x_M)=M$.
+:::
+
+With this, we can prove @thm-rolle.
+
+::: {.proof}
+Let $m$ and $M$ be the minimum and maximum of $f$ on $[a,b]$ (@thm-evt). Since $f(a)=f(b)=0$, we
+must have
+$$
+m \le 0 \le M .
+$$
+
+*Case $m = M = 0$.* Then $f(x)=0$ for all $x\in[a,b]$. Every difference quotient of $f$ is $0$, so
+$f'(\xi) = 0$ for every $\xi\in(a,b)$, and we are done.
+
+*Case $M>0$.* There exists $\xi\in[a,b]$ with $f(\xi)=M$. Since $f(a)=f(b)=0<M$, $\xi$ is an
+**interior point**: $\xi\in(a,b)$. Since $f(x)\le M$ for all $x\in[a,b]$, we have
+$$
+f(\xi+h) - f(\xi) \le 0
+$$
+for all $h$ with $\xi+h\in[a,b]$, in particular for all small enough $\abs h$. Hence
+$$
+\frac{f(\xi+h)-f(\xi)}{h} \le 0 \quad\text{for } h>0,
+\qquad\qquad
+\frac{f(\xi+h)-f(\xi)}{h} \ge 0 \quad\text{for } h<0 .
+$$
+Since $f$ is differentiable at $\xi$, the limit
+$$
+\lim_{h\to0}\frac{f(\xi+h)-f(\xi)}{h}
+$$
+exists, no matter from which direction $h\to0$. Letting $h\to0$ through positive values, the limit
+is $\le0$; letting $h\to0$ through negative values, it is $\ge0$ (a limit of nonpositive numbers is
+nonpositive; compare the argument at the end of the proof of @thm-ivt). Since the left-sided and the
+right-sided limit agree (@def-one-sided-limits), we must have
+$$
+f'(\xi) = \lim_{h\to0}\frac{f(\xi+h)-f(\xi)}{h} = 0 .
+$$
+
+*Case $M=0$, $m<0$.* The same argument, applied at a point $\xi$ where $f$ attains its minimum $m$
+(or the previous case applied to $-f$), gives $f'(\xi)=0$.
+:::
+
+::: {#rem-interior-extremum}
+The proof shows more than Rolle's theorem: if $f$ attains a maximum or a minimum at an **interior**
+point $\xi$ of an interval, and $f$ is differentiable at $\xi$, then $f'(\xi)=0$. The assumption
+$f(a)=f(b)=0$ was only used to guarantee that an extremum occurs in the interior.
+:::
+
+## Proof of the Mean Value Theorem
+
+To deduce @thm-mvt from @thm-rolle, we subtract the secant from $f$. Define
+$$
+\varphi(x) := f(x) - f(a) - \frac{f(b)-f(a)}{b-a}\,(x-a).
+$$
+The secant through $(a,f(a))$ and $(b,f(b))$ is the line $y = f(a) + \frac{f(b)-f(a)}{b-a}(x-a)$, so
+$\varphi(x)$ is the **vertical distance** between the point $(x,f(x))$ on the graph and the point of
+the secant above (or below) $x$.
+
+::: {.proof}
+Plugging in the endpoints,
+$$
+\varphi(a) = f(a) - f(a) - 0 = 0,
+\qquad
+\varphi(b) = f(b) - f(a) - \frac{f(b)-f(a)}{b-a}(b-a) = 0 .
+$$
+The function $\varphi$ is of the form
+$$
+\varphi(x) = f(x) + c\,x + d,
+\qquad\text{with constants}\quad
+c = -\frac{f(b)-f(a)}{b-a}, \quad d = -f(a) + \frac{f(b)-f(a)}{b-a}\,a .
+$$
+So $\varphi$ is continuous on $[a,b]$ (@cor-continuity-algebra), and since
+$$
+\frac{\varphi(x+h)-\varphi(x)}{h} = \frac{f(x+h)-f(x)}{h} + c ,
+$$
+it is differentiable on $(a,b)$ with
+$$
+\varphi'(x) = f'(x) + c .
+$$
+By @thm-rolle there exists $\xi$ with $a<\xi<b$ and $\varphi'(\xi)=0$. Hence
+$$
+f'(\xi) = -c = \frac{f(b)-f(a)}{b-a} .
+$$
+:::
+
+::: {#rem-rolle-general}
+Applying @thm-mvt to a function with $f(a)=f(b)$ gives $f'(\xi)=0$. So Rolle's theorem holds more
+generally whenever $f(a)=f(b)$, not only when both values are $0$.
+:::
+
+## Application: Lipschitz Continuity
+
+::: {#def-lipschitz}
+\
+A function $f$ is **Lipschitz continuous** on an interval $I$ if there is a constant $L\ge0$ such that
+$$
+\abs{f(x)-f(y)} \le L\,\abs{x-y} \qquad\text{for all } x,y\in I .
+$$
+:::
+
+In other words, all difference quotients $\frac{f(x)-f(y)}{x-y}$ of $f$ on $I$ are bounded in absolute
+value by $L$: the secant slopes of $f$ cannot become arbitrarily steep. A Lipschitz continuous
+function is continuous: given $\eps>0$, the choice $\delta=\eps/L$ (any $\delta$ if $L=0$) works in
+@def-continuity at every point.
+
+We say $f$ is **continuously differentiable** on $[a,b]$ if $f'$ exists on $[a,b]$ (as a one-sided
+derivative at the endpoints) and $f'$ is continuous on $[a,b]$.
+
+::: {#prp-c1-lipschitz}
+\
+Any function $f$ that is continuously differentiable on $[a,b]$ is Lipschitz continuous on $[a,b]$.
+:::
+
+::: {.proof}
+Since $f'$ is continuous on $[a,b]$, it is bounded there by @thm-evt: there is $L$ with
+$$
+\abs{f'(x)} \le L \qquad\text{for all } x\in[a,b].
+$$
+Now let $a\le x<y\le b$. Then $f$ is continuous on $[x,y]$ and differentiable on $(x,y)$, so by
+@thm-mvt there is $\xi\in(x,y)$ with
+$$
+\abs{f(y)-f(x)} = \abs{f'(\xi)\,(y-x)} = \abs{f'(\xi)}\,\abs{y-x} \le L\,\abs{y-x} .
+$$
+:::
+
+The proof only used that $f'$ is bounded on $(a,b)$ (and that $f$ is continuous on $[a,b]$), so this
+weaker assumption is already enough.
+
+::: {#exm-cube-root-not-lipschitz}
+## Not every continuous function is Lipschitz continuous
+\
+Let $f(x) = \sqrt[3]{x}$ on $[-1,1]$. This function is continuous. But for $x\neq0$,
+$$
+\frac{f(x)-f(0)}{x-0} = \frac{x^{1/3}}{x} = x^{-2/3},
+$$
+which is **not bounded** near $0$: for $x = \frac1{n^3}$ it equals $n^2$. So no constant $L$ can
+satisfy $\abs{f(x)-f(0)}\le L\abs{x-0}$ for all $x\in[-1,1]$. This does not contradict
+@prp-c1-lipschitz: $f$ is not differentiable at $0$ — the graph has a vertical tangent there, and
+$f'(x) = \frac13 x^{-2/3}$ is unbounded near $0$.
+:::
+
+## Summary
+
+- The **Mean Value Theorem** (@thm-mvt): if $f$ is continuous on $[a,b]$ and differentiable on
+  $(a,b)$, then $f'(\xi) = \frac{f(b)-f(a)}{b-a}$ for some $\xi\in(a,b)$. Geometrically, some tangent
+  is parallel to the secant. It turns local information (the derivative) into global information
+  (difference quotients). For example, an average speed of $60$ mph forces a moment of speed exactly
+  $60$ mph (@exm-driving).
+- Differentiability at **every** interior point is needed: $\abs x$ on $[-1,1]$ has a corner and no
+  horizontal tangent (@exm-abs-no-mvt).
+- **Rolle's Theorem** (@thm-rolle) is the special case $f(a)=f(b)=0$. Its proof uses the **Extreme
+  Value Theorem** (@thm-evt): $f$ attains a maximum or minimum at an interior point $\xi$, and there
+  the right-sided difference quotients are $\le0$ and the left-sided ones $\ge0$ (or vice versa), so
+  $f'(\xi)=0$ (@rem-interior-extremum).
+- The Mean Value Theorem follows by applying Rolle's theorem to $\varphi(x) = f(x) - \big(\text{secant
+  at } x\big)$, which vanishes at $a$ and $b$ and has $\varphi' = f' - \frac{f(b)-f(a)}{b-a}$.
+- **Application:** a continuously differentiable function on $[a,b]$ is **Lipschitz continuous**,
+  $\abs{f(x)-f(y)}\le L\abs{x-y}$ with $L$ a bound for $\abs{f'}$ (@prp-c1-lipschitz). Continuous
+  functions need not be Lipschitz: $\sqrt[3]{x}$ has unbounded difference quotients at $0$
+  (@exm-cube-root-not-lipschitz).

@@ -1,0 +1,325 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Derivative as Linear Approximation
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §2.8.j (the approximation of functions by linear functions), up to
+and including the paragraph "Linear Approximation". The rest of §2.8.j treats differentials and
+linear interpolation.
+::: -->
+
+```{python}
+#| include: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+ACCENT = "C0"     # the curve
+TANGENT = "C3"    # the tangent line
+GUIDE = "0.55"    # helper lines
+
+
+def f_demo(x):
+    return 4 - 0.25 * (x - 4) ** 2
+
+
+def fp_demo(x):
+    return -0.5 * (x - 4)
+```
+
+## The Tangent Line as an Approximation
+
+Near the point $(a,f(a))$, the graph of a differentiable function is very close to its tangent
+line. Since lines are easy to evaluate, we can use the tangent to **approximate** the values $f(a+h)$
+for small $h$ (@fig-linear-approximation).
+
+```{python}
+#| label: fig-linear-approximation
+#| fig-cap: "The tangent at $(a,f(a))$ approximates the graph near $a$. Moving from $a$ to $a+h$, the tangent rises by $f'(a)\\,h$. The value $L(a+h)$ on the tangent differs from the actual value $f(a+h)$ by the error $\\varepsilon h$."
+#| echo: false
+a, h = 1.5, 1.8
+b = a + h
+fa, m = f_demo(a), fp_demo(a)
+L = lambda x: fa + m * (x - a)
+
+
+fig, ax = plt.subplots(figsize=(6.4, 4.4))
+xs = np.linspace(0.4, 6.6, 300)
+ax.plot(xs, f_demo(xs), color=ACCENT, lw=2.2, label="$y=f(x)$")
+xt = np.linspace(0.4, 4.6, 2)
+ax.plot(xt, L(xt), color=TANGENT, lw=1.4, label="tangent $y=L(x)$")
+
+# guides
+ax.plot([a, b], [fa, fa], color=GUIDE, lw=1, ls="--")
+ax.plot([b, b], [0, L(b)], color=GUIDE, lw=1, ls=":")
+ax.plot([a, a], [0, fa], color=GUIDE, lw=1, ls=":")
+
+# points
+ax.plot(a, fa, "o", color="k", ms=5, zorder=5)
+ax.plot(b, f_demo(b), "o", color=ACCENT, ms=5, zorder=5)
+ax.plot(b, L(b), "o", color=TANGENT, ms=5, zorder=5)
+ax.text(a - 0.1, fa + 0.12, r"$(a,f(a))$", ha="right", va="bottom")
+ax.text(b - 0.1, L(b) + 0.08, r"$L(a+h)$", ha="right", va="bottom", color=TANGENT)
+ax.text(b - 0.08, f_demo(b) - 0.5, r"$f(a+h)$", ha="right", va="top", color=ACCENT)
+
+# brackets: f'(a) h and error
+def vbrace(x, y0, y1, label, color):
+    ax.annotate("", xy=(x, y1), xytext=(x, y0),
+                arrowprops=dict(arrowstyle="<->", color=color, lw=1.1, shrinkA=0, shrinkB=0))
+    ax.text(x + 0.1, (y0 + y1) / 2, label, ha="left", va="center", color=color)
+
+vbrace(b + 0.25, fa, L(b), r"$f'(a)\,h$", TANGENT)
+vbrace(b + 1.35, f_demo(b), L(b), r"error $\vert\varepsilon h\vert$", "0.2")
+ax.plot([b, b + 1.45], [L(b), L(b)], color=GUIDE, lw=0.8)
+ax.plot([b, b + 1.45], [f_demo(b), f_demo(b)], color=GUIDE, lw=0.8)
+ax.annotate("", xy=(b, 0.35), xytext=(a, 0.35),
+            arrowprops=dict(arrowstyle="<->", color="0.3", lw=1.0, shrinkA=0, shrinkB=0))
+ax.text((a + b) / 2, 0.42, "$h$", ha="center", va="bottom")
+
+ax.set_xticks([a, b])
+ax.set_xticklabels(["$a$", "$a+h$"])
+ax.set_yticks([])
+ax.set_xlim(0, 6.8)
+ax.set_ylim(0, 5.2)
+for side in ("top", "right"):
+    ax.spines[side].set_visible(False)
+ax.legend(loc="lower right", fontsize=9)
+fig.tight_layout()
+plt.show()
+```
+
+To use the tangent, we need its equation. The tangent at $(a,f(a))$ is the line through the
+**point** $(a,f(a))$ with **slope** $f'(a)$ (@def-derivative). In point-slope form,
+$$
+y - f(a) = f'(a)\,(x-a).
+$$
+
+::: {#def-linear-approximation}
+\
+Let $f$ be differentiable at $a$. The **linear approximation** (or **linearization**) of $f$ about
+$x=a$ is the function
+$$
+L(x) = f(a) + f'(a)\,(x-a).
+$$
+:::
+
+To approximate $f$ close to $a$, plug in $a+h$ for $x$:
+$$
+f(a+h) \approx L(a+h) = f(a) + f'(a)\,(a+h-a) = f(a) + f'(a)\cdot h .
+$$
+So to estimate $f$ near $a$, we only need two numbers: the value $f(a)$ and the derivative $f'(a)$.
+
+::: {#exm-linear-approx-quadratic}
+\
+Let $f(x) = x^2+1$ and $a=2$. Then $f'(x) = 2x$, so
+$$
+f(2) = 5, \qquad f'(2) = 4 .
+$$
+With $h=0.1$,
+$$
+f(2.1) \approx L(2.1) = 5 + 4\cdot 0.1 = 5.4 .
+$$
+The true value is $f(2.1) = 2.1^2+1 = 4.41+1 = 5.41$. The approximation is off by $0.01$, and it
+is an **underestimate**.
+:::
+
+::: {#exr-linear-approx-cubic}
+Let $f(x) = x^3-2x+4$. Approximate $f(1.1)$ using $f(1)$ and $f'(1)$, and compare with the true value.
+:::
+
+::: {.solution}
+We have $f(1) = 1-2+4 = 3$ and $f'(x) = 3x^2-2$, so $f'(1) = 1$. The linear approximation about $1$ is
+$$
+L(x) = f(1) + f'(1)\,(x-1) = 3 + (x-1),
+$$
+and
+$$
+f(1.1) \approx L(1.1) = 3 + (1.1-1) = 3 + 0.1 = 3.1 .
+$$
+The true value is $f(1.1) = 1.331 - 2.2 + 4 = 3.131$. Again the approximation is an underestimate,
+this time by $0.031$.
+:::
+
+::: {#exr-why-underestimate}
+In @exm-linear-approx-quadratic and @exr-linear-approx-cubic, the linear approximation
+*underestimates* the true value. Why? Sketch the graph of $f$ near $a$ together with its tangent.
+:::
+
+::: {.solution}
+In both cases $f'$ is increasing near $a$: $f'(x)=2x$ for the first function and $f'(x) = 3x^2-2$
+(increasing for $x\ge0$) for the second. So $f$ is **concave up** near $a$ (@def-concavity): the
+graph bends upward, away from the tangent, and therefore lies **above** the tangent line. The
+tangent values $L(a+h)$ are then too small. In @fig-linear-approximation the function is concave
+down, the graph lies below the tangent, and the approximation is an overestimate. We prove this
+precisely in @prp-tangent-below-graph.
+:::
+
+## Estimating the Error
+
+How far off is $L(a+h)$, relative to $h$? We write the error as a multiple of $h$:
+$$
+f(a+h) = L(a+h) + \underbrace{\eps h}_{\text{error term}}
+       = f(a) + f'(a)\,h + \eps h ,
+$$
+where $\eps$ depends on $h$. Solving for $\eps$,
+$$
+\frac{f(a+h)-f(a)}{h} = f'(a) + \eps .
+$$
+
+::: {#rem-epsilon-differentiability}
+The left-hand side is the difference quotient of $f$ at $a$, which tends to $f'(a)$ as $h\to0$. So
+$$
+\eps = \frac{f(a+h)-f(a)}{h} - f'(a) \longrightarrow 0 \qquad (h\to0) ,
+$$
+Conversely, suppose $f(a+h) = f(a) + c\,h + \eps h$ for some number $c$, with $\eps\to0$ as
+$h\to0$. Then $\frac{f(a+h)-f(a)}{h} = c + \eps \to c$, so $f$ is differentiable at $a$ with
+$f'(a)=c$. In other words, $f$ is differentiable at $a$ exactly when $f$ can be approximated near $a$
+by a linear function with an error that is small *compared to $h$*. This is how C&J phrase the definition of the derivative in §2.8.j.
+:::
+
+This tells us that the error goes to $0$ faster than $h$, but not *how much* faster. To estimate
+$\eps$, suppose $h>0$ and $f$ is differentiable on an open interval containing $[a,a+h]$. By the Mean
+Value Theorem (@thm-mvt), there is $\xi$ with $a<\xi<a+h$ and
+$$
+\frac{f(a+h)-f(a)}{h} = f'(\xi) .
+$$
+Comparing with the expression above gives
+$$
+\eps = f'(\xi) - f'(a) .
+$$ {#eq-epsilon-mvt}
+
+So the error depends on how much the derivative changes between $a$ and $\xi$. This settles
+@exr-why-underestimate.
+
+::: {#prp-tangent-below-graph}
+## Tangent lines of concave-up functions
+Let $f$ be differentiable on an open interval $I$ containing $a$, and concave up on $I$
+(@def-concavity). Then the graph of $f$ lies on or above its tangent at $a$:
+$$
+f(x) \ge L(x) = f(a) + f'(a)(x-a) \qquad\text{for all } x\in I .
+$$
+:::
+
+::: {.proof}
+Let $x=a+h\in I$. For $h=0$ both sides equal $f(a)$. For $h>0$, @eq-epsilon-mvt gives
+$f(a+h) - L(a+h) = \eps h = \big(f'(\xi)-f'(a)\big)h$ with $a<\xi<a+h$. Since $f'$ is increasing,
+$f'(\xi)\ge f'(a)$, so this is $\ge0$.
+
+For $h<0$, apply @thm-mvt on $[a+h,a]$ instead: $\frac{f(a+h)-f(a)}{h} = \frac{f(a)-f(a+h)}{a-(a+h)} = f'(\xi)$
+for some $\xi$ with $a+h<\xi<a$, and again $f(a+h)-L(a+h) = \big(f'(\xi)-f'(a)\big)h$. Now
+$f'(\xi)\le f'(a)$ and $h<0$, so the product is again $\ge0$.
+:::
+
+For a concave-down function the inequality is reversed, and the linear approximation overestimates.
+
+### Bounding the error with the second derivative
+
+How can we bound $f'(\xi) - f'(a)$? If $f'$ is itself differentiable, we can use the Mean Value
+Theorem again, this time for $f'$. The derivative of $f'$ is the **second derivative** of $f$,
+$$
+f''(x) = (f')'(x) .
+$$
+For example, $f(x)=x^2+1$ has $f'(x)=2x$ and $f''(x)=2$, and $f(x)=x^3-2x+4$ has $f'(x)=3x^2-2$ and
+$f''(x) = 6x$.
+
+Applying @thm-mvt to $f'$ on $[a,\xi]$, we find $\eta$ with $a<\eta<\xi$ and
+$$
+f'(\xi) - f'(a) = f''(\eta)\,(\xi - a) .
+$$
+Since $0<\xi-a<h$, it follows that
+$$
+\abs{\eps} = \underbrace{\abs{\xi-a}}_{\le h}\cdot\underbrace{\abs{f''(\eta)}}_{\le M} \le h\cdot M ,
+$$
+where $M$ is any bound for $\abs{f''}$ on the interval $[a,a+h]$. Multiplying by $h$, we obtain a
+bound for the error term.
+
+::: {#thm-linear-approx-error}
+## Error of the linear approximation
+Let $f$ be twice differentiable on an open interval containing $a$ and $a+h$, and let $M$ be a bound
+for $\abs{f''}$ on the closed interval between $a$ and $a+h$:
+$$
+\abs{f''(x)} \le M \qquad\text{for all } x \text{ between } a \text{ and } a+h.
+$$
+Then
+$$
+\abs{f(a+h) - L(a+h)} = \abs{\eps h} \le M\,h^2 .
+$$
+:::
+
+::: {.proof}
+For $h>0$ this is the computation above. (The second application of @thm-mvt is allowed because
+$f'$ is differentiable, hence continuous by @thm-differentiable-continuous, on an open interval
+containing $[a,\xi]$.) For $h<0$, the same argument on the interval $[a+h,a]$ gives
+$\abs{\eps}\le\abs h\cdot M$, hence $\abs{\eps h}\le M h^2$. For $h=0$ there is nothing to prove.
+:::
+
+For small $h$, the bound $M h^2$ is **much smaller** than the linear term $f'(a)\,h$, unless
+$f'(a)=0$: their ratio is $\frac{M h^2}{\abs{f'(a)}\,\abs h} = \frac{M}{\abs{f'(a)}}\abs h$, which goes
+to $0$ with $h$.
+
+::: {#exm-error-bounds}
+\
+We check @thm-linear-approx-error against the two earlier examples, with $h=0.1$.
+
+- For $f(x)=x^2+1$ and $a=2$, we have $\abs{f''}=2$, so $M=2$ and the error is at most
+  $2\cdot(0.1)^2 = 0.02$. The actual error is $0.01$. In fact, $f(2+h) = 5+4h+h^2$, so the error is
+  exactly $h^2$.
+- For $f(x)=x^3-2x+4$ and $a=1$, we have $f''(x)=6x$, so $\abs{f''}\le 6.6$ on $[1,1.1]$. The error is
+  at most $6.6\cdot(0.1)^2 = 0.066$. The actual error is $0.031$. In fact,
+  $f(1+h) = 3 + h + 3h^2 + h^3$, so the error is exactly $3h^2+h^3$.
+
+In both cases, the bound is about twice the actual error.
+:::
+
+::: {#rem-better-constant}
+The examples suggest that the constant $M$ in @thm-linear-approx-error is not optimal. Indeed, one
+can show the sharper bound $\abs{\eps h}\le \frac12 M h^2$, which is attained for $x^2+1$ (where
+$M=2$ and the error is $h^2$). C&J mention this improvement in §2.8.j and derive it later, as part of
+Taylor's theorem.
+:::
+
+::: {#exr-why-important}
+Why is @thm-linear-approx-error important?
+:::
+
+::: {.solution}
+A few reasons:
+
+1. **The error is quadratic in $h$.** Making $h$ ten times smaller makes the error bound a hundred
+   times smaller. For $f(x)=x^3-2x+4$ at $a=1$, the actual errors $3h^2+h^3$ are
+   $$
+   0.031 \ (h=0.1), \qquad 0.000301\ (h=0.01), \qquad 0.000003001\ (h=0.001) .
+   $$
+   The linear term $f'(1)\,h = h$, on the other hand, only shrinks by a factor of ten each time. So
+   for small $h$, almost all of the change $f(a+h)-f(a)$ is captured by the linear term.
+2. **It is a guarantee.** We usually use the linear approximation when we *cannot* easily compute
+   $f(a+h)$. The theorem tells us how good the approximation is without knowing the true value: we
+   only need a bound for $f''$. For example, for $f(x)=\sin x$ and $a=0$ we get
+   $\sin(0.1)\approx \sin 0 + \cos 0\cdot 0.1 = 0.1$. Since $f''(x) = -\sin x$ and
+   $\abs{\sin x}\le x\le 0.1$ on $[0,0.1]$, the error is at most $0.1\cdot(0.1)^2 = 0.001$. (The
+   true value is $\sin(0.1) = 0.09983\ldots$, an error of about $0.00017$.)
+3. **It makes step-by-step methods work.** Roughly speaking: in *Euler's method*, a function is approximated by
+   following tangent lines over many small steps of size $h$. Over an interval of fixed length we
+   need about $1/h$ steps, each with an error of order $h^2$. So the total error is of order
+   $\frac1h\cdot h^2 = h$, which goes to $0$ as $h\to0$. If the error per step were only *proportional*
+   to $h$, the errors would add up to something that does not shrink.
+:::
+
+## Summary
+
+- The **linear approximation** of $f$ about $a$ is the tangent line
+  $L(x) = f(a) + f'(a)(x-a)$ (@def-linear-approximation). For $x=a+h$ it gives
+  $f(a+h)\approx f(a) + f'(a)\,h$, using only $f(a)$ and $f'(a)$. For example,
+  $2.1^2+1\approx 5.4$ (true value $5.41$) (@exm-linear-approx-quadratic).
+- Writing the error as $\eps h$, so that $f(a+h) = f(a) + f'(a)\,h + \eps h$, differentiability of $f$
+  at $a$ means exactly that $\eps\to0$ as $h\to0$ (@rem-epsilon-differentiability).
+- By the **Mean Value Theorem**, $\eps = f'(\xi)-f'(a)$ for some $\xi$ between $a$ and $a+h$
+  (@eq-epsilon-mvt). Consequently, the tangent of a **concave-up** function lies below its graph, and the linear
+  approximation underestimates (@prp-tangent-below-graph). For a concave-down function it overestimates.
+- Applying the Mean Value Theorem a second time, to $f'$, gives the **error bound**
+  $\abs{f(a+h)-L(a+h)}\le M h^2$, where $M$ bounds $\abs{f''}$ between $a$ and $a+h$
+  (@thm-linear-approx-error). The error is quadratic in $h$, much smaller than the linear term
+  $f'(a)\,h$ for small $h$ (unless $f'(a)=0$). The sharper bound $\frac12 Mh^2$ will come later
+  (@rem-better-constant).

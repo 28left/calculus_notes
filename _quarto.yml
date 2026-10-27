@@ -38,6 +38,10 @@ book:
         - 15_mean_value_theorem.qmd
         - 16_linear_approximation.qmd
         - 17_activity_euler_method.qmd
+        - notebooks/Week09_MVT_Linear_Approximation_Lab.ipynb
+    - part: The Fundamental Theorem
+      chapters:
+        - 18_fundamental_theorem.qmd
 
 
 

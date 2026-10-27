@@ -206,17 +206,17 @@
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-10-13}
+\date{2026-10-21}
 \begin{document}
 \maketitle
 
@@ -6861,6 +6861,1428 @@ increases (\(x>0\)), \(f\) is concave up.}
   up/down} where \(f'\) is increasing/decreasing
   (Definition~\ref{def-concavity}).
 \end{itemize}
+
+\chapter{Activity: Reading Derivatives from
+Graphs}\label{activity-reading-derivatives-from-graphs}
+
+\section{Background}\label{background-1}
+
+For now we use the geometric meaning of the derivative: \(f'(x_0)\) is
+the \textbf{slope of the tangent line} to the graph of \(f\) at the
+point \((x_0, f(x_0))\). Reading off a slope from a graph means laying a
+ruler along the curve at \(x_0\) and measuring rise over run, using the
+grid squares. Doing this at every \(x\) produces a new function,
+\(x \mapsto f'(x)\), with its own graph.
+
+\section{Warm-up: a dictionary}\label{warm-up-a-dictionary}
+
+\begin{exercise}[]\protect\hypertarget{exr-deriv-dictionary}{}\label{exr-deriv-dictionary}
+
+Complete the right-hand column. Each row translates a feature of the
+graph of \(f\) into a feature of the graph of \(f'\).
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+If the graph of \(f\) \ldots{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\ldots{} then the graph of \(f'\) \ldots{}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+is increasing on an interval & ~ \\
+is decreasing on an interval & ~ \\
+has a horizontal tangent at \(x_0\) & ~ \\
+is a straight line of slope \(m\) on an interval & ~ \\
+bends upward (is concave up) on an interval & ~ \\
+bends downward (is concave down) on an interval & ~ \\
+changes from bending down to bending up (inflection point) at \(x_0\) &
+~ \\
+has a corner at \(x_0\) & ~ \\
+\end{longtable}
+}
+
+\end{exercise}
+
+\begin{solution}
+\leavevmode
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+If the graph of \(f\) \ldots{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\ldots{} then the graph of \(f'\) \ldots{}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+is increasing on an interval & lies on or above the \(x\)-axis there \\
+is decreasing on an interval & lies on or below the \(x\)-axis there \\
+has a horizontal tangent at \(x_0\) & meets the \(x\)-axis at \(x_0\):
+\(f'(x_0)=0\) \\
+is a straight line of slope \(m\) on an interval & is the horizontal
+line at height \(m\) there \\
+bends upward (is concave up) on an interval & is increasing there \\
+bends downward (is concave down) on an interval & is decreasing there \\
+changes from bending down to bending up at \(x_0\) & has a local minimum
+at \(x_0\) \\
+has a corner at \(x_0\) & has no value at \(x_0\); it typically jumps
+there \\
+\end{longtable}
+}
+
+Note ``on or above'' in the first row, not ``above'': \(x \mapsto x^3\)
+is strictly increasing, yet its tangent at \(0\) is horizontal. A zero
+of \(f'\) does \emph{not} by itself signal a maximum or minimum.
+Problems 2 and 4 contain exactly this situation.
+\end{solution}
+
+\section{\texorpdfstring{Part I: From \(f\) to
+\(f'\)}{Part I: From f to f\textquotesingle{}}}\label{part-i-from-f-to-f}
+
+In each problem, the top panel shows the graph of \(f\). Sketch the
+graph of \(f'\) on the empty axes below it; the \(x\)-axes are aligned,
+so you can transfer \(x\)-coordinates straight down.
+
+\subsection{Problem 1}\label{problem-1}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p1-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p1}Problem 1: the graph of \(f\) (top) and
+axes for your sketch of \(f'\) (bottom).}
+
+\end{figure}%
+
+\begin{exercise}[]\protect\hypertarget{exr-deriv-p1}{}\label{exr-deriv-p1}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Find all points where the tangent to \(f\) is horizontal. Mark the
+  corresponding zeros of \(f'\) on the lower axes.
+\item
+  Between these points, decide whether \(f\) is increasing or
+  decreasing, and hence whether the graph of \(f'\) lies above or below
+  the \(x\)-axis.
+\item
+  Where is \(f\) \emph{steepest} while going down? What does that tell
+  you about \(f'\) there?
+\item
+  Estimate slopes with a ruler and fill in the table. Plot the points on
+  the lower axes.
+
+  {\def\LTcaptype{none} % do not increment counter
+  \begin{longtable}[]{@{}
+    >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+    >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}@{}}
+  \toprule\noalign{}
+  \begin{minipage}[b]{\linewidth}\raggedright
+  \(x\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(-4\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(-3\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(-2\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(-1\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(0\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(1\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(2\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(3\)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+  \(4\)
+  \end{minipage} \\
+  \midrule\noalign{}
+  \endhead
+  \bottomrule\noalign{}
+  \endlastfoot
+  \(f'(x)\approx\) & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\
+  \end{longtable}
+  }
+\item
+  Connect your points to a smooth sketch of \(f'\). Check it against the
+  dictionary: where \(f\) bends up, is your \(f'\) increasing?
+\end{enumerate}
+
+\end{exercise}
+
+\begin{solution}
+The function is \(f(x) = \tfrac18(x^3 - 12x)\), so
+\(f'(x) = \tfrac38(x^2-4)\), an upward parabola.
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p1-sol-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p1-sol}Solution to Problem 1.}
+
+\end{figure}%
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}
+  >{\centering\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.1000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\(x\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(-4\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(-3\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(-2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(-1\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(0\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(1\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(2\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(3\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\(4\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(f'(x)\) & \(4.5\) & \(1.875\) & \(0\) & \(-1.125\) & \(-1.5\) &
+\(-1.125\) & \(0\) & \(1.875\) & \(4.5\) \\
+\end{longtable}
+}
+
+\begin{itemize}
+\tightlist
+\item
+  Horizontal tangents at \(x=\pm2\) (local max at \(-2\), local min at
+  \(2\)), so \(f'(\pm2)=0\).
+\item
+  \(f\) increases on \([-4,-2]\) and \([2,4]\) (\(f'\ge 0\)) and
+  decreases on \([-2,2]\) (\(f'\le 0\)).
+\item
+  The steepest descent is at the inflection point \(x=0\), where \(f'\)
+  has its minimum \(-1.5\).
+\item
+  \(f\) bends down on \([-4,0]\) and up on \([0,4]\), matching \(f'\)
+  decreasing, then increasing.
+\end{itemize}
+
+\end{solution}
+
+\subsection{Problem 2}\label{problem-2}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p2-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p2}Problem 2: the graph of \(f\) (top) and
+axes for your sketch of \(f'\) (bottom).}
+
+\end{figure}%
+
+\begin{exercise}[]\protect\hypertarget{exr-deriv-p2}{}\label{exr-deriv-p2}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  At \(x=-1\) the tangent to \(f\) is horizontal. Does \(f\) have a
+  maximum or a minimum there? What does the graph of \(f'\) do near
+  \(x=-1\) --- does it cross the \(x\)-axis or only touch it?
+\item
+  To the right of \(x=1\) the graph of \(f\) is a straight line. What is
+  its slope, and what does \(f'\) look like there?
+\item
+  What happens at \(x = 1\)? Compare the slopes just to the left and
+  just to the right of \(1\). Is there a sensible value for \(f'(1)\)?
+  How do you show this in your sketch?
+\item
+  Sketch \(f'\) on the whole interval \([-3,3]\).
+\end{enumerate}
+
+\end{exercise}
+
+\begin{solution}
+On \([-3,1]\), \(f(x) = \tfrac14(x+1)^3 + 1\), so
+\(f'(x) = \tfrac34(x+1)^2\); on \([1,3]\), \(f(x) = 4-x\), so
+\(f'(x) = -1\).
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p2-sol-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p2-sol}Solution to Problem 2. The open circles
+mark that \(f'(1)\) is undefined.}
+
+\end{figure}%
+
+\begin{itemize}
+\tightlist
+\item
+  At \(x=-1\) the tangent is horizontal, yet \(f\) keeps increasing on
+  both sides: there is no extremum. Accordingly the graph of \(f'\)
+  \textbf{touches} the \(x\)-axis at \(-1\) without crossing it. (A
+  ``flat'' inflection point, as for \(x^3\) at \(0\).)
+\item
+  On \((1,3]\) the graph is a line of slope \(-1\), so \(f'\) is
+  constantly \(-1\).
+\item
+  Just left of \(1\) the slope is close to \(3\); just right of \(1\) it
+  is \(-1\). No single tangent line fits at the corner, so \(f'(1)\) is
+  undefined, and the graph of \(f'\) \textbf{jumps} from \(3\) to
+  \(-1\). We draw open circles at both ends. Note that \(f\) itself is
+  continuous at \(1\): continuity does not guarantee a derivative (C\&J
+  §2.8.e).
+\end{itemize}
+
+\end{solution}
+
+\section{\texorpdfstring{Part II: From \(f'\) back to
+\(f\)}{Part II: From f\textquotesingle{} back to f}}\label{part-ii-from-f-back-to-f}
+
+Now the roles are reversed: the top panel shows the graph of the
+\textbf{derivative} \(f'\), and your task is to sketch \(f\) itself.
+
+\subsection{Problem 3}\label{problem-3}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p3-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p3}Problem 3: the graph of \(f'\) (top) and
+two sets of axes for your sketches of \(f\).}
+
+\end{figure}%
+
+\begin{exercise}[]\protect\hypertarget{exr-deriv-p3}{}\label{exr-deriv-p3}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read off from the graph of \(f'\): on which intervals is \(f\)
+  increasing or decreasing? Where does \(f\) have a local maximum or
+  minimum? Where does \(f\) bend up, where does it bend down, and where
+  is it a straight line (with what slope)?
+\item
+  Sketch \textbf{a} function \(f\) with this derivative on axes A.
+\item
+  Compare your sketch with your neighbor's. Are they the same? On axes
+  A, sketch a \emph{second} function that also has the derivative shown,
+  but is different from your first one. How are the two graphs related
+  to each other?
+\item
+  Describe all functions whose derivative is the one shown. How much
+  information about \(f\) is the graph of \(f'\) missing?
+\item
+  Now suppose you are also told that \[
+  f(-2) = -1.
+  \] Sketch \(f\) on axes B. Is there now only one possible graph? Read
+  off approximate values of \(f(-4)\), \(f(0)\), \(f(2)\), \(f(3)\), and
+  \(f(4)\) from your sketch.
+\end{enumerate}
+
+\end{exercise}
+
+\begin{solution}
+\leavevmode
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p3-sol-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p3-sol}Solution to Problem 3. Gray: several
+functions with the given derivative. Red: the one with \(f(-2) = -1\).}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(f' < 0\) on \([-4,-2)\) and \((3,4]\), \(f'>0\) on \((-2,3)\): \(f\)
+  decreases, then increases, then decreases, with a local minimum at
+  \(x=-2\) and a local maximum at \(x=3\). Since \(f'\) increases on
+  \([-4,0]\), \(f\) bends up there; on \([0,2]\), \(f'=2\) is constant,
+  so \(f\) is a straight line of slope \(2\); on \([2,4]\), \(f'\)
+  decreases, so \(f\) bends down.
+\item
+  A correct sketch has all the features from part 1; where it sits
+  vertically is up to you.
+\item
+  Any two correct sketches differ by a \textbf{vertical shift}: the
+  derivative only records slopes, and sliding a graph up or down changes
+  no slope.
+\item
+  If \(f\) is one such function, the others are exactly the functions
+  \(f + C\), \(C\) a constant. That every function with the same
+  derivative arises this way is a real theorem, not just a picture: it
+  says that a function with derivative \(0\) on an interval is constant,
+  which follows from the mean value theorem (C\&J §2.8.h, §2.9.b). The
+  graph of \(f'\) determines \(f\) only up to this one unknown number.
+\item
+  The condition \(f(-2) = -1\) pins down the constant: of all the
+  vertical shifts, exactly one passes through the point \((-2,-1)\). The
+  red graph is the unique answer, with \(f(-4)=1\), \(f(0)=1\),
+  \(f(2)=5\), \(f(3)=6\), \(f(4)=5\). (Explicitly:
+  \(f(x)=\tfrac12x^2+2x+1\) on \([-4,0]\), \(f(x)=2x+1\) on \([0,2]\),
+  \(f(x)=-x^2+6x-3\) on \([2,4]\).)
+\end{enumerate}
+
+\end{solution}
+
+\subsection{Problem 4}\label{problem-4}
+
+Here \(f\) is continuous on \([-3,3]\) and differentiable everywhere
+except at \(x=0\); its derivative is shown below.
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p4-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p4}Problem 4: the graph of \(f'\) (top) and
+two sets of axes for your sketches of \(f\). The open circles indicate
+that \(f'(0)\) is undefined.}
+
+\end{figure}%
+
+\begin{exercise}[]\protect\hypertarget{exr-deriv-p4}{}\label{exr-deriv-p4}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read off the main features of \(f\). In particular: what kind of point
+  is \(x=-1\)? What does the graph of \(f\) look like at \(x=0\)? Does
+  \(f\) have a maximum or minimum at \(x=2\)?
+\item
+  On axes A, sketch two different functions with the derivative shown.
+\item
+  Now you are told that \[
+  f(2) = 1.
+  \] Sketch \(f\) on axes B. Read off approximate values of \(f(-3)\),
+  \(f(-1)\), \(f(0)\), and \(f(3)\).
+\end{enumerate}
+
+\end{exercise}
+
+\begin{solution}
+\leavevmode
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{14_activity_derivative_graphs_files/figure-pdf/fig-deriv-p4-sol-output-1.pdf}}
+
+}
+
+\caption{\label{fig-deriv-p4-sol}Solution to Problem 4. Gray: several
+functions with the given derivative. Red: the one with \(f(2) = 1\).}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \(f'\) changes sign from \(-\) to \(+\) at \(x=-1\): a local minimum.
+  At \(x=0\) the slope jumps from \(1\) to \(3\): \(f\) has a
+  \textbf{corner} there (the reverse of Problem 2). At \(x=2\), \(f'\)
+  touches zero without changing sign: \(f\) has a horizontal tangent but
+  keeps increasing --- no extremum. \(f\) bends up on \([-3,0]\) and on
+  \([2,3]\), and bends down on \([0,2]\).
+\item
+  Again, any two answers differ by a vertical shift.
+\item
+  Only one shift passes through \((2,1)\): \(f(-3)=0.5\),
+  \(f(-1)=-1.5\), \(f(0)=-1\), \(f(3)=1.25\). To reach the left half
+  from the given point you must pass \emph{through} the corner, and this
+  is where the continuity of \(f\) at \(0\) is used (see Going Further,
+  question 3).
+\end{enumerate}
+
+\end{solution}
+
+\section{Going further}\label{going-further}
+
+\begin{exercise}[]\protect\hypertarget{exr-deriv-further}{}\label{exr-deriv-further}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Change as area.} In Problem 3, compute the signed area between
+  the graph of \(f'\) and the \(x\)-axis from \(x=-2\) to \(x=3\) (it is
+  made of triangles and a rectangle). Compare it with \(f(3) - f(-2)\)
+  from your sketch. Repeat for another pair of points. What do you
+  conjecture?
+\item
+  \textbf{Why the real numbers matter.} Define \(h\) on the
+  \emph{rational} numbers by \(h(x) = 0\) if \(x < \sqrt2\) and
+  \(h(x) = 1\) if \(x > \sqrt2\). Convince yourself that at every
+  rational \(x\), the graph of \(h\) is flat nearby, so its
+  ``derivative'' is \(0\) everywhere on \(\mathbb{Q}\). Yet \(h\) is not
+  constant. Which property of \(\mathbb{R}\) (from the first weeks of
+  the course) rules this out for functions on a real interval?
+\item
+  \textbf{Is one value always enough?} In Problem 4, drop the assumption
+  that \(f\) is continuous at \(0\), so \(f\) is only required to have
+  the given derivative on \([-3,0)\) and on \((0,3]\). Does \(f(2) = 1\)
+  still determine \(f\)? How many function values would you need?
+\end{enumerate}
+
+\end{exercise}
+
+\begin{solution}
+\leavevmode
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The area is \(2\) (triangle on \([-2,0]\)) \(+\ 4\) (rectangle on
+  \([0,2]\)) \(+\ 1\) (triangle on \([2,3]\)) \(= 7\), and indeed
+  \(f(3) - f(-2) = 6 - (-1) = 7\). The conjecture \[
+  f(b) - f(a) = \int_a^b f'(x)\,dx
+  \] is the \textbf{fundamental theorem of calculus} (C\&J §2.9). It
+  explains the ambiguity in a second way: \(f'\) determines every
+  \emph{difference} \(f(b)-f(a)\), but not the starting height.
+\item
+  On \(\mathbb{Q}\) the jump of \(h\) happens across a ``hole'' at
+  \(\sqrt2\) that contains no input of \(h\). On \(\mathbb{R}\) there
+  are no such holes: this is completeness (the nested interval
+  principle). The proof that \(f'=0\) forces \(f\) constant goes through
+  the mean value theorem, which in turn rests on completeness.
+\item
+  No.~On each of the two pieces \(f\) is determined up to its own
+  constant, and without continuity the two constants are independent:
+  the left half of the graph can be shifted up or down on its own. You
+  need one value from each side of \(0\) --- for instance \(f(2)\) and
+  \(f(-1)\). The principle is: one value per \emph{interval} on which
+  \(f\) is differentiable.
+\end{enumerate}
+
+\end{solution}
+
+\chapter{The Mean Value Theorem}\label{the-mean-value-theorem}
+
+\section{Local and Global
+Information}\label{local-and-global-information}
+
+The derivative \[
+f'(x) = \lim_{h\to0}\frac{f(x+h)-f(x)}{h}
+\] is a \textbf{local} quantity: it only depends on the values of \(f\)
+in an arbitrarily small neighborhood of \(x\). A difference quotient \[
+\frac{f(b)-f(a)}{b-a},
+\] on the other hand, compares the values of \(f\) at two points that
+may be far apart, so it reflects a \textbf{global} property of \(f\).
+The Mean Value Theorem connects the two. It is the most important tool
+for deriving \emph{global} properties of a function from \emph{local}
+properties of its derivative.
+
+\textbf{Geometric picture.} The difference quotient
+\(\frac{f(b)-f(a)}{b-a}\) is the slope of the \textbf{secant} through
+the points \((a,f(a))\) and \((b,f(b))\) of the graph of \(f\). Imagine
+shifting this secant parallel to itself, away from the graph. At some
+point \(\xi\) between \(a\) and \(b\) the shifted line will just touch
+the graph without crossing it: it becomes the \textbf{tangent} at
+\(\xi\). (One such point is the point of the graph that is farthest from
+the secant.) Since the tangent is parallel to the secant, the two have
+the same slope: \[
+f'(\xi) = \frac{f(b)-f(a)}{b-a}.
+\]
+
+\begin{exercise}[]\protect\hypertarget{exr-mvt-fails}{}\label{exr-mvt-fails}
+
+Try to draw the graph of a function on \([a,b]\) for which there is
+\textbf{no} point \(\xi\in(a,b)\) at which the tangent is parallel to
+the secant. Is your function continuous? Does it have a tangent at every
+point?
+
+\end{exercise}
+
+\section{The Mean Value Theorem}\label{the-mean-value-theorem-1}
+
+\begin{theorem}[Mean Value
+Theorem]\protect\hypertarget{thm-mvt}{}\label{thm-mvt}
+
+Suppose \(f\) is continuous on \([a,b]\) and differentiable on
+\((a,b)\). Then there exists \(\xi\) with \(a<\xi<b\) and \[
+f'(\xi) = \frac{f(b)-f(a)}{b-a}.
+\]
+
+\end{theorem}
+
+Equivalently, \(f(b)-f(a) = f'(\xi)\,(b-a)\). The theorem asserts only
+that such a \(\xi\) \emph{exists}; it says nothing about where in
+\((a,b)\) it lies, and there may be several such points. Note also that
+\(f\) must be continuous on the \emph{closed} interval, but
+differentiability is only required on the \emph{open} interval: the
+derivative need not exist at the endpoints.
+
+Why do we need to assume that \(f'(x)\) exists for \textbf{all}
+\(x\in(a,b)\)? A single point of non-differentiability is enough to
+break the theorem.
+
+\begin{example}[]\protect\hypertarget{exm-abs-no-mvt}{}\label{exm-abs-no-mvt}
+
+\hfill\break
+Let \(f(x) = \lvert x \rvert\) on \([-1,1]\). Then \(f\) is continuous
+on \([-1,1]\), and the secant has slope \[
+\frac{f(1)-f(-1)}{1-(-1)} = \frac{1-1}{2} = 0 .
+\] But \(f'(x) = -1\) for \(x<0\) and \(f'(x)=1\) for \(x>0\), while
+\(f'(0)\) does not exist (the left- and right-sided limits of the
+difference quotient are \(-1\) and \(1\)). So there is no
+\(\xi\in(-1,1)\) with \(f'(\xi)=0\). The graph has a corner at \(0\),
+and no tangent is parallel to the secant.
+
+\end{example}
+
+\begin{example}[Driving]\protect\hypertarget{exm-driving}{}\label{exm-driving}
+
+\hfill\break
+Suppose you drive for \(2\) hours and end up \(120\) miles from where
+you started. Let \(s(t)\) be your distance from the starting point at
+time \(t\in[0,2]\). Assume that your movement is continuous and that
+your velocity \(s'(t)\) exists at all times. By Theorem~\ref{thm-mvt},
+there is a moment \(\xi\in(0,2)\) at which your velocity was \[
+s'(\xi) = \frac{s(2)-s(0)}{2-0} = \frac{120-0}{2-0} = 60 \text{ mph}.
+\] Here the numerator is a distance and the denominator a time. In
+particular, you cannot claim to have driven at less than \(50\) mph the
+whole time. On the other hand, the theorem does not tell us \emph{when}
+you were going exactly \(60\) mph.
+
+\end{example}
+
+\section{Rolle's Theorem}\label{rolles-theorem}
+
+We prove the Mean Value Theorem by first establishing the special case
+of a horizontal secant.
+
+\begin{theorem}[Rolle's
+Theorem]\protect\hypertarget{thm-rolle}{}\label{thm-rolle}
+
+Suppose \(f\) is continuous on \([a,b]\) and differentiable on
+\((a,b)\), and \(f(a)=f(b)=0\). Then there exists \(\xi\) with
+\(a<\xi<b\) and \[
+f'(\xi) = 0.
+\]
+
+\end{theorem}
+
+This is the Mean Value Theorem with a horizontal tangent: if the graph
+of \(f\) meets the \(x\)-axis at \(a\) and at \(b\), it must have a
+horizontal tangent somewhere in between.
+
+The proof rests on the following key fact, which we have used before
+(see Remark~\ref{rem-darboux-informal}) and will prove later.
+
+\begin{theorem}[Extreme Value
+Theorem]\protect\hypertarget{thm-evt}{}\label{thm-evt}
+
+A continuous function on a closed interval \([a,b]\) assumes a global
+maximum and a global minimum. That is, there exist \(M\) and \(m\) such
+that \[
+m \le f(x) \le M \qquad\text{for all } x\in[a,b],
+\] and there are points \(x_m, x_M\in[a,b]\) with \(f(x_m)=m\) and
+\(f(x_M)=M\).
+
+\end{theorem}
+
+With this, we can prove Theorem~\ref{thm-rolle}.
+
+\begin{proof}
+Let \(m\) and \(M\) be the minimum and maximum of \(f\) on \([a,b]\)
+(Theorem~\ref{thm-evt}). Since \(f(a)=f(b)=0\), we must have \[
+m \le 0 \le M .
+\]
+
+\emph{Case \(m = M = 0\).} Then \(f(x)=0\) for all \(x\in[a,b]\). Every
+difference quotient of \(f\) is \(0\), so \(f'(\xi) = 0\) for every
+\(\xi\in(a,b)\), and we are done.
+
+\emph{Case \(M>0\).} There exists \(\xi\in[a,b]\) with \(f(\xi)=M\).
+Since \(f(a)=f(b)=0<M\), \(\xi\) is an \textbf{interior point}:
+\(\xi\in(a,b)\). Since \(f(x)\le M\) for all \(x\in[a,b]\), we have \[
+f(\xi+h) - f(\xi) \le 0
+\] for all \(h\) with \(\xi+h\in[a,b]\), in particular for all small
+enough \(\lvert h \rvert\). Hence \[
+\frac{f(\xi+h)-f(\xi)}{h} \le 0 \quad\text{for } h>0,
+\qquad\qquad
+\frac{f(\xi+h)-f(\xi)}{h} \ge 0 \quad\text{for } h<0 .
+\] Since \(f\) is differentiable at \(\xi\), the limit \[
+\lim_{h\to0}\frac{f(\xi+h)-f(\xi)}{h}
+\] exists, no matter from which direction \(h\to0\). Letting \(h\to0\)
+through positive values, the limit is \(\le0\); letting \(h\to0\)
+through negative values, it is \(\ge0\) (a limit of nonpositive numbers
+is nonpositive; compare the argument at the end of the proof of
+Theorem~\ref{thm-ivt}). Since the left-sided and the right-sided limit
+agree (Definition~\ref{def-one-sided-limits}), we must have \[
+f'(\xi) = \lim_{h\to0}\frac{f(\xi+h)-f(\xi)}{h} = 0 .
+\]
+
+\emph{Case \(M=0\), \(m<0\).} The same argument, applied at a point
+\(\xi\) where \(f\) attains its minimum \(m\) (or the previous case
+applied to \(-f\)), gives \(f'(\xi)=0\).
+\end{proof}
+
+\begin{refremark}
+The proof shows more than Rolle's theorem: if \(f\) attains a maximum or
+a minimum at an \textbf{interior} point \(\xi\) of an interval, and
+\(f\) is differentiable at \(\xi\), then \(f'(\xi)=0\). The assumption
+\(f(a)=f(b)=0\) was only used to guarantee that an extremum occurs in
+the interior.
+
+\label{rem-interior-extremum}
+
+\end{refremark}
+
+\section{Proof of the Mean Value
+Theorem}\label{proof-of-the-mean-value-theorem}
+
+To deduce Theorem~\ref{thm-mvt} from Theorem~\ref{thm-rolle}, we
+subtract the secant from \(f\). Define \[
+\varphi(x) := f(x) - f(a) - \frac{f(b)-f(a)}{b-a}\,(x-a).
+\] The secant through \((a,f(a))\) and \((b,f(b))\) is the line
+\(y = f(a) + \frac{f(b)-f(a)}{b-a}(x-a)\), so \(\varphi(x)\) is the
+\textbf{vertical distance} between the point \((x,f(x))\) on the graph
+and the point of the secant above (or below) \(x\).
+
+\begin{proof}
+Plugging in the endpoints, \[
+\varphi(a) = f(a) - f(a) - 0 = 0,
+\qquad
+\varphi(b) = f(b) - f(a) - \frac{f(b)-f(a)}{b-a}(b-a) = 0 .
+\] The function \(\varphi\) is of the form \[
+\varphi(x) = f(x) + c\,x + d,
+\qquad\text{with constants}\quad
+c = -\frac{f(b)-f(a)}{b-a}, \quad d = -f(a) + \frac{f(b)-f(a)}{b-a}\,a .
+\] So \(\varphi\) is continuous on \([a,b]\)
+(Corollary~\ref{cor-continuity-algebra}), and since \[
+\frac{\varphi(x+h)-\varphi(x)}{h} = \frac{f(x+h)-f(x)}{h} + c ,
+\] it is differentiable on \((a,b)\) with \[
+\varphi'(x) = f'(x) + c .
+\] By Theorem~\ref{thm-rolle} there exists \(\xi\) with \(a<\xi<b\) and
+\(\varphi'(\xi)=0\). Hence \[
+f'(\xi) = -c = \frac{f(b)-f(a)}{b-a} .
+\]
+\end{proof}
+
+\begin{refremark}
+Applying Theorem~\ref{thm-mvt} to a function with \(f(a)=f(b)\) gives
+\(f'(\xi)=0\). So Rolle's theorem holds more generally whenever
+\(f(a)=f(b)\), not only when both values are \(0\).
+
+\label{rem-rolle-general}
+
+\end{refremark}
+
+\section{Application: Lipschitz
+Continuity}\label{application-lipschitz-continuity}
+
+\begin{definition}[]\protect\hypertarget{def-lipschitz}{}\label{def-lipschitz}
+
+\hfill\break
+A function \(f\) is \textbf{Lipschitz continuous} on an interval \(I\)
+if there is a constant \(L\ge0\) such that \[
+\lvert f(x)-f(y) \rvert \le L\,\lvert x-y \rvert \qquad\text{for all } x,y\in I .
+\]
+
+\end{definition}
+
+In other words, all difference quotients \(\frac{f(x)-f(y)}{x-y}\) of
+\(f\) on \(I\) are bounded in absolute value by \(L\): the secant slopes
+of \(f\) cannot become arbitrarily steep. A Lipschitz continuous
+function is continuous: given \(\varepsilon>0\), the choice
+\(\delta=\varepsilon/L\) (any \(\delta\) if \(L=0\)) works in
+Definition~\ref{def-continuity} at every point.
+
+We say \(f\) is \textbf{continuously differentiable} on \([a,b]\) if
+\(f'\) exists on \([a,b]\) (as a one-sided derivative at the endpoints)
+and \(f'\) is continuous on \([a,b]\).
+
+\begin{proposition}[]\protect\hypertarget{prp-c1-lipschitz}{}\label{prp-c1-lipschitz}
+
+\hfill\break
+Any function \(f\) that is continuously differentiable on \([a,b]\) is
+Lipschitz continuous on \([a,b]\).
+
+\end{proposition}
+
+\begin{proof}
+Since \(f'\) is continuous on \([a,b]\), it is bounded there by
+Theorem~\ref{thm-evt}: there is \(L\) with \[
+\lvert f'(x) \rvert \le L \qquad\text{for all } x\in[a,b].
+\] Now let \(a\le x<y\le b\). Then \(f\) is continuous on \([x,y]\) and
+differentiable on \((x,y)\), so by Theorem~\ref{thm-mvt} there is
+\(\xi\in(x,y)\) with \[
+\lvert f(y)-f(x) \rvert = \lvert f'(\xi)\,(y-x) \rvert = \lvert f'(\xi) \rvert\,\lvert y-x \rvert \le L\,\lvert y-x \rvert .
+\]
+\end{proof}
+
+The proof only used that \(f'\) is bounded on \((a,b)\) (and that \(f\)
+is continuous on \([a,b]\)), so this weaker assumption is already
+enough.
+
+\begin{example}[Not every continuous function is Lipschitz
+continuous]\protect\hypertarget{exm-cube-root-not-lipschitz}{}\label{exm-cube-root-not-lipschitz}
+
+\hfill\break
+Let \(f(x) = \sqrt[3]{x}\) on \([-1,1]\). This function is continuous.
+But for \(x\neq0\), \[
+\frac{f(x)-f(0)}{x-0} = \frac{x^{1/3}}{x} = x^{-2/3},
+\] which is \textbf{not bounded} near \(0\): for \(x = \frac1{n^3}\) it
+equals \(n^2\). So no constant \(L\) can satisfy
+\(\lvert f(x)-f(0) \rvert\le L\lvert x-0 \rvert\) for all
+\(x\in[-1,1]\). This does not contradict
+Proposition~\ref{prp-c1-lipschitz}: \(f\) is not differentiable at \(0\)
+--- the graph has a vertical tangent there, and
+\(f'(x) = \frac13 x^{-2/3}\) is unbounded near \(0\).
+
+\end{example}
+
+\section{Summary}\label{summary-11}
+
+\begin{itemize}
+\tightlist
+\item
+  The \textbf{Mean Value Theorem} (Theorem~\ref{thm-mvt}): if \(f\) is
+  continuous on \([a,b]\) and differentiable on \((a,b)\), then
+  \(f'(\xi) = \frac{f(b)-f(a)}{b-a}\) for some \(\xi\in(a,b)\).
+  Geometrically, some tangent is parallel to the secant. It turns local
+  information (the derivative) into global information (difference
+  quotients). For example, an average speed of \(60\) mph forces a
+  moment of speed exactly \(60\) mph (Example~\ref{exm-driving}).
+\item
+  Differentiability at \textbf{every} interior point is needed:
+  \(\lvert x \rvert\) on \([-1,1]\) has a corner and no horizontal
+  tangent (Example~\ref{exm-abs-no-mvt}).
+\item
+  \textbf{Rolle's Theorem} (Theorem~\ref{thm-rolle}) is the special case
+  \(f(a)=f(b)=0\). Its proof uses the \textbf{Extreme Value Theorem}
+  (Theorem~\ref{thm-evt}): \(f\) attains a maximum or minimum at an
+  interior point \(\xi\), and there the right-sided difference quotients
+  are \(\le0\) and the left-sided ones \(\ge0\) (or vice versa), so
+  \(f'(\xi)=0\) (Remark~\ref{rem-interior-extremum}).
+\item
+  The Mean Value Theorem follows by applying Rolle's theorem to
+  \(\varphi(x) = f(x) - \big(\text{secant
+  at } x\big)\), which vanishes at \(a\) and \(b\) and has
+  \(\varphi' = f' - \frac{f(b)-f(a)}{b-a}\).
+\item
+  \textbf{Application:} a continuously differentiable function on
+  \([a,b]\) is \textbf{Lipschitz continuous},
+  \(\lvert f(x)-f(y) \rvert\le L\lvert x-y \rvert\) with \(L\) a bound
+  for \(\lvert f' \rvert\) (Proposition~\ref{prp-c1-lipschitz}).
+  Continuous functions need not be Lipschitz: \(\sqrt[3]{x}\) has
+  unbounded difference quotients at \(0\)
+  (Example~\ref{exm-cube-root-not-lipschitz}).
+\end{itemize}
+
+\chapter{The Derivative as Linear
+Approximation}\label{the-derivative-as-linear-approximation}
+
+\section{The Tangent Line as an
+Approximation}\label{the-tangent-line-as-an-approximation}
+
+Near the point \((a,f(a))\), the graph of a differentiable function is
+very close to its tangent line. Since lines are easy to evaluate, we can
+use the tangent to \textbf{approximate} the values \(f(a+h)\) for small
+\(h\) (Figure~\ref{fig-linear-approximation}).
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{16_linear_approximation_files/figure-pdf/fig-linear-approximation-output-1.pdf}}
+
+}
+
+\caption{\label{fig-linear-approximation}The tangent at \((a,f(a))\)
+approximates the graph near \(a\). Moving from \(a\) to \(a+h\), the
+tangent rises by \(f'(a)\,h\). The value \(L(a+h)\) on the tangent
+differs from the actual value \(f(a+h)\) by the error
+\(\varepsilon h\).}
+
+\end{figure}%
+
+To use the tangent, we need its equation. The tangent at \((a,f(a))\) is
+the line through the \textbf{point} \((a,f(a))\) with \textbf{slope}
+\(f'(a)\) (Definition~\ref{def-derivative}). In point-slope form, \[
+y - f(a) = f'(a)\,(x-a).
+\]
+
+\begin{definition}[]\protect\hypertarget{def-linear-approximation}{}\label{def-linear-approximation}
+
+\hfill\break
+Let \(f\) be differentiable at \(a\). The \textbf{linear approximation}
+(or \textbf{linearization}) of \(f\) about \(x=a\) is the function \[
+L(x) = f(a) + f'(a)\,(x-a).
+\]
+
+\end{definition}
+
+To approximate \(f\) close to \(a\), plug in \(a+h\) for \(x\): \[
+f(a+h) \approx L(a+h) = f(a) + f'(a)\,(a+h-a) = f(a) + f'(a)\cdot h .
+\] So to estimate \(f\) near \(a\), we only need two numbers: the value
+\(f(a)\) and the derivative \(f'(a)\).
+
+\begin{example}[]\protect\hypertarget{exm-linear-approx-quadratic}{}\label{exm-linear-approx-quadratic}
+
+\hfill\break
+Let \(f(x) = x^2+1\) and \(a=2\). Then \(f'(x) = 2x\), so \[
+f(2) = 5, \qquad f'(2) = 4 .
+\] With \(h=0.1\), \[
+f(2.1) \approx L(2.1) = 5 + 4\cdot 0.1 = 5.4 .
+\] The true value is \(f(2.1) = 2.1^2+1 = 4.41+1 = 5.41\). The
+approximation is off by \(0.01\), and it is an \textbf{underestimate}.
+
+\end{example}
+
+\begin{exercise}[]\protect\hypertarget{exr-linear-approx-cubic}{}\label{exr-linear-approx-cubic}
+
+Let \(f(x) = x^3-2x+4\). Approximate \(f(1.1)\) using \(f(1)\) and
+\(f'(1)\), and compare with the true value.
+
+\end{exercise}
+
+\begin{solution}
+We have \(f(1) = 1-2+4 = 3\) and \(f'(x) = 3x^2-2\), so \(f'(1) = 1\).
+The linear approximation about \(1\) is \[
+L(x) = f(1) + f'(1)\,(x-1) = 3 + (x-1),
+\] and \[
+f(1.1) \approx L(1.1) = 3 + (1.1-1) = 3 + 0.1 = 3.1 .
+\] The true value is \(f(1.1) = 1.331 - 2.2 + 4 = 3.131\). Again the
+approximation is an underestimate, this time by \(0.031\).
+\end{solution}
+
+\begin{exercise}[]\protect\hypertarget{exr-why-underestimate}{}\label{exr-why-underestimate}
+
+In Example~\ref{exm-linear-approx-quadratic} and
+Exercise~\ref{exr-linear-approx-cubic}, the linear approximation
+\emph{underestimates} the true value. Why? Sketch the graph of \(f\)
+near \(a\) together with its tangent.
+
+\end{exercise}
+
+\begin{solution}
+In both cases \(f'\) is increasing near \(a\): \(f'(x)=2x\) for the
+first function and \(f'(x) = 3x^2-2\) (increasing for \(x\ge0\)) for the
+second. So \(f\) is \textbf{concave up} near \(a\)
+(Definition~\ref{def-concavity}): the graph bends upward, away from the
+tangent, and therefore lies \textbf{above} the tangent line. The tangent
+values \(L(a+h)\) are then too small. In
+Figure~\ref{fig-linear-approximation} the function is concave down, the
+graph lies below the tangent, and the approximation is an overestimate.
+We prove this precisely in Proposition~\ref{prp-tangent-below-graph}.
+\end{solution}
+
+\section{Estimating the Error}\label{estimating-the-error}
+
+How far off is \(L(a+h)\), relative to \(h\)? We write the error as a
+multiple of \(h\): \[
+f(a+h) = L(a+h) + \underbrace{\varepsilon h}_{\text{error term}}
+       = f(a) + f'(a)\,h + \varepsilon h ,
+\] where \(\varepsilon\) depends on \(h\). Solving for \(\varepsilon\),
+\[
+\frac{f(a+h)-f(a)}{h} = f'(a) + \varepsilon.
+\]
+
+\begin{refremark}
+The left-hand side is the difference quotient of \(f\) at \(a\), which
+tends to \(f'(a)\) as \(h\to0\). So \[
+\varepsilon= \frac{f(a+h)-f(a)}{h} - f'(a) \longrightarrow 0 \qquad (h\to0) ,
+\] Conversely, suppose \(f(a+h) = f(a) + c\,h + \varepsilon h\) for some
+number \(c\), with \(\varepsilon\to0\) as \(h\to0\). Then
+\(\frac{f(a+h)-f(a)}{h} = c + \varepsilon\to c\), so \(f\) is
+differentiable at \(a\) with \(f'(a)=c\). In other words, \(f\) is
+differentiable at \(a\) exactly when \(f\) can be approximated near
+\(a\) by a linear function with an error that is small \emph{compared to
+\(h\)}. This is how C\&J phrase the definition of the derivative in
+§2.8.j.
+
+\label{rem-epsilon-differentiability}
+
+\end{refremark}
+
+This tells us that the error goes to \(0\) faster than \(h\), but not
+\emph{how much} faster. To estimate \(\varepsilon\), suppose \(h>0\) and
+\(f\) is differentiable on an open interval containing \([a,a+h]\). By
+the Mean Value Theorem (Theorem~\ref{thm-mvt}), there is \(\xi\) with
+\(a<\xi<a+h\) and \[
+\frac{f(a+h)-f(a)}{h} = f'(\xi) .
+\] Comparing with the expression above gives
+\begin{equation}\protect\phantomsection\label{eq-epsilon-mvt}{
+\varepsilon= f'(\xi) - f'(a) .
+}\end{equation}
+
+So the error depends on how much the derivative changes between \(a\)
+and \(\xi\). This settles Exercise~\ref{exr-why-underestimate}.
+
+\begin{proposition}[Tangent lines of concave-up
+functions]\protect\hypertarget{prp-tangent-below-graph}{}\label{prp-tangent-below-graph}
+
+Let \(f\) be differentiable on an open interval \(I\) containing \(a\),
+and concave up on \(I\) (Definition~\ref{def-concavity}). Then the graph
+of \(f\) lies on or above its tangent at \(a\): \[
+f(x) \ge L(x) = f(a) + f'(a)(x-a) \qquad\text{for all } x\in I .
+\]
+
+\end{proposition}
+
+\begin{proof}
+Let \(x=a+h\in I\). For \(h=0\) both sides equal \(f(a)\). For \(h>0\),
+Equation~\ref{eq-epsilon-mvt} gives
+\(f(a+h) - L(a+h) = \varepsilon h = \big(f'(\xi)-f'(a)\big)h\) with
+\(a<\xi<a+h\). Since \(f'\) is increasing, \(f'(\xi)\ge f'(a)\), so this
+is \(\ge0\).
+
+For \(h<0\), apply Theorem~\ref{thm-mvt} on \([a+h,a]\) instead:
+\(\frac{f(a+h)-f(a)}{h} = \frac{f(a)-f(a+h)}{a-(a+h)} = f'(\xi)\) for
+some \(\xi\) with \(a+h<\xi<a\), and again
+\(f(a+h)-L(a+h) = \big(f'(\xi)-f'(a)\big)h\). Now \(f'(\xi)\le f'(a)\)
+and \(h<0\), so the product is again \(\ge0\).
+\end{proof}
+
+For a concave-down function the inequality is reversed, and the linear
+approximation overestimates.
+
+\subsection{Bounding the error with the second
+derivative}\label{bounding-the-error-with-the-second-derivative}
+
+How can we bound \(f'(\xi) - f'(a)\)? If \(f'\) is itself
+differentiable, we can use the Mean Value Theorem again, this time for
+\(f'\). The derivative of \(f'\) is the \textbf{second derivative} of
+\(f\), \[
+f''(x) = (f')'(x) .
+\] For example, \(f(x)=x^2+1\) has \(f'(x)=2x\) and \(f''(x)=2\), and
+\(f(x)=x^3-2x+4\) has \(f'(x)=3x^2-2\) and \(f''(x) = 6x\).
+
+Applying Theorem~\ref{thm-mvt} to \(f'\) on \([a,\xi]\), we find
+\(\eta\) with \(a<\eta<\xi\) and \[
+f'(\xi) - f'(a) = f''(\eta)\,(\xi - a) .
+\] Since \(0<\xi-a<h\), it follows that \[
+\lvert \varepsilon \rvert = \underbrace{\lvert \xi-a \rvert}_{\le h}\cdot\underbrace{\lvert f''(\eta) \rvert}_{\le M} \le h\cdot M ,
+\] where \(M\) is any bound for \(\lvert f'' \rvert\) on the interval
+\([a,a+h]\). Multiplying by \(h\), we obtain a bound for the error term.
+
+\begin{theorem}[Error of the linear
+approximation]\protect\hypertarget{thm-linear-approx-error}{}\label{thm-linear-approx-error}
+
+Let \(f\) be twice differentiable on an open interval containing \(a\)
+and \(a+h\), and let \(M\) be a bound for \(\lvert f'' \rvert\) on the
+closed interval between \(a\) and \(a+h\): \[
+\lvert f''(x) \rvert \le M \qquad\text{for all } x \text{ between } a \text{ and } a+h.
+\] Then \[
+\lvert f(a+h) - L(a+h) \rvert = \lvert \varepsilon h \rvert \le M\,h^2 .
+\]
+
+\end{theorem}
+
+\begin{proof}
+For \(h>0\) this is the computation above. (The second application of
+Theorem~\ref{thm-mvt} is allowed because \(f'\) is differentiable, hence
+continuous by Theorem~\ref{thm-differentiable-continuous}, on an open
+interval containing \([a,\xi]\).) For \(h<0\), the same argument on the
+interval \([a+h,a]\) gives
+\(\lvert \varepsilon \rvert\le\lvert h \rvert\cdot M\), hence
+\(\lvert \varepsilon h \rvert\le M h^2\). For \(h=0\) there is nothing
+to prove.
+\end{proof}
+
+For small \(h\), the bound \(M h^2\) is \textbf{much smaller} than the
+linear term \(f'(a)\,h\), unless \(f'(a)=0\): their ratio is
+\(\frac{M h^2}{\lvert f'(a) \rvert\,\lvert h \rvert} = \frac{M}{\lvert f'(a) \rvert}\lvert h \rvert\),
+which goes to \(0\) with \(h\).
+
+\begin{example}[]\protect\hypertarget{exm-error-bounds}{}\label{exm-error-bounds}
+
+\hfill\break
+We check Theorem~\ref{thm-linear-approx-error} against the two earlier
+examples, with \(h=0.1\).
+
+\begin{itemize}
+\tightlist
+\item
+  For \(f(x)=x^2+1\) and \(a=2\), we have \(\lvert f'' \rvert=2\), so
+  \(M=2\) and the error is at most \(2\cdot(0.1)^2 = 0.02\). The actual
+  error is \(0.01\). In fact, \(f(2+h) = 5+4h+h^2\), so the error is
+  exactly \(h^2\).
+\item
+  For \(f(x)=x^3-2x+4\) and \(a=1\), we have \(f''(x)=6x\), so
+  \(\lvert f'' \rvert\le 6.6\) on \([1,1.1]\). The error is at most
+  \(6.6\cdot(0.1)^2 = 0.066\). The actual error is \(0.031\). In fact,
+  \(f(1+h) = 3 + h + 3h^2 + h^3\), so the error is exactly \(3h^2+h^3\).
+\end{itemize}
+
+In both cases, the bound is about twice the actual error.
+
+\end{example}
+
+\begin{refremark}
+The examples suggest that the constant \(M\) in
+Theorem~\ref{thm-linear-approx-error} is not optimal. Indeed, one can
+show the sharper bound \(\lvert \varepsilon h \rvert\le \frac12 M h^2\),
+which is attained for \(x^2+1\) (where \(M=2\) and the error is
+\(h^2\)). C\&J mention this improvement in §2.8.j and derive it later,
+as part of Taylor's theorem.
+
+\label{rem-better-constant}
+
+\end{refremark}
+
+\begin{exercise}[]\protect\hypertarget{exr-why-important}{}\label{exr-why-important}
+
+Why is Theorem~\ref{thm-linear-approx-error} important?
+
+\end{exercise}
+
+\begin{solution}
+A few reasons:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{The error is quadratic in \(h\).} Making \(h\) ten times
+  smaller makes the error bound a hundred times smaller. For
+  \(f(x)=x^3-2x+4\) at \(a=1\), the actual errors \(3h^2+h^3\) are \[
+  0.031 \ (h=0.1), \qquad 0.000301\ (h=0.01), \qquad 0.000003001\ (h=0.001) .
+  \] The linear term \(f'(1)\,h = h\), on the other hand, only shrinks
+  by a factor of ten each time. So for small \(h\), almost all of the
+  change \(f(a+h)-f(a)\) is captured by the linear term.
+\item
+  \textbf{It is a guarantee.} We usually use the linear approximation
+  when we \emph{cannot} easily compute \(f(a+h)\). The theorem tells us
+  how good the approximation is without knowing the true value: we only
+  need a bound for \(f''\). For example, for \(f(x)=\sin x\) and \(a=0\)
+  we get \(\sin(0.1)\approx \sin 0 + \cos 0\cdot 0.1 = 0.1\). Since
+  \(f''(x) = -\sin x\) and \(\lvert \sin x \rvert\le x\le 0.1\) on
+  \([0,0.1]\), the error is at most \(0.1\cdot(0.1)^2 = 0.001\). (The
+  true value is \(\sin(0.1) = 0.09983\ldots\), an error of about
+  \(0.00017\).)
+\item
+  \textbf{It makes step-by-step methods work.} Roughly speaking: in
+  \emph{Euler's method}, a function is approximated by following tangent
+  lines over many small steps of size \(h\). Over an interval of fixed
+  length we need about \(1/h\) steps, each with an error of order
+  \(h^2\). So the total error is of order \(\frac1h\cdot h^2 = h\),
+  which goes to \(0\) as \(h\to0\). If the error per step were only
+  \emph{proportional} to \(h\), the errors would add up to something
+  that does not shrink.
+\end{enumerate}
+
+\end{solution}
+
+\section{Summary}\label{summary-12}
+
+\begin{itemize}
+\tightlist
+\item
+  The \textbf{linear approximation} of \(f\) about \(a\) is the tangent
+  line \(L(x) = f(a) + f'(a)(x-a)\)
+  (Definition~\ref{def-linear-approximation}). For \(x=a+h\) it gives
+  \(f(a+h)\approx f(a) + f'(a)\,h\), using only \(f(a)\) and \(f'(a)\).
+  For example, \(2.1^2+1\approx 5.4\) (true value \(5.41\))
+  (Example~\ref{exm-linear-approx-quadratic}).
+\item
+  Writing the error as \(\varepsilon h\), so that
+  \(f(a+h) = f(a) + f'(a)\,h + \varepsilon h\), differentiability of
+  \(f\) at \(a\) means exactly that \(\varepsilon\to0\) as \(h\to0\)
+  (Remark~\ref{rem-epsilon-differentiability}).
+\item
+  By the \textbf{Mean Value Theorem}, \(\varepsilon= f'(\xi)-f'(a)\) for
+  some \(\xi\) between \(a\) and \(a+h\)
+  (Equation~\ref{eq-epsilon-mvt}). Consequently, the tangent of a
+  \textbf{concave-up} function lies below its graph, and the linear
+  approximation underestimates
+  (Proposition~\ref{prp-tangent-below-graph}). For a concave-down
+  function it overestimates.
+\item
+  Applying the Mean Value Theorem a second time, to \(f'\), gives the
+  \textbf{error bound} \(\lvert f(a+h)-L(a+h) \rvert\le M h^2\), where
+  \(M\) bounds \(\lvert f'' \rvert\) between \(a\) and \(a+h\)
+  (Theorem~\ref{thm-linear-approx-error}). The error is quadratic in
+  \(h\), much smaller than the linear term \(f'(a)\,h\) for small \(h\)
+  (unless \(f'(a)=0\)). The sharper bound \(\frac12 Mh^2\) will come
+  later (Remark~\ref{rem-better-constant}).
+\end{itemize}
+
+\chapter{Activity: Linear Approximation and Euler's
+Method}\label{activity-linear-approximation-and-eulers-method}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={About this activity}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
+
+An in-class, pencil-and-paper worksheet. It builds on the linear
+approximation from lecture, \[
+L(x) = f(a) + f'(a)(x-a),
+\] the tangent line to the graph of \(f\) at \(x=a\). Here we use it in
+a new way: to estimate values of a function we do \emph{not} have a
+formula for, but whose derivative we know through a \textbf{differential
+equation}.
+
+\end{tcolorbox}
+
+\section{Background: Differential
+Equations}\label{background-differential-equations}
+
+Consider the equation \[
+\frac{dy}{dx} = -2y .
+\] This is an example of a \textbf{differential equation}. A
+\textbf{solution} of this differential equation is a function
+\(y = f(x)\) that makes the equation true, i.e.~\(f'(x) = -2f(x)\) for
+all \(x\).
+
+Notice that the equation does not tell us what \(f\) is. It tells us
+something more indirect: at any point \((x, y)\) on the graph of a
+solution, the slope of the tangent line is \(-2y\). If we know
+\emph{one} point on the graph, that is exactly what we need to build a
+linear approximation there.
+
+\section{Step 1: A worked example}\label{step-1-a-worked-example}
+
+Suppose we want a solution \(y = f(x)\) with the \textbf{initial data}
+\(f(0) = 10\), and we wish to estimate \(f(0.1)\).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Since we know \(f(0)\), we use the linear approximation about
+  \(a = 0\): \[
+  L(x) = f(0) + f'(0)(x - 0).
+  \]
+\item
+  Use the initial data and the differential equation to compute
+  \(f'(0)\). At \(x = 0\) we have \(y = f(0) = 10\), so \[
+  f'(0) = \left.\frac{dy}{dx}\right|_{x=0} = -2(10) = -20.
+  \]
+\item
+  Use \(f(0)\) and \(f'(0)\) to build the linear approximation about
+  \(a = 0\): \[
+  L(x) = 10 - 20x.
+  \]
+\item
+  Use it to estimate \(f(0.1)\): \[
+  f(0.1) \approx L(0.1) = 10 - 20(0.1) = 8.
+  \]
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{17_activity_euler_method_files/figure-pdf/fig-euler-first-step-output-1.pdf}}
+
+}
+
+\caption{\label{fig-euler-first-step}One step of Euler's method for
+\(dy/dx = -2y\), \(f(0) = 10\): follow the tangent line at \((0, 10)\)
+for a horizontal distance \(0.1\).}
+
+\end{figure}%
+
+We now know \(f(0) = 10\) and (approximately) \(f(0.1) = 8\). Nothing
+stops us from repeating the process: use the differential equation to
+get the slope at \(x = 0.1\), build the linear approximation about
+\(a = 0.1\), and use it to estimate \(f(0.2)\). And so on. This method
+of solving a differential equation numerically, one small tangent-line
+step at a time, is called \textbf{Euler's method}.
+
+\begin{exercise}[]\protect\hypertarget{exr-activity-euler-steps}{}\label{exr-activity-euler-steps}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using \(f(0.1) \approx 8\), find the linear approximation about
+  \(a = 0.1\) and use it to estimate \(f(0.2)\).
+\item
+  Take one more step to estimate \(f(0.3)\).
+\item
+  Do you notice a pattern? Find a formula for the Euler estimate of
+  \(f(x)\) if we go from \(0\) to \(x\) in \(n\) equal steps of size
+  \(h = x/n\).
+\end{enumerate}
+
+\end{exercise}
+
+\section{Step 2: Exponential growth}\label{step-2-exponential-growth}
+
+Let \(N(t)\) denote the mass of a population of bacteria, in milligrams
+(mg), at time \(t\) (in days). Assume that the per capita growth rate is
+\(10\%\) per day: \[
+\frac{1}{N}\frac{dN}{dt} = 0.1, \qquad\text{or}\qquad \frac{dN}{dt} = 0.1\,N.
+\] Suppose we observe that at time \(t = 10\) days the mass of the
+population is \(300\) mg, so that \(N(10) = 300\).
+
+\begin{exercise}[]\protect\hypertarget{exr-activity-exponential-growth}{}\label{exr-activity-exponential-growth}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find the linear approximation for \(N(t)\) about \(a = 10\): \[
+  L(t) = N(10) + N'(10)(t - 10).
+  \]
+\item
+  Use your linear approximation to estimate the mass of the population
+  when \(t = 10.5\).
+\end{enumerate}
+
+\end{exercise}
+
+\section{Step 3: Logistic growth}\label{step-3-logistic-growth}
+
+Let \(N(t)\) again denote the mass of a population of bacteria, in mg,
+at time \(t\) (in days). This time the population is modeled by a
+\textbf{logistic growth model} \[
+\frac{dN}{dt} = \frac{1}{2}\,N\left(1 - \frac{N}{1000}\right).
+\] Suppose we observe that at time \(t = 20\) days the mass of the
+population is \(500\) mg, so that \(N(20) = 500\).
+
+\begin{exercise}[]\protect\hypertarget{exr-activity-logistic-growth}{}\label{exr-activity-logistic-growth}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find the linear approximation for \(N(t)\) about \(a = 20\): \[
+  L(t) = N(20) + N'(20)(t - 20).
+  \]
+\item
+  Use your linear approximation to estimate the mass of the population
+  when \(t = 20.1\).
+\end{enumerate}
+
+\end{exercise}
+
+\section{Step 4: Pollution in a lake}\label{step-4-pollution-in-a-lake}
+
+Let \(P(t)\) denote the amount of phosphorus pollution in a lake, in
+tons, \(t\) months after monitoring has begun. Assume that the amount of
+pollution is modeled by the differential equation \[
+\frac{dP}{dt} = 20 - \frac{1}{5}\,P .
+\] This says that pollution flows into the lake at a constant rate of
+\(20\) tons per month and flows out at a rate proportional to the
+current amount \(P\), with proportionality constant \(\tfrac15\), i.e.
+\(20\%\) per month. Suppose we observe that at time \(t = 3\) months the
+amount of phosphorus pollution is \(40\) tons, so that \(P(3) = 40\).
+
+\begin{exercise}[]\protect\hypertarget{exr-activity-pollution}{}\label{exr-activity-pollution}
+
+~
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Find the linear approximation for \(P(t)\) about \(a = 3\): \[
+  L(t) = P(3) + P'(3)(t - 3).
+  \]
+\item
+  Use your linear approximation to estimate the amount of phosphorus
+  pollution in the lake one month later, at \(t = 4\).
+\end{enumerate}
+
+\end{exercise}
+
+\section{Over or under?}\label{over-or-under}
+
+In each of the three models, you can decide whether your estimate is too
+high or too low \emph{without} knowing a formula for the solution, just
+by reading the differential equation.
+
+\begin{exercise}[]\protect\hypertarget{exr-activity-over-under}{}\label{exr-activity-over-under}
+
+For each of Steps 2--4: as \(t\) increases past the base point \(a\),
+does the solution increase or decrease? And does the \textbf{slope}
+given by the differential equation then get larger or smaller? Use this
+to decide whether your linear approximation is an \textbf{overestimate}
+or an \textbf{underestimate}. Which of the three estimates do you expect
+to be most accurate, and why?
+
+\end{exercise}
 
 
 

@@ -1,0 +1,520 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Fundamental Theorem of Calculus
+
+So far, integration and differentiation have been developed as two separate theories. The integral
+was defined through limits of Riemann sums (areas), the derivative through limits of difference
+quotients (slopes). The Fundamental Theorem of Calculus shows that the two operations are inverse to
+each other. This is the basic fact of calculus, and it turns the computation of integrals, which is
+hard to do directly from Riemann sums, into the problem of reversing a differentiation.
+
+## The Derivative of the Indefinite Integral
+
+Recall that for a continuous function $f$ on an interval $I$ and a fixed $\alpha\in I$, the
+**indefinite integral** of $f$ is the function
+$$
+\Phi(x) = \int_\alpha^x f(u)\,du \qquad (x\in I)
+$$
+(@def-indefinite-integral). We know that $\Phi$ is continuous (@thm-indefinite-integral-continuous).
+In fact, much more is true.
+
+::: {#thm-ftc-1}
+## Fundamental Theorem of Calculus, Part 1
+Let $f$ be continuous on an interval $I$ and let $\alpha\in I$. Then the indefinite integral
+$$
+\Phi(x) = \int_\alpha^x f(u)\,du
+$$
+is differentiable at every $x\in I$, and
+$$
+\Phi'(x) = f(x),
+\qquad\text{that is,}\qquad
+\frac{d}{dx}\int_\alpha^x f(u)\,du = f(x).
+$$
+(If $x$ is an endpoint of $I$, $\Phi'(x)$ is the one-sided derivative. The most important case is
+$f\colon\R\to\R$, where this does not arise.)
+:::
+
+::: {.proof}
+Let $x\in I$, and let $h\neq0$ with $x+h\in I$. By @prp-indefinite-integral-basic and the Mean Value
+Theorem for Integrals (@thm-mvt-integrals; for $h<0$ use @rem-mvt-remarks, part 3),
+$$
+\Phi(x+h) - \Phi(x) = \int_x^{x+h} f(u)\,du = h\cdot f(\xi)
+$$
+for some $\xi$ between $x$ and $x+h$. Here $f(\xi)$ is the average value of $f$ on the interval
+between $x$ and $x+h$ (@def-average-value). Dividing by $h$,
+$$
+\frac{\Phi(x+h)-\Phi(x)}{h} = f(\xi).
+$$
+The point $\xi$ depends on $h$, but it always lies between $x$ and $x+h$, so $\abs{\xi-x}\le\abs h$.
+Hence, as $h\to0$, $\xi\to x$, and since $f$ is continuous, $f(\xi)\to f(x)$.
+
+To make the last step precise, let $\eps>0$. Since $f$ is continuous at $x$ (@def-continuity), there
+is $\delta>0$ such that $\abs{f(u)-f(x)}<\eps$ for all $u\in I$ with $\abs{u-x}<\delta$. If
+$0<\abs h<\delta$, then $\abs{\xi-x}\le\abs h<\delta$, and therefore
+$$
+\abs{\frac{\Phi(x+h)-\Phi(x)}{h} - f(x)} = \abs{f(\xi) - f(x)} < \eps .
+$$
+This shows
+$$
+\lim_{h\to0}\frac{\Phi(x+h)-\Phi(x)}{h} = f(x),
+$$
+so $\Phi$ is differentiable at $x$ with $\Phi'(x)=f(x)$ (@def-derivative).
+:::
+
+Geometrically, $\Phi(x)$ is the (signed) area under the graph of $f$ between $\alpha$ and $x$, and
+$\Phi(x+h)-\Phi(x)$ is the area of the thin strip over the interval between $x$ and $x+h$. The Mean
+Value Theorem for Integrals replaces this strip by a rectangle of the same area, with width $h$ and
+height $f(\xi)$. The difference quotient is the height of that rectangle. As $h$ shrinks, $\xi$ is
+squeezed toward $x$, and by continuity the height $f(\xi)$ is pinned to $f(x)$.
+
+The interactive figure below shows this in two ways. In the left panel, the dashed coral rectangle
+over the interval between $x$ and $x+h$ has the same area as the blue strip, so its height is the
+difference quotient $\frac{\Phi(x+h)-\Phi(x)}{h}$; the coral dot marks a point $\xi$ with $f(\xi)$
+equal to that height. In the right panel, the same quotient is the slope of the coral secant of the
+graph of $\Phi$ through $x$ and $x+h$. As $h\to0$, the secant turns onto the dashed teal line through
+$(x,\Phi(x))$ with slope $f(x)$: by @thm-ftc-1, this is the tangent to the graph of $\Phi$.
+
+The default integrand is the cross-section $A(u)=2\sqrt{u(2-u)}$ of the oil tank in @exm-oil-tank,
+with $R=L=1$, so the right panel shows the tank's volume function. The slider for $h$ is logarithmic,
+from $\abs h=1$ down to $\abs h=0.001$; "Let h → 0" animates it, and the "h > 0 / h < 0" button
+switches the sign of $h$, so that both one-sided limits can be checked.
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="ftcw" role="group" aria-label="Interactive illustration of the fundamental theorem of calculus: as h shrinks, the difference quotient of the indefinite integral converges to f(x)" style="max-width:680px;margin:1.5rem auto;">
+<style>
+.ftcw svg text.ftcw-ts { font-size: 12px; fill: #5f5e5a; }
+.ftcw .ftcw-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; font-size: 13px; color: #5f5e5a; }
+.ftcw .ftcw-row label { min-width: 72px; margin: 0; }
+.ftcw .ftcw-row input[type=range] { flex: 1; }
+.ftcw .ftcw-out { min-width: 110px; text-align: right; font-family: var(--bs-font-monospace, monospace); }
+.ftcw select { width: auto; }
+.ftcw .ftcw-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 14px; }
+.ftcw .ftcw-card { background: #f1efe8; border-radius: 6px; padding: 10px 12px; }
+.ftcw .ftcw-card-l { font-size: 13px; color: #5f5e5a; }
+.ftcw .ftcw-card-v { font-size: 20px; font-weight: 500; font-family: var(--bs-font-monospace, monospace); }
+.ftcw .ftcw-sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+.ftcw .ftcw-note { font-size: 13px; color: #5f5e5a; margin-top: 10px; min-height: 20px; }
+</style>
+<svg width="100%" viewBox="0 0 680 330" role="img" aria-labelledby="ftcw-title ftcw-desc">
+<title id="ftcw-title">Difference quotient of the indefinite integral converging to the integrand</title>
+<desc id="ftcw-desc">Left: graph of f with the area between x and x+h shaded, and a dashed rectangle of the same area whose height is the difference quotient. Right: graph of Phi with the secant through x and x+h and a dashed line of slope f(x).</desc>
+<defs><clipPath id="ftcw-rc"><rect x="380" y="50" width="260" height="230"/></clipPath></defs>
+<text class="ftcw-ts" x="50" y="32">Graph of f: blue area = Φ(x+h) − Φ(x)</text>
+<text class="ftcw-ts" x="380" y="32">Graph of Φ: coral slope = difference quotient</text>
+<line x1="50" y1="280" x2="310" y2="280" stroke="#495057" stroke-width="1"/>
+<line x1="50" y1="50" x2="50" y2="280" stroke="#495057" stroke-width="1"/>
+<line x1="380" y1="280" x2="640" y2="280" stroke="#495057" stroke-width="1"/>
+<line x1="380" y1="50" x2="380" y2="280" stroke="#495057" stroke-width="1"/>
+<g id="ftcw-lticks"></g><g id="ftcw-rticks"></g>
+<path id="ftcw-area" fill="#378ADD" opacity="0.3" stroke="none"/>
+<rect id="ftcw-mrect" fill="none" stroke="#D85A30" stroke-width="1.3" stroke-dasharray="4 3"/>
+<path id="ftcw-fcurve" fill="none" stroke="#378ADD" stroke-width="2"/>
+<g id="ftcw-jdots"></g>
+<line id="ftcw-xline" stroke="#495057" stroke-width="0.6" stroke-dasharray="3 3"/>
+<circle id="ftcw-xi" r="4.5" fill="#D85A30"/>
+<text id="ftcw-xil" class="ftcw-ts">ξ</text>
+<circle id="ftcw-fxd" r="4.5" fill="#1D9E75"/>
+<path id="ftcw-pcurve" fill="none" stroke="#378ADD" stroke-width="2"/>
+<g clip-path="url(#ftcw-rc)">
+<line id="ftcw-tline" stroke="#1D9E75" stroke-width="1.3" stroke-dasharray="5 4"/>
+<line id="ftcw-sline" stroke="#D85A30" stroke-width="1.6"/>
+</g>
+<line id="ftcw-qv" stroke="#495057" stroke-width="0.6" stroke-dasharray="3 3"/>
+<circle id="ftcw-pP" r="4.5" fill="#1D9E75"/>
+<circle id="ftcw-pQ" r="4.5" fill="#D85A30"/>
+<text class="ftcw-ts" x="316" y="284">u</text>
+<text class="ftcw-ts" x="646" y="284">x</text>
+<text id="ftcw-lx" class="ftcw-ts" text-anchor="middle" y="316">x</text>
+<text id="ftcw-lxh" class="ftcw-ts" text-anchor="middle" y="316">x+h</text>
+<text id="ftcw-rx" class="ftcw-ts" text-anchor="middle" y="316">x</text>
+<text id="ftcw-rxh" class="ftcw-ts" text-anchor="middle" y="316">x+h</text>
+</svg>
+<div class="ftcw-row">
+<label for="ftcw-fsel" style="min-width:0">Integrand</label>
+<select id="ftcw-fsel" class="form-select form-select-sm">
+<option value="tank">Tank cross-section A(u)</option>
+<option value="wave">Smooth wave</option>
+<option value="step">Jump at u = 1</option>
+</select>
+<button type="button" id="ftcw-play" class="btn btn-sm btn-outline-secondary">▶ Let h → 0</button>
+<button type="button" id="ftcw-reset" class="btn btn-sm btn-outline-secondary">↺ Reset h</button>
+<button type="button" id="ftcw-sgn" class="btn btn-sm btn-outline-secondary">h &gt; 0</button>
+</div>
+<div class="ftcw-row">
+<label for="ftcw-xs">Point x</label>
+<input type="range" id="ftcw-xs" min="2" max="198" step="1" value="60">
+<span id="ftcw-xo" class="ftcw-out"></span>
+</div>
+<div class="ftcw-row" style="margin-top:8px">
+<label for="ftcw-hs">Step |h|</label>
+<input type="range" id="ftcw-hs" min="0" max="300" step="1" value="40">
+<span id="ftcw-ho" class="ftcw-out"></span>
+</div>
+<div class="ftcw-cards" aria-live="polite">
+<div class="ftcw-card"><div class="ftcw-card-l"><span class="ftcw-sw" style="background:#D85A30"></span>[Φ(x+h) − Φ(x)] / h</div><div id="ftcw-dq" class="ftcw-card-v"></div></div>
+<div class="ftcw-card"><div class="ftcw-card-l"><span class="ftcw-sw" style="background:#1D9E75"></span>f(x)</div><div id="ftcw-fv" class="ftcw-card-v"></div></div>
+<div class="ftcw-card"><div class="ftcw-card-l">Difference</div><div id="ftcw-er" class="ftcw-card-v"></div></div>
+<div class="ftcw-card"><div class="ftcw-card-l">ξ with f(ξ) = quotient</div><div id="ftcw-xv" class="ftcw-card-v"></div></div>
+</div>
+<div id="ftcw-note" class="ftcw-note"></div>
+<script>
+(function () {
+  const FN = {
+    tank: { f: u => 2*Math.sqrt(Math.max(0, u*(2-u))),
+            P: x => { const c = 1-x; return Math.acos(Math.max(-1, Math.min(1, c))) - c*Math.sqrt(Math.max(0, 2*x-x*x)); },
+            jump: false },
+    wave: { f: u => 1 + 0.8*Math.sin(3*u), P: x => x + (0.8/3)*(1-Math.cos(3*x)), jump: false },
+    step: { f: u => u < 1 ? 0.6 : 1.6, P: x => x < 1 ? 0.6*x : 0.6 + 1.6*(x-1), jump: true }
+  };
+  let key = 'tank', X = 0.6, K = 40, S = 1, Pm = 1, anim = null;
+  const FM = 2.2, L0 = 50, R0 = 380, W = 260, B = 280, HH = 230, AX = '#495057';
+  const sx = u => L0 + u/2*W, rx = u => R0 + u/2*W, fy = v => B - v/FM*HH, py = v => B - v/Pm*HH;
+  const $ = id => document.getElementById('ftcw-' + id);
+  const ns = 'http://www.w3.org/2000/svg';
+  function el(t, a, p) { const e = document.createElementNS(ns, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; }
+  function set(id, a) { const e = $(id); for (const k in a) e.setAttribute(k, a[k]); }
+  function setF(k) {
+    key = k; const fn = FN[k]; Pm = fn.P(2)*1.1;
+    let d = '';
+    if (fn.jump) { d = `M${sx(0)} ${fy(0.6)}L${sx(1)} ${fy(0.6)}M${sx(1)} ${fy(1.6)}L${sx(2)} ${fy(1.6)}`; }
+    else { for (let i = 0; i <= 300; i++) { const u = 2*i/300; d += (i ? 'L' : 'M') + sx(u).toFixed(2) + ' ' + fy(fn.f(u)).toFixed(2); } }
+    $('fcurve').setAttribute('d', d);
+    const jd = $('jdots'); jd.innerHTML = '';
+    if (fn.jump) {
+      el('circle', {cx: sx(1), cy: fy(0.6), r: 3.5, fill: '#fff', stroke: '#378ADD', 'stroke-width': 1.5}, jd);
+      el('circle', {cx: sx(1), cy: fy(1.6), r: 3.5, fill: '#378ADD'}, jd);
+    }
+    let p = ''; for (let i = 0; i <= 300; i++) { const u = 2*i/300; p += (i ? 'L' : 'M') + rx(u).toFixed(2) + ' ' + py(fn.P(u)).toFixed(2); }
+    $('pcurve').setAttribute('d', p);
+    const lt = $('lticks'), rt = $('rticks'); lt.innerHTML = ''; rt.innerHTML = '';
+    [0, 1, 2].forEach(u => {
+      el('text', {class: 'ftcw-ts', x: sx(u), y: 296, 'text-anchor': 'middle'}, lt).textContent = u;
+      el('text', {class: 'ftcw-ts', x: rx(u), y: 296, 'text-anchor': 'middle'}, rt).textContent = u;
+    });
+    [1, 2].forEach(v => {
+      el('line', {x1: 46, y1: fy(v), x2: 50, y2: fy(v), stroke: AX, 'stroke-width': 1}, lt);
+      el('text', {class: 'ftcw-ts', x: 42, y: fy(v)+4, 'text-anchor': 'end'}, lt).textContent = v;
+    });
+    for (let v = 1; v < Pm; v++) {
+      el('line', {x1: 376, y1: py(v), x2: 380, y2: py(v), stroke: AX, 'stroke-width': 1}, rt);
+      el('text', {class: 'ftcw-ts', x: 372, y: py(v)+4, 'text-anchor': 'end'}, rt).textContent = v;
+    }
+    draw();
+  }
+  function fmt(v) { return (v < 0 ? '−' : '') + Math.abs(v).toFixed(4); }
+  function draw() {
+    const fn = FN[key], f = fn.f, P = fn.P;
+    const ha = Math.pow(10, -K/100);
+    const h = S > 0 ? Math.min(ha, 2-X) : -Math.min(ha, X);
+    const capped = Math.abs(h) < ha - 1e-12;
+    const D = (P(X+h) - P(X))/h, fx = f(X);
+    const a = Math.min(X, X+h), b = Math.max(X, X+h);
+    let us = []; for (let i = 0; i <= 160; i++) us.push(a + (b-a)*i/160);
+    if (fn.jump && a < 1 && b > 1) { us.push(1-1e-9, 1); us.sort((p, q) => p-q); }
+    let d = `M${sx(a)} ${fy(0)}`; us.forEach(u => { d += `L${sx(u).toFixed(2)} ${fy(f(u)).toFixed(2)}`; }); d += `L${sx(b)} ${fy(0)}Z`;
+    $('area').setAttribute('d', d);
+    set('mrect', {x: sx(a), y: fy(D), width: Math.max(0, sx(b)-sx(a)), height: fy(0)-fy(D)});
+    set('xline', {x1: sx(X), y1: B, x2: sx(X), y2: fy(fx)});
+    set('fxd', {cx: sx(X), cy: fy(fx)});
+    // locate xi with f(xi) = D in [a,b] (scan for a sign change, then bisect)
+    let xi = null; const g = u => f(u) - D, tol = 1e-9, N = 400; let prev = g(a);
+    if (Math.abs(prev) < tol) xi = a;
+    else for (let i = 1; i <= N; i++) {
+      const u = a + (b-a)*i/N, gu = g(u);
+      if (Math.abs(gu) < tol) { xi = u; break; }
+      if ((gu > 0) !== (prev > 0)) {
+        let lo = a + (b-a)*(i-1)/N, hi = u, glo = prev;
+        for (let j = 0; j < 60; j++) { const m = (lo+hi)/2, gm = g(m); if ((gm > 0) === (glo > 0)) { lo = m; glo = gm; } else hi = m; }
+        const c = (lo+hi)/2; if (Math.abs(g(c)) < 1e-6) xi = c; break;
+      }
+      prev = gu;
+    }
+    if (xi !== null) { set('xi', {cx: sx(xi), cy: fy(f(xi)), opacity: 1}); set('xil', {x: sx(xi)-4, y: fy(f(xi))-10, opacity: 1}); }
+    else { set('xi', {opacity: 0}); set('xil', {opacity: 0}); }
+    const PX = P(X), PQ = P(X+h);
+    set('pP', {cx: rx(X), cy: py(PX)}); set('pQ', {cx: rx(X+h), cy: py(PQ)});
+    set('qv', {x1: rx(X), y1: B, x2: rx(X), y2: py(PX)});
+    const t1 = X-1.2, t2 = X+1.2;
+    set('sline', {x1: rx(t1), y1: py(PX + D*(t1-X)), x2: rx(t2), y2: py(PX + D*(t2-X))});
+    set('tline', {x1: rx(t1), y1: py(PX + fx*(t1-X)), x2: rx(t2), y2: py(PX + fx*(t2-X))});
+    const close = Math.abs(sx(X+h) - sx(X)) < 30;
+    set('lx', {x: sx(X)}); set('lxh', {x: sx(X+h), opacity: close ? 0 : 1});
+    set('rx', {x: rx(X)}); set('rxh', {x: rx(X+h), opacity: close ? 0 : 1});
+    $('xo').textContent = 'x = ' + X.toFixed(2);
+    $('ho').textContent = 'h = ' + (h < 0 ? '−' : '') + Math.abs(h).toFixed(4);
+    $('dq').textContent = fmt(D); $('fv').textContent = fmt(fx);
+    const e = Math.abs(D - fx); $('er').textContent = e < 1e-4 && e > 0 ? e.toExponential(1) : e.toFixed(4);
+    $('xv').textContent = xi === null ? 'none' : xi.toFixed(4);
+    let n = [];
+    if (capped) n.push('|h| is capped so that x + h stays in [0, 2].');
+    if (xi === null) n.push('No ξ in the interval: f jumps inside it, so the mean value theorem for integrals does not apply.');
+    $('note').textContent = n.join(' ');
+  }
+  function flipSign() { S = -S; $('sgn').textContent = S > 0 ? 'h > 0' : 'h < 0'; draw(); }
+  function stop() { if (anim) { cancelAnimationFrame(anim); anim = null; } $('play').textContent = '▶ Let h → 0'; }
+  function resetH() { stop(); K = 0; $('hs').value = 0; draw(); }
+  function togglePlay() {
+    if (anim) { stop(); return; }
+    if (K >= 300) K = 0;
+    $('play').textContent = '❚❚ Pause';
+    let last = null;
+    const step = t => { if (last === null) last = t; K = Math.min(300, K + (t-last)*0.09); last = t;
+      $('hs').value = Math.round(K); draw(); if (K < 300) anim = requestAnimationFrame(step); else stop(); };
+    anim = requestAnimationFrame(step);
+  }
+  $('fsel').addEventListener('change', e => setF(e.target.value));
+  $('play').addEventListener('click', togglePlay);
+  $('reset').addEventListener('click', resetH);
+  $('sgn').addEventListener('click', flipSign);
+  $('xs').addEventListener('input', e => { X = e.target.value/100; draw(); });
+  $('hs').addEventListener('input', e => { K = +e.target.value; draw(); });
+  setF('tank');
+})();
+</script>
+</div>
+```
+:::
+
+::: {.content-visible unless-format="html"}
+*An interactive version of this figure, with sliders for $x$ and $h$, is included in the HTML
+version of these notes.*
+:::
+
+::: {#rem-ftc-needs-continuity}
+The third integrand in the figure shows why continuity is needed. It is the step function
+$$
+f(u) = \begin{cases} 0.6 & u<1 \\ 1.6 & u\ge1, \end{cases}
+$$
+which jumps at $u=1$. Integrating piece by piece from $\alpha=0$ gives the piecewise linear function
+$\Phi(x) = 0.6\,x$ for $x\le1$ and $\Phi(x) = 0.6+1.6\,(x-1)$ for $x\ge1$. At $x=1$,
+$$
+\frac{\Phi(1+h)-\Phi(1)}{h} = \begin{cases} 1.6 & h>0, \\ 0.6 & h<0. \end{cases}
+$$
+The two one-sided limits differ, so $\Phi$ has a corner at $1$ and is **not** differentiable there.
+Whenever the strip straddles the jump, the figure finds no $\xi$: the Mean Value Theorem for
+Integrals fails for discontinuous functions (@rem-mvt-remarks, part 2), and with it the proof of
+@thm-ftc-1.
+:::
+
+Since differentiable functions are continuous (@thm-differentiable-continuous), @thm-ftc-1 also gives
+a second proof of @thm-indefinite-integral-continuous.
+
+## Antiderivatives
+
+@thm-ftc-1 says that the indefinite integral solves the following problem: given $f$, find a function
+whose derivative is $f$. This problem, reversing differentiation, gets its own name.
+
+::: {#def-antiderivative}
+\
+Let $f$ be a function on an interval $I$. A function $F$ is called an **antiderivative** (or
+**primitive**) of $f$ on $I$ if $F$ is differentiable on $I$ and
+$$
+F'(x) = f(x) \qquad\text{for all } x\in I.
+$$
+:::
+
+In this language, @thm-ftc-1 reads:
+
+> *Every indefinite integral of a continuous function $f$ is an antiderivative of $f$.*
+
+At first sight, finding antiderivatives looks like a problem of a quite different character from
+computing areas. That it is solved by the indefinite integral is what makes the theorem
+"fundamental". But it leaves open a question.
+
+**Are there any other antiderivatives?**
+
+To answer it, we need one consequence of the Mean Value Theorem.
+
+::: {#prp-zero-derivative-constant}
+\
+Let $f$ be continuous on $[a,b]$ and differentiable on $(a,b)$. If $f'(x)=0$ for all $x\in(a,b)$,
+then $f$ is constant on $[a,b]$.
+:::
+
+::: {.proof}
+Let $x,y\in[a,b]$ with $x<y$. Then $f$ is continuous on $[x,y]$ and differentiable on $(x,y)$, so by
+@thm-mvt there is $\xi\in(x,y)$ with
+$$
+f(y) - f(x) = f'(\xi)\,(y-x) = 0\cdot(y-x) = 0 .
+$$
+Hence $f(x)=f(y)$. Since $x$ and $y$ were arbitrary, $f(x)=f(a)$ for all $x\in[a,b]$, so $f$ is
+constant with value $c=f(a)$.
+:::
+
+::: {#lem-antiderivatives-differ-by-constant}
+\
+The difference between any two antiderivatives $F_1$, $F_2$ of $f$ on an interval $I$ is constant:
+$$
+F_1(x) - F_2(x) = c \qquad\text{for all } x\in I.
+$$
+:::
+
+::: {.proof}
+Let $G(x) := F_1(x) - F_2(x)$. By the sum and constant multiple rules for derivatives
+(@prp-derivative-sum-rule, @prp-derivative-constant-multiple), $G$ is differentiable on $I$ with
+$$
+G'(x) = F_1'(x) - F_2'(x) = f(x) - f(x) = 0 .
+$$
+Now let $a<b$ in $I$. On $[a,b]$, $G$ is differentiable and hence continuous
+(@thm-differentiable-continuous), so @prp-zero-derivative-constant shows $G(b)=G(a)$. Since $a$ and
+$b$ were arbitrary, $G$ is constant on $I$.
+:::
+
+::: {#rem-interval-needed}
+It matters that the domain is an **interval**. The function
+$$
+G(x) = \begin{cases} 0 & x<0 \\ 1 & x>0 \end{cases}
+$$
+on $\R\setminus\{0\}$ has $G'(x)=0$ at every point of its domain, but it is not constant. Consequently
+$F_1(x)=-\frac1x$ and $F_2(x)=-\frac1x+G(x)$ are both antiderivatives of $\frac1{x^2}$ on
+$\R\setminus\{0\}$, but their difference is not constant. The proof of
+@lem-antiderivatives-differ-by-constant breaks down because there is no interval $[a,b]$ in the
+domain containing both a negative and a positive point.
+:::
+
+The converse of @lem-antiderivatives-differ-by-constant is easy.
+
+::: {#lem-antiderivative-plus-constant}
+\
+If $F$ is an antiderivative of $f$ and $G(x) = F(x)+c$ for a constant $c$, then $G$ is also an
+antiderivative of $f$.
+:::
+
+::: {.proof}
+By @prp-derivative-sum-rule, and since every difference quotient of a constant function is $0$,
+$$
+G'(x) = \big(F(x)+c\big)' = F'(x) + \frac{d}{dx}\,c = F'(x) + 0 = f(x).
+$$
+:::
+
+## The Fundamental Theorem
+
+Combining @thm-ftc-1 with the two lemmas, we can describe **all** antiderivatives of a continuous
+function.
+
+::: {#thm-ftc}
+## Fundamental Theorem of Calculus
+Let $f$ be continuous on an interval $I$. Every antiderivative $F$ of $f$ can be represented in the
+form
+$$
+F(x) = c + \Phi(x) = c + \int_\alpha^x f(u)\,du, \qquad (\ast)
+$$
+where $c$ is a constant and $\alpha\in I$. Conversely, for any choice of the constant $c$ and of
+$\alpha\in I$, the expression $(\ast)$ yields an antiderivative of $f$.
+:::
+
+::: {.proof}
+Fix $\alpha\in I$. By @thm-ftc-1, $\Phi(x)=\int_\alpha^x f(u)\,du$ is an antiderivative of $f$. If $F$
+is any antiderivative of $f$, then $F-\Phi$ is constant by @lem-antiderivatives-differ-by-constant,
+say $F-\Phi=c$, and so $F = c+\Phi$.
+
+Conversely, for any $\alpha\in I$ the function $\Phi(x) = \int_\alpha^x f(u)\,du$ is an antiderivative
+of $f$ by @thm-ftc-1, and so is $c+\Phi$ for every constant $c$, by
+@lem-antiderivative-plus-constant.
+:::
+
+::: {#rem-constant-needed}
+Changing the lower limit $\alpha$ only changes $\Phi$ by an additive constant
+(@prp-indefinite-integral-basic). One might therefore guess that the constant $c$ in $(\ast)$ is
+superfluous, that is, that every antiderivative is an indefinite integral $\int_\alpha^x f(u)\,du$ for
+a suitable $\alpha$. Sometimes this is true. The antiderivatives of $f(x)=x^2$ are the functions
+$\frac{x^3}{3}+c$, and since $\int_\alpha^x u^2\,du = \frac{x^3}{3}-\frac{\alpha^3}{3}$, the choice
+$\alpha = \sqrt[3]{-3c}$ produces each of them. But in general it is false. For $f(x)=0$, every
+indefinite integral is $\int_\alpha^x 0\,du = 0$, whatever $\alpha$ is, while every constant function
+is an antiderivative of $f$. So the constant $c$ cannot be dropped.
+:::
+
+## Evaluating Definite Integrals
+
+The most important application of the Fundamental Theorem is the evaluation of definite integrals
+$$
+\int_a^b f(u)\,du .
+$$
+Suppose we know **one** antiderivative $F$ of $f$. Let $\Phi(x) = \int_a^x f(u)\,du$ be the
+indefinite integral with lower limit $a$. Both $F$ and $\Phi$ are antiderivatives of $f$ (the latter
+by @thm-ftc-1), so by @lem-antiderivatives-differ-by-constant,
+$$
+F(x) = \Phi(x) + c
+$$
+for some constant $c$. Since
+$$
+\Phi(a) = \int_a^a f(u)\,du = 0
+$$
+(@def-oriented-integral), we get $F(a) = 0+c$, that is, $c=F(a)$. Hence $\Phi(x) = F(x) - F(a)$, and
+in particular $\int_a^b f(u)\,du = \Phi(b) = F(b) - F(a)$.
+
+::: {#cor-ftc-evaluation}
+## Evaluation of definite integrals
+Let $f$ be continuous on an interval $I$, let $a,b\in I$, and let $F$ be **any** antiderivative of $f$
+on $I$. Then
+$$
+\int_a^b f(u)\,du = F(b) - F(a).
+$$
+:::
+
+**Any antiderivative works!** Compare this with @prp-indefinite-integral-basic, part 1, which gave the
+same formula for an indefinite integral $\Phi$ in place of $F$. There, we first had to compute $\Phi$,
+which means computing integrals. Now any function whose derivative is $f$ will do, and such functions
+can often be found by reading formulas for derivatives backwards. Note also that $a<b$ is not
+required: the formula holds for all $a,b\in I$.
+
+**Notation.** The difference $F(b)-F(a)$ is written
+$$
+F(b) - F(a) = F(x)\Big|_a^b = \Big[F(x)\Big]_a^b .
+$$
+For an antiderivative of $f$ one writes
+$$
+\int f(x)\,dx = F(x) + c,
+$$
+without limits of integration, and calls it the **indefinite integral** of $f$ as well.
+
+::: {#rem-indefinite-notation}
+This "indefinite" indefinite integral needs some care. By @thm-ftc, $\int f(x)\,dx$ stands for *some*
+antiderivative of $f$, determined only up to the additive constant $c$; the formula
+$\int f(x)\,dx = F(x)+c$ is just a symbolic way of writing $F'(x) = f(x)$. Strictly speaking, it is
+also slightly inconsistent to use the same letter $x$ for the variable of integration and for the
+independent variable of $F$. And it is worth remembering that, a priori, integrating (computing areas
+by limits of Riemann sums) and reversing differentiation are two different things. It is only the
+Fundamental Theorem that justifies using the name "indefinite integral" for both.
+:::
+
+::: {#exm-ftc-evaluation}
+\
+(a) The function $F(x) = x^3 - x^2$ has $F'(x) = 3x^2 - 2x$, so
+$$
+\int_1^2 \big(3x^2 - 2x\big)\,dx = \Big[x^3 - x^2\Big]_1^2 = (8-4) - (1-1) = 4 .
+$$
+
+(b) Since $(-\cos x)' = \sin x$,
+$$
+\int_0^\pi \sin x\,dx = \Big[-\cos x\Big]_0^\pi = -\cos\pi + \cos 0 = 1 + 1 = 2 .
+$$
+This agrees with the average value $\frac2\pi$ of $\sin$ on $[0,\pi]$ found in @exm-averages.
+:::
+
+In the same way, each formula in @prp-basic-integrals now follows from @cor-ftc-evaluation as soon as
+we know the derivative of the function on the right-hand side: no Riemann sums are needed anymore.
+
+## Summary
+
+- **FTC, Part 1** (@thm-ftc-1): if $f$ is continuous, the indefinite integral
+  $\Phi(x)=\int_\alpha^x f(u)\,du$ is differentiable with $\Phi'=f$. The proof combines the Mean Value
+  Theorem for Integrals, $\frac{\Phi(x+h)-\Phi(x)}{h} = f(\xi)$ with $\xi$ between $x$ and $x+h$,
+  with the continuity of $f$. Without continuity the conclusion can fail
+  (@rem-ftc-needs-continuity).
+- An **antiderivative** (or primitive) of $f$ is a function $F$ with $F'=f$
+  (@def-antiderivative). Every indefinite integral of a continuous function is one.
+- If $f'=0$ on an interval, then $f$ is constant (@prp-zero-derivative-constant, from the Mean Value
+  Theorem). Hence two antiderivatives of the same function on an interval differ by a constant
+  (@lem-antiderivatives-differ-by-constant), and adding a constant to an antiderivative gives another
+  one (@lem-antiderivative-plus-constant). On domains that are not intervals, this fails
+  (@rem-interval-needed).
+- **Fundamental Theorem of Calculus** (@thm-ftc): the antiderivatives of a function $f$ that is
+  continuous on an interval are exactly the functions $c + \int_\alpha^x f(u)\,du$. The constant $c$
+  cannot be dropped in general (@rem-constant-needed).
+- **Evaluation of definite integrals** (@cor-ftc-evaluation): for any antiderivative $F$ of $f$,
+  $\int_a^b f(u)\,du = F(b)-F(a) = \big[F(x)\big]_a^b$. The notation $\int f(x)\,dx = F(x)+c$ stands
+  for an arbitrary antiderivative (@rem-indefinite-notation).

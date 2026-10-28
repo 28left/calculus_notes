@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>23&nbsp; Product Rule and Integration by Parts – Math 140H — Honors Calculus I: Lecture Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./18_fundamental_theorem.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./19_techniques_of_calculus.html">Techniques of Calculus</a></li><li class="breadcrumb-item"><a href="./19_techniques_of_calculus.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Product Rule and Integration by Parts</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Math 140H — Honors Calculus I: Lecture Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Real Numbers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_real_numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Rational Numbers and the Number Line</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_nested_intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week01_Number_Bases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Functions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_continuity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_activity_properties_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Limits</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_sequences_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week03_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of Sequences: Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_limits_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Limits of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Riemann Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_riemann_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Riemann Sums</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week05_Riemann_Sums.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab: Riemann Sums</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_properties_of_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Properties of the Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_indefinite_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Derivative</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_derivative.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The Derivative</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_differentiation_rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working with Derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_activity_derivative_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Activity: Reading Derivatives from Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_mean_value_theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The Mean Value Theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_linear_approximation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">The Derivative as Linear Approximation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_activity_euler_method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Linear Approximation and Euler’s Method</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week09_MVT_Linear_Approximation_Lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab: The Mean Value Theorem and Linear Approximation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Fundamental Theorem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18_fundamental_theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">The Fundamental Theorem of Calculus</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Techniques of Calculus</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19_techniques_of_calculus.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Product Rule and Integration by Parts</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#summary-of-elementary-functions" id="toc-summary-of-elementary-functions" class="nav-link active" data-scroll-target="#summary-of-elementary-functions"><span class="header-section-number">23.1</span> Summary of Elementary Functions</a></li>
+  <li><a href="#basic-rules" id="toc-basic-rules" class="nav-link" data-scroll-target="#basic-rules"><span class="header-section-number">23.2</span> Basic Rules</a></li>
+  <li><a href="#the-product-rule" id="toc-the-product-rule" class="nav-link" data-scroll-target="#the-product-rule"><span class="header-section-number">23.3</span> The Product Rule</a></li>
+  <li><a href="#integration-by-parts" id="toc-integration-by-parts" class="nav-link" data-scroll-target="#integration-by-parts"><span class="header-section-number">23.4</span> Integration by Parts</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">23.5</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./19_techniques_of_calculus.html">Techniques of Calculus</a></li><li class="breadcrumb-item"><a href="./19_techniques_of_calculus.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Product Rule and Integration by Parts</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Product Rule and Integration by Parts</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture begins C&J Chapter 3 (The Techniques of Calculus). The product rule is in §3.1.a, the
+table of elementary integrals in §3.8, and integration by parts in §3.11.
+::: -->
+<p>With the Fundamental Theorem of Calculus (<a href="18_fundamental_theorem.html#thm-ftc" class="quarto-xref">Theorem&nbsp;<span>22.2</span></a>), every derivative we know gives us an antiderivative, and with it a way to evaluate definite integrals (<a href="18_fundamental_theorem.html#cor-ftc-evaluation" class="quarto-xref">Corollary&nbsp;<span>22.1</span></a>). In this chapter we take stock of what we know so far, and then add the first rule that goes beyond sums and constant multiples: the <strong>product rule</strong>, together with its counterpart for integrals, <strong>integration by parts</strong>.</p>
+<p>Throughout, <span class="math inline">\(\int f(x)\,dx = F(x)+c\)</span> stands for an arbitrary antiderivative of <span class="math inline">\(f\)</span>, as in <a href="18_fundamental_theorem.html#rem-indefinite-notation" class="quarto-xref">Remark&nbsp;<span>22.4</span></a>.</p>
+<section id="summary-of-elementary-functions" class="level2" data-number="23.1">
+<h2 data-number="23.1" class="anchored" data-anchor-id="summary-of-elementary-functions"><span class="header-section-number">23.1</span> Summary of Elementary Functions</h2>
+<div id="tbl-elementary-functions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-elementary-functions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;23.1: Derivatives and antiderivatives of the elementary functions.
+</figcaption>
+<div aria-describedby="tbl-elementary-functions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(f(x)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(f'(x)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(F(x)\)</span></th>
+<th style="text-align: left;">Verified?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Constants</td>
+<td style="text-align: center;"><span class="math inline">\(a\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(ax+c\)</span></td>
+<td style="text-align: left;">yes (difference quotient and Riemann sums)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Power functions</td>
+<td style="text-align: center;"><span class="math inline">\(x^\alpha\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\alpha\, x^{\alpha-1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{1}{\alpha+1}\,x^{\alpha+1}+c \quad (\alpha\neq-1)\)</span></td>
+<td style="text-align: left;">for <span class="math inline">\(\alpha\in\mathbb{Z}\)</span> (difference quotient)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trigonometric functions</td>
+<td style="text-align: center;"><span class="math inline">\(\sin x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cos x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-\cos x + c\)</span></td>
+<td style="text-align: left;">yes (difference quotient)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"><span class="math inline">\(\cos x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-\sin x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\sin x + c\)</span></td>
+<td style="text-align: left;">yes (difference quotient)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Exponential</td>
+<td style="text-align: center;"><span class="math inline">\(e^x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(e^x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(e^x + c\)</span></td>
+<td style="text-align: left;">not yet (later)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Logarithm</td>
+<td style="text-align: center;"><span class="math inline">\(\ln x\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac1x\)</span></td>
+<td style="text-align: center;">?</td>
+<td style="text-align: left;">not yet (later)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Some comments on the table:</p>
+<ul>
+<li>The column <span class="math inline">\(F(x)\)</span> lists an antiderivative of <span class="math inline">\(f(x)\)</span>, plus the arbitrary constant. By <a href="18_fundamental_theorem.html#lem-antiderivatives-differ-by-constant" class="quarto-xref">Lemma&nbsp;<span>22.1</span></a>, these are <em>all</em> the antiderivatives, as long as we work on an interval.</li>
+<li>Each entry in the column <span class="math inline">\(F(x)\)</span> can be checked by differentiating it, using the column <span class="math inline">\(f'(x)\)</span>. For instance, <span class="math inline">\(\big(\tfrac{1}{\alpha+1}x^{\alpha+1}\big)' = x^\alpha\)</span>. So an antiderivative is verified as soon as the corresponding derivative is.</li>
+<li><strong>Constants:</strong> <span class="math inline">\((a)'=0\)</span> because every difference quotient of a constant function is <span class="math inline">\(0\)</span>, and <span class="math inline">\(\int_a^b c\,dx = c(b-a)\)</span> was computed directly from Riemann sums (<a href="09_riemann_integral.html#exm-integral-constant" class="quarto-xref">Example&nbsp;<span>11.1</span></a>).</li>
+<li><strong>Power functions:</strong> we proved <span class="math inline">\((x^n)' = n x^{n-1}\)</span> for all integers <span class="math inline">\(n\)</span> (<a href="13_differentiation_rules.html#prp-power-rule-positive" class="quarto-xref">Proposition&nbsp;<span>16.1</span></a>, <a href="13_differentiation_rules.html#prp-power-rule-negative" class="quarto-xref">Proposition&nbsp;<span>16.2</span></a>), with <span class="math inline">\(x\neq0\)</span> if <span class="math inline">\(n&lt;0\)</span>. For negative exponents, the antiderivative is only valid on an interval not containing <span class="math inline">\(0\)</span>. Non-integer exponents such as <span class="math inline">\(x^{1/2}\)</span> or <span class="math inline">\(x^\pi\)</span> have not been treated in general yet.</li>
+<li>The formula for <span class="math inline">\(F\)</span> fails for <span class="math inline">\(\alpha=-1\)</span>, since it would divide by <span class="math inline">\(0\)</span>. The gap is filled by the logarithm: since <span class="math inline">\((\ln x)' = \frac1x\)</span>, an antiderivative of <span class="math inline">\(x^{-1}\)</span> on <span class="math inline">\((0,\infty)\)</span> is <span class="math inline">\(\ln x\)</span> (compare <a href="10_properties_of_integral.html#prp-basic-integrals" class="quarto-xref">Proposition&nbsp;<span>13.4</span></a>).</li>
+<li><strong>Trigonometric functions:</strong> both derivatives were computed from the difference quotient (<a href="13_differentiation_rules.html#prp-derivative-sin-cos" class="quarto-xref">Proposition&nbsp;<span>16.3</span></a>).</li>
+<li><strong>Exponential and logarithm:</strong> the derivatives <span class="math inline">\((e^x)'=e^x\)</span> and <span class="math inline">\((\ln x)'=\frac1x\)</span> will be proved later. We already use them in examples. The antiderivative of <span class="math inline">\(\ln x\)</span> is still open; we will find it with integration by parts (<a href="#exr-parts-ln" class="quarto-xref">Exercise&nbsp;<span>23.1</span></a>).</li>
+</ul>
+</section>
+<section id="basic-rules" class="level2" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="basic-rules"><span class="header-section-number">23.2</span> Basic Rules</h2>
+<p>The following rules hold for derivatives and integrals alike.</p>
+<div id="tbl-basic-rules" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-basic-rules-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;23.2: Basic rules for derivatives and integrals.
+</figcaption>
+<div aria-describedby="tbl-basic-rules-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rule</th>
+<th style="text-align: left;">Derivatives</th>
+<th style="text-align: left;">Integrals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Constant multiple</td>
+<td style="text-align: left;"><span class="math inline">\(\dfrac{d}{dx}\big(\alpha f(x)\big) = \alpha\,\dfrac{d}{dx}f(x)\)</span> (<a href="13_differentiation_rules.html#prp-derivative-constant-multiple" class="quarto-xref">Proposition&nbsp;<span>16.5</span></a>)</td>
+<td style="text-align: left;"><span class="math inline">\(\displaystyle\int_a^b \alpha f(x)\,dx = \alpha\int_a^b f(x)\,dx\)</span> (<a href="10_properties_of_integral.html#prp-constant-multiple" class="quarto-xref">Proposition&nbsp;<span>13.3</span></a>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sum rule (linearity)</td>
+<td style="text-align: left;"><span class="math inline">\(\dfrac{d}{dx}\big(f(x)+g(x)\big) = \dfrac{d}{dx}f(x) + \dfrac{d}{dx}g(x)\)</span> (<a href="13_differentiation_rules.html#prp-derivative-sum-rule" class="quarto-xref">Proposition&nbsp;<span>16.4</span></a>)</td>
+<td style="text-align: left;"><span class="math inline">\(\displaystyle\int_a^b \big(f(x)+g(x)\big)\,dx = \int_a^b f(x)\,dx + \int_a^b g(x)\,dx\)</span> (<a href="10_properties_of_integral.html#prp-sum-rule" class="quarto-xref">Proposition&nbsp;<span>13.2</span></a>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Additivity</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="math inline">\(\displaystyle\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx\)</span> (<a href="10_properties_of_integral.html#prp-additivity" class="quarto-xref">Proposition&nbsp;<span>13.1</span></a>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The rules for derivatives were proved from the difference quotient, the rules for integrals from Riemann sums. They also hold for antiderivatives: if <span class="math inline">\(F\)</span> and <span class="math inline">\(G\)</span> are antiderivatives of <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, then <span class="math inline">\(F+G\)</span> is an antiderivative of <span class="math inline">\(f+g\)</span> and <span class="math inline">\(\alpha F\)</span> is an antiderivative of <span class="math inline">\(\alpha f\)</span>, by the rules for derivatives. In the indefinite notation, <span class="math display">\[
+\int \big(f(x)+g(x)\big)\,dx = \int f(x)\,dx + \int g(x)\,dx, \qquad
+\int \alpha f(x)\,dx = \alpha\int f(x)\,dx .
+\]</span></p>
+<p>The table of elementary functions together with the basic rules covers many functions, for instance all polynomials and all linear combinations of <span class="math inline">\(\sin\)</span>, <span class="math inline">\(\cos\)</span> and <span class="math inline">\(e^x\)</span>. But what about products <span class="math inline">\(f(x)\,g(x)\)</span> and compositions <span class="math inline">\(f(g(x))\)</span>? We saw in <a href="13_differentiation_rules.html#rem-no-product-rule-derivative" class="quarto-xref">Remark&nbsp;<span>16.2</span></a> and <a href="10_properties_of_integral.html#rem-no-product-rule" class="quarto-xref">Remark&nbsp;<span>13.2</span></a> that the naive rules for products are false. In this chapter we deal with products. Compositions will be handled by the <em>chain rule</em> and <em>substitution</em>.</p>
+</section>
+<section id="the-product-rule" class="level2" data-number="23.3">
+<h2 data-number="23.3" class="anchored" data-anchor-id="the-product-rule"><span class="header-section-number">23.3</span> The Product Rule</h2>
+<p>The trick is to add and subtract the “mixed” term <span class="math inline">\(f(x)g(a)\)</span> in the numerator of the difference quotient of <span class="math inline">\(fg\)</span> at <span class="math inline">\(a\)</span>. For <span class="math inline">\(x\neq a\)</span>, <span id="eq-product-difference-quotient"><span class="math display">\[
+\begin{aligned}
+\frac{f(x)g(x) - f(a)g(a)}{x-a}
+&amp;= \frac{f(x)g(x) - f(x)g(a) + f(x)g(a) - f(a)g(a)}{x-a} \\[4pt]
+&amp;= f(x)\,\frac{g(x)-g(a)}{x-a} \;+\; \frac{f(x)-f(a)}{x-a}\,g(a) .
+\end{aligned}
+\tag{23.1}\]</span></span> This is an identity of difference quotients; no limit has been taken yet. As <span class="math inline">\(x\to a\)</span>, the two difference quotients on the right tend to <span class="math inline">\(g'(a)\)</span> and <span class="math inline">\(f'(a)\)</span>.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-product-rule" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 23.1 (Product rule)</strong></span> If <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are differentiable at <span class="math inline">\(a\)</span>, then so is <span class="math inline">\(f\cdot g\)</span>, and <span class="math display">\[
+\big(f(x)\,g(x)\big)'\Big|_{x=a} = f'(a)\,g(a) + f(a)\,g'(a).
+\]</span> Consequently, if <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are differentiable on an interval <span class="math inline">\(I\)</span>, then on <span class="math inline">\(I\)</span> <span class="math display">\[
+\big(f(x)\,g(x)\big)' = f'(x)\,g(x) + f(x)\,g'(x).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>By <a href="#eq-product-difference-quotient" class="quarto-xref">Equation&nbsp;<span>23.1</span></a>, <span class="math display">\[
+\begin{aligned}
+\big(f(x)\,g(x)\big)'\Big|_{x=a}
+&amp;= \lim_{x\to a}\frac{f(x)g(x)-f(a)g(a)}{x-a} \\[4pt]
+&amp;= \lim_{x\to a} f(x)\,\frac{g(x)-g(a)}{x-a} \;+\; \lim_{x\to a}\frac{f(x)-f(a)}{x-a}\,g(a) \\[4pt]
+&amp;= f(a)\,g'(a) + f'(a)\,g(a).
+\end{aligned}
+\]</span> Here we used the limit laws (<a href="08_limits_of_functions.html#prp-function-limit-laws" class="quarto-xref">Proposition&nbsp;<span>10.3</span></a>) together with three limits: <span class="math inline">\(\frac{g(x)-g(a)}{x-a}\to g'(a)\)</span> and <span class="math inline">\(\frac{f(x)-f(a)}{x-a}\to f'(a)\)</span> by definition of the derivative, and <span class="math inline">\(f(x)\to f(a)\)</span> because <span class="math inline">\(f\)</span> is differentiable, hence continuous, at <span class="math inline">\(a\)</span> (<a href="13_differentiation_rules.html#thm-differentiable-continuous" class="quarto-xref">Theorem&nbsp;<span>16.1</span></a>). Since the limits on the right exist, so does the limit on the left, and the splitting in the second line is justified.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-product-rule" class="theorem example">
+<p><span class="theorem-title"><strong>Example 23.1</strong></span> &nbsp;</p>
+<ul>
+<li>For <span class="math inline">\(f(x)=g(x)=x\)</span>, the product rule gives <span class="math inline">\((x\cdot x)' = 1\cdot x + x\cdot 1 = 2x\)</span>, in agreement with <span class="math inline">\((x^2)'=2x\)</span> (compare <a href="13_differentiation_rules.html#rem-no-product-rule-derivative" class="quarto-xref">Remark&nbsp;<span>16.2</span></a>).</li>
+<li><span class="math inline">\((x\sin x)' = 1\cdot\sin x + x\cos x = \sin x + x\cos x\)</span>.</li>
+<li><span class="math inline">\((x e^x)' = e^x + x e^x = (x+1)\,e^x\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="integration-by-parts" class="level2" data-number="23.4">
+<h2 data-number="23.4" class="anchored" data-anchor-id="integration-by-parts"><span class="header-section-number">23.4</span> Integration by Parts</h2>
+<p>What does the product rule give for integrals? Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be differentiable on an interval. The product rule says that <span class="math inline">\(f(x)\,g(x)\)</span> is an antiderivative of <span class="math inline">\(f'(x)g(x)+f(x)g'(x)\)</span>, so <span class="math display">\[
+\begin{aligned}
+f(x)\,g(x) + c &amp;= \int \big(f'(x)\,g(x) + f(x)\,g'(x)\big)\,dx \\
+&amp;= \int f'(x)\,g(x)\,dx + \int f(x)\,g'(x)\,dx ,
+\end{aligned}
+\]</span> using the sum rule for antiderivatives. Solving for the first integral on the right gives the following rule.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-integration-by-parts" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 23.2 (Integration by parts)</strong></span> Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be differentiable on an interval <span class="math inline">\(I\)</span>. Then <span class="math display">\[
+\int f'(x)\,g(x)\,dx = f(x)\,g(x) - \int f(x)\,g'(x)\,dx + c .
+\]</span> More precisely: if <span class="math inline">\(G\)</span> is an antiderivative of <span class="math inline">\(f\,g'\)</span> on <span class="math inline">\(I\)</span>, then <span class="math inline">\(f\,g-G\)</span> is an antiderivative of <span class="math inline">\(f'\,g\)</span> on <span class="math inline">\(I\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>By the product rule (<a href="#thm-product-rule" class="quarto-xref">Theorem&nbsp;<span>23.1</span></a>) and the sum rule (<a href="13_differentiation_rules.html#prp-derivative-sum-rule" class="quarto-xref">Proposition&nbsp;<span>16.4</span></a>), <span class="math display">\[
+\big(f(x)g(x) - G(x)\big)' = f'(x)g(x) + f(x)g'(x) - f(x)g'(x) = f'(x)\,g(x) .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Strictly speaking, the constant <span class="math inline">\(c\)</span> in the formula is redundant, since <span class="math inline">\(\int f(x)g'(x)\,dx\)</span> already stands for an arbitrary antiderivative. Writing it out is a useful reminder that the result is only determined up to a constant.</p>
+<p>How do we use the formula? It applies when the integrand is a product, one factor of which we read as <span class="math inline">\(f'(x)\)</span> and the other as <span class="math inline">\(g(x)\)</span>: <span class="math display">\[
+\underbrace{\int f'(x)\,g(x)\,dx}_{\text{want to compute this}}
+= f(x)\,g(x) - \int f(x)\,g'(x)\,dx + c .
+\]</span></p>
+<ul>
+<li>We need to <strong>know an antiderivative</strong> <span class="math inline">\(f(x)\)</span> of the factor <span class="math inline">\(f'(x)\)</span>.</li>
+<li>We <strong>hope</strong> that the new integral <span class="math inline">\(\int f(x)\,g'(x)\,dx\)</span> is “easier” to compute than the original one. Typically this happens when differentiating <span class="math inline">\(g\)</span> makes it simpler, as for <span class="math inline">\(g(x)=x\)</span> or <span class="math inline">\(g(x)=\ln x\)</span>.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-parts-x-ex" class="theorem example">
+<p><span class="theorem-title"><strong>Example 23.2</strong></span> <br>
+Compute <span class="math inline">\(\int e^x\,x\,dx\)</span>. We choose <span class="math display">\[
+\begin{aligned}
+f'(x) &amp;= e^x, &amp; g(x) &amp;= x, \\
+f(x) &amp;= e^x, &amp; g'(x) &amp;= 1 .
+\end{aligned}
+\]</span> Then by <a href="#thm-integration-by-parts" class="quarto-xref">Theorem&nbsp;<span>23.2</span></a>, <span class="math display">\[
+\begin{aligned}
+\int e^x\,x\,dx &amp;= e^x\,x - \int e^x\cdot 1\,dx + c \\
+&amp;= e^x\,x - e^x + c \\
+&amp;= e^x\,(x-1) + c .
+\end{aligned}
+\]</span> The remaining integral <span class="math inline">\(\int e^x\,dx = e^x\)</span> is in <a href="#tbl-elementary-functions" class="quarto-xref">Table&nbsp;<span>23.1</span></a>.</p>
+<p><strong>Verification.</strong> By the product rule, <span class="math display">\[
+\frac{d}{dx}\Big(e^x\,(x-1)\Big) = e^x\,(x-1) + e^x\cdot 1 = e^x\,x - e^x + e^x = e^x\,x . \quad\checkmark
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-parts-choice" class="proof remark">
+<p><span class="proof-title"><em>Remark 23.1</em>. </span>The choice of <span class="math inline">\(f'\)</span> and <span class="math inline">\(g\)</span> matters. In <a href="#exm-parts-x-ex" class="quarto-xref">Example&nbsp;<span>23.2</span></a> we could also have chosen <span class="math inline">\(f'(x)=x\)</span> and <span class="math inline">\(g(x)=e^x\)</span>, so <span class="math inline">\(f(x)=\frac{x^2}{2}\)</span> and <span class="math inline">\(g'(x)=e^x\)</span>. This gives <span class="math display">\[
+\int x\,e^x\,dx = \frac{x^2}{2}\,e^x - \int \frac{x^2}{2}\,e^x\,dx + c ,
+\]</span> which is correct but useless: the new integral is harder than the original one, because the power of <span class="math inline">\(x\)</span> went up instead of down.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Combining <a href="#thm-integration-by-parts" class="quarto-xref">Theorem&nbsp;<span>23.2</span></a> with the evaluation of definite integrals (<a href="18_fundamental_theorem.html#cor-ftc-evaluation" class="quarto-xref">Corollary&nbsp;<span>22.1</span></a>) gives a version for definite integrals. We write <span class="math inline">\(\big[h(x)\big]_a^b = h(b)-h(a)\)</span>.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="cor-integration-by-parts-definite" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 23.1 (Integration by parts for definite integrals)</strong></span> Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be differentiable on an interval containing <span class="math inline">\([a,b]\)</span>, with <span class="math inline">\(f'\)</span> and <span class="math inline">\(g'\)</span> continuous. Then <span class="math display">\[
+\int_a^b f'(x)\,g(x)\,dx = \Big[f(x)\,g(x)\Big]_a^b - \int_a^b f(x)\,g'(x)\,dx .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The functions <span class="math inline">\(f'g\)</span> and <span class="math inline">\(fg'\)</span> are continuous, so both integrals exist. By FTC, Part 1 (<a href="18_fundamental_theorem.html#thm-ftc-1" class="quarto-xref">Theorem&nbsp;<span>22.1</span></a>), <span class="math inline">\(G(x) = \int_a^x f(u)\,g'(u)\,du\)</span> is an antiderivative of <span class="math inline">\(fg'\)</span>, and by <a href="#thm-integration-by-parts" class="quarto-xref">Theorem&nbsp;<span>23.2</span></a>, <span class="math inline">\(fg-G\)</span> is an antiderivative of <span class="math inline">\(f'g\)</span>. Now <a href="18_fundamental_theorem.html#cor-ftc-evaluation" class="quarto-xref">Corollary&nbsp;<span>22.1</span></a> gives <span class="math display">\[
+\int_a^b f'(x)\,g(x)\,dx = \Big[f(x)g(x) - G(x)\Big]_a^b
+= \Big[f(x)\,g(x)\Big]_a^b - \big(G(b)-G(a)\big),
+\]</span> and <span class="math inline">\(G(b)-G(a) = \int_a^b f(u)\,g'(u)\,du - 0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-parts-definite" class="theorem example">
+<p><span class="theorem-title"><strong>Example 23.3</strong></span> <br>
+By <a href="#exm-parts-x-ex" class="quarto-xref">Example&nbsp;<span>23.2</span></a>, <span class="math display">\[
+\int_0^1 x\,e^x\,dx = \Big[e^x\,(x-1)\Big]_0^1 = e\cdot 0 - e^0\cdot(-1) = 1 .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-parts-ln" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 23.1</strong></span> Fill in the missing entry of <a href="#tbl-elementary-functions" class="quarto-xref">Table&nbsp;<span>23.1</span></a>: find an antiderivative of <span class="math inline">\(\ln x\)</span> on <span class="math inline">\((0,\infty)\)</span>, and verify your answer by differentiating. (Hint: write <span class="math inline">\(\ln x = 1\cdot\ln x\)</span> and take <span class="math inline">\(f'(x)=1\)</span>.)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>With <span class="math inline">\(f'(x)=1\)</span>, <span class="math inline">\(g(x)=\ln x\)</span>, we have <span class="math inline">\(f(x)=x\)</span> and <span class="math inline">\(g'(x)=\frac1x\)</span>, so <span class="math display">\[
+\int \ln x\,dx = x\ln x - \int x\cdot\frac1x\,dx + c = x\ln x - \int 1\,dx + c = x\ln x - x + c .
+\]</span> Check, using the product rule: <span class="math inline">\(\big(x\ln x - x\big)' = 1\cdot\ln x + x\cdot\frac1x - 1 = \ln x\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="23.5">
+<h2 data-number="23.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">23.5</span> Summary</h2>
+<ul>
+<li><a href="#tbl-elementary-functions" class="quarto-xref">Table&nbsp;<span>23.1</span></a> collects the derivatives and antiderivatives of the elementary functions. Those for constants, integer powers, <span class="math inline">\(\sin\)</span> and <span class="math inline">\(\cos\)</span> have been proved; those for <span class="math inline">\(e^x\)</span> and <span class="math inline">\(\ln x\)</span> will be proved later. An antiderivative is verified by differentiating it.</li>
+<li>The <strong>basic rules</strong> (<a href="#tbl-basic-rules" class="quarto-xref">Table&nbsp;<span>23.2</span></a>), constant multiple, sum rule and additivity, hold for derivatives and integrals, and linearity also holds for antiderivatives.</li>
+<li><strong>Product rule</strong> (<a href="#thm-product-rule" class="quarto-xref">Theorem&nbsp;<span>23.1</span></a>): <span class="math inline">\((fg)' = f'g + fg'\)</span>. The proof adds and subtracts <span class="math inline">\(f(x)g(a)\)</span> in the difference quotient (<a href="#eq-product-difference-quotient" class="quarto-xref">Equation&nbsp;<span>23.1</span></a>) and uses that a differentiable function is continuous.</li>
+<li><strong>Integration by parts</strong> (<a href="#thm-integration-by-parts" class="quarto-xref">Theorem&nbsp;<span>23.2</span></a>) is the product rule read backwards: <span class="math inline">\(\int f'g\,dx = fg - \int fg'\,dx + c\)</span>. It is useful when we know an antiderivative of <span class="math inline">\(f'\)</span> and the new integral <span class="math inline">\(\int fg'\,dx\)</span> is easier, as for <span class="math inline">\(\int x e^x\,dx = e^x(x-1)+c\)</span> (<a href="#exm-parts-x-ex" class="quarto-xref">Example&nbsp;<span>23.2</span></a>). The choice of <span class="math inline">\(f'\)</span> and <span class="math inline">\(g\)</span> matters (<a href="#rem-parts-choice" class="quarto-xref">Remark&nbsp;<span>23.1</span></a>).</li>
+<li>For definite integrals, <span class="math inline">\(\int_a^b f'g\,dx = \big[fg\big]_a^b - \int_a^b fg'\,dx\)</span> (<a href="#cor-integration-by-parts-definite" class="quarto-xref">Corollary&nbsp;<span>23.1</span></a>).</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./18_fundamental_theorem.html" class="pagination-link" aria-label="The Fundamental Theorem of Calculus">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">The Fundamental Theorem of Calculus</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

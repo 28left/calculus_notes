@@ -42,6 +42,9 @@ book:
     - part: The Fundamental Theorem
       chapters:
         - 18_fundamental_theorem.qmd
+    - part: Techniques of Calculus
+      chapters:
+        - 19_techniques_of_calculus.qmd
 
 
 

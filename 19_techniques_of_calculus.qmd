@@ -1,0 +1,279 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Product Rule and Integration by Parts
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture begins C&J Chapter 3 (The Techniques of Calculus). The product rule is in §3.1.a, the
+table of elementary integrals in §3.8, and integration by parts in §3.11.
+::: -->
+
+With the Fundamental Theorem of Calculus (@thm-ftc), every derivative we know gives us an
+antiderivative, and with it a way to evaluate definite integrals (@cor-ftc-evaluation). In this
+chapter we take stock of what we know so far, and then add the first rule that goes beyond sums and
+constant multiples: the **product rule**, together with its counterpart for integrals,
+**integration by parts**.
+
+Throughout, $\int f(x)\,dx = F(x)+c$ stands for an arbitrary antiderivative of $f$, as in
+@rem-indefinite-notation.
+
+## Summary of Elementary Functions
+
+| | $f(x)$ | $f'(x)$ | $F(x)$ | Verified? |
+|:--|:--:|:--:|:--:|:--|
+| Constants | $a$ | $0$ | $ax+c$ | yes (difference quotient and Riemann sums) |
+| Power functions | $x^\alpha$ | $\alpha\, x^{\alpha-1}$ | $\dfrac{1}{\alpha+1}\,x^{\alpha+1}+c \quad (\alpha\neq-1)$ | for $\alpha\in\Z$ (difference quotient) |
+| Trigonometric functions | $\sin x$ | $\cos x$ | $-\cos x + c$ | yes (difference quotient) |
+| | $\cos x$ | $-\sin x$ | $\sin x + c$ | yes (difference quotient) |
+| Exponential | $e^x$ | $e^x$ | $e^x + c$ | not yet (later) |
+| Logarithm | $\ln x$ | $\dfrac1x$ | ? | not yet (later) |
+
+: Derivatives and antiderivatives of the elementary functions. {#tbl-elementary-functions}
+
+Some comments on the table:
+
+- The column $F(x)$ lists an antiderivative of $f(x)$, plus the arbitrary constant. By
+  @lem-antiderivatives-differ-by-constant, these are *all* the antiderivatives, as long as we work on
+  an interval.
+- Each entry in the column $F(x)$ can be checked by differentiating it, using the column $f'(x)$. For
+  instance, $\big(\tfrac{1}{\alpha+1}x^{\alpha+1}\big)' = x^\alpha$. So an antiderivative is
+  verified as soon as the corresponding derivative is.
+- **Constants:** $(a)'=0$ because every difference quotient of a constant function is $0$, and
+  $\int_a^b c\,dx = c(b-a)$ was computed directly from Riemann sums (@exm-integral-constant).
+- **Power functions:** we proved $(x^n)' = n x^{n-1}$ for all integers $n$
+  (@prp-power-rule-positive, @prp-power-rule-negative), with $x\neq0$ if $n<0$. For negative
+  exponents, the antiderivative is only valid on an interval not containing $0$. Non-integer
+  exponents such as $x^{1/2}$ or $x^\pi$ have not been treated in general yet.
+- The formula for $F$ fails for $\alpha=-1$, since it would divide by $0$. The gap is filled by the
+  logarithm: since $(\ln x)' = \frac1x$, an antiderivative of $x^{-1}$ on $(0,\infty)$ is $\ln x$
+  (compare @prp-basic-integrals).
+- **Trigonometric functions:** both derivatives were computed from the difference quotient
+  (@prp-derivative-sin-cos).
+- **Exponential and logarithm:** the derivatives $(e^x)'=e^x$ and $(\ln x)'=\frac1x$ will be proved
+  later. We already use them in examples. The antiderivative of $\ln x$ is still open; we will find
+  it with integration by parts (@exr-parts-ln).
+
+## Basic Rules
+
+The following rules hold for derivatives and integrals alike.
+
+| Rule | Derivatives | Integrals |
+|:--|:--|:--|
+| Constant multiple | $\dfrac{d}{dx}\big(\alpha f(x)\big) = \alpha\,\dfrac{d}{dx}f(x)$ (@prp-derivative-constant-multiple) | $\displaystyle\int_a^b \alpha f(x)\,dx = \alpha\int_a^b f(x)\,dx$ (@prp-constant-multiple) |
+| Sum rule (linearity) | $\dfrac{d}{dx}\big(f(x)+g(x)\big) = \dfrac{d}{dx}f(x) + \dfrac{d}{dx}g(x)$ (@prp-derivative-sum-rule) | $\displaystyle\int_a^b \big(f(x)+g(x)\big)\,dx = \int_a^b f(x)\,dx + \int_a^b g(x)\,dx$ (@prp-sum-rule) |
+| Additivity | | $\displaystyle\int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx$ (@prp-additivity) |
+
+: Basic rules for derivatives and integrals. {#tbl-basic-rules}
+
+The rules for derivatives were proved from the difference quotient, the rules for integrals from
+Riemann sums. They also hold for antiderivatives: if $F$ and $G$ are antiderivatives of $f$ and $g$,
+then $F+G$ is an antiderivative of $f+g$ and $\alpha F$ is an antiderivative of $\alpha f$, by the
+rules for derivatives. In the indefinite notation,
+$$
+\int \big(f(x)+g(x)\big)\,dx = \int f(x)\,dx + \int g(x)\,dx, \qquad
+\int \alpha f(x)\,dx = \alpha\int f(x)\,dx .
+$$
+
+The table of elementary functions together with the basic rules covers many functions, for instance
+all polynomials and all linear combinations of $\sin$, $\cos$ and $e^x$. But what about products
+$f(x)\,g(x)$ and compositions $f(g(x))$? We saw in @rem-no-product-rule-derivative and
+@rem-no-product-rule that the naive rules for products are false. In this chapter we deal with
+products. Compositions will be handled by the *chain rule* and *substitution*.
+
+## The Product Rule
+
+The trick is to add and subtract the "mixed" term $f(x)g(a)$ in the numerator of the difference
+quotient of $fg$ at $a$. For $x\neq a$,
+$$
+\begin{aligned}
+\frac{f(x)g(x) - f(a)g(a)}{x-a}
+&= \frac{f(x)g(x) - f(x)g(a) + f(x)g(a) - f(a)g(a)}{x-a} \\[4pt]
+&= f(x)\,\frac{g(x)-g(a)}{x-a} \;+\; \frac{f(x)-f(a)}{x-a}\,g(a) .
+\end{aligned}
+$$ {#eq-product-difference-quotient}
+This is an identity of difference quotients; no limit has been taken yet. As $x\to a$, the two
+difference quotients on the right tend to $g'(a)$ and $f'(a)$.
+
+::: {#thm-product-rule}
+## Product rule
+If $f$ and $g$ are differentiable at $a$, then so is $f\cdot g$, and
+$$
+\big(f(x)\,g(x)\big)'\Big|_{x=a} = f'(a)\,g(a) + f(a)\,g'(a).
+$$
+Consequently, if $f$ and $g$ are differentiable on an interval $I$, then on $I$
+$$
+\big(f(x)\,g(x)\big)' = f'(x)\,g(x) + f(x)\,g'(x).
+$$
+:::
+
+::: {.proof}
+By @eq-product-difference-quotient,
+$$
+\begin{aligned}
+\big(f(x)\,g(x)\big)'\Big|_{x=a}
+&= \lim_{x\to a}\frac{f(x)g(x)-f(a)g(a)}{x-a} \\[4pt]
+&= \lim_{x\to a} f(x)\,\frac{g(x)-g(a)}{x-a} \;+\; \lim_{x\to a}\frac{f(x)-f(a)}{x-a}\,g(a) \\[4pt]
+&= f(a)\,g'(a) + f'(a)\,g(a).
+\end{aligned}
+$$
+Here we used the limit laws (@prp-function-limit-laws) together with three limits:
+$\frac{g(x)-g(a)}{x-a}\to g'(a)$ and $\frac{f(x)-f(a)}{x-a}\to f'(a)$ by definition of the
+derivative, and $f(x)\to f(a)$ because $f$ is differentiable, hence continuous, at $a$
+(@thm-differentiable-continuous). Since the limits on the right exist, so does the limit on the
+left, and the splitting in the second line is justified.
+:::
+
+::: {#exm-product-rule}
+
+- For $f(x)=g(x)=x$, the product rule gives $(x\cdot x)' = 1\cdot x + x\cdot 1 = 2x$, in agreement
+with $(x^2)'=2x$ (compare @rem-no-product-rule-derivative).
+- $(x\sin x)' = 1\cdot\sin x + x\cos x = \sin x + x\cos x$.
+- $(x e^x)' = e^x + x e^x = (x+1)\,e^x$.
+:::
+
+## Integration by Parts
+
+What does the product rule give for integrals? Let $f$ and $g$ be differentiable on an interval.
+The product rule says that $f(x)\,g(x)$ is an antiderivative of $f'(x)g(x)+f(x)g'(x)$, so
+$$
+\begin{aligned}
+f(x)\,g(x) + c &= \int \big(f'(x)\,g(x) + f(x)\,g'(x)\big)\,dx \\
+&= \int f'(x)\,g(x)\,dx + \int f(x)\,g'(x)\,dx ,
+\end{aligned}
+$$
+using the sum rule for antiderivatives. Solving for the first integral on the right gives the
+following rule.
+
+::: {#thm-integration-by-parts}
+## Integration by parts
+Let $f$ and $g$ be differentiable on an interval $I$. Then
+$$
+\int f'(x)\,g(x)\,dx = f(x)\,g(x) - \int f(x)\,g'(x)\,dx + c .
+$$
+More precisely: if $G$ is an antiderivative of $f\,g'$ on $I$, then $f\,g-G$ is an antiderivative of
+$f'\,g$ on $I$.
+:::
+
+::: {.proof}
+By the product rule (@thm-product-rule) and the sum rule (@prp-derivative-sum-rule),
+$$
+\big(f(x)g(x) - G(x)\big)' = f'(x)g(x) + f(x)g'(x) - f(x)g'(x) = f'(x)\,g(x) .
+$$
+:::
+
+Strictly speaking, the constant $c$ in the formula is redundant, since $\int f(x)g'(x)\,dx$ already
+stands for an arbitrary antiderivative. Writing it out is a useful reminder that the result is only
+determined up to a constant.
+
+How do we use the formula? It applies when the integrand is a product, one factor of which we
+read as $f'(x)$ and the other as $g(x)$:
+$$
+\underbrace{\int f'(x)\,g(x)\,dx}_{\text{want to compute this}}
+= f(x)\,g(x) - \int f(x)\,g'(x)\,dx + c .
+$$
+
+- We need to **know an antiderivative** $f(x)$ of the factor $f'(x)$.
+- We **hope** that the new integral $\int f(x)\,g'(x)\,dx$ is "easier" to compute than the original
+  one. Typically this happens when differentiating $g$ makes it simpler, as for $g(x)=x$ or
+  $g(x)=\ln x$.
+
+::: {#exm-parts-x-ex}
+\
+Compute $\int e^x\,x\,dx$. We choose
+$$
+\begin{aligned}
+f'(x) &= e^x, & g(x) &= x, \\
+f(x) &= e^x, & g'(x) &= 1 .
+\end{aligned}
+$$
+Then by @thm-integration-by-parts,
+$$
+\begin{aligned}
+\int e^x\,x\,dx &= e^x\,x - \int e^x\cdot 1\,dx + c \\
+&= e^x\,x - e^x + c \\
+&= e^x\,(x-1) + c .
+\end{aligned}
+$$
+The remaining integral $\int e^x\,dx = e^x$ is in @tbl-elementary-functions.
+
+**Verification.** By the product rule,
+$$
+\frac{d}{dx}\Big(e^x\,(x-1)\Big) = e^x\,(x-1) + e^x\cdot 1 = e^x\,x - e^x + e^x = e^x\,x . \quad\checkmark
+$$
+:::
+
+::: {#rem-parts-choice}
+The choice of $f'$ and $g$ matters. In @exm-parts-x-ex we could also have chosen $f'(x)=x$ and
+$g(x)=e^x$, so $f(x)=\frac{x^2}{2}$ and $g'(x)=e^x$. This gives
+$$
+\int x\,e^x\,dx = \frac{x^2}{2}\,e^x - \int \frac{x^2}{2}\,e^x\,dx + c ,
+$$
+which is correct but useless: the new integral is harder than the original one, because the power of
+$x$ went up instead of down.
+:::
+
+Combining @thm-integration-by-parts with the evaluation of definite integrals
+(@cor-ftc-evaluation) gives a version for definite integrals. We write
+$\big[h(x)\big]_a^b = h(b)-h(a)$.
+
+::: {#cor-integration-by-parts-definite}
+## Integration by parts for definite integrals
+Let $f$ and $g$ be differentiable on an interval containing $[a,b]$, with $f'$ and $g'$ continuous.
+Then
+$$
+\int_a^b f'(x)\,g(x)\,dx = \Big[f(x)\,g(x)\Big]_a^b - \int_a^b f(x)\,g'(x)\,dx .
+$$
+:::
+
+::: {.proof}
+The functions $f'g$ and $fg'$ are continuous, so both integrals exist. By FTC, Part 1 (@thm-ftc-1),
+$G(x) = \int_a^x f(u)\,g'(u)\,du$ is an antiderivative of $fg'$, and by @thm-integration-by-parts,
+$fg-G$ is an antiderivative of $f'g$. Now @cor-ftc-evaluation gives
+$$
+\int_a^b f'(x)\,g(x)\,dx = \Big[f(x)g(x) - G(x)\Big]_a^b
+= \Big[f(x)\,g(x)\Big]_a^b - \big(G(b)-G(a)\big),
+$$
+and $G(b)-G(a) = \int_a^b f(u)\,g'(u)\,du - 0$.
+:::
+
+::: {#exm-parts-definite}
+\
+By @exm-parts-x-ex,
+$$
+\int_0^1 x\,e^x\,dx = \Big[e^x\,(x-1)\Big]_0^1 = e\cdot 0 - e^0\cdot(-1) = 1 .
+$$
+:::
+
+::: {#exr-parts-ln}
+Fill in the missing entry of @tbl-elementary-functions: find an antiderivative of $\ln x$ on
+$(0,\infty)$, and verify your answer by differentiating. (Hint: write $\ln x = 1\cdot\ln x$ and take
+$f'(x)=1$.)
+:::
+
+::: {.solution}
+With $f'(x)=1$, $g(x)=\ln x$, we have $f(x)=x$ and $g'(x)=\frac1x$, so
+$$
+\int \ln x\,dx = x\ln x - \int x\cdot\frac1x\,dx + c = x\ln x - \int 1\,dx + c = x\ln x - x + c .
+$$
+Check, using the product rule:
+$\big(x\ln x - x\big)' = 1\cdot\ln x + x\cdot\frac1x - 1 = \ln x$.
+:::
+
+## Summary
+
+- @tbl-elementary-functions collects the derivatives and antiderivatives of the elementary
+  functions. Those for constants, integer powers, $\sin$ and $\cos$ have been proved; those for
+  $e^x$ and $\ln x$ will be proved later. An antiderivative is verified by differentiating it.
+- The **basic rules** (@tbl-basic-rules), constant multiple, sum rule and additivity, hold for
+  derivatives and integrals, and linearity also holds for antiderivatives.
+- **Product rule** (@thm-product-rule): $(fg)' = f'g + fg'$. The proof adds and subtracts
+  $f(x)g(a)$ in the difference quotient (@eq-product-difference-quotient) and uses that a
+  differentiable function is continuous.
+- **Integration by parts** (@thm-integration-by-parts) is the product rule read backwards:
+  $\int f'g\,dx = fg - \int fg'\,dx + c$. It is useful when we know an antiderivative of $f'$ and the
+  new integral $\int fg'\,dx$ is easier, as for $\int x e^x\,dx = e^x(x-1)+c$ (@exm-parts-x-ex). The
+  choice of $f'$ and $g$ matters (@rem-parts-choice).
+- For definite integrals, $\int_a^b f'g\,dx = \big[fg\big]_a^b - \int_a^b fg'\,dx$
+  (@cor-integration-by-parts-definite).

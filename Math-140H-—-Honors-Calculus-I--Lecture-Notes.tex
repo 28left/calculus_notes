@@ -204,19 +204,19 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[chapter]
+\theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[chapter]
 \theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -250,7 +250,7 @@
 
 \title{Math 140H --- Honors Calculus I: Lecture Notes}
 \author{Jan Reimann}
-\date{2026-10-21}
+\date{2026-10-26}
 \begin{document}
 \maketitle
 
@@ -8283,6 +8283,1183 @@ or an \textbf{underestimate}. Which of the three estimates do you expect
 to be most accurate, and why?
 
 \end{exercise}
+
+\chapter{Lab: The Mean Value Theorem and Linear
+Approximation}\label{lab-the-mean-value-theorem-and-linear-approximation}
+
+Math 140H, Honors Calculus I
+
+Two ideas from class, seen through computation: the Mean Value Theorem,
+and the fact that near a point, a differentiable function is almost its
+tangent line. At the end you will learn how to bound the error of the
+tangent-line approximation.
+
+\textbf{How to use this notebook}
+
+\begin{itemize}
+\tightlist
+\item
+  ✏️ \textbf{On paper:} work this out by hand first (you will hand these
+  pages in), then run the next cell to check.
+\item
+  🔬 \textbf{Explore:} change the numbers in the cell, or move the
+  slider, and run the cell again.
+\item
+  You never need to write code. Only change the inputs you are told to
+  change, then press Shift+Enter.
+\end{itemize}
+
+Functions are typed like this: \(x^3\) is \texttt{x**3}, \(\sin x\) is
+\texttt{sp.sin(x)}, \(\frac1x\) is \texttt{1/x}, \(\lvert x\rvert\) is
+\texttt{abs(x)}, \(\sqrt[3]{x}\) is \texttt{cbrt(x)}, \(\pi\) is
+\texttt{sp.pi}.
+
+\textbf{START BY RUNNING THE NEXT CELL.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#}
+\CommentTok{\#}
+\CommentTok{\# ALWAYS RUN THIS CELL FIRST!!}
+\CommentTok{\#}
+\CommentTok{\#}
+
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ sympy }\ImportTok{as}\NormalTok{ sp}
+\ImportTok{import}\NormalTok{ mpmath }\ImportTok{as}\NormalTok{ mp}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\ImportTok{from}\NormalTok{ scipy.optimize }\ImportTok{import}\NormalTok{ brentq}
+\ImportTok{from}\NormalTok{ IPython.display }\ImportTok{import}\NormalTok{ display, Math}
+
+\NormalTok{plt.rcParams[}\StringTok{\textquotesingle{}figure.figsize\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (}\DecValTok{7}\NormalTok{, }\FloatTok{4.5}\NormalTok{)}
+\NormalTok{WIDGET\_DPI }\OperatorTok{=} \DecValTok{72}          \CommentTok{\# on{-}screen size of the slider pictures: smaller number = smaller picture}
+\NormalTok{x }\OperatorTok{=}\NormalTok{ sp.Symbol(}\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{, real}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{mp.mp.dps }\OperatorTok{=} \DecValTok{40}
+
+\ImportTok{import}\NormalTok{ io}
+\ControlFlowTok{try}\NormalTok{:}
+    \ImportTok{import}\NormalTok{ ipywidgets }\ImportTok{as}\NormalTok{ widgets}
+\NormalTok{    \_WIDGETS }\OperatorTok{=} \VariableTok{True}
+\ControlFlowTok{except} \PreprocessorTok{ImportError}\NormalTok{:}
+\NormalTok{    \_WIDGETS }\OperatorTok{=} \VariableTok{False}
+
+
+\KeywordTok{class}\NormalTok{ cbrt(sp.Function):}
+    \CommentTok{"""Real cube root: cbrt(x) = x\^{}(1/3), also for negative x."""}
+    \AttributeTok{@classmethod}
+    \KeywordTok{def} \BuiltInTok{eval}\NormalTok{(cls, arg):}
+        \ControlFlowTok{if}\NormalTok{ arg.is\_Number:}
+            \ControlFlowTok{return}\NormalTok{ sp.sign(arg) }\OperatorTok{*}\NormalTok{ sp.Abs(arg) }\OperatorTok{**}\NormalTok{ sp.Rational(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+
+    \KeywordTok{def}\NormalTok{ fdiff(}\VariableTok{self}\NormalTok{, argindex}\OperatorTok{=}\DecValTok{1}\NormalTok{):}
+        \ControlFlowTok{return} \DecValTok{1} \OperatorTok{/}\NormalTok{ (}\DecValTok{3} \OperatorTok{*}\NormalTok{ cbrt(}\VariableTok{self}\NormalTok{.args[}\DecValTok{0}\NormalTok{]) }\OperatorTok{**} \DecValTok{2}\NormalTok{)}
+
+    \KeywordTok{def}\NormalTok{ \_numpycode(}\VariableTok{self}\NormalTok{, printer):}
+        \ControlFlowTok{return} \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{printer}\SpecialCharTok{.}\NormalTok{\_module\_format(}\StringTok{\textquotesingle{}numpy.cbrt\textquotesingle{}}\NormalTok{)}\SpecialCharTok{\}}\SpecialStringTok{(}\SpecialCharTok{\{}\NormalTok{printer}\SpecialCharTok{.}\NormalTok{\_print(}\VariableTok{self}\NormalTok{.args[}\DecValTok{0}\NormalTok{])}\SpecialCharTok{\}}\SpecialStringTok{)"}
+
+    \KeywordTok{def}\NormalTok{ \_mpmathcode(}\VariableTok{self}\NormalTok{, printer):}
+\NormalTok{        a }\OperatorTok{=}\NormalTok{ printer.\_print(}\VariableTok{self}\NormalTok{.args[}\DecValTok{0}\NormalTok{])}
+        \ControlFlowTok{return}\NormalTok{ (}\SpecialStringTok{f"(}\SpecialCharTok{\{}\NormalTok{printer}\SpecialCharTok{.}\NormalTok{\_module\_format(}\StringTok{\textquotesingle{}mpmath.sign\textquotesingle{}}\NormalTok{)}\SpecialCharTok{\}}\SpecialStringTok{(}\SpecialCharTok{\{}\NormalTok{a}\SpecialCharTok{\}}\SpecialStringTok{)"}
+                \SpecialStringTok{f"*}\SpecialCharTok{\{}\NormalTok{printer}\SpecialCharTok{.}\NormalTok{\_module\_format(}\StringTok{\textquotesingle{}mpmath.cbrt\textquotesingle{}}\NormalTok{)}\SpecialCharTok{\}}\SpecialStringTok{(abs(}\SpecialCharTok{\{}\NormalTok{a}\SpecialCharTok{\}}\SpecialStringTok{)))"}\NormalTok{)}
+
+    \KeywordTok{def}\NormalTok{ \_latex(}\VariableTok{self}\NormalTok{, printer, exp}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+\NormalTok{        s }\OperatorTok{=} \VerbatimStringTok{r"}\DecValTok{\textbackslash{}s}\VerbatimStringTok{qrt}\PreprocessorTok{[3]}\VerbatimStringTok{\{\%s\}"} \OperatorTok{\%}\NormalTok{ printer.\_print(}\VariableTok{self}\NormalTok{.args[}\DecValTok{0}\NormalTok{])}
+        \ControlFlowTok{return}\NormalTok{ s }\ControlFlowTok{if}\NormalTok{ exp }\KeywordTok{is} \VariableTok{None} \ControlFlowTok{else} \VerbatimStringTok{r"}\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\KeywordTok{(}\VerbatimStringTok{\%s}\CharTok{\textbackslash{}r}\VerbatimStringTok{ight}\KeywordTok{)}\DecValTok{\^{}}\VerbatimStringTok{\{\%s\}"} \OperatorTok{\%}\NormalTok{ (s, exp)}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} helpers}
+\KeywordTok{def}\NormalTok{ \_exact(v):}
+\NormalTok{    v }\OperatorTok{=}\NormalTok{ sp.sympify(v)}
+    \ControlFlowTok{return}\NormalTok{ sp.nsimplify(v, rational}\OperatorTok{=}\VariableTok{True}\NormalTok{) }\ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(v, sp.Float) }\ControlFlowTok{else}\NormalTok{ v}
+
+
+\KeywordTok{def}\NormalTok{ \_fmt(v, digits}\OperatorTok{=}\DecValTok{8}\NormalTok{):}
+    \ControlFlowTok{return} \SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(v)}\SpecialCharTok{:.}\NormalTok{\{digits\}g}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}
+
+
+\KeywordTok{def}\NormalTok{ \_np(f):}
+\NormalTok{    F }\OperatorTok{=}\NormalTok{ sp.lambdify(x, f, }\StringTok{\textquotesingle{}numpy\textquotesingle{}}\NormalTok{)}
+    \KeywordTok{def}\NormalTok{ G(t):}
+        \ControlFlowTok{with}\NormalTok{ np.errstate(}\BuiltInTok{all}\OperatorTok{=}\StringTok{\textquotesingle{}ignore\textquotesingle{}}\NormalTok{):}
+            \ControlFlowTok{return}\NormalTok{ np.asarray(F(t), dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{) }\OperatorTok{*}\NormalTok{ np.ones\_like(t, dtype}\OperatorTok{=}\BuiltInTok{float}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ G}
+
+
+\KeywordTok{def}\NormalTok{ \_mp(f):}
+    \ControlFlowTok{return}\NormalTok{ sp.lambdify(x, f, }\StringTok{\textquotesingle{}mpmath\textquotesingle{}}\NormalTok{)}
+
+
+\KeywordTok{def}\NormalTok{ \_value(f, a):}
+    \CommentTok{"""f(a), using a limit if the formula is undefined at a (as for x*sin(1/x) at 0)."""}
+\NormalTok{    v }\OperatorTok{=}\NormalTok{ f.subs(x, a)}
+    \ControlFlowTok{if}\NormalTok{ v.has(sp.nan, sp.zoo, sp.oo, }\OperatorTok{{-}}\NormalTok{sp.oo):}
+\NormalTok{        v }\OperatorTok{=}\NormalTok{ sp.limit(f, x, a)}
+    \ControlFlowTok{return}\NormalTok{ v}
+
+
+\KeywordTok{def}\NormalTok{ \_slope\_at(f, a):}
+    \CommentTok{"""f\textquotesingle{}(a) if f is differentiable at a, otherwise None (checked with one{-}sided difference quotients)."""}
+\NormalTok{    F, A, fa }\OperatorTok{=}\NormalTok{ \_mp(f), mp.mpf(sp.N(a, }\DecValTok{50}\NormalTok{)), mp.mpf(sp.N(\_value(f, a), }\DecValTok{50}\NormalTok{))}
+\NormalTok{    qs }\OperatorTok{=}\NormalTok{ []}
+    \ControlFlowTok{for}\NormalTok{ h }\KeywordTok{in}\NormalTok{ [mp.mpf(}\StringTok{\textquotesingle{}1e{-}15\textquotesingle{}}\NormalTok{), mp.mpf(}\StringTok{\textquotesingle{}1e{-}20\textquotesingle{}}\NormalTok{)]:}
+        \ControlFlowTok{for}\NormalTok{ s }\KeywordTok{in}\NormalTok{ (}\DecValTok{1}\NormalTok{, }\OperatorTok{{-}}\DecValTok{1}\NormalTok{):}
+            \ControlFlowTok{try}\NormalTok{:}
+\NormalTok{                qs.append((F(A }\OperatorTok{+}\NormalTok{ s }\OperatorTok{*}\NormalTok{ h) }\OperatorTok{{-}}\NormalTok{ fa) }\OperatorTok{/}\NormalTok{ (s }\OperatorTok{*}\NormalTok{ h))}
+            \ControlFlowTok{except} \PreprocessorTok{Exception}\NormalTok{:}
+                \ControlFlowTok{return} \VariableTok{None}
+    \ControlFlowTok{if} \BuiltInTok{any}\NormalTok{((}\KeywordTok{not}\NormalTok{ mp.isfinite(q)) }\KeywordTok{or} \BuiltInTok{abs}\NormalTok{(q) }\OperatorTok{\textgreater{}} \FloatTok{1e8} \ControlFlowTok{for}\NormalTok{ q }\KeywordTok{in}\NormalTok{ qs) }\KeywordTok{or} \BuiltInTok{max}\NormalTok{(qs) }\OperatorTok{{-}} \BuiltInTok{min}\NormalTok{(qs) }\OperatorTok{\textgreater{}} \FloatTok{1e{-}6}\NormalTok{:}
+        \ControlFlowTok{return} \VariableTok{None}
+\NormalTok{    d }\OperatorTok{=}\NormalTok{ sp.diff(f, x).subs(x, a)}
+    \ControlFlowTok{return}\NormalTok{ sp.nsimplify(d) }\ControlFlowTok{if}\NormalTok{ d.is\_finite }\ControlFlowTok{else} \VariableTok{None}
+
+
+\KeywordTok{def}\NormalTok{ \_p(v):}
+    \CommentTok{"""LaTeX of a number, in parentheses if negative."""}
+\NormalTok{    v }\OperatorTok{=}\NormalTok{ sp.nsimplify(v)}
+    \ControlFlowTok{return} \VerbatimStringTok{rf"}\ErrorTok{\textbackslash{}}\VerbatimStringTok{left}\KeywordTok{(}\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(v)}\SpecialCharTok{\}}\CharTok{\textbackslash{}r}\VerbatimStringTok{ight}\KeywordTok{)}\VerbatimStringTok{"} \ControlFlowTok{if}\NormalTok{ (v.is\_real }\KeywordTok{and}\NormalTok{ v }\OperatorTok{\textless{}} \DecValTok{0}\NormalTok{) }\ControlFlowTok{else}\NormalTok{ sp.latex(v)}
+
+
+\KeywordTok{def}\NormalTok{ \_show(label, expr):}
+\NormalTok{    display(Math(label }\OperatorTok{+}\NormalTok{ sp.latex(sp.nsimplify(expr)) }\OperatorTok{+}
+\NormalTok{                 (}\VerbatimStringTok{r"}\CharTok{\textbackslash{}a}\VerbatimStringTok{pprox "} \OperatorTok{+}\NormalTok{ \_fmt(expr) }\ControlFlowTok{if} \KeywordTok{not}\NormalTok{ sp.sympify(expr).is\_Integer }\ControlFlowTok{else} \StringTok{""}\NormalTok{)))}
+
+
+\KeywordTok{def}\NormalTok{ \_slider\_view(draw, sliders):}
+    \CommentTok{"""Show draw(**slider values) {-}\textgreater{} (figure, text) and update it in place when a slider moves.}
+
+\CommentTok{    The figure is rendered to a PNG and swapped into an Image widget of fixed on{-}screen size,}
+\CommentTok{    so the output area is never cleared and nothing on the page moves."""}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ \_WIDGETS:}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}(No sliders available here: showing the starting values.)\textquotesingle{}}\NormalTok{)}
+\NormalTok{        fig, text }\OperatorTok{=}\NormalTok{ draw(}\OperatorTok{**}\NormalTok{\{k: sl.value }\ControlFlowTok{if} \BuiltInTok{hasattr}\NormalTok{(sl, }\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{) }\ControlFlowTok{else}\NormalTok{ sl }\ControlFlowTok{for}\NormalTok{ k, sl }\KeywordTok{in}\NormalTok{ sliders.items()\})}
+\NormalTok{        plt.show()}\OperatorTok{;} \BuiltInTok{print}\NormalTok{(text)}
+        \ControlFlowTok{return}
+\NormalTok{    img }\OperatorTok{=}\NormalTok{ widgets.Image(}\BuiltInTok{format}\OperatorTok{=}\StringTok{\textquotesingle{}png\textquotesingle{}}\NormalTok{)}
+\NormalTok{    txt }\OperatorTok{=}\NormalTok{ widgets.HTML()}
+    \KeywordTok{def}\NormalTok{ update(change}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+\NormalTok{        fig, text }\OperatorTok{=}\NormalTok{ draw(}\OperatorTok{**}\NormalTok{\{k: sl.value }\ControlFlowTok{for}\NormalTok{ k, sl }\KeywordTok{in}\NormalTok{ sliders.items()\})}
+\NormalTok{        w\_in, h\_in }\OperatorTok{=}\NormalTok{ fig.get\_size\_inches()}
+        \CommentTok{\# on{-}screen size in CSS pixels; rendered at twice that resolution so it stays sharp}
+\NormalTok{        img.layout.width, img.layout.height }\OperatorTok{=} \SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\BuiltInTok{round}\NormalTok{(w\_in }\OperatorTok{*}\NormalTok{ WIDGET\_DPI)}\SpecialCharTok{\}}\SpecialStringTok{px\textquotesingle{}}\NormalTok{, }\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\BuiltInTok{round}\NormalTok{(h\_in }\OperatorTok{*}\NormalTok{ WIDGET\_DPI)}\SpecialCharTok{\}}\SpecialStringTok{px\textquotesingle{}}
+\NormalTok{        buf }\OperatorTok{=}\NormalTok{ io.BytesIO()}
+\NormalTok{        fig.savefig(buf, }\BuiltInTok{format}\OperatorTok{=}\StringTok{\textquotesingle{}png\textquotesingle{}}\NormalTok{, dpi}\OperatorTok{=}\DecValTok{2} \OperatorTok{*}\NormalTok{ WIDGET\_DPI)   }\CommentTok{\# fixed size: no \textquotesingle{}tight\textquotesingle{} cropping}
+\NormalTok{        plt.close(fig)}
+\NormalTok{        img.value }\OperatorTok{=}\NormalTok{ buf.getvalue()}
+\NormalTok{        txt.value }\OperatorTok{=}\NormalTok{ (}\StringTok{\textquotesingle{}\textless{}pre style="font{-}family: monospace; font{-}size: 12px; margin: 0"\textgreater{}\textquotesingle{}}
+                     \OperatorTok{+}\NormalTok{ text }\OperatorTok{+} \StringTok{\textquotesingle{}\textless{}/pre\textgreater{}\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ sl }\KeywordTok{in}\NormalTok{ sliders.values():}
+\NormalTok{        sl.observe(update, names}\OperatorTok{=}\StringTok{\textquotesingle{}value\textquotesingle{}}\NormalTok{)}
+\NormalTok{    update()}
+    \CommentTok{\# align\_items=\textquotesingle{}flex{-}start\textquotesingle{} stops the box from stretching the picture to the full cell width}
+\NormalTok{    display(widgets.VBox(}\BuiltInTok{list}\NormalTok{(sliders.values()) }\OperatorTok{+}\NormalTok{ [img, txt],}
+\NormalTok{                         layout}\OperatorTok{=}\NormalTok{widgets.Layout(align\_items}\OperatorTok{=}\StringTok{\textquotesingle{}flex{-}start\textquotesingle{}}\NormalTok{)))}
+
+
+\KeywordTok{def}\NormalTok{ \_slider(description, lo, hi, step, value):}
+    \ControlFlowTok{return}\NormalTok{ widgets.FloatSlider(}\BuiltInTok{min}\OperatorTok{=}\NormalTok{lo, }\BuiltInTok{max}\OperatorTok{=}\NormalTok{hi, step}\OperatorTok{=}\NormalTok{step, value}\OperatorTok{=}\NormalTok{value, description}\OperatorTok{=}\NormalTok{description,}
+\NormalTok{                               readout\_format}\OperatorTok{=}\StringTok{\textquotesingle{}.2f\textquotesingle{}}\NormalTok{, continuous\_update}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
+\NormalTok{                               layout}\OperatorTok{=}\NormalTok{widgets.Layout(width}\OperatorTok{=}\StringTok{\textquotesingle{}400px\textquotesingle{}}\NormalTok{)) }\ControlFlowTok{if}\NormalTok{ \_WIDGETS }\ControlFlowTok{else}\NormalTok{ value}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} Part 1}
+\KeywordTok{def}\NormalTok{ \_witnesses(f, a, b, m):}
+\NormalTok{    dF }\OperatorTok{=}\NormalTok{ \_np(sp.diff(f, x))}
+\NormalTok{    xs }\OperatorTok{=}\NormalTok{ np.linspace(}\BuiltInTok{float}\NormalTok{(a), }\BuiltInTok{float}\NormalTok{(b), }\DecValTok{20001}\NormalTok{)[}\DecValTok{1}\NormalTok{:}\OperatorTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{    g }\OperatorTok{=}\NormalTok{ dF(xs) }\OperatorTok{{-}} \BuiltInTok{float}\NormalTok{(m)}
+\NormalTok{    out }\OperatorTok{=}\NormalTok{ []}
+    \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(xs) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{):}
+        \ControlFlowTok{if}\NormalTok{ g[i] }\OperatorTok{==} \DecValTok{0}\NormalTok{:}
+\NormalTok{            out.append(xs[i])}
+        \ControlFlowTok{elif}\NormalTok{ np.isfinite(g[i]) }\KeywordTok{and}\NormalTok{ np.isfinite(g[i }\OperatorTok{+} \DecValTok{1}\NormalTok{]) }\KeywordTok{and}\NormalTok{ g[i] }\OperatorTok{*}\NormalTok{ g[i }\OperatorTok{+} \DecValTok{1}\NormalTok{] }\OperatorTok{\textless{}} \DecValTok{0}\NormalTok{:}
+\NormalTok{            c }\OperatorTok{=}\NormalTok{ brentq(}\KeywordTok{lambda}\NormalTok{ t: }\BuiltInTok{float}\NormalTok{(dF(np.array([t]))[}\DecValTok{0}\NormalTok{]) }\OperatorTok{{-}} \BuiltInTok{float}\NormalTok{(m), xs[i], xs[i }\OperatorTok{+} \DecValTok{1}\NormalTok{])}
+            \ControlFlowTok{if} \BuiltInTok{abs}\NormalTok{(}\BuiltInTok{float}\NormalTok{(dF(np.array([c]))[}\DecValTok{0}\NormalTok{]) }\OperatorTok{{-}} \BuiltInTok{float}\NormalTok{(m)) }\OperatorTok{\textless{}} \FloatTok{1e{-}7}\NormalTok{:   }\CommentTok{\# skip jumps of f\textquotesingle{}}
+\NormalTok{                out.append(c)}
+    \ControlFlowTok{return}\NormalTok{ out}
+
+
+\KeywordTok{def}\NormalTok{ \_plot\_mvt(f, a, b, xis, title):}
+\NormalTok{    F, dF }\OperatorTok{=}\NormalTok{ \_np(f), \_np(sp.diff(f, x))}
+\NormalTok{    A, B }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(a), }\BuiltInTok{float}\NormalTok{(b)}
+\NormalTok{    pad }\OperatorTok{=} \FloatTok{0.15} \OperatorTok{*}\NormalTok{ (B }\OperatorTok{{-}}\NormalTok{ A)}
+\NormalTok{    xs }\OperatorTok{=}\NormalTok{ np.linspace(A }\OperatorTok{{-}}\NormalTok{ pad, B }\OperatorTok{+}\NormalTok{ pad, }\DecValTok{1500}\NormalTok{)}
+\NormalTok{    m }\OperatorTok{=}\NormalTok{ (F(np.array([B]))[}\DecValTok{0}\NormalTok{] }\OperatorTok{{-}}\NormalTok{ F(np.array([A]))[}\DecValTok{0}\NormalTok{]) }\OperatorTok{/}\NormalTok{ (B }\OperatorTok{{-}}\NormalTok{ A)}
+\NormalTok{    plt.plot(xs, F(xs), lw}\OperatorTok{=}\DecValTok{2}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}$y=f(x)$\textquotesingle{}}\NormalTok{)}
+\NormalTok{    plt.plot([A, B], [F(np.array([A]))[}\DecValTok{0}\NormalTok{], F(np.array([B]))[}\DecValTok{0}\NormalTok{]], }\StringTok{\textquotesingle{}ko{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\SpecialStringTok{f\textquotesingle{}secant, slope }\SpecialCharTok{\{}\NormalTok{m}\SpecialCharTok{:.4g\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ k, c }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(xis):}
+\NormalTok{        t }\OperatorTok{=}\NormalTok{ np.linspace(c }\OperatorTok{{-}} \FloatTok{0.3} \OperatorTok{*}\NormalTok{ (B }\OperatorTok{{-}}\NormalTok{ A), c }\OperatorTok{+} \FloatTok{0.3} \OperatorTok{*}\NormalTok{ (B }\OperatorTok{{-}}\NormalTok{ A), }\DecValTok{2}\NormalTok{)}
+\NormalTok{        fc }\OperatorTok{=}\NormalTok{ F(np.array([c]))[}\DecValTok{0}\NormalTok{]}
+\NormalTok{        plt.plot(t, fc }\OperatorTok{+}\NormalTok{ m }\OperatorTok{*}\NormalTok{ (t }\OperatorTok{{-}}\NormalTok{ c), }\StringTok{\textquotesingle{}r{-}{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}tangent at $}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{xi$\textquotesingle{}} \ControlFlowTok{if}\NormalTok{ k }\OperatorTok{==} \DecValTok{0} \ControlFlowTok{else} \VariableTok{None}\NormalTok{)}
+\NormalTok{        plt.plot(c, fc, }\StringTok{\textquotesingle{}ro\textquotesingle{}}\NormalTok{)}
+\NormalTok{    plt.axvline(A, color}\OperatorTok{=}\StringTok{\textquotesingle{}0.6\textquotesingle{}}\NormalTok{, lw}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}\OperatorTok{;}\NormalTok{ plt.axvline(B, color}\OperatorTok{=}\StringTok{\textquotesingle{}0.6\textquotesingle{}}\NormalTok{, lw}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}
+\NormalTok{    plt.title(title)}\OperatorTok{;}\NormalTok{ plt.legend()}\OperatorTok{;}\NormalTok{ plt.show()}
+
+
+\KeywordTok{def}\NormalTok{ mvt(f, a, b):}
+    \CommentTok{"""Secant slope of f on [a, b], every xi in (a, b) with f\textquotesingle{}(xi) = slope, and a picture."""}
+\NormalTok{    f, a, b }\OperatorTok{=}\NormalTok{ sp.sympify(f), \_exact(a), \_exact(b)}
+\NormalTok{    m }\OperatorTok{=}\NormalTok{ sp.nsimplify((f.subs(x, b) }\OperatorTok{{-}}\NormalTok{ f.subs(x, a)) }\OperatorTok{/}\NormalTok{ (b }\OperatorTok{{-}}\NormalTok{ a))}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf"f}\KeywordTok{(}\VerbatimStringTok{x}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\VerbatimStringTok{, }\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad f\textquotesingle{}}\KeywordTok{(}\VerbatimStringTok{x}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(sp.diff(f, x))}\SpecialCharTok{\}}\VerbatimStringTok{, }\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad }\PreprocessorTok{[a,b]}\VerbatimStringTok{ = }\PreprocessorTok{[}\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(a)}\SpecialCharTok{\}}\PreprocessorTok{, }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(b)}\SpecialCharTok{\}}\PreprocessorTok{]}\VerbatimStringTok{"}\NormalTok{))}
+\NormalTok{    \_show(}\VerbatimStringTok{r"}\CharTok{\textbackslash{}t}\VerbatimStringTok{ext\{secant slope \} }\CharTok{\textbackslash{}f}\VerbatimStringTok{rac\{f}\KeywordTok{(}\VerbatimStringTok{b}\KeywordTok{)}\VerbatimStringTok{{-}f}\KeywordTok{(}\VerbatimStringTok{a}\KeywordTok{)}\VerbatimStringTok{\}\{b{-}a\} = "}\NormalTok{, m)}
+\NormalTok{    xis }\OperatorTok{=}\NormalTok{ \_witnesses(f, a, b, m)}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ xis:}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"There is NO xi in (a, b) with f\textquotesingle{}(xi) = secant slope."}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ c }\KeywordTok{in}\NormalTok{ xis:}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"xi = }\SpecialCharTok{\{}\NormalTok{c}\SpecialCharTok{:.8g\}}\SpecialStringTok{   (relative position (xi {-} a)/(b {-} a) = }\SpecialCharTok{\{}\NormalTok{(c }\OperatorTok{{-}} \BuiltInTok{float}\NormalTok{(a)) }\OperatorTok{/} \BuiltInTok{float}\NormalTok{(b }\OperatorTok{{-}}\NormalTok{ a)}\SpecialCharTok{:.6f\}}\SpecialStringTok{)"}\NormalTok{)}
+\NormalTok{    \_plot\_mvt(f, a, b, xis, }\SpecialStringTok{f\textquotesingle{}Mean Value Theorem on [}\SpecialCharTok{\{}\NormalTok{a}\SpecialCharTok{\}}\SpecialStringTok{, }\SpecialCharTok{\{}\NormalTok{b}\SpecialCharTok{\}}\SpecialStringTok{]\textquotesingle{}}\NormalTok{)}
+
+
+\KeywordTok{def}\NormalTok{ mvt\_explorer(f, lo}\OperatorTok{={-}}\DecValTok{3}\NormalTok{, hi}\OperatorTok{=}\DecValTok{3}\NormalTok{):}
+    \CommentTok{"""Sliders for a and b; shows the secant, the tangents at every xi, and where xi sits."""}
+\NormalTok{    f }\OperatorTok{=}\NormalTok{ sp.sympify(f)}
+\NormalTok{    F, dF }\OperatorTok{=}\NormalTok{ \_np(f), \_np(sp.diff(f, x))}
+    \CommentTok{\# fixed axes for every slider position: the graph over the whole slider range}
+\NormalTok{    pad }\OperatorTok{=} \FloatTok{0.05} \OperatorTok{*}\NormalTok{ (hi }\OperatorTok{{-}}\NormalTok{ lo)}
+\NormalTok{    xs }\OperatorTok{=}\NormalTok{ np.linspace(lo }\OperatorTok{{-}}\NormalTok{ pad, hi }\OperatorTok{+}\NormalTok{ pad, }\DecValTok{1500}\NormalTok{)}
+\NormalTok{    ys }\OperatorTok{=}\NormalTok{ F(xs)}
+\NormalTok{    ymin, ymax }\OperatorTok{=}\NormalTok{ np.nanmin(ys), np.nanmax(ys)}
+\NormalTok{    ymargin }\OperatorTok{=} \FloatTok{0.08} \OperatorTok{*}\NormalTok{ (ymax }\OperatorTok{{-}}\NormalTok{ ymin) }\OperatorTok{+} \FloatTok{1e{-}9}
+
+    \KeywordTok{def}\NormalTok{ draw(a, b):}
+\NormalTok{        fig }\OperatorTok{=}\NormalTok{ plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{7}\NormalTok{, }\FloatTok{4.5}\NormalTok{))}
+\NormalTok{        fig.subplots\_adjust(left}\OperatorTok{=}\FloatTok{0.1}\NormalTok{, right}\OperatorTok{=}\FloatTok{0.97}\NormalTok{, bottom}\OperatorTok{=}\FloatTok{0.1}\NormalTok{, top}\OperatorTok{=}\FloatTok{0.92}\NormalTok{)}
+\NormalTok{        ax }\OperatorTok{=}\NormalTok{ fig.add\_subplot()}
+\NormalTok{        ax.plot(xs, ys, lw}\OperatorTok{=}\DecValTok{2}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}$y=f(x)$\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ax.set\_xlim(lo }\OperatorTok{{-}}\NormalTok{ pad, hi }\OperatorTok{+}\NormalTok{ pad)}\OperatorTok{;}\NormalTok{ ax.set\_ylim(ymin }\OperatorTok{{-}}\NormalTok{ ymargin, ymax }\OperatorTok{+}\NormalTok{ ymargin)}
+\NormalTok{        ax.set\_title(}\SpecialStringTok{f\textquotesingle{}$f(x) = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\SpecialStringTok{$\textquotesingle{}}\NormalTok{)}
+\NormalTok{        lines }\OperatorTok{=}\NormalTok{ []}
+        \ControlFlowTok{if}\NormalTok{ b }\OperatorTok{\textless{}=}\NormalTok{ a }\OperatorTok{+} \FloatTok{1e{-}9}\NormalTok{:}
+\NormalTok{            ax.legend(loc}\OperatorTok{=}\StringTok{\textquotesingle{}upper left\textquotesingle{}}\NormalTok{)}
+            \ControlFlowTok{return}\NormalTok{ fig, }\StringTok{\textquotesingle{}Choose b \textgreater{} a.}\CharTok{\textbackslash{}n\textbackslash{}n\textbackslash{}n}\StringTok{\textquotesingle{}}
+\NormalTok{        A, B }\OperatorTok{=}\NormalTok{ \_exact(}\BuiltInTok{round}\NormalTok{(a, }\DecValTok{4}\NormalTok{)), \_exact(}\BuiltInTok{round}\NormalTok{(b, }\DecValTok{4}\NormalTok{))}
+\NormalTok{        m }\OperatorTok{=} \BuiltInTok{float}\NormalTok{((f.subs(x, B) }\OperatorTok{{-}}\NormalTok{ f.subs(x, A)) }\OperatorTok{/}\NormalTok{ (B }\OperatorTok{{-}}\NormalTok{ A))}
+\NormalTok{        xis }\OperatorTok{=}\NormalTok{ \_witnesses(f, A, B, m)}
+\NormalTok{        fa, fb }\OperatorTok{=}\NormalTok{ F(np.array([a]))[}\DecValTok{0}\NormalTok{], F(np.array([b]))[}\DecValTok{0}\NormalTok{]}
+\NormalTok{        ax.plot([a, b], [fa, fb], }\StringTok{\textquotesingle{}ko{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}secant\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ax.axvline(a, color}\OperatorTok{=}\StringTok{\textquotesingle{}0.6\textquotesingle{}}\NormalTok{, lw}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}\OperatorTok{;}\NormalTok{ ax.axvline(b, color}\OperatorTok{=}\StringTok{\textquotesingle{}0.6\textquotesingle{}}\NormalTok{, lw}\OperatorTok{=}\FloatTok{0.8}\NormalTok{)}
+        \ControlFlowTok{for}\NormalTok{ k, c }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(xis):}
+\NormalTok{            t }\OperatorTok{=}\NormalTok{ np.linspace(c }\OperatorTok{{-}} \FloatTok{0.3} \OperatorTok{*}\NormalTok{ (b }\OperatorTok{{-}}\NormalTok{ a), c }\OperatorTok{+} \FloatTok{0.3} \OperatorTok{*}\NormalTok{ (b }\OperatorTok{{-}}\NormalTok{ a), }\DecValTok{2}\NormalTok{)}
+\NormalTok{            fc }\OperatorTok{=}\NormalTok{ F(np.array([c]))[}\DecValTok{0}\NormalTok{]}
+\NormalTok{            ax.plot(t, fc }\OperatorTok{+}\NormalTok{ m }\OperatorTok{*}\NormalTok{ (t }\OperatorTok{{-}}\NormalTok{ c), }\StringTok{\textquotesingle{}r{-}{-}\textquotesingle{}}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}tangent at $}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{xi$\textquotesingle{}} \ControlFlowTok{if}\NormalTok{ k }\OperatorTok{==} \DecValTok{0} \ControlFlowTok{else} \VariableTok{None}\NormalTok{)}
+\NormalTok{            ax.plot(c, fc, }\StringTok{\textquotesingle{}ro\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ax.legend(loc}\OperatorTok{=}\StringTok{\textquotesingle{}upper left\textquotesingle{}}\NormalTok{)}
+\NormalTok{        lines.append(}\SpecialStringTok{f"secant slope = }\SpecialCharTok{\{}\NormalTok{m}\SpecialCharTok{:+10.5f\}}\SpecialStringTok{      midpoint (a+b)/2 = }\SpecialCharTok{\{}\NormalTok{(a }\OperatorTok{+}\NormalTok{ b) }\OperatorTok{/} \DecValTok{2}\SpecialCharTok{:+8.4f\}}\SpecialStringTok{"}\NormalTok{)}
+        \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ xis:}
+\NormalTok{            lines.append(}\StringTok{"no xi in (a, b)"}\NormalTok{)}
+        \ControlFlowTok{for}\NormalTok{ c }\KeywordTok{in}\NormalTok{ xis[:}\DecValTok{3}\NormalTok{]:}
+\NormalTok{            lines.append(}\SpecialStringTok{f"xi = }\SpecialCharTok{\{}\NormalTok{c}\SpecialCharTok{:+8.4f\}}\SpecialStringTok{     relative position (xi {-} a)/(b {-} a) = }\SpecialCharTok{\{}\NormalTok{(c }\OperatorTok{{-}}\NormalTok{ a) }\OperatorTok{/}\NormalTok{ (b }\OperatorTok{{-}}\NormalTok{ a)}\SpecialCharTok{:.4f\}}\SpecialStringTok{"}\NormalTok{)}
+\NormalTok{        lines }\OperatorTok{+=}\NormalTok{ [}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{] }\OperatorTok{*}\NormalTok{ (}\DecValTok{4} \OperatorTok{{-}} \BuiltInTok{len}\NormalTok{(lines))}
+        \ControlFlowTok{return}\NormalTok{ fig, }\StringTok{\textquotesingle{}}\CharTok{\textbackslash{}n}\StringTok{\textquotesingle{}}\NormalTok{.join(lines)}
+
+\NormalTok{    \_slider\_view(draw, \{}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{: \_slider(}\StringTok{\textquotesingle{}a\textquotesingle{}}\NormalTok{, lo, hi, (hi }\OperatorTok{{-}}\NormalTok{ lo) }\OperatorTok{/} \DecValTok{120}\NormalTok{, }\OperatorTok{{-}}\FloatTok{1.0}\NormalTok{),}
+                        \StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{: \_slider(}\StringTok{\textquotesingle{}b\textquotesingle{}}\NormalTok{, lo, hi, (hi }\OperatorTok{{-}}\NormalTok{ lo) }\OperatorTok{/} \DecValTok{120}\NormalTok{, }\FloatTok{2.0}\NormalTok{)\})}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} Part 2}
+\KeywordTok{def}\NormalTok{ zoom(f, a):}
+    \CommentTok{"""Zoom in on the graph of f at (a, f(a)) with a slider. The window stays square."""}
+\NormalTok{    f, a }\OperatorTok{=}\NormalTok{ sp.sympify(f), \_exact(a)}
+\NormalTok{    fa }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(\_value(f, a))}\OperatorTok{;}\NormalTok{ A }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(a)}
+\NormalTok{    d }\OperatorTok{=}\NormalTok{ \_slope\_at(f, a)}
+\NormalTok{    F }\OperatorTok{=}\NormalTok{ \_np(f)}
+
+    \KeywordTok{def}\NormalTok{ draw(zoom\_level):}
+\NormalTok{        w }\OperatorTok{=} \FloatTok{10.0} \OperatorTok{**}\NormalTok{ (}\OperatorTok{{-}}\NormalTok{zoom\_level)}
+\NormalTok{        u }\OperatorTok{=}\NormalTok{ np.linspace(}\OperatorTok{{-}}\NormalTok{w, w, }\DecValTok{4001}\NormalTok{)               }\CommentTok{\# offsets from a}
+\NormalTok{        fig }\OperatorTok{=}\NormalTok{ plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\FloatTok{5.8}\NormalTok{, }\FloatTok{5.6}\NormalTok{))}
+\NormalTok{        fig.subplots\_adjust(left}\OperatorTok{=}\FloatTok{0.19}\NormalTok{, right}\OperatorTok{=}\FloatTok{0.87}\NormalTok{, bottom}\OperatorTok{=}\FloatTok{0.12}\NormalTok{, top}\OperatorTok{=}\FloatTok{0.9}\NormalTok{)}
+\NormalTok{        ax }\OperatorTok{=}\NormalTok{ fig.add\_subplot()}
+\NormalTok{        ax.plot(u, F(A }\OperatorTok{+}\NormalTok{ u) }\OperatorTok{{-}}\NormalTok{ fa, lw}\OperatorTok{=}\FloatTok{1.5}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}$y=f(x)$\textquotesingle{}}\NormalTok{)}
+        \ControlFlowTok{if}\NormalTok{ d }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+\NormalTok{            ax.plot(u, }\BuiltInTok{float}\NormalTok{(d) }\OperatorTok{*}\NormalTok{ u, }\StringTok{\textquotesingle{}r{-}{-}\textquotesingle{}}\NormalTok{, lw}\OperatorTok{=}\FloatTok{1.2}\NormalTok{, label}\OperatorTok{=}\StringTok{\textquotesingle{}tangent\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ax.plot(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\StringTok{\textquotesingle{}ko\textquotesingle{}}\NormalTok{, ms}\OperatorTok{=}\DecValTok{4}\NormalTok{)}
+\NormalTok{        ax.set\_xlim(}\OperatorTok{{-}}\NormalTok{w, w)}\OperatorTok{;}\NormalTok{ ax.set\_ylim(}\OperatorTok{{-}}\NormalTok{w, w)}\OperatorTok{;}\NormalTok{ ax.set\_aspect(}\StringTok{\textquotesingle{}equal\textquotesingle{}}\NormalTok{)}
+        \CommentTok{\# tick labels are offsets from the point (a, f(a)), always in the same format}
+\NormalTok{        ticks }\OperatorTok{=}\NormalTok{ [}\OperatorTok{{-}}\NormalTok{w, }\DecValTok{0}\NormalTok{, w]}
+\NormalTok{        labels }\OperatorTok{=}\NormalTok{ [}\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\OperatorTok{{-}}\NormalTok{w}\SpecialCharTok{:+.1e\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}0\textquotesingle{}}\NormalTok{, }\SpecialStringTok{f\textquotesingle{}}\SpecialCharTok{\{}\NormalTok{w}\SpecialCharTok{:+.1e\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{]}
+\NormalTok{        ax.set\_xticks(ticks, labels)}\OperatorTok{;}\NormalTok{ ax.set\_yticks(ticks, labels)}
+\NormalTok{        ax.set\_xlabel(}\StringTok{\textquotesingle{}$x {-} a$\textquotesingle{}}\NormalTok{)}\OperatorTok{;}\NormalTok{ ax.set\_ylabel(}\StringTok{\textquotesingle{}$y {-} f(a)$\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ax.set\_title(}\SpecialStringTok{f\textquotesingle{}$f(x)=}\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\SpecialStringTok{$ near $a=}\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(a)}\SpecialCharTok{\}}\SpecialStringTok{$\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ax.legend(loc}\OperatorTok{=}\StringTok{\textquotesingle{}upper left\textquotesingle{}}\NormalTok{)}
+        \ControlFlowTok{if}\NormalTok{ d }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
+\NormalTok{            text }\OperatorTok{=}\NormalTok{ (}\SpecialStringTok{f"window: x within }\SpecialCharTok{\{}\NormalTok{w}\SpecialCharTok{:.1e\}}\SpecialStringTok{ of a}\CharTok{\textbackslash{}n}\SpecialStringTok{"}
+                    \StringTok{"f is not differentiable at a: there is no tangent line to draw."}\NormalTok{)}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            gap }\OperatorTok{=}\NormalTok{ np.nanmax(np.}\BuiltInTok{abs}\NormalTok{(F(A }\OperatorTok{+}\NormalTok{ u) }\OperatorTok{{-}}\NormalTok{ fa }\OperatorTok{{-}} \BuiltInTok{float}\NormalTok{(d) }\OperatorTok{*}\NormalTok{ u))}
+\NormalTok{            text }\OperatorTok{=}\NormalTok{ (}\SpecialStringTok{f"window: x within }\SpecialCharTok{\{}\NormalTok{w}\SpecialCharTok{:.1e\}}\SpecialStringTok{ of a}\CharTok{\textbackslash{}n}\SpecialStringTok{"}
+                    \SpecialStringTok{f"largest vertical gap between graph and tangent: }\SpecialCharTok{\{}\NormalTok{gap}\SpecialCharTok{:.3e\}}\SpecialStringTok{"}
+                    \SpecialStringTok{f"  =  }\SpecialCharTok{\{}\NormalTok{gap }\OperatorTok{/}\NormalTok{ w}\SpecialCharTok{:.3e\}}\SpecialStringTok{ x (half{-}width of the window)"}\NormalTok{)}
+        \ControlFlowTok{return}\NormalTok{ fig, text}
+
+\NormalTok{    \_slider\_view(draw, \{}\StringTok{\textquotesingle{}zoom\_level\textquotesingle{}}\NormalTok{: \_slider(}\StringTok{\textquotesingle{}zoom\textquotesingle{}}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{6}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.0}\NormalTok{)\})}
+
+
+\KeywordTok{def}\NormalTok{ eps\_table(f, a, hs}\OperatorTok{=}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.001}\NormalTok{, }\FloatTok{0.0001}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.1}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.01}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.001}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.0001}\NormalTok{), slope}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+    \CommentTok{"""Errors of the approximation f(a+h) \textasciitilde{} f(a) + slope*h (slope = f\textquotesingle{}(a) unless given)."""}
+\NormalTok{    f, a }\OperatorTok{=}\NormalTok{ sp.sympify(f), \_exact(a)}
+\NormalTok{    fa }\OperatorTok{=}\NormalTok{ \_value(f, a)}
+\NormalTok{    d }\OperatorTok{=}\NormalTok{ sp.diff(f, x).subs(x, a) }\ControlFlowTok{if}\NormalTok{ slope }\KeywordTok{is} \VariableTok{None} \ControlFlowTok{else}\NormalTok{ \_exact(slope)}
+\NormalTok{    which }\OperatorTok{=} \StringTok{"L(a+h) = f(a) + f\textquotesingle{}(a)}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{,h"} \ControlFlowTok{if}\NormalTok{ slope }\KeywordTok{is} \VariableTok{None} \ControlFlowTok{else} \StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{ell(a+h) = f(a) + (}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{text}\SpecialCharTok{\{slope\}}\StringTok{)}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{,h"}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf"f}\KeywordTok{(}\VerbatimStringTok{x}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad a = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(a)}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad f}\KeywordTok{(}\VerbatimStringTok{a}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(sp.nsimplify(fa))}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad "}
+                 \OperatorTok{+}\NormalTok{ (}\VerbatimStringTok{rf"f\textquotesingle{}}\KeywordTok{(}\VerbatimStringTok{a}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(sp.nsimplify(d))}\SpecialCharTok{\}}\VerbatimStringTok{"} \ControlFlowTok{if}\NormalTok{ slope }\KeywordTok{is} \VariableTok{None} \ControlFlowTok{else} \VerbatimStringTok{rf"}\CharTok{\textbackslash{}t}\VerbatimStringTok{ext}\CharTok{\{\{}\VerbatimStringTok{slope}\CharTok{\}\}}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(d)}\SpecialCharTok{\}}\VerbatimStringTok{"}\NormalTok{)}
+                 \OperatorTok{+} \VerbatimStringTok{rf",}\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad }\SpecialCharTok{\{}\NormalTok{which}\SpecialCharTok{\}}\VerbatimStringTok{"}\NormalTok{))}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\StringTok{\textquotesingle{}h\textquotesingle{}}\SpecialCharTok{:\textgreater{}9\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}f(a+h)\textquotesingle{}}\SpecialCharTok{:\textgreater{}14\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}line at a+h\textquotesingle{}}\SpecialCharTok{:\textgreater{}14\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}error eps*h\textquotesingle{}}\SpecialCharTok{:\textgreater{}13\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}eps\textquotesingle{}}\SpecialCharTok{:\textgreater{}12\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}error / h\^{}2\textquotesingle{}}\SpecialCharTok{:\textgreater{}12\}}\SpecialStringTok{"}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ h }\KeywordTok{in}\NormalTok{ hs:}
+\NormalTok{        H }\OperatorTok{=}\NormalTok{ \_exact(h)}
+\NormalTok{        val }\OperatorTok{=}\NormalTok{ sp.N(f.subs(x, a }\OperatorTok{+}\NormalTok{ H), }\DecValTok{40}\NormalTok{)}
+\NormalTok{        lin }\OperatorTok{=}\NormalTok{ sp.N(fa }\OperatorTok{+}\NormalTok{ d }\OperatorTok{*}\NormalTok{ H, }\DecValTok{40}\NormalTok{)}
+\NormalTok{        err }\OperatorTok{=}\NormalTok{ val }\OperatorTok{{-}}\NormalTok{ lin}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(H)}\SpecialCharTok{:9g\}}\SpecialStringTok{ }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(val)}\SpecialCharTok{:14.10f\}}\SpecialStringTok{ }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(lin)}\SpecialCharTok{:14.10f\}}\SpecialStringTok{ }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(err)}\SpecialCharTok{:13.4e\}}\SpecialStringTok{ "}
+              \SpecialStringTok{f"}\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(err }\OperatorTok{/}\NormalTok{ H)}\SpecialCharTok{:12.4e\}}\SpecialStringTok{ }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(err }\OperatorTok{/}\NormalTok{ H}\OperatorTok{**}\DecValTok{2}\NormalTok{)}\SpecialCharTok{:12.6f\}}\SpecialStringTok{"}\NormalTok{)}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} Part 3}
+\KeywordTok{def}\NormalTok{ error\_bound(f, a, h, tol}\OperatorTok{=}\VariableTok{None}\NormalTok{):}
+    \CommentTok{"""Linear approximation of f(a+h), its actual error, and the bound M h\^{}2."""}
+\NormalTok{    f, a, h }\OperatorTok{=}\NormalTok{ sp.sympify(f), \_exact(a), \_exact(h)}
+\NormalTok{    fa, d1, f2 }\OperatorTok{=}\NormalTok{ \_value(f, a), sp.diff(f, x).subs(x, a), sp.diff(f, x, }\DecValTok{2}\NormalTok{)}
+\NormalTok{    L }\OperatorTok{=}\NormalTok{ fa }\OperatorTok{+}\NormalTok{ d1 }\OperatorTok{*}\NormalTok{ h}
+\NormalTok{    true }\OperatorTok{=}\NormalTok{ sp.N(f.subs(x, a }\OperatorTok{+}\NormalTok{ h), }\DecValTok{30}\NormalTok{)}
+\NormalTok{    err }\OperatorTok{=}\NormalTok{ true }\OperatorTok{{-}}\NormalTok{ sp.N(L, }\DecValTok{30}\NormalTok{)}
+\NormalTok{    lo, hi }\OperatorTok{=} \BuiltInTok{sorted}\NormalTok{([}\BuiltInTok{float}\NormalTok{(a), }\BuiltInTok{float}\NormalTok{(a }\OperatorTok{+}\NormalTok{ h)])}
+\NormalTok{    ts }\OperatorTok{=}\NormalTok{ np.linspace(lo, hi, }\DecValTok{20001}\NormalTok{)}
+\NormalTok{    M }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(np.nanmax(np.}\BuiltInTok{abs}\NormalTok{(\_np(f2)(ts))))}
+\NormalTok{    bound }\OperatorTok{=}\NormalTok{ M }\OperatorTok{*} \BuiltInTok{float}\NormalTok{(h) }\OperatorTok{**} \DecValTok{2}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf"f}\KeywordTok{(}\VerbatimStringTok{x}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad a = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(a)}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad h = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(h)}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{qquad "}
+                 \VerbatimStringTok{rf"L}\KeywordTok{(}\VerbatimStringTok{a}\OperatorTok{+}\VerbatimStringTok{h}\KeywordTok{)}\VerbatimStringTok{ = f}\KeywordTok{(}\VerbatimStringTok{a}\KeywordTok{)}\VerbatimStringTok{ }\OperatorTok{+}\VerbatimStringTok{ f\textquotesingle{}}\KeywordTok{(}\VerbatimStringTok{a}\KeywordTok{)}\CharTok{\textbackslash{},}\VerbatimStringTok{h = }\SpecialCharTok{\{}\NormalTok{\_p(fa)}\SpecialCharTok{\}}\VerbatimStringTok{ }\OperatorTok{+}\VerbatimStringTok{ }\SpecialCharTok{\{}\NormalTok{\_p(d1)}\SpecialCharTok{\}}\ErrorTok{\textbackslash{}}\VerbatimStringTok{cdot}\SpecialCharTok{\{}\NormalTok{\_p(h)}\SpecialCharTok{\}}\VerbatimStringTok{"}\NormalTok{))}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"linear approximation L(a+h) = }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(L)}\SpecialCharTok{:.10f\}}\SpecialStringTok{"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"true value         f(a+h) = }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(true)}\SpecialCharTok{:.10f\}}\SpecialStringTok{"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"actual error  f(a+h) {-} L(a+h) = }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(err)}\SpecialCharTok{:.4e\}}\SpecialStringTok{"}\NormalTok{)}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf"f\textquotesingle{}\textquotesingle{}}\KeywordTok{(}\VerbatimStringTok{x}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f2)}\SpecialCharTok{\}}\VerbatimStringTok{"}\NormalTok{))}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"M = largest |f\textquotesingle{}\textquotesingle{}(x)| for x between }\SpecialCharTok{\{}\NormalTok{lo}\SpecialCharTok{:.6g\}}\SpecialStringTok{ and }\SpecialCharTok{\{}\NormalTok{hi}\SpecialCharTok{:.6g\}}\SpecialStringTok{:  }\SpecialCharTok{\{}\NormalTok{M}\SpecialCharTok{:.6g\}}\SpecialStringTok{"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"error bound M h\^{}2 = }\SpecialCharTok{\{}\NormalTok{bound}\SpecialCharTok{:.4e\}}\SpecialStringTok{      (actual error)/(bound) = }\SpecialCharTok{\{}\BuiltInTok{abs}\NormalTok{(}\BuiltInTok{float}\NormalTok{(err)) }\OperatorTok{/}\NormalTok{ bound}\SpecialCharTok{:.3f\}}\SpecialStringTok{"}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ tol }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\CharTok{\textbackslash{}n}\SpecialStringTok{bound \textless{} }\SpecialCharTok{\{}\NormalTok{tol}\SpecialCharTok{\}}\SpecialStringTok{?  }\SpecialCharTok{\{}\StringTok{\textquotesingle{}yes\textquotesingle{}} \ControlFlowTok{if}\NormalTok{ bound }\OperatorTok{\textless{}}\NormalTok{ tol }\ControlFlowTok{else} \StringTok{\textquotesingle{}NO\textquotesingle{}}\SpecialCharTok{\}}\SpecialStringTok{      actual error \textless{} }\SpecialCharTok{\{}\NormalTok{tol}\SpecialCharTok{\}}\SpecialStringTok{?  }\SpecialCharTok{\{}\StringTok{\textquotesingle{}yes\textquotesingle{}} \ControlFlowTok{if} \BuiltInTok{abs}\NormalTok{(}\BuiltInTok{float}\NormalTok{(err)) }\OperatorTok{\textless{}}\NormalTok{ tol }\ControlFlowTok{else} \StringTok{\textquotesingle{}NO\textquotesingle{}}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} Part 4}
+\KeywordTok{def}\NormalTok{ xi\_table(f, a, hs}\OperatorTok{=}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.001}\NormalTok{, }\FloatTok{0.0001}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.1}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.001}\NormalTok{)):}
+    \CommentTok{"""For the MVT on the interval between a and a+h: where is xi, relative to the interval?"""}
+\NormalTok{    f, a }\OperatorTok{=}\NormalTok{ sp.sympify(f), \_exact(a)}
+\NormalTok{    F, dF }\OperatorTok{=}\NormalTok{ \_mp(f), \_mp(sp.diff(f, x))}
+\NormalTok{    A }\OperatorTok{=}\NormalTok{ mp.mpf(sp.N(a, }\DecValTok{50}\NormalTok{))}
+\NormalTok{    display(Math(}\VerbatimStringTok{rf"f}\KeywordTok{(}\VerbatimStringTok{x}\KeywordTok{)}\VerbatimStringTok{ = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(f)}\SpecialCharTok{\}}\VerbatimStringTok{,}\ErrorTok{\textbackslash{}}\VerbatimStringTok{quad a = }\SpecialCharTok{\{}\NormalTok{sp}\SpecialCharTok{.}\NormalTok{latex(a)}\SpecialCharTok{\}}\VerbatimStringTok{"}\NormalTok{))}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\StringTok{\textquotesingle{}h\textquotesingle{}}\SpecialCharTok{:\textgreater{}9\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}xi\textquotesingle{}}\SpecialCharTok{:\textgreater{}16\}}\SpecialStringTok{ }\SpecialCharTok{\{}\StringTok{\textquotesingle{}(xi {-} a)/h\textquotesingle{}}\SpecialCharTok{:\textgreater{}14\}}\SpecialStringTok{"}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ h }\KeywordTok{in}\NormalTok{ hs:}
+\NormalTok{        H }\OperatorTok{=}\NormalTok{ mp.mpf(sp.N(\_exact(h), }\DecValTok{50}\NormalTok{))}
+\NormalTok{        m }\OperatorTok{=}\NormalTok{ (F(A }\OperatorTok{+}\NormalTok{ H) }\OperatorTok{{-}}\NormalTok{ F(A)) }\OperatorTok{/}\NormalTok{ H}
+\NormalTok{        lo, hi }\OperatorTok{=}\NormalTok{ (A, A }\OperatorTok{+}\NormalTok{ H) }\ControlFlowTok{if}\NormalTok{ H }\OperatorTok{\textgreater{}} \DecValTok{0} \ControlFlowTok{else}\NormalTok{ (A }\OperatorTok{+}\NormalTok{ H, A)}
+        \ControlFlowTok{try}\NormalTok{:}
+\NormalTok{            xi }\OperatorTok{=}\NormalTok{ mp.findroot(}\KeywordTok{lambda}\NormalTok{ t: dF(t) }\OperatorTok{{-}}\NormalTok{ m, (lo, hi), solver}\OperatorTok{=}\StringTok{\textquotesingle{}anderson\textquotesingle{}}\NormalTok{)}
+            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(H)}\SpecialCharTok{:9g\}}\SpecialStringTok{ }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(xi)}\SpecialCharTok{:16.10f\}}\SpecialStringTok{ }\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{((xi }\OperatorTok{{-}}\NormalTok{ A) }\OperatorTok{/}\NormalTok{ H)}\SpecialCharTok{:14.8f\}}\SpecialStringTok{"}\NormalTok{)}
+        \ControlFlowTok{except} \PreprocessorTok{Exception}\NormalTok{:}
+            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\SpecialCharTok{\{}\BuiltInTok{float}\NormalTok{(H)}\SpecialCharTok{:9g\}}\SpecialStringTok{   (no unique xi found)"}\NormalTok{)}
+
+
+\KeywordTok{def}\NormalTok{ done():}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{\textquotesingle{}Setup complete.\textquotesingle{}}\NormalTok{)}
+\NormalTok{done()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Setup complete.
+\end{verbatim}
+
+\section{\texorpdfstring{Finding
+\(\xi\)}{Finding \textbackslash xi}}\label{finding-xi}
+
+\textbf{Mean Value Theorem.} If \(f\) is continuous on \([a,b]\) and
+differentiable on \((a,b)\), there is a \(\xi\in(a,b)\) with
+\[f'(\xi) = \frac{f(b)-f(a)}{b-a}.\] The theorem says \(\xi\) exists,
+but not where it is. Here we find it.
+
+✏️ \textbf{1.1 On paper.} Let \(f(x) = x^3\). - On \([0,3]\): compute
+the secant slope and find \textbf{all} \(\xi\) in \((0,3)\). - On
+\([-1,2]\): same question. Careful: which solutions lie in the
+\emph{open} interval?
+
+Then run the next two cells.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mvt(x}\OperatorTok{**}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = x^{3}, \qquad f'(x) = 3 x^{2}, \qquad [a,b] = [0, 3]$
+
+$\displaystyle \text{secant slope } \frac{f(b)-f(a)}{b-a} = 9$
+
+\begin{verbatim}
+xi = 1.7320508   (relative position (xi - a)/(b - a) = 0.577350)
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week09_MVT_Linear_Approximation_Lab_files/figure-pdf/cell-3-output-4.png}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mvt(x}\OperatorTok{**}\DecValTok{3}\NormalTok{, }\OperatorTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = x^{3}, \qquad f'(x) = 3 x^{2}, \qquad [a,b] = [-1, 2]$
+
+$\displaystyle \text{secant slope } \frac{f(b)-f(a)}{b-a} = 3$
+
+\begin{verbatim}
+xi = 1   (relative position (xi - a)/(b - a) = 0.666667)
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week09_MVT_Linear_Approximation_Lab_files/figure-pdf/cell-4-output-4.png}}
+
+✏️ \textbf{1.2 On paper.} Let \(f(x) = \lvert x-1\rvert-x\) on
+\([-1,2]\). Compute the secant slope. Is there a \(\xi\)? Which
+hypothesis of the MVT fails?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mvt(}\BuiltInTok{abs}\NormalTok{(x}\OperatorTok{{-}}\DecValTok{1}\NormalTok{)}\OperatorTok{{-}}\NormalTok{x, }\OperatorTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = - x + \left|{x - 1}\right|, \qquad f'(x) = \operatorname{sign}{\left(x - 1 \right)} - 1, \qquad [a,b] = [-1, 2]$
+
+$\displaystyle \text{secant slope } \frac{f(b)-f(a)}{b-a} = - \frac{4}{3}\approx -1.3333333$
+
+\begin{verbatim}
+There is NO xi in (a, b) with f'(xi) = secant slope.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week09_MVT_Linear_Approximation_Lab_files/figure-pdf/cell-5-output-4.png}}
+
+🔬 \textbf{1.3 Explore.} \(f(x)=\sqrt[3]{x}\) is \textbf{not}
+differentiable at \(0\) (vertical tangent). Run the cell below. Does a
+\(\xi\) exist anyway?
+
+✏️ On paper, explain in one sentence why this does not contradict the
+MVT.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mvt(cbrt(x), }\OperatorTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = \sqrt[3]{x}, \qquad f'(x) = \frac{1}{3 \left(\sqrt[3]{x}\right)^{2}}, \qquad [a,b] = [-1, 1]$
+
+$\displaystyle \text{secant slope } \frac{f(b)-f(a)}{b-a} = 1$
+
+\begin{verbatim}
+xi = -0.19245009   (relative position (xi - a)/(b - a) = 0.403775)
+xi = 0.19245009   (relative position (xi - a)/(b - a) = 0.596225)
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{notebooks/Week09_MVT_Linear_Approximation_Lab_files/figure-pdf/cell-6-output-4.png}}
+
+🔬 \textbf{1.4 Explore.} Move the sliders for \(a\) and \(b\). The
+output shows the \textbf{relative position} \(\dfrac{\xi-a}{b-a}\) of
+\(\xi\) in the interval (\(0\) = left end, \(1\) = right end).
+
+\begin{itemize}
+\tightlist
+\item
+  For \(f(x)=x^2\): where is \(\xi\), for every choice of \(a\) and
+  \(b\)? Now replace \texttt{x**2} by another quadratic, such as
+  \texttt{3*x**2\ -\ 5*x\ +\ 1}. Same?
+\item
+  For \texttt{x**3} with \(a = 0\): record the relative position for
+  three different \(b>0\). What do you notice?
+\end{itemize}
+
+✏️ \textbf{1.5 On paper.} Explain both observations by computation: -
+For \(f(x) = px^2+qx+r\), compute the secant slope on \([a,b]\) and
+solve \$f'(\xi) = \$ slope. - For \(f(x) = x^3\) on \([0,b]\), find
+\(\xi\) and the relative position.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mvt\_explorer(x}\OperatorTok{**}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+VBox(children=(FloatSlider(value=-1.0, description='a', layout=Layout(width='400px'), max=3.0, min=-3.0, step=…
+\end{verbatim}
+
+\section{The tangent line as an
+approximation}\label{the-tangent-line-as-an-approximation-1}
+
+Let us write the approximation through the tangent line as follows:
+
+\[f(a+h) = f(a) + f'(a)\,h + \varepsilon \, h.\]
+
+Here \(\varepsilon\) is an \textbf{error term that depends on \(h\)}.
+
+Then \(f\) is differentiable at \(a\) exactly when \(\varepsilon\to0\)
+as \(h\to0\). Geometrically, this says: \textbf{zoom in on the graph,
+and it looks more and more like the tangent line.}
+
+✏️ \textbf{2.1 On paper (predict).} For each function, decide: if you
+zoom in on the graph at \(x=a\), will it look like a straight line? If
+so, which line?
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+& \(f(x)\) & \(a\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+(a) & \(x^2\) & \(1\) \\
+(b) & \(\lvert x\rvert\) & \(0\) \\
+(c) & \(\sqrt[3]{x}\) & \(0\) \\
+(d) & \(x\sin(1/x)\) (with \(f(0)=0\)) & \(0\) \\
+\end{longtable}
+}
+
+🔬 Then check each one by changing the function and \(a\) in the cell
+below. Move the zoom slider all the way.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zoom(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# other inputs to try:   abs(x), 0        cbrt(x), 0        x*sp.sin(1/x), 0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+VBox(children=(FloatSlider(value=0.0, description='zoom', layout=Layout(width='400px'), max=6.0, step=0.25), I…
+\end{verbatim}
+
+✏️ \textbf{2.2 On paper.} Let \(f(x)=\frac1x\) and \(a=1\). - Find
+\(L(x) = f(1) + f'(1)(x-1)\). - For \(h = 0.1\): compute \(f(1.1)\),
+\(L(1.1)\), the error \(\varepsilon h = f(1.1) - L(1.1)\), and
+\(\varepsilon\), as exact fractions. - For general \(h\): show that
+\(\varepsilon h = \dfrac{h^2}{1+h}\).
+
+Check with the table (the column \texttt{error\ eps*h} is
+\(f(a+h) - L(a+h)\)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eps\_table(}\DecValTok{1}\OperatorTok{/}\NormalTok{x, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = \frac{1}{x},\quad a = 1,\quad f(a) = 1,\quad f'(a) = -1,\qquad L(a+h) = f(a) + f'(a)\,h$
+
+\begin{verbatim}
+        h         f(a+h)    line at a+h   error eps*h          eps  error / h^2
+      0.1   0.9090909091   0.9000000000    9.0909e-03   9.0909e-02     0.909091
+     0.01   0.9900990099   0.9900000000    9.9010e-05   9.9010e-03     0.990099
+    0.001   0.9990009990   0.9990000000    9.9900e-07   9.9900e-04     0.999001
+   0.0001   0.9999000100   0.9999000000    9.9990e-09   9.9990e-05     0.999900
+     -0.1   1.1111111111   1.1000000000    1.1111e-02  -1.1111e-01     1.111111
+    -0.01   1.0101010101   1.0100000000    1.0101e-04  -1.0101e-02     1.010101
+   -0.001   1.0010010010   1.0010000000    1.0010e-06  -1.0010e-03     1.001001
+  -0.0001   1.0001000100   1.0001000000    1.0001e-08  -1.0001e-04     1.000100
+\end{verbatim}
+
+The error \(\varepsilon h\) goes to \(0\) much faster than \(h\). The
+last column compares it with \(h^2\).
+
+🔬 \textbf{2.3 Explore.} Run the table for each row below, and on paper
+fill in the missing columns: the value that \texttt{error\ /\ h\^{}2}
+approaches, and \(f''(a)\) (the derivative of \(f'\), computed by hand).
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+\(f(x)\) & \(a\) & \texttt{error\ /\ h\^{}2} \(\to\) ? & \(f''(a)\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{1/x} & \texttt{1} & & \\
+\texttt{x**3} & \texttt{1} & & \\
+\texttt{sp.sin(x)} & \texttt{sp.pi/6} & & \\
+\texttt{sp.cos(x)} & \texttt{0} & & \\
+\texttt{x**3\ -\ 2*x\ +\ 4} & \texttt{1} & & \\
+\end{longtable}
+}
+
+✏️ Write down a conjecture:
+\(\displaystyle\lim_{h\to0}\frac{\varepsilon h}{h^2} = \ ?\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eps\_table(x}\OperatorTok{**}\DecValTok{3} \OperatorTok{{-}} \DecValTok{2}\OperatorTok{*}\NormalTok{x }\OperatorTok{+} \DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = x^{3} - 2 x + 4,\quad a = 1,\quad f(a) = 3,\quad f'(a) = 1,\qquad L(a+h) = f(a) + f'(a)\,h$
+
+\begin{verbatim}
+        h         f(a+h)    line at a+h   error eps*h          eps  error / h^2
+      0.1   3.1310000000   3.1000000000    3.1000e-02   3.1000e-01     3.100000
+     0.01   3.0103010000   3.0100000000    3.0100e-04   3.0100e-02     3.010000
+    0.001   3.0010030010   3.0010000000    3.0010e-06   3.0010e-03     3.001000
+   0.0001   3.0001000300   3.0001000000    3.0001e-08   3.0001e-04     3.000100
+     -0.1   2.9290000000   2.9000000000    2.9000e-02  -2.9000e-01     2.900000
+    -0.01   2.9902990000   2.9900000000    2.9900e-04  -2.9900e-02     2.990000
+   -0.001   2.9990029990   2.9990000000    2.9990e-06  -2.9990e-03     2.999000
+  -0.0001   2.9999000300   2.9999000000    2.9999e-08  -2.9999e-04     2.999900
+\end{verbatim}
+
+🔬 \textbf{2.4 Explore. Is the tangent special?} Use a line through
+\((a, f(a))\) with a slope slightly \emph{different} from \(f'(a)\).
+Below, \(f(x) = x^2\), \(a=1\) and \(f'(1) = 2\), but the line uses
+slope \(2.01\). What happens to the \texttt{eps} column as \(h\to0\)?
+Try other slopes.
+
+✏️ On paper: which slope is the only one for which the error is small
+compared to \(h\)?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{eps\_table(x}\OperatorTok{**}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, slope}\OperatorTok{=}\FloatTok{2.001}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = x^{2},\quad a = 1,\quad f(a) = 1,\quad \text{slope} = \frac{2001}{1000},\qquad \ell(a+h) = f(a) + (\text{slope})\,h$
+
+\begin{verbatim}
+        h         f(a+h)    line at a+h   error eps*h          eps  error / h^2
+      0.1   1.2100000000   1.2001000000    9.9000e-03   9.9000e-02     0.990000
+     0.01   1.0201000000   1.0200100000    9.0000e-05   9.0000e-03     0.900000
+    0.001   1.0020010000   1.0020010000    0.0000e+00   0.0000e+00     0.000000
+   0.0001   1.0002000100   1.0002001000   -9.0000e-08  -9.0000e-04    -9.000000
+     -0.1   0.8100000000   0.7999000000    1.0100e-02  -1.0100e-01     1.010000
+    -0.01   0.9801000000   0.9799900000    1.1000e-04  -1.1000e-02     1.100000
+   -0.001   0.9980010000   0.9979990000    2.0000e-06  -2.0000e-03     2.000000
+  -0.0001   0.9998000100   0.9997999000    1.1000e-07  -1.1000e-03    11.000000
+\end{verbatim}
+
+\section{Bounding the error with the second
+derivative}\label{bounding-the-error-with-the-second-derivative-1}
+
+We want a \textbf{guarantee} for the size of the error
+\(\varepsilon h\), without knowing \(f(a+h)\). Take \(h>0\).
+
+\textbf{Step 1.} By the MVT on \([a, a+h]\),
+\(\dfrac{f(a+h)-f(a)}{h} = f'(\xi)\) for some \(\xi\in(a,a+h)\).
+Comparing with \(\dfrac{f(a+h)-f(a)}{h} = f'(a) + \varepsilon\) gives
+\[\varepsilon = f'(\xi) - f'(a).\]
+
+\textbf{Step 2.} Apply the MVT \textbf{again}, now to the function
+\(f'\) on \([a,\xi]\). Its derivative is the \textbf{second derivative}
+\(f'' = (f')'\). So there is \(\eta\in(a,\xi)\) with
+\[f'(\xi) - f'(a) = f''(\eta)\,(\xi - a).\]
+
+\textbf{Step 3.} Since \(0 < \xi - a < h\), if
+\(\lvert f''\rvert \le M\) on \([a,a+h]\), then
+\(\lvert\varepsilon\rvert \le M h\). Multiply by \(h\):
+
+\begin{quote}
+\textbf{Theorem (error of the linear approximation).} Let \(f\) be twice
+differentiable on an open interval containing \(a\) and \(a+h\), and
+\(\lvert f''(x)\rvert\le M\) for all \(x\) between \(a\) and \(a+h\).
+Then \[\lvert f(a+h) - L(a+h)\rvert \le M h^2 .\]
+\end{quote}
+
+(For \(h<0\), use the interval \([a+h,a]\) instead; the result is the
+same.)
+
+✏️ \textbf{3.1 On paper.} For each approximation: find \(L(a+h)\), a
+bound \(M\) for \(\lvert f''\rvert\) between \(a\) and \(a+h\), and the
+error bound \(Mh^2\). - (a) \(\dfrac{1}{0.9}\), using \(f(x)=\frac1x\),
+\(a=1\), \(h=-0.1\). (Is \(\lvert f''\rvert\) largest at \(0.9\) or at
+\(1\)?) - (b) \(\sin 31^\circ\), using \(f(x)=\sin x\), \(a=\frac\pi6\)
+(\(=30^\circ\)) and \(h = \frac{\pi}{180}\) (\(=1^\circ\)). (A simple
+choice is \(M=1\).) How many decimal places of \(\sin 31^\circ\) does
+your bound guarantee?
+
+The cells compute \(M\) as the exact largest value of
+\(\lvert f''\rvert\); yours may be larger, which is fine.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{error\_bound(}\DecValTok{1}\OperatorTok{/}\NormalTok{x, }\DecValTok{1}\NormalTok{, }\OperatorTok{{-}}\FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = \frac{1}{x},\quad a = 1,\quad h = - \frac{1}{10},\qquad L(a+h) = f(a) + f'(a)\,h = 1 + \left(-1\right)\cdot\left(- \frac{1}{10}\right)$
+
+\begin{verbatim}
+linear approximation L(a+h) = 1.1000000000
+true value         f(a+h) = 1.1111111111
+actual error  f(a+h) - L(a+h) = 1.1111e-02
+\end{verbatim}
+
+$\displaystyle f''(x) = \frac{2}{x^{3}}$
+
+\begin{verbatim}
+M = largest |f''(x)| for x between 0.9 and 1:  2.74348
+error bound M h^2 = 2.7435e-02      (actual error)/(bound) = 0.405
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{error\_bound(sp.sin(x), sp.pi}\OperatorTok{/}\DecValTok{6}\NormalTok{, sp.pi}\OperatorTok{/}\DecValTok{180}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = \sin{\left(x \right)},\quad a = \frac{\pi}{6},\quad h = \frac{\pi}{180},\qquad L(a+h) = f(a) + f'(a)\,h = \frac{1}{2} + \frac{\sqrt{3}}{2}\cdot\frac{\pi}{180}$
+
+\begin{verbatim}
+linear approximation L(a+h) = 0.5151149947
+true value         f(a+h) = 0.5150380749
+actual error  f(a+h) - L(a+h) = -7.6920e-05
+\end{verbatim}
+
+$\displaystyle f''(x) = - \sin{\left(x \right)}$
+
+\begin{verbatim}
+M = largest |f''(x)| for x between 0.523599 and 0.541052:  0.515038
+error bound M h^2 = 1.5689e-04      (actual error)/(bound) = 0.490
+\end{verbatim}
+
+✏️ \textbf{3.2 On paper (error budget).} You want to approximate
+\(\frac{1}{1+h}\) by \(L(1+h) = 1-h\), for \(h>0\), with error
+\textbf{guaranteed} below \(0.001\). Use the theorem to find how large
+\(h\) may be.
+
+🔬 Enter your \(h\) in the cell and run it. Then increase \(h\) to find
+(to 3 decimals) the largest \(h\) for which the \textbf{actual} error is
+still below \(0.001\).
+
+✏️ Your guaranteed \(h\) and the actual largest \(h\) differ by a factor
+of about \(\sqrt2\). Use your conjecture from 2.3 to explain why.
+(Remember \(f''(1) = 2\).)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{h }\OperatorTok{=} \FloatTok{0.05}          \CommentTok{\# \textless{}{-} change this}
+
+\NormalTok{error\_bound(}\DecValTok{1}\OperatorTok{/}\NormalTok{x, }\DecValTok{1}\NormalTok{, h, tol}\OperatorTok{=}\FloatTok{0.001}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+$\displaystyle f(x) = \frac{1}{x},\quad a = 1,\quad h = \frac{1}{20},\qquad L(a+h) = f(a) + f'(a)\,h = 1 + \left(-1\right)\cdot\frac{1}{20}$
+
+\begin{verbatim}
+linear approximation L(a+h) = 0.9500000000
+true value         f(a+h) = 0.9523809524
+actual error  f(a+h) - L(a+h) = 2.3810e-03
+\end{verbatim}
+
+$\displaystyle f''(x) = \frac{2}{x^{3}}$
+
+\begin{verbatim}
+M = largest |f''(x)| for x between 1 and 1.05:  2
+error bound M h^2 = 5.0000e-03      (actual error)/(bound) = 0.476
+
+bound < 0.001?  NO      actual error < 0.001?  NO
+\end{verbatim}
+
+\part{The Fundamental Theorem}
+
+\chapter{The Fundamental Theorem of
+Calculus}\label{the-fundamental-theorem-of-calculus}
+
+So far, integration and differentiation have been developed as two
+separate theories. The integral was defined through limits of Riemann
+sums (areas), the derivative through limits of difference quotients
+(slopes). The Fundamental Theorem of Calculus shows that the two
+operations are inverse to each other. This is the basic fact of
+calculus, and it turns the computation of integrals, which is hard to do
+directly from Riemann sums, into the problem of reversing a
+differentiation.
+
+\section{The Derivative of the Indefinite
+Integral}\label{the-derivative-of-the-indefinite-integral}
+
+Recall that for a continuous function \(f\) on an interval \(I\) and a
+fixed \(\alpha\in I\), the \textbf{indefinite integral} of \(f\) is the
+function \[
+\Phi(x) = \int_\alpha^x f(u)\,du \qquad (x\in I)
+\] (Definition~\ref{def-indefinite-integral}). We know that \(\Phi\) is
+continuous (Theorem~\ref{thm-indefinite-integral-continuous}). In fact,
+much more is true.
+
+\begin{theorem}[Fundamental Theorem of Calculus, Part
+1]\protect\hypertarget{thm-ftc-1}{}\label{thm-ftc-1}
+
+Let \(f\) be continuous on an interval \(I\) and let \(\alpha\in I\).
+Then the indefinite integral \[
+\Phi(x) = \int_\alpha^x f(u)\,du
+\] is differentiable at every \(x\in I\), and \[
+\Phi'(x) = f(x),
+\qquad\text{that is,}\qquad
+\frac{d}{dx}\int_\alpha^x f(u)\,du = f(x).
+\] (If \(x\) is an endpoint of \(I\), \(\Phi'(x)\) is the one-sided
+derivative. The most important case is
+\(f\colon\mathbb{R}\to\mathbb{R}\), where this does not arise.)
+
+\end{theorem}
+
+\begin{proof}
+Let \(x\in I\), and let \(h\neq0\) with \(x+h\in I\). By
+Proposition~\ref{prp-indefinite-integral-basic} and the Mean Value
+Theorem for Integrals (Theorem~\ref{thm-mvt-integrals}; for \(h<0\) use
+Remark~\ref{rem-mvt-remarks}, part 3), \[
+\Phi(x+h) - \Phi(x) = \int_x^{x+h} f(u)\,du = h\cdot f(\xi)
+\] for some \(\xi\) between \(x\) and \(x+h\). Here \(f(\xi)\) is the
+average value of \(f\) on the interval between \(x\) and \(x+h\)
+(Definition~\ref{def-average-value}). Dividing by \(h\), \[
+\frac{\Phi(x+h)-\Phi(x)}{h} = f(\xi).
+\] The point \(\xi\) depends on \(h\), but it always lies between \(x\)
+and \(x+h\), so \(\lvert \xi-x \rvert\le\lvert h \rvert\). Hence, as
+\(h\to0\), \(\xi\to x\), and since \(f\) is continuous,
+\(f(\xi)\to f(x)\).
+
+To make the last step precise, let \(\varepsilon>0\). Since \(f\) is
+continuous at \(x\) (Definition~\ref{def-continuity}), there is
+\(\delta>0\) such that \(\lvert f(u)-f(x) \rvert<\varepsilon\) for all
+\(u\in I\) with \(\lvert u-x \rvert<\delta\). If
+\(0<\lvert h \rvert<\delta\), then
+\(\lvert \xi-x \rvert\le\lvert h \rvert<\delta\), and therefore \[
+\lvert \frac{\Phi(x+h)-\Phi(x)}{h} - f(x) \rvert = \lvert f(\xi) - f(x) \rvert < \varepsilon.
+\] This shows \[
+\lim_{h\to0}\frac{\Phi(x+h)-\Phi(x)}{h} = f(x),
+\] so \(\Phi\) is differentiable at \(x\) with \(\Phi'(x)=f(x)\)
+(Definition~\ref{def-derivative}).
+\end{proof}
+
+Geometrically, \(\Phi(x)\) is the (signed) area under the graph of \(f\)
+between \(\alpha\) and \(x\), and \(\Phi(x+h)-\Phi(x)\) is the area of
+the thin strip over the interval between \(x\) and \(x+h\). The Mean
+Value Theorem for Integrals replaces this strip by a rectangle of the
+same area, with width \(h\) and height \(f(\xi)\). The difference
+quotient is the height of that rectangle. As \(h\) shrinks, \(\xi\) is
+squeezed toward \(x\), and by continuity the height \(f(\xi)\) is pinned
+to \(f(x)\).
+
+The interactive figure below shows this in two ways. In the left panel,
+the dashed coral rectangle over the interval between \(x\) and \(x+h\)
+has the same area as the blue strip, so its height is the difference
+quotient \(\frac{\Phi(x+h)-\Phi(x)}{h}\); the coral dot marks a point
+\(\xi\) with \(f(\xi)\) equal to that height. In the right panel, the
+same quotient is the slope of the coral secant of the graph of \(\Phi\)
+through \(x\) and \(x+h\). As \(h\to0\), the secant turns onto the
+dashed teal line through \((x,\Phi(x))\) with slope \(f(x)\): by
+Theorem~\ref{thm-ftc-1}, this is the tangent to the graph of \(\Phi\).
+
+The default integrand is the cross-section \(A(u)=2\sqrt{u(2-u)}\) of
+the oil tank in Example~\ref{exm-oil-tank}, with \(R=L=1\), so the right
+panel shows the tank's volume function. The slider for \(h\) is
+logarithmic, from \(\lvert h \rvert=1\) down to
+\(\lvert h \rvert=0.001\); ``Let h → 0'' animates it, and the ``h
+\textgreater{} 0 / h \textless{} 0'' button switches the sign of \(h\),
+so that both one-sided limits can be checked.
+
+\emph{An interactive version of this figure, with sliders for \(x\) and
+\(h\), is included in the HTML version of these notes.}
+
+\begin{refremark}
+The third integrand in the figure shows why continuity is needed. It is
+the step function \[
+f(u) = \begin{cases} 0.6 & u<1 \\ 1.6 & u\ge1, \end{cases}
+\] which jumps at \(u=1\). Integrating piece by piece from \(\alpha=0\)
+gives the piecewise linear function \(\Phi(x) = 0.6\,x\) for \(x\le1\)
+and \(\Phi(x) = 0.6+1.6\,(x-1)\) for \(x\ge1\). At \(x=1\), \[
+\frac{\Phi(1+h)-\Phi(1)}{h} = \begin{cases} 1.6 & h>0, \\ 0.6 & h<0. \end{cases}
+\] The two one-sided limits differ, so \(\Phi\) has a corner at \(1\)
+and is \textbf{not} differentiable there. Whenever the strip straddles
+the jump, the figure finds no \(\xi\): the Mean Value Theorem for
+Integrals fails for discontinuous functions
+(Remark~\ref{rem-mvt-remarks}, part 2), and with it the proof of
+Theorem~\ref{thm-ftc-1}.
+
+\label{rem-ftc-needs-continuity}
+
+\end{refremark}
+
+Since differentiable functions are continuous
+(Theorem~\ref{thm-differentiable-continuous}), Theorem~\ref{thm-ftc-1}
+also gives a second proof of
+Theorem~\ref{thm-indefinite-integral-continuous}.
+
+\section{Antiderivatives}\label{antiderivatives}
+
+Theorem~\ref{thm-ftc-1} says that the indefinite integral solves the
+following problem: given \(f\), find a function whose derivative is
+\(f\). This problem, reversing differentiation, gets its own name.
+
+\begin{definition}[]\protect\hypertarget{def-antiderivative}{}\label{def-antiderivative}
+
+\hfill\break
+Let \(f\) be a function on an interval \(I\). A function \(F\) is called
+an \textbf{antiderivative} (or \textbf{primitive}) of \(f\) on \(I\) if
+\(F\) is differentiable on \(I\) and \[
+F'(x) = f(x) \qquad\text{for all } x\in I.
+\]
+
+\end{definition}
+
+In this language, Theorem~\ref{thm-ftc-1} reads:
+
+\begin{quote}
+\emph{Every indefinite integral of a continuous function \(f\) is an
+antiderivative of \(f\).}
+\end{quote}
+
+At first sight, finding antiderivatives looks like a problem of a quite
+different character from computing areas. That it is solved by the
+indefinite integral is what makes the theorem ``fundamental''. But it
+leaves open a question.
+
+\textbf{Are there any other antiderivatives?}
+
+To answer it, we need one consequence of the Mean Value Theorem.
+
+\begin{proposition}[]\protect\hypertarget{prp-zero-derivative-constant}{}\label{prp-zero-derivative-constant}
+
+\hfill\break
+Let \(f\) be continuous on \([a,b]\) and differentiable on \((a,b)\). If
+\(f'(x)=0\) for all \(x\in(a,b)\), then \(f\) is constant on \([a,b]\).
+
+\end{proposition}
+
+\begin{proof}
+Let \(x,y\in[a,b]\) with \(x<y\). Then \(f\) is continuous on \([x,y]\)
+and differentiable on \((x,y)\), so by Theorem~\ref{thm-mvt} there is
+\(\xi\in(x,y)\) with \[
+f(y) - f(x) = f'(\xi)\,(y-x) = 0\cdot(y-x) = 0 .
+\] Hence \(f(x)=f(y)\). Since \(x\) and \(y\) were arbitrary,
+\(f(x)=f(a)\) for all \(x\in[a,b]\), so \(f\) is constant with value
+\(c=f(a)\).
+\end{proof}
+
+\begin{lemma}[]\protect\hypertarget{lem-antiderivatives-differ-by-constant}{}\label{lem-antiderivatives-differ-by-constant}
+
+\hfill\break
+The difference between any two antiderivatives \(F_1\), \(F_2\) of \(f\)
+on an interval \(I\) is constant: \[
+F_1(x) - F_2(x) = c \qquad\text{for all } x\in I.
+\]
+
+\end{lemma}
+
+\begin{proof}
+Let \(G(x) := F_1(x) - F_2(x)\). By the sum and constant multiple rules
+for derivatives (Proposition~\ref{prp-derivative-sum-rule},
+Proposition~\ref{prp-derivative-constant-multiple}), \(G\) is
+differentiable on \(I\) with \[
+G'(x) = F_1'(x) - F_2'(x) = f(x) - f(x) = 0 .
+\] Now let \(a<b\) in \(I\). On \([a,b]\), \(G\) is differentiable and
+hence continuous (Theorem~\ref{thm-differentiable-continuous}), so
+Proposition~\ref{prp-zero-derivative-constant} shows \(G(b)=G(a)\).
+Since \(a\) and \(b\) were arbitrary, \(G\) is constant on \(I\).
+\end{proof}
+
+\begin{refremark}
+It matters that the domain is an \textbf{interval}. The function \[
+G(x) = \begin{cases} 0 & x<0 \\ 1 & x>0 \end{cases}
+\] on \(\mathbb{R}\setminus\{0\}\) has \(G'(x)=0\) at every point of its
+domain, but it is not constant. Consequently \(F_1(x)=-\frac1x\) and
+\(F_2(x)=-\frac1x+G(x)\) are both antiderivatives of \(\frac1{x^2}\) on
+\(\mathbb{R}\setminus\{0\}\), but their difference is not constant. The
+proof of Lemma~\ref{lem-antiderivatives-differ-by-constant} breaks down
+because there is no interval \([a,b]\) in the domain containing both a
+negative and a positive point.
+
+\label{rem-interval-needed}
+
+\end{refremark}
+
+The converse of Lemma~\ref{lem-antiderivatives-differ-by-constant} is
+easy.
+
+\begin{lemma}[]\protect\hypertarget{lem-antiderivative-plus-constant}{}\label{lem-antiderivative-plus-constant}
+
+\hfill\break
+If \(F\) is an antiderivative of \(f\) and \(G(x) = F(x)+c\) for a
+constant \(c\), then \(G\) is also an antiderivative of \(f\).
+
+\end{lemma}
+
+\begin{proof}
+By Proposition~\ref{prp-derivative-sum-rule}, and since every difference
+quotient of a constant function is \(0\), \[
+G'(x) = \big(F(x)+c\big)' = F'(x) + \frac{d}{dx}\,c = F'(x) + 0 = f(x).
+\]
+\end{proof}
+
+\section{The Fundamental Theorem}\label{the-fundamental-theorem-1}
+
+Combining Theorem~\ref{thm-ftc-1} with the two lemmas, we can describe
+\textbf{all} antiderivatives of a continuous function.
+
+\begin{theorem}[Fundamental Theorem of
+Calculus]\protect\hypertarget{thm-ftc}{}\label{thm-ftc}
+
+Let \(f\) be continuous on an interval \(I\). Every antiderivative \(F\)
+of \(f\) can be represented in the form \[
+F(x) = c + \Phi(x) = c + \int_\alpha^x f(u)\,du, \qquad (\ast)
+\] where \(c\) is a constant and \(\alpha\in I\). Conversely, for any
+choice of the constant \(c\) and of \(\alpha\in I\), the expression
+\((\ast)\) yields an antiderivative of \(f\).
+
+\end{theorem}
+
+\begin{proof}
+Fix \(\alpha\in I\). By Theorem~\ref{thm-ftc-1},
+\(\Phi(x)=\int_\alpha^x f(u)\,du\) is an antiderivative of \(f\). If
+\(F\) is any antiderivative of \(f\), then \(F-\Phi\) is constant by
+Lemma~\ref{lem-antiderivatives-differ-by-constant}, say \(F-\Phi=c\),
+and so \(F = c+\Phi\).
+
+Conversely, for any \(\alpha\in I\) the function
+\(\Phi(x) = \int_\alpha^x f(u)\,du\) is an antiderivative of \(f\) by
+Theorem~\ref{thm-ftc-1}, and so is \(c+\Phi\) for every constant \(c\),
+by Lemma~\ref{lem-antiderivative-plus-constant}.
+\end{proof}
+
+\begin{refremark}
+Changing the lower limit \(\alpha\) only changes \(\Phi\) by an additive
+constant (Proposition~\ref{prp-indefinite-integral-basic}). One might
+therefore guess that the constant \(c\) in \((\ast)\) is superfluous,
+that is, that every antiderivative is an indefinite integral
+\(\int_\alpha^x f(u)\,du\) for a suitable \(\alpha\). Sometimes this is
+true. The antiderivatives of \(f(x)=x^2\) are the functions
+\(\frac{x^3}{3}+c\), and since
+\(\int_\alpha^x u^2\,du = \frac{x^3}{3}-\frac{\alpha^3}{3}\), the choice
+\(\alpha = \sqrt[3]{-3c}\) produces each of them. But in general it is
+false. For \(f(x)=0\), every indefinite integral is
+\(\int_\alpha^x 0\,du = 0\), whatever \(\alpha\) is, while every
+constant function is an antiderivative of \(f\). So the constant \(c\)
+cannot be dropped.
+
+\label{rem-constant-needed}
+
+\end{refremark}
+
+\section{Evaluating Definite
+Integrals}\label{evaluating-definite-integrals}
+
+The most important application of the Fundamental Theorem is the
+evaluation of definite integrals \[
+\int_a^b f(u)\,du .
+\] Suppose we know \textbf{one} antiderivative \(F\) of \(f\). Let
+\(\Phi(x) = \int_a^x f(u)\,du\) be the indefinite integral with lower
+limit \(a\). Both \(F\) and \(\Phi\) are antiderivatives of \(f\) (the
+latter by Theorem~\ref{thm-ftc-1}), so by
+Lemma~\ref{lem-antiderivatives-differ-by-constant}, \[
+F(x) = \Phi(x) + c
+\] for some constant \(c\). Since \[
+\Phi(a) = \int_a^a f(u)\,du = 0
+\] (Definition~\ref{def-oriented-integral}), we get \(F(a) = 0+c\), that
+is, \(c=F(a)\). Hence \(\Phi(x) = F(x) - F(a)\), and in particular
+\(\int_a^b f(u)\,du = \Phi(b) = F(b) - F(a)\).
+
+\begin{corollary}[Evaluation of definite
+integrals]\protect\hypertarget{cor-ftc-evaluation}{}\label{cor-ftc-evaluation}
+
+Let \(f\) be continuous on an interval \(I\), let \(a,b\in I\), and let
+\(F\) be \textbf{any} antiderivative of \(f\) on \(I\). Then \[
+\int_a^b f(u)\,du = F(b) - F(a).
+\]
+
+\end{corollary}
+
+\textbf{Any antiderivative works!} Compare this with
+Proposition~\ref{prp-indefinite-integral-basic}, part 1, which gave the
+same formula for an indefinite integral \(\Phi\) in place of \(F\).
+There, we first had to compute \(\Phi\), which means computing
+integrals. Now any function whose derivative is \(f\) will do, and such
+functions can often be found by reading formulas for derivatives
+backwards. Note also that \(a<b\) is not required: the formula holds for
+all \(a,b\in I\).
+
+\textbf{Notation.} The difference \(F(b)-F(a)\) is written \[
+F(b) - F(a) = F(x)\Big|_a^b = \Big[F(x)\Big]_a^b .
+\] For an antiderivative of \(f\) one writes \[
+\int f(x)\,dx = F(x) + c,
+\] without limits of integration, and calls it the \textbf{indefinite
+integral} of \(f\) as well.
+
+\begin{refremark}
+This ``indefinite'' indefinite integral needs some care. By
+Theorem~\ref{thm-ftc}, \(\int f(x)\,dx\) stands for \emph{some}
+antiderivative of \(f\), determined only up to the additive constant
+\(c\); the formula \(\int f(x)\,dx = F(x)+c\) is just a symbolic way of
+writing \(F'(x) = f(x)\). Strictly speaking, it is also slightly
+inconsistent to use the same letter \(x\) for the variable of
+integration and for the independent variable of \(F\). And it is worth
+remembering that, a priori, integrating (computing areas by limits of
+Riemann sums) and reversing differentiation are two different things. It
+is only the Fundamental Theorem that justifies using the name
+``indefinite integral'' for both.
+
+\label{rem-indefinite-notation}
+
+\end{refremark}
+
+\begin{example}[]\protect\hypertarget{exm-ftc-evaluation}{}\label{exm-ftc-evaluation}
+
+\hfill\break
+(a) The function \(F(x) = x^3 - x^2\) has \(F'(x) = 3x^2 - 2x\), so \[
+\int_1^2 \big(3x^2 - 2x\big)\,dx = \Big[x^3 - x^2\Big]_1^2 = (8-4) - (1-1) = 4 .
+\]
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Since \((-\cos x)' = \sin x\), \[
+  \int_0^\pi \sin x\,dx = \Big[-\cos x\Big]_0^\pi = -\cos\pi + \cos 0 = 1 + 1 = 2 .
+  \] This agrees with the average value \(\frac2\pi\) of \(\sin\) on
+  \([0,\pi]\) found in Example~\ref{exm-averages}.
+\end{enumerate}
+
+\end{example}
+
+In the same way, each formula in Proposition~\ref{prp-basic-integrals}
+now follows from Corollary~\ref{cor-ftc-evaluation} as soon as we know
+the derivative of the function on the right-hand side: no Riemann sums
+are needed anymore.
+
+\section{Summary}\label{summary-13}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{FTC, Part 1} (Theorem~\ref{thm-ftc-1}): if \(f\) is
+  continuous, the indefinite integral \(\Phi(x)=\int_\alpha^x f(u)\,du\)
+  is differentiable with \(\Phi'=f\). The proof combines the Mean Value
+  Theorem for Integrals, \(\frac{\Phi(x+h)-\Phi(x)}{h} = f(\xi)\) with
+  \(\xi\) between \(x\) and \(x+h\), with the continuity of \(f\).
+  Without continuity the conclusion can fail
+  (Remark~\ref{rem-ftc-needs-continuity}).
+\item
+  An \textbf{antiderivative} (or primitive) of \(f\) is a function \(F\)
+  with \(F'=f\) (Definition~\ref{def-antiderivative}). Every indefinite
+  integral of a continuous function is one.
+\item
+  If \(f'=0\) on an interval, then \(f\) is constant
+  (Proposition~\ref{prp-zero-derivative-constant}, from the Mean Value
+  Theorem). Hence two antiderivatives of the same function on an
+  interval differ by a constant
+  (Lemma~\ref{lem-antiderivatives-differ-by-constant}), and adding a
+  constant to an antiderivative gives another one
+  (Lemma~\ref{lem-antiderivative-plus-constant}). On domains that are
+  not intervals, this fails (Remark~\ref{rem-interval-needed}).
+\item
+  \textbf{Fundamental Theorem of Calculus} (Theorem~\ref{thm-ftc}): the
+  antiderivatives of a function \(f\) that is continuous on an interval
+  are exactly the functions \(c + \int_\alpha^x f(u)\,du\). The constant
+  \(c\) cannot be dropped in general (Remark~\ref{rem-constant-needed}).
+\item
+  \textbf{Evaluation of definite integrals}
+  (Corollary~\ref{cor-ftc-evaluation}): for any antiderivative \(F\) of
+  \(f\), \(\int_a^b f(u)\,du = F(b)-F(a) = \big[F(x)\big]_a^b\). The
+  notation \(\int f(x)\,dx = F(x)+c\) stands for an arbitrary
+  antiderivative (Remark~\ref{rem-indefinite-notation}).
+\end{itemize}
 
 
 

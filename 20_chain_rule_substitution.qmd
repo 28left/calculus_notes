@@ -1,0 +1,604 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Chain Rule and Integration by Substitution
+
+
+## Composite Functions
+
+Throughout this section, $J$ and $I$ are intervals, and
+$$
+\varphi\colon J\to\R, \qquad g\colon I\to\R, \qquad \varphi(J)\subseteq I .
+$$
+The last condition guarantees that $g$ can be applied to every value of $\varphi$, so the composition
+(@def-composition)
+$$
+f(x) = g\big(\varphi(x)\big), \qquad x\in J,
+$$
+is defined on all of $J$. We call $\varphi$ the **inner function** and $g$ the **outer function**.
+Common alternative notations are
+$$
+f = g\circ\varphi, \qquad f = g(\varphi),
+$$
+and some authors simply write $f = g\varphi$ (which we avoid, since it looks like a product).
+
+Recall that $f$ is **differentiable at $x_0$** if the limit of difference quotients
+$$
+f'(x_0) = \lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0} = \lim_{\Delta x\to 0}\frac{\Delta f}{\Delta x},
+\qquad \Delta x = x-x_0,\quad \Delta f = f(x)-f(x_0),
+$$
+exists. If $x_0$ is an endpoint of the interval, this is automatically a one-sided limit, since only
+points $x$ in the domain are used (@def-function-limit). Recall also that a function that is
+differentiable at $x_0$ is continuous at $x_0$.
+
+## The Chain Rule
+
+::: {#thm-chain-rule}
+## Chain rule
+Let $\varphi\colon J\to\R$ and $g\colon I\to\R$ with $\varphi(J)\subseteq I$, and let $x_0\in J$.
+If $\varphi$ is differentiable at $x_0$ and $g$ is differentiable at $\varphi(x_0)$, then
+$f = g\circ\varphi$ is differentiable at $x_0$, and
+$$
+f'(x_0) = g'\big(\varphi(x_0)\big)\cdot\varphi'(x_0).
+$$
+In particular, if $\varphi$ is differentiable on $J$ and $g$ is differentiable on $I$, then $f$ is
+differentiable on $J$ with $f'(x) = g'\big(\varphi(x)\big)\,\varphi'(x)$ for all $x\in J$.
+:::
+
+Note carefully where each derivative is evaluated: $\varphi'$ at the point $x$, but $g'$ at the point
+$\varphi(x)$, which is where $g$ is being applied.
+
+In **Leibniz notation**, writing $f$ and $g$ as quantities depending on $\varphi$, and $\varphi$ as a
+quantity depending on $x$, the chain rule reads
+$$
+\frac{df}{dx} = \frac{dg}{d\varphi}\cdot\frac{d\varphi}{dx},
+$$
+with the understanding that $\frac{dg}{d\varphi}$ is evaluated at $\varphi = \varphi(x)$. This looks
+like cancelling $d\varphi$ in a fraction, which makes the rule easy to remember. But derivatives are
+limits, not fractions, and turning this mnemonic into a proof takes some care (see
+@rem-where-used).
+
+### Intuition: Derivatives as Magnification Factors
+
+The derivative
+$$
+\varphi'(x) = \lim_{\Delta x\to0}\frac{\Delta\varphi}{\Delta x}
+$$
+measures, informally, the **local factor** by which $\varphi$ stretches small intervals: a short
+interval of length $\Delta x$ near $x$ is mapped onto a set of length approximately
+$\abs{\varphi'(x)}\,\Delta x$ near $\varphi(x)$ (and if $\varphi'(x)<0$, the orientation is reversed).
+For example, $\varphi(x) = 2x$ maps every interval onto an interval twice as long.
+
+Likewise, $g'\big(\varphi(x)\big)$ is the local magnification factor of $g$ near the point
+$\varphi(x)$. Applying first $\varphi$ and then $g$ (that is, applying $f$):
+
+- a small interval around $x$ is first magnified by the factor $\varphi'(x)$,
+- the resulting interval around $\varphi(x)$ is then magnified by the factor $g'\big(\varphi(x)\big)$.
+
+The total magnification is the product $g'\big(\varphi(x)\big)\cdot\varphi'(x)$, and this should be
+the magnification factor $f'(x)$ of the composite map $f = g\circ\varphi$. The chain rule confirms
+this picture.
+
+### Proof When $\varphi'$ Does Not Vanish
+
+We first prove the chain rule under the additional assumption that $\varphi$ is differentiable on all
+of $J$ with
+$$
+\varphi'(x)\neq 0 \quad\text{for all } x\in J .
+$$
+This case already contains the main idea, and it shows precisely what goes wrong in general.
+
+::: {.proof}
+Fix $x_0\in J$ and put $y_0 = \varphi(x_0)$. By @def-function-limit we must show: for **every**
+sequence $(x_n)$ in $J$ with $x_n\neq x_0$ and $x_n\to x_0$,
+$$
+\frac{f(x_n)-f(x_0)}{x_n-x_0}\longrightarrow g'(y_0)\,\varphi'(x_0).
+$$
+So let such a sequence be given, and write
+$$
+\Delta x_n = x_n - x_0, \qquad
+\Delta\varphi_n = \varphi(x_n)-\varphi(x_0), \qquad
+\Delta f_n = f(x_n)-f(x_0) = g\big(\varphi(x_n)\big) - g(y_0).
+$$
+
+**Step 1: $\Delta\varphi_n\neq0$.** By the Mean Value Theorem, applied to $\varphi$ on the closed
+interval between $x_0$ and $x_n$, there is a point $\xi_n$ strictly between $x_0$ and $x_n$ with
+$$
+\Delta\varphi_n = \varphi'(\xi_n)\,\Delta x_n .
+$$
+Here $\Delta x_n\neq0$, and $\varphi'(\xi_n)\neq0$ by our assumption. Hence $\Delta\varphi_n\neq0$.
+
+**Step 2: Factor the difference quotient.** Since $\Delta\varphi_n\neq0$, we may multiply and divide
+by it:
+$$
+\frac{\Delta f_n}{\Delta x_n} = \frac{\Delta f_n}{\Delta\varphi_n}\cdot\frac{\Delta\varphi_n}{\Delta x_n}.
+$$
+
+**Step 3: The second factor.** By definition of $\varphi'(x_0)$,
+$\dfrac{\Delta\varphi_n}{\Delta x_n}\to\varphi'(x_0)$.
+
+**Step 4: The first factor.** Put $y_n = \varphi(x_n)$. Then $y_n\in I$, and $y_n\to y_0$ because
+$\varphi$ is differentiable, hence continuous, at $x_0$. Moreover $y_n\neq y_0$ by Step 1. So
+$(y_n)$ is a sequence in $I$ with $y_n\neq y_0$ and $y_n\to y_0$, and since $g$ is differentiable at
+$y_0$, @def-function-limit gives
+$$
+\frac{\Delta f_n}{\Delta\varphi_n} = \frac{g(y_n)-g(y_0)}{y_n-y_0}\longrightarrow g'(y_0).
+$$
+
+**Step 5: Conclusion.** By the limit laws (@prp-limit-laws), the product of the two factors converges
+to $g'(y_0)\,\varphi'(x_0)$. Since the sequence $(x_n)$ was arbitrary, this proves the claim.
+:::
+
+::: {#rem-where-used}
+The assumption $\varphi'\neq0$ was used in exactly one place: to guarantee $\Delta\varphi_n\neq0$. We
+needed this twice, in Step 2 (to divide by $\Delta\varphi_n$) and in Step 4, because the definition of
+$g'(y_0)$ only gives information about sequences $y_n\to y_0$ that **avoid** $y_0$. Step 4 is the
+rigorous version of the informal step
+$$
+\lim_{\Delta x\to0}\frac{\Delta g}{\Delta\varphi} = \lim_{\Delta\varphi\to0}\frac{\Delta g}{\Delta\varphi},
+$$
+which is justified because $\Delta\varphi\to0$ as $\Delta x\to0$, *and* $\Delta\varphi\neq0$.
+
+Without the assumption, $\Delta\varphi_n=0$ can genuinely happen for $x_n$ arbitrarily close to $x_0$.
+If $\varphi$ is constant, $\Delta\varphi_n = 0$ for every $n$. A more interesting example is
+$$
+\varphi(x) = x^2\sin(1/x)\quad(x\neq0), \qquad \varphi(0)=0,
+$$
+(compare @exm-x-sin-continuous). It is differentiable at $0$ with $\varphi'(0)=0$, since
+$\abs{\varphi(x)/x} = \abs{x\sin(1/x)}\le\abs{x}\to0$. But $\varphi(x_n) = 0 = \varphi(0)$ for
+$x_n = \frac{1}{n\pi}\to0$, so the factorization of Step 2 is impossible along this sequence.
+:::
+
+::: {#exr-chain-pointwise}
+Show that the proof above still works if we only assume $\varphi'(x_0)\neq0$ at the single point
+$x_0$, rather than on all of $J$. (Hint: $\frac{\Delta\varphi_n}{\Delta x_n}\to\varphi'(x_0)\neq0$
+forces $\Delta\varphi_n\neq0$ for all large enough $n$. Why is that enough?)
+:::
+
+::: {#exr-chain-lab}
+## Lab
+Give an informal argument why the chain rule should still hold at a point $x_0$ with
+$\varphi'(x_0)=0$. What should $f'(x_0)$ be? Consider separately those $x$ near $x_0$ with
+$\varphi(x)=\varphi(x_0)$ and those with $\varphi(x)\neq\varphi(x_0)$.
+:::
+
+### The General Case
+
+The fix is to avoid dividing by $\Delta\varphi$ altogether. The idea: instead of the difference
+quotient of $g$, which has a "hole" at $y_0$, use a version of it in which the hole is filled with its
+limit value $g'(y_0)$. Precisely, define
+$$
+Q(y) = \begin{cases}
+\dfrac{g(y)-g(y_0)}{y-y_0} & y\in I,\ y\neq y_0,\\[8pt]
+g'(y_0) & y = y_0 .
+\end{cases}
+$$
+This function has two useful properties:
+
+(a) $Q$ is **continuous at $y_0$**: by definition of the derivative,
+$\lim_{y\to y_0}Q(y) = g'(y_0) = Q(y_0)$, so @prp-continuity-via-limit applies.
+
+(b) For **all** $y\in I$, including $y=y_0$,
+$$
+g(y)-g(y_0) = Q(y)\,(y-y_0).
+$$
+For $y\neq y_0$ this is the definition of $Q$; for $y=y_0$ both sides are $0$.
+
+Property (b) says $\Delta g = Q\cdot\Delta\varphi$: we have *multiplied* instead of *divided*, so
+nothing breaks when $\Delta\varphi=0$.
+
+We can now prove @thm-chain-rule in full generality.
+
+::: {.proof}
+Fix $x_0\in J$, let $y_0=\varphi(x_0)$, and define $Q$ as above. For $x\in J$, $x\neq x_0$, apply
+property (b) with $y = \varphi(x)$ and divide by $x-x_0\neq0$:
+$$
+\frac{f(x)-f(x_0)}{x-x_0} = \frac{g\big(\varphi(x)\big)-g(y_0)}{x-x_0}
+= Q\big(\varphi(x)\big)\cdot\frac{\varphi(x)-\varphi(x_0)}{x-x_0}.
+$$
+Now let $x\to x_0$.
+
+- Since $\varphi$ is differentiable at $x_0$, it is continuous there, so $\varphi(x)\to\varphi(x_0)=y_0$.
+  Since $Q$ is continuous at $y_0$ by (a), @prp-limit-inside-continuous gives
+  $Q\big(\varphi(x)\big)\to Q(y_0) = g'(y_0)$.
+- By definition of $\varphi'(x_0)$, the second factor tends to $\varphi'(x_0)$.
+
+By the limit laws for functions (@prp-function-limit-laws), the product tends to
+$g'(y_0)\,\varphi'(x_0)$. Hence $f$ is differentiable at $x_0$ with
+$f'(x_0)=g'\big(\varphi(x_0)\big)\,\varphi'(x_0)$.
+:::
+
+When $\varphi(x)\neq y_0$, the factor $Q\big(\varphi(x)\big)$ is exactly $\frac{\Delta g}{\Delta\varphi}$,
+and the computation is the same as in the first proof. When $\varphi(x)=y_0$, both sides of the
+displayed equation are $0$. So the general proof is the first proof with the troublesome case handled
+automatically, and the Mean Value Theorem is no longer needed.
+
+## Examples
+
+In the following examples we use $(e^x)'=e^x$, $(\ln x)'=\dfrac1x$ for $x>0$, $(\sqrt{x})' = \dfrac{1}{2\sqrt{x}}$ for $x>0$, and the product rule.
+
+::: {#exm-chain-general-power}
+## General powers
+\
+For $x>0$ and an arbitrary real exponent $\alpha$, the power $x^\alpha$ is *defined* by
+$$
+x^\alpha = e^{\alpha\ln x}
+$$
+(@def-power-function). For integer $\alpha$ we already know $\frac{d}{dx}x^\alpha = \alpha x^{\alpha-1}$;
+the chain rule shows that the same formula holds for every real $\alpha$. Take
+$$
+\varphi(x) = \alpha\ln x, \qquad g(y) = e^y, \qquad\text{so}\qquad
+\varphi'(x) = \frac{\alpha}{x},\quad g'(y) = e^y .
+$$
+Then
+$$
+\frac{d}{dx}\,e^{\alpha\ln x} = g'\big(\varphi(x)\big)\,\varphi'(x)
+= e^{\alpha\ln x}\cdot\frac{\alpha}{x} = x^\alpha\cdot\alpha\cdot x^{-1} = \alpha\,x^{\alpha-1}
+\qquad (x>0).
+$$
+In the last step we used $x^\alpha x^{-1} = e^{\alpha\ln x}e^{-\ln x} = e^{(\alpha-1)\ln x}=x^{\alpha-1}$.
+:::
+
+::: {#exm-chain-semicircle}
+## The upper unit semicircle
+\
+The upper half of the unit circle is the graph of
+$$
+f(x) = \sqrt{1-x^2}, \qquad -1\le x\le 1 .
+$$
+Take $\varphi(x) = 1-x^2$ and $g(y) = \sqrt{y}$. The outer function $\sqrt{y}$ is differentiable only
+for $y>0$, and $\varphi(x)>0$ exactly when $-1<x<1$. So the chain rule applies on the **open**
+interval $(-1,1)$, where
+$$
+f'(x) = \frac{1}{2\sqrt{1-x^2}}\cdot(-2x) = -\frac{x}{\sqrt{1-x^2}} \qquad (-1<x<1).
+$$
+At $x=\pm1$ the function $f$ is not differentiable: the tangent to the circle at $(\pm1,0)$ is
+vertical, and indeed $\abs{f'(x)}\to\infty$ as $x\to\pm1$.
+
+Geometric check: at the point $(x,y)$ of the circle, with $y = \sqrt{1-x^2}>0$, the slope of the
+tangent is $f'(x) = -x/y$. The radius to that point has slope $y/x$ (if $x\neq0$), and
+$\frac{y}{x}\cdot\left(-\frac{x}{y}\right) = -1$. So the tangent is perpendicular to the radius, as
+it should be.
+:::
+
+::: {#exm-chain-sqrt-quotient}
+\
+Let
+$$
+f(x) = \sqrt{\frac{1+x}{1-x}}, \qquad -1\le x<1 .
+$$
+(This is exactly where $\frac{1+x}{1-x}$ is defined and $\ge0$.) Take
+$$
+\varphi(x) = \frac{1+x}{1-x}, \qquad g(y) = \sqrt{y}, \qquad g'(y) = \frac{1}{2\sqrt y}\quad (y>0).
+$$
+To compute $\varphi'$, write $\varphi(x) = (1+x)\cdot\frac{1}{1-x}$ and use the product rule. The
+derivative of $\frac{1}{1-x}$ is itself a chain rule computation, with outer function $\frac1y$ and
+inner function $1-x$:
+$$
+\frac{d}{dx}\,\frac{1}{1-x} = -\frac{1}{(1-x)^2}\cdot(-1) = \frac{1}{(1-x)^2}.
+$$
+Therefore
+$$
+\varphi'(x) = 1\cdot\frac{1}{1-x} + (1+x)\cdot\frac{1}{(1-x)^2}
+= \frac{(1-x)+(1+x)}{(1-x)^2} = \frac{2}{(1-x)^2}.
+$$
+For $-1<x<1$ we have $\varphi(x)>0$, so $g$ is differentiable at $\varphi(x)$, and
+$$
+f'(x) = \frac{1}{2\sqrt{\frac{1+x}{1-x}}}\cdot\frac{2}{(1-x)^2}
+= \frac{\sqrt{1-x}}{\sqrt{1+x}\,(1-x)^2}
+= \frac{1}{(1+x)^{1/2}\,(1-x)^{3/2}} \qquad (-1<x<1).
+$$
+In the middle step we used $\sqrt{\frac{1+x}{1-x}} = \frac{\sqrt{1+x}}{\sqrt{1-x}}$, which is valid
+because $1+x>0$ and $1-x>0$. At $x=-1$ the function is not differentiable ($\varphi(-1)=0$, and
+$f'(x)\to\infty$ as $x\to-1^+$).
+:::
+
+::: {#exm-chain-x-to-x}
+\
+For $x>0$, let
+$$
+f(x) = x^x = e^{x\ln x}.
+$$
+This is neither a power function (the exponent is not constant) nor an exponential function (the
+base is not constant), so neither of the familiar rules applies directly. But with
+$$
+g(y) = e^y, \qquad \varphi(x) = x\ln x, \qquad \varphi'(x) = \ln x + x\cdot\frac1x = \ln x + 1
+$$
+(product rule), the chain rule gives
+$$
+f'(x) = e^{x\ln x}\,(\ln x+1) = x^x\,(\ln x+1) \qquad (x>0).
+$$
+:::
+
+## Integration by Substitution
+
+The chain rule says that $F\circ\varphi$ has derivative $(F'\circ\varphi)\cdot\varphi'$. Reading this
+backwards, together with the Fundamental Theorem of Calculus, gives a method for computing integrals.
+We use the Fundamental Theorem in both of its forms:
+
+- If $f$ is continuous on an interval $I$ and $c\in I$, then $F(x) = \int_c^x f(t)\,dt$ is an
+  antiderivative of $f$ on $I$, that is, $F'=f$ on $I$.
+- If $F'=f$ is continuous on $I$, then $\int_a^b f(x)\,dx = F(b)-F(a)$ for all $a,b\in I$, in
+  either order (@def-oriented-integral).
+
+::: {#thm-substitution}
+## Substitution rule
+Let $f$ be continuous on an interval $I$, and let $\varphi\colon[\alpha,\beta]\to\R$ be continuously
+differentiable with $\varphi\big([\alpha,\beta]\big)\subseteq I$. Then
+$$
+\int_{\varphi(\alpha)}^{\varphi(\beta)} f(x)\,dx = \int_\alpha^\beta f\big(\varphi(u)\big)\,\varphi'(u)\,du .
+$$
+:::
+
+::: {.proof}
+Fix $c\in I$ and let $F(x) = \int_c^x f(t)\,dt$. By the Fundamental Theorem, $F'=f$ on $I$. Define
+$$
+G(u) = F\big(\varphi(u)\big), \qquad u\in[\alpha,\beta],
+$$
+which makes sense because $\varphi(u)\in I$. By the chain rule (@thm-chain-rule),
+$$
+G'(u) = F'\big(\varphi(u)\big)\,\varphi'(u) = f\big(\varphi(u)\big)\,\varphi'(u).
+$$
+This is continuous on $[\alpha,\beta]$, as $f$, $\varphi$ and $\varphi'$ are continuous
+(@cor-continuity-composition, @cor-continuity-algebra). So we can apply the Fundamental Theorem twice,
+once to $G$ on $[\alpha,\beta]$ and once to $F$ on $I$:
+$$
+\int_\alpha^\beta f\big(\varphi(u)\big)\,\varphi'(u)\,du = G(\beta)-G(\alpha)
+= F\big(\varphi(\beta)\big)-F\big(\varphi(\alpha)\big)
+= \int_{\varphi(\alpha)}^{\varphi(\beta)} f(x)\,dx .
+$$
+:::
+
+::: {#rem-substitution-hypotheses}
+1. The function $\varphi$ need **not** be monotone or injective, and $\varphi(\alpha)>\varphi(\beta)$
+   is allowed; the left-hand side is then an oriented integral (@def-oriented-integral).
+2. As $u$ runs from $\alpha$ to $\beta$, the values $\varphi(u)$ may leave the interval between
+   $\varphi(\alpha)$ and $\varphi(\beta)$. This is why $f$ must be continuous on an interval $I$ that
+   contains *all* values of $\varphi$, not just those between $\varphi(\alpha)$ and $\varphi(\beta)$.
+   For instance, with $\varphi(u)=\sin u$ on $[0,\pi]$ we have $\varphi(0)=\varphi(\pi)=0$, so the
+   left-hand side is $\int_0^0 f(x)\,dx = 0$, even though $\varphi$ takes all values in $[0,1]$. The
+   theorem then says $\int_0^\pi f(\sin u)\cos u\,du = 0$ for every $f$ continuous on $[0,1]$.
+:::
+
+### Leibniz Notation
+
+Write the substitution as $x = \varphi(u)$. Then $\varphi'(u) = \frac{dx}{du}$, and if we treat
+$dx$ and $du$ as **differentials** that can be manipulated like numbers,
+$$
+\varphi'(u)\,du = \frac{dx}{du}\,du \;\text{"="}\; dx .
+$$
+So the substitution rule is what we get by formally replacing $x$ by $\varphi(u)$ and $dx$ by
+$\varphi'(u)\,du$:
+$$
+\int f(x)\,dx = \int f\big(\varphi(u)\big)\,\varphi'(u)\,du ,
+\qquad\qquad
+\int_{\varphi(\alpha)}^{\varphi(\beta)} f(x)\,dx = \int_\alpha^\beta f\big(\varphi(u)\big)\,\varphi'(u)\,du .
+$$
+In the definite version the bounds change as well: $u=\alpha$ corresponds to $x=\varphi(\alpha)$ and
+$u=\beta$ to $x=\varphi(\beta)$. This "cancellation" is a convenient way to remember the rule; its
+justification is @thm-substitution.
+
+The **indefinite** version should be read as a statement about antiderivatives: if $F$ is an
+antiderivative of $f$ on $I$, then $F\circ\varphi$ is an antiderivative of
+$(f\circ\varphi)\cdot\varphi'$ on $[\alpha,\beta]$ (or on any interval $J$ with $\varphi(J)\subseteq I$), that is,
+$$
+\int f(x)\,dx = F(x) + C \quad\Longrightarrow\quad
+\int f\big(\varphi(u)\big)\,\varphi'(u)\,du = F\big(\varphi(u)\big) + C .
+$$
+This is just the chain rule. As always, "$+C$" refers to an arbitrary constant on an **interval**.
+
+### An Important Example: $\varphi'/\varphi$
+
+First note that $\ln\abs{x}$ is an antiderivative of $\frac1x$ on each of the intervals $(0,\infty)$
+and $(-\infty,0)$. For $x>0$ this is $(\ln x)'=\frac1x$. For $x<0$ we have $\ln\abs x = \ln(-x)$,
+and by the chain rule
+$$
+\frac{d}{dx}\ln(-x) = \frac{1}{-x}\cdot(-1) = \frac1x .
+$$
+
+Now let $\varphi$ be continuously differentiable on an interval $J$ with $\varphi(u)\neq0$ for all
+$u\in J$. Since $\varphi$ is continuous, the Intermediate Value Theorem (@rem-ivt-general) shows that
+$\varphi$ cannot change sign on $J$: either $\varphi(J)\subseteq(0,\infty)$ or
+$\varphi(J)\subseteq(-\infty,0)$. In either case $f(x)=\frac1x$ is continuous on an interval
+containing $\varphi(J)$, with antiderivative $\ln\abs x$. Writing
+$$
+\frac{\varphi'(u)}{\varphi(u)} = \frac{1}{\varphi(u)}\cdot\varphi'(u) = f\big(\varphi(u)\big)\,\varphi'(u),
+$$
+the substitution $x=\varphi(u)$ gives
+
+::: {#prp-log-derivative}
+\
+If $\varphi$ is continuously differentiable and $\varphi(u)\neq0$ on an interval $J$, then on $J$
+$$
+\int\frac{\varphi'(u)}{\varphi(u)}\,du = \ln\abs{\varphi(u)} + C .
+$$
+:::
+
+(Of course, one can also verify this directly by differentiating $\ln\abs{\varphi(u)}$ with the chain
+rule.) The name of the variable plays no role, so in the following examples we call it $x$ again.
+
+::: {#exm-log-derivative}
+\
+1. $\varphi(x) = \ln x$, $\varphi'(x) = \frac1x$. Then $\frac{\varphi'(x)}{\varphi(x)} = \frac{1}{x\ln x}$,
+   and $\ln x\neq0$ exactly for $x\neq1$. So, on each of the intervals $(0,1)$ and $(1,\infty)$,
+   $$
+   \int\frac{1}{x\ln x}\,dx = \ln\abs{\ln x}+C .
+   $$
+2. $\varphi(x) = \cos x$, $\varphi'(x) = -\sin x$. Then $\frac{\varphi'(x)}{\varphi(x)} = -\frac{\sin x}{\cos x} = -\tan x$, so
+   $-\int\tan x\,dx = \ln\abs{\cos x}+C$, that is,
+   $$
+   \int\tan x\,dx = -\ln\abs{\cos x}+C ,
+   $$
+   on every interval on which $\cos x\neq0$, such as $\left(-\frac\pi2,\frac\pi2\right)$.
+:::
+
+## Substitution in Practice
+
+In practice, the substitution rule is usually applied from right to left: we are given an integral
+in a variable $x$ and try to recognize the integrand as $f\big(\varphi(x)\big)\,\varphi'(x)$. With
+the names of the variables adjusted (inner variable $x$, new variable $u=\varphi(x)$),
+@thm-substitution reads
+$$
+\int_a^b f\big(\varphi(x)\big)\,\varphi'(x)\,dx = \int_{\varphi(a)}^{\varphi(b)} f(u)\,du .
+$$
+
+::: {#exm-substitution-recipe}
+## A step-by-step recipe
+\
+Compute $\displaystyle\int_0^1 2x\,(1+x^2)^3\,dx$.
+
+1. **Guess the outer and inner function.** The integrand contains $(1+x^2)^3$, a composition with
+   inner function $\varphi(x) = 1+x^2$ and outer function $f(u) = u^3$.
+2. **Compute $\varphi'$.** $\varphi'(x) = 2x$.
+3. **Is the integrand of the form $f\big(\varphi(x)\big)\,\varphi'(x)$?** Yes:
+   $2x\,(1+x^2)^3 = (1+x^2)^3\cdot 2x = f\big(\varphi(x)\big)\,\varphi'(x)$.
+4. **Compute the new bounds** $\varphi(a)$ and $\varphi(b)$:
+   $\varphi(0) = 1+0^2 = 1$ and $\varphi(1) = 1+1^2 = 2$.
+5. **Substitute** $u = \varphi(x)$, $du = \varphi'(x)\,dx$:
+   $$
+   \int_0^1 (1+x^2)^3\cdot2x\,dx = \int_{\varphi(0)}^{\varphi(1)} f(u)\,du = \int_1^2 u^3\,du .
+   $$
+6. **Find an antiderivative and evaluate:**
+   $$
+   \int_1^2u^3\,du = \left[\frac{u^4}{4}\right]_1^2 = \frac{16}{4}-\frac14 = \frac{15}{4}.
+   $$
+:::
+
+If we are only interested in the **indefinite** integral, we skip step 4, and after step 6 simply
+plug $\varphi(x)$ back in for $u$:
+$$
+\int (1+x^2)^3\cdot 2x\,dx = \frac{u^4}{4}+C = \frac{(1+x^2)^4}{4}+C .
+$$
+It is good practice to check the answer by differentiating: by the chain rule,
+$\frac{d}{dx}\frac{(1+x^2)^4}{4} = \frac{4(1+x^2)^3}{4}\cdot2x = 2x\,(1+x^2)^3$.
+
+If the answer in step 3 is **no**, it is worth checking whether we are only off by a **multiplicative
+constant**.
+
+::: {#exm-substitution-constant}
+\
+Compute $\displaystyle\int x\cos(x^2)\,dx$.
+
+The natural choice is $\varphi(x) = x^2$ with outer function $f(u) = \cos u$. But
+$\varphi'(x) = 2x$, so
+$$
+f\big(\varphi(x)\big)\,\varphi'(x) = \cos(x^2)\cdot2x ,
+$$
+which is *twice* our integrand. Since the factor $2$ is a constant, this is easily repaired. With
+$u = \varphi(x)$ we have $du = 2x\,dx$, so
+$$
+x\,dx = \tfrac12\,du = \tfrac12\,\varphi'(x)\,dx ,
+$$
+and therefore
+$$
+\int x\cos(x^2)\,dx = \int\cos(x^2)\,x\,dx = \int\cos(u)\,\tfrac12\,du
+= \frac12\int\cos u\,du = \frac12\sin u + C = \frac12\sin(x^2)+C .
+$$
+Without differentials, the justification is: $x\cos(x^2) = \frac12\cdot\cos(x^2)\cdot2x$, so by the
+constant multiple rule (@prp-constant-multiple) and the substitution rule,
+$\int x\cos(x^2)\,dx = \frac12\int \cos(x^2)\,2x\,dx = \frac12\sin(x^2)+C$.
+:::
+
+::: {.callout-warning}
+## Only constants can be moved around
+The repair in @exm-substitution-constant works because the missing factor is a **constant**, which
+can be pulled out of the integral. A missing factor that depends on $x$ cannot be fixed this way.
+For example, one cannot compute $\int\cos(x^2)\,dx$ by writing "$dx = \frac{du}{2x}$" and treating
+$\frac{1}{2x}$ as a constant. (In fact, $\cos(x^2)$ has no antiderivative that can be written in terms
+of elementary functions.)
+:::
+
+### Try It Yourself
+
+::: {#exr-substitution-practice}
+Compute
+$$
+\text{(a)}\ \int_0^2 x\,e^{x^2}\,dx, \qquad
+\text{(b)}\ \int_0^{\pi/2}\sin^3x\,\cos x\,dx, \qquad
+\text{(c)}\ \int_1^e\frac{\ln x}{x}\,dx .
+$$
+:::
+
+<!-- ::: {.solution}
+(a) $u=x^2$, $du = 2x\,dx$, bounds $0\mapsto0$, $2\mapsto4$:
+$\int_0^2 x e^{x^2}dx = \frac12\int_0^4e^u\,du = \frac12\left(e^4-1\right)$.
+
+(b) $u=\sin x$, $du=\cos x\,dx$, bounds $0\mapsto0$, $\frac\pi2\mapsto1$:
+$\int_0^1u^3\,du = \frac14$.
+
+(c) $u=\ln x$, $du=\frac1x\,dx$, bounds $1\mapsto0$, $e\mapsto1$: $\int_0^1u\,du = \frac12$.
+::: -->
+
+::: {#exr-sin-cos}
+## Challenge
+Compute $\displaystyle\int\sin x\cos x\,dx$.
+:::
+
+<!-- ::: {.solution}
+With $u=\sin x$, $du=\cos x\,dx$: $\int\sin x\cos x\,dx = \int u\,du = \frac12\sin^2x + C$.
+
+With $u=\cos x$, $du=-\sin x\,dx$: $\int\sin x\cos x\,dx = -\int u\,du = -\frac12\cos^2x + C$.
+
+The two answers look different, but they are both correct: since $\sin^2x+\cos^2x=1$,
+$$
+\tfrac12\sin^2x = -\tfrac12\cos^2x + \tfrac12 ,
+$$
+so they differ only by a constant, which is absorbed into $C$. (A third form,
+$-\frac14\cos(2x)+C$, comes from $\sin x\cos x = \frac12\sin(2x)$.)
+::: -->
+
+::: {#exr-semicircle-area}
+## Super challenge
+Compute $\displaystyle\int_{-1}^1\sqrt{1-x^2}\,dx$ by using the substitution rule "backwards", that
+is, in the form of @thm-substitution with $x = \varphi(t) = \sin t$. You may use the identity
+$$
+\cos^2t = \tfrac12\big(1+\cos 2t\big).
+$$
+(Hint: on which interval $[\alpha,\beta]$ should $t$ run? Be careful with $\sqrt{\cos^2 t}$.)
+:::
+
+<!-- ::: {.solution}
+Take $f(x) = \sqrt{1-x^2}$, continuous on $I=[-1,1]$, and $\varphi(t)=\sin t$ on
+$[\alpha,\beta] = \left[-\frac\pi2,\frac\pi2\right]$. Then $\varphi$ is continuously differentiable,
+$\varphi\left(\left[-\frac\pi2,\frac\pi2\right]\right) = [-1,1]\subseteq I$,
+$\varphi\left(-\frac\pi2\right)=-1$ and $\varphi\left(\frac\pi2\right)=1$. By @thm-substitution,
+$$
+\int_{-1}^1\sqrt{1-x^2}\,dx = \int_{-\pi/2}^{\pi/2}\sqrt{1-\sin^2t}\,\cos t\,dt
+= \int_{-\pi/2}^{\pi/2}\abs{\cos t}\cos t\,dt = \int_{-\pi/2}^{\pi/2}\cos^2t\,dt ,
+$$
+since $\sqrt{1-\sin^2t} = \sqrt{\cos^2t} = \abs{\cos t} = \cos t$ for
+$t\in\left[-\frac\pi2,\frac\pi2\right]$. (This is why this interval is the right choice.) With the
+identity $\cos^2t = \frac12(1+\cos2t)$ and $\int\cos 2t\,dt = \frac12\sin2t+C$,
+$$
+\int_{-\pi/2}^{\pi/2}\cos^2t\,dt = \frac12\left[t+\frac12\sin2t\right]_{-\pi/2}^{\pi/2}
+= \frac12\left(\frac\pi2-\left(-\frac\pi2\right)\right) = \frac\pi2 .
+$$
+This is the area of the upper half of the unit disk (@exm-chain-semicircle), in agreement with the
+area $\pi$ of the unit disk computed in the chapter on Riemann sums.
+::: -->
+
+## Summary
+
+- **Chain rule** (@thm-chain-rule): if $\varphi$ is differentiable at $x$ and $g$ is differentiable at
+  $\varphi(x)$, then $(g\circ\varphi)'(x) = g'\big(\varphi(x)\big)\,\varphi'(x)$. Informally,
+  magnification factors multiply. In Leibniz notation,
+  $\frac{df}{dx}=\frac{dg}{d\varphi}\cdot\frac{d\varphi}{dx}$.
+- The naive proof writes $\frac{\Delta f}{\Delta x} = \frac{\Delta g}{\Delta\varphi}\cdot\frac{\Delta\varphi}{\Delta x}$.
+  This works when $\varphi'\neq0$, since then $\Delta\varphi\neq0$ by the Mean Value Theorem. In
+  general $\Delta\varphi$ can vanish arbitrarily close to $x$ (@rem-where-used). The fix is to replace
+  $\frac{\Delta g}{\Delta\varphi}$ by a difference quotient $Q$ whose "hole" is filled with the value
+  $g'\big(\varphi(x)\big)$, so that $\Delta g = Q\cdot\Delta\varphi$ holds without any division.
+- Applications: $(x^\alpha)' = \alpha x^{\alpha-1}$ for all real $\alpha$ (@exm-chain-general-power),
+  $(x^x)' = x^x(\ln x+1)$ (@exm-chain-x-to-x). The chain rule only applies where the outer function is
+  differentiable, as in @exm-chain-semicircle, where differentiability fails at $x=\pm1$.
+- **Substitution rule** (@thm-substitution): for continuous $f$ on $I$ and continuously
+  differentiable $\varphi$ with values in $I$,
+  $\int_{\varphi(\alpha)}^{\varphi(\beta)}f(x)\,dx = \int_\alpha^\beta f\big(\varphi(u)\big)\,\varphi'(u)\,du$.
+  It is the chain rule combined with the Fundamental Theorem of Calculus. In differentials:
+  $x=\varphi(u)$, $dx=\varphi'(u)\,du$, and the bounds change along with the variable.
+- Important special case: $\int\frac{\varphi'}{\varphi} = \ln\abs{\varphi}+C$ on intervals where
+  $\varphi\neq0$ (@prp-log-derivative), giving for instance $\int\tan x\,dx = -\ln\abs{\cos x}+C$.
+- **In practice** (@exm-substitution-recipe): identify an inner function $\varphi$, check that the
+  integrand is $f\big(\varphi(x)\big)\,\varphi'(x)$, possibly up to a **constant** factor
+  (@exm-substitution-constant), change the bounds, and integrate $f$.

@@ -45,6 +45,7 @@ book:
     - part: Techniques of Calculus
       chapters:
         - 19_techniques_of_calculus.qmd
+        - 20_chain_rule_substitution.qmd
 
 
 

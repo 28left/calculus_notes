@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>25&nbsp; The Exponential Function and the Logarithm – Math 140H — Honors Calculus I: Lecture Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./20_chain_rule_substitution.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./19_techniques_of_calculus.html">Techniques of Calculus</a></li><li class="breadcrumb-item"><a href="./21_exp_log.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The Exponential Function and the Logarithm</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Math 140H — Honors Calculus I: Lecture Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Real Numbers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_real_numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Rational Numbers and the Number Line</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_nested_intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The Real Numbers via Nested Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week01_Number_Bases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyter Activity: p-ary Expansions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Functions</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Concept of Function</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_elementary_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The Elementary Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_continuity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Continuity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_activity_properties_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Activity: Properties of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Limits</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_sequences_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sequences and Convergence</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week03_convergence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of Sequences: Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_limits_of_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Limits of Functions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Riemann Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_riemann_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Riemann Sums</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week05_Riemann_Sums.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab: Riemann Sums</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_properties_of_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Properties of the Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_indefinite_integral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">The Indefinite Integral</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Derivative</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_derivative.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The Derivative</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_differentiation_rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working with Derivatives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_activity_derivative_graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Activity: Reading Derivatives from Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_mean_value_theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The Mean Value Theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_linear_approximation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">The Derivative as Linear Approximation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17_activity_euler_method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Activity: Linear Approximation and Euler’s Method</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./notebooks/Week09_MVT_Linear_Approximation_Lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab: The Mean Value Theorem and Linear Approximation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Fundamental Theorem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./18_fundamental_theorem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">The Fundamental Theorem of Calculus</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Techniques of Calculus</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./19_techniques_of_calculus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Product Rule and Integration by Parts</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./20_chain_rule_substitution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">The Chain Rule and Integration by Substitution</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21_exp_log.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The Exponential Function and the Logarithm</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-number-e" id="toc-the-number-e" class="nav-link active" data-scroll-target="#the-number-e"><span class="header-section-number">25.1</span> The Number <span class="math inline">\(e\)</span></a></li>
+  <li><a href="#the-natural-logarithm" id="toc-the-natural-logarithm" class="nav-link" data-scroll-target="#the-natural-logarithm"><span class="header-section-number">25.2</span> The Natural Logarithm</a></li>
+  <li><a href="#where-is-lnx-1" id="toc-where-is-lnx-1" class="nav-link" data-scroll-target="#where-is-lnx-1"><span class="header-section-number">25.3</span> Where Is <span class="math inline">\(\ln(x) = 1\)</span>?</a></li>
+  <li><a href="#the-inverse-function-of-ln" id="toc-the-inverse-function-of-ln" class="nav-link" data-scroll-target="#the-inverse-function-of-ln"><span class="header-section-number">25.4</span> The Inverse Function of <span class="math inline">\(\ln\)</span></a></li>
+  <li><a href="#ex-ex" id="toc-ex-ex" class="nav-link" data-scroll-target="#ex-ex"><span class="header-section-number">25.5</span> <span class="math inline">\(E(x) = e^x\)</span></a></li>
+  <li><a href="#defining-xalpha" id="toc-defining-xalpha" class="nav-link" data-scroll-target="#defining-xalpha"><span class="header-section-number">25.6</span> Defining <span class="math inline">\(x^\alpha\)</span></a></li>
+  <li><a href="#exponential-laws" id="toc-exponential-laws" class="nav-link" data-scroll-target="#exponential-laws"><span class="header-section-number">25.7</span> Exponential Laws</a></li>
+  <li><a href="#the-exponential-function-as-solution-to-a-differential-equation" id="toc-the-exponential-function-as-solution-to-a-differential-equation" class="nav-link" data-scroll-target="#the-exponential-function-as-solution-to-a-differential-equation"><span class="header-section-number">25.8</span> The Exponential Function as Solution to a Differential Equation</a>
+  <ul class="collapse">
+  <li><a href="#derivative-of-an-inverse-function" id="toc-derivative-of-an-inverse-function" class="nav-link" data-scroll-target="#derivative-of-an-inverse-function">Derivative of an inverse function</a></li>
+  <li><a href="#the-derivative-of-ex" id="toc-the-derivative-of-ex" class="nav-link" data-scroll-target="#the-derivative-of-ex">The derivative of <span class="math inline">\(e^x\)</span></a></li>
+  </ul></li>
+  <li><a href="#exponential-growth" id="toc-exponential-growth" class="nav-link" data-scroll-target="#exponential-growth"><span class="header-section-number">25.9</span> Exponential Growth</a>
+  <ul class="collapse">
+  <li><a href="#doubling-time" id="toc-doubling-time" class="nav-link" data-scroll-target="#doubling-time">Doubling time</a></li>
+  </ul></li>
+  <li><a href="#exponential-decay" id="toc-exponential-decay" class="nav-link" data-scroll-target="#exponential-decay"><span class="header-section-number">25.10</span> Exponential Decay</a>
+  <ul class="collapse">
+  <li><a href="#newtons-law-of-cooling" id="toc-newtons-law-of-cooling" class="nav-link" data-scroll-target="#newtons-law-of-cooling">Newton’s law of cooling</a></li>
+  <li><a href="#radiocarbon-dating" id="toc-radiocarbon-dating" class="nav-link" data-scroll-target="#radiocarbon-dating">Radiocarbon dating</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">25.11</span> Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./19_techniques_of_calculus.html">Techniques of Calculus</a></li><li class="breadcrumb-item"><a href="./21_exp_log.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The Exponential Function and the Logarithm</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The Exponential Function and the Logarithm</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In <a href="04_elementary_functions.html#def-exponential" class="quarto-xref">Definition&nbsp;<span>5.4</span></a> and <a href="04_elementary_functions.html#def-logarithm" class="quarto-xref">Definition&nbsp;<span>5.5</span></a> we took <span class="math inline">\(a^x\)</span> and <span class="math inline">\(\log_a\)</span> for granted. In this chapter we construct them: we first define the natural logarithm as an integral, and then obtain the exponential function as its inverse.</p>
+<section id="the-number-e" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="the-number-e"><span class="header-section-number">25.1</span> The Number <span class="math inline">\(e\)</span></h2>
+<p>Recall (<a href="07_sequences_convergence.html#thm-e-exists" class="quarto-xref">Theorem&nbsp;<span>8.3</span></a>) that <span class="math display">\[
+e = \lim_{n\to\infty}\left(1+\frac1n\right)^n .
+\]</span> This number arises from the <strong>continuous compounding of interest</strong>. Invest <span class="math inline">\(\$1\)</span> at <span class="math inline">\(100\%\)</span> interest per year.</p>
+<ul>
+<li>Interest paid once a year: after one year we have <span class="math inline">\(\$2\)</span>.</li>
+<li>Interest <span class="math inline">\(\tfrac12 = 50\%\)</span> paid every six months: <span class="math inline">\(\left(1+\tfrac12\right)\left(1+\tfrac12\right) = \$2.25\)</span>.</li>
+<li>Interest <span class="math inline">\(\tfrac1{12}\)</span> paid every month: <span class="math display">\[
+\underbrace{\left(1+\tfrac1{12}\right)\left(1+\tfrac1{12}\right)\cdots\left(1+\tfrac1{12}\right)}_{12\text{ times}}
+= \left(1+\tfrac1{12}\right)^{12} \approx \$2.613 .
+\]</span></li>
+<li>Interest <span class="math inline">\(\tfrac1{52}\)</span> paid every week: <span class="math inline">\(\left(1+\tfrac1{52}\right)^{52} \approx \$2.693\)</span>.</li>
+</ul>
+<p>Compounding more and more often, we approach <span class="math display">\[
+e = \lim_{n\to\infty}\left(1+\frac1n\right)^n = 2.718281828459\ldots
+\]</span></p>
+<p>Why is this number so important? The answer will emerge in the course of this chapter: <span class="math inline">\(e\)</span> is the base of the logarithm defined by the simplest possible integral (<a href="#prp-ln-e" class="quarto-xref">Proposition&nbsp;<span>25.2</span></a>), and <span class="math inline">\(e^x\)</span> is the function that is its own derivative (<a href="#prp-exp-derivative" class="quarto-xref">Proposition&nbsp;<span>25.6</span></a>).</p>
+</section>
+<section id="the-natural-logarithm" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="the-natural-logarithm"><span class="header-section-number">25.2</span> The Natural Logarithm</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-ln" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 25.1</strong></span> <br>
+For <span class="math inline">\(x&gt;0\)</span>, the <strong>natural logarithm</strong> of <span class="math inline">\(x\)</span> is <span class="math display">\[
+\ln(x) := \int_1^x \frac1u\,du .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Here the integral is understood in the oriented sense of <a href="10_properties_of_integral.html#def-oriented-integral" class="quarto-xref">Definition&nbsp;<span>13.1</span></a>, so that it also makes sense for <span class="math inline">\(0&lt;x\le 1\)</span>.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-ln-basic" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 25.1 (Basic properties of <span class="math inline">\(\ln\)</span>)</strong></span> <br>
+</p>
+<ol type="1">
+<li><strong>Domain:</strong> <span class="math inline">\(\ln(x)\)</span> is defined for every <span class="math inline">\(x&gt;0\)</span>.</li>
+<li><strong>Differentiability:</strong> <span class="math inline">\(\ln\)</span> is differentiable on <span class="math inline">\((0,\infty)\)</span> with <span class="math inline">\(\ln'(x) = \dfrac1x\)</span>, and hence continuous.</li>
+<li><strong>Monotonicity:</strong> <span class="math inline">\(\ln\)</span> is strictly increasing.</li>
+<li><strong>Sign:</strong> <span class="math inline">\(\ln(1) = 0\)</span>, <span class="math inline">\(\ln(x)&gt;0\)</span> for <span class="math inline">\(x&gt;1\)</span>, and <span class="math inline">\(\ln(x)&lt;0\)</span> for <span class="math inline">\(0&lt;x&lt;1\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span></p>
+<ol type="1">
+<li>The integrand <span class="math inline">\(\frac1u\)</span> is continuous for <span class="math inline">\(u&gt;0\)</span>, so the integral exists for every <span class="math inline">\(x&gt;0\)</span>.</li>
+<li>This is the Fundamental Theorem of Calculus. (Continuity can also be seen directly: for <span class="math inline">\(0&lt;x&lt;w\)</span>, <a href="10_properties_of_integral.html#cor-min-max-bound" class="quarto-xref">Corollary&nbsp;<span>13.2</span></a> gives <span class="math inline">\(0 \le \ln(w)-\ln(x) = \int_x^w \frac{du}{u} \le \frac{w-x}{x}\)</span>.)</li>
+<li>Let <span class="math inline">\(0&lt;x&lt;w\)</span>. By additivity in any order (<a href="10_properties_of_integral.html#exr-additivity-any-order" class="quarto-xref">Exercise&nbsp;<span>13.1</span></a>), <span class="math inline">\(\ln(w)-\ln(x) = \int_x^w \frac1u\,du\)</span>. The integrand is positive, and its minimum on <span class="math inline">\([x,w]\)</span> is <span class="math inline">\(\frac1w\)</span>, so by <a href="10_properties_of_integral.html#cor-min-max-bound" class="quarto-xref">Corollary&nbsp;<span>13.2</span></a> <span class="math display">\[
+\ln(w)-\ln(x) \ge \frac{w-x}{w} &gt; 0 .
+\]</span></li>
+<li><span class="math inline">\(\ln(1) = \int_1^1 \frac1u\,du = 0\)</span>. The rest follows from 3. (Equivalently: for <span class="math inline">\(x&gt;1\)</span> we integrate a positive function from left to right, for <span class="math inline">\(0&lt;x&lt;1\)</span> from right to left.)</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-ln-addition" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 25.1 (Addition theorem)</strong></span> For all <span class="math inline">\(x,y&gt;0\)</span>, <span class="math display">\[
+\ln(xy) = \ln(x)+\ln(y).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Fix <span class="math inline">\(y&gt;0\)</span> and regard both sides as functions of <span class="math inline">\(x\in(0,\infty)\)</span>. Since <span class="math inline">\(\ln\)</span> is differentiable, we can take derivatives. By the Fundamental Theorem of Calculus and the chain rule, <span class="math display">\[
+\frac{d}{dx}\ln(xy) = \frac1{xy}\cdot y = \frac1x,
+\qquad
+\frac{d}{dx}\big[\ln(x)+\ln(y)\big] = \frac1x + 0 = \frac1x .
+\]</span> Both sides have the same derivative on the interval <span class="math inline">\((0,\infty)\)</span>, so they differ by a constant <span class="math inline">\(C\)</span>: <span class="math display">\[
+\ln(xy) = \ln(x)+\ln(y)+C \qquad\text{for all } x&gt;0.
+\]</span> Plugging in <span class="math inline">\(x=1\)</span> gives <span class="math inline">\(\ln(y) = 0 + \ln(y) + C\)</span>, so <span class="math inline">\(C=0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="cor-ln-powers" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 25.1</strong></span> <br>
+For every natural number <span class="math inline">\(n\ge1\)</span> and every <span class="math inline">\(x&gt;0\)</span>, <span class="math display">\[
+\ln(x^n) = n\ln(x), \qquad \ln\big(x^{1/n}\big) = \frac1n\ln(x).
+\]</span> More generally, <span class="math inline">\(\ln(x^r) = r\ln(x)\)</span> for every rational <span class="math inline">\(r&gt;0\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The first identity follows from <a href="#thm-ln-addition" class="quarto-xref">Theorem&nbsp;<span>25.1</span></a> by induction on <span class="math inline">\(n\)</span>. Replacing <span class="math inline">\(x\)</span> by <span class="math inline">\(x^{1/n}\)</span> in it gives <span class="math display">\[
+\ln(x) = \ln\Big(\big(x^{1/n}\big)^n\Big) = n\ln\big(x^{1/n}\big),
+\qquad\text{so}\qquad
+\ln\big(x^{1/n}\big) = \frac1n\ln(x).
+\]</span> Together, for rational <span class="math inline">\(r = \frac pq&gt;0\)</span> with <span class="math inline">\(p,q\in\mathbb{N}\)</span>: <span class="math display">\[
+\ln(x^r) = \ln\Big(\big(x^{1/q}\big)^p\Big) = p\ln\big(x^{1/q}\big) = \frac pq\ln(x).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-ln-rational-powers" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 25.1</strong></span> Show that <span class="math inline">\(\ln(x^r) = r\ln(x)\)</span> holds for <strong>every</strong> rational number <span class="math inline">\(r\)</span>, including <span class="math inline">\(r=0\)</span> and <span class="math inline">\(r&lt;0\)</span>. (Hint: apply <a href="#thm-ln-addition" class="quarto-xref">Theorem&nbsp;<span>25.1</span></a> to <span class="math inline">\(x\cdot\frac1x\)</span> to find <span class="math inline">\(\ln\big(\frac1x\big)\)</span>.)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="where-is-lnx-1" class="level2" data-number="25.3">
+<h2 data-number="25.3" class="anchored" data-anchor-id="where-is-lnx-1"><span class="header-section-number">25.3</span> Where Is <span class="math inline">\(\ln(x) = 1\)</span>?</h2>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-ln-e" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 25.2</strong></span> <br>
+<span class="math display">\[
+\ln(e) = 1 .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Since <span class="math inline">\(\ln\)</span> is continuous, we may pull the limit out (<a href="05_continuity.html#def-continuity" class="quarto-xref">Definition&nbsp;<span>6.2</span></a>), and then use <a href="#cor-ln-powers" class="quarto-xref">Corollary&nbsp;<span>25.1</span></a>: <span class="math display">\[
+\ln(e) = \ln\left(\lim_{n\to\infty}\left(1+\frac1n\right)^n\right)
+= \lim_{n\to\infty}\ln\left(\left(1+\frac1n\right)^n\right)
+= \lim_{n\to\infty}\, n\,\ln\left(1+\frac1n\right).
+\]</span> Now <span class="math display">\[
+\ln\left(1+\frac1n\right) = \int_1^{1+\frac1n}\frac1u\,du ,
+\]</span> and by the Mean Value Theorem for Integrals (<a href="10_properties_of_integral.html#thm-mvt-integrals" class="quarto-xref">Theorem&nbsp;<span>13.1</span></a>) this equals <span class="math inline">\(\frac1n\cdot\frac1{\xi_n}\)</span> for some <span class="math inline">\(\xi_n\in\left[1,1+\frac1n\right]\)</span>. As <span class="math inline">\(n\to\infty\)</span>, we have <span class="math inline">\(\xi_n\to1\)</span> (squeeze theorem). Hence <span class="math display">\[
+\lim_{n\to\infty} n\,\ln\left(1+\frac1n\right) = \lim_{n\to\infty} n\cdot\frac1n\cdot\frac1{\xi_n}
+= \lim_{n\to\infty}\frac1{\xi_n} = 1 .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-inverse-function-of-ln" class="level2" data-number="25.4">
+<h2 data-number="25.4" class="anchored" data-anchor-id="the-inverse-function-of-ln"><span class="header-section-number">25.4</span> The Inverse Function of <span class="math inline">\(\ln\)</span></h2>
+<p>What is the range of <span class="math inline">\(\ln\)</span>? For rational <span class="math inline">\(r\)</span>, the power <span class="math inline">\(e^r\)</span> is defined by roots: if <span class="math inline">\(r=\frac pq\)</span>, then <span class="math inline">\(e^r = \sqrt[q]{e^p}\)</span>. By <a href="#exr-ln-rational-powers" class="quarto-xref">Exercise&nbsp;<span>25.1</span></a> and <a href="#prp-ln-e" class="quarto-xref">Proposition&nbsp;<span>25.2</span></a>, <span class="math display">\[
+\ln(e^r) = r\ln(e) = r ,
+\]</span> so every rational number is attained as a value of <span class="math inline">\(\ln\)</span>.</p>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-ln-range" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 25.3</strong></span> <br>
+<span class="math display">\[
+\operatorname{ran}(\ln) = \mathbb{R}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(y\in\mathbb{R}\)</span>, and pick rational numbers <span class="math inline">\(r&lt;y&lt;s\)</span>. Then <span class="math inline">\(\ln(e^r) = r &lt; y &lt; s = \ln(e^s)\)</span>. Since <span class="math inline">\(\ln\)</span> is continuous on <span class="math inline">\([e^r,e^s]\)</span>, the Intermediate Value Theorem (<a href="08_limits_of_functions.html#rem-ivt-general" class="quarto-xref">Remark&nbsp;<span>10.4</span></a>) gives an <span class="math inline">\(x\in[e^r,e^s]\)</span> with <span class="math inline">\(\ln(x) = y\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Since <span class="math inline">\(\ln\)</span> is strictly increasing, it is one-to-one (<a href="03_functions.html#exr-strict-mono-injective" class="quarto-xref">Exercise&nbsp;<span>4.1</span></a>). Hence <span class="math inline">\(\ln\)</span> has an inverse function (<a href="03_functions.html#def-inverse" class="quarto-xref">Definition&nbsp;<span>4.8</span></a>). Call it <span class="math inline">\(E\)</span>. It is defined by <span class="math display">\[
+y = \ln(x) \quad \Leftrightarrow \quad x = E(y),
+\]</span> that is, <span class="math display">\[
+E\big(\ln(x)\big) = x \ \text{ for } x&gt;0, \qquad \ln\big(E(y)\big) = y \ \text{ for } y\in\mathbb{R},
+\]</span> and by <a href="#prp-ln-range" class="quarto-xref">Proposition&nbsp;<span>25.3</span></a>, <span class="math display">\[
+\operatorname{dom}(E) = \mathbb{R}= (-\infty,\infty), \qquad \operatorname{ran}(E) = (0,\infty).
+\]</span> The graph of <span class="math inline">\(E\)</span> is the reflection of the graph of <span class="math inline">\(\ln\)</span> about the line <span class="math inline">\(y=x\)</span> (<a href="03_functions.html#rem-inverse-graph" class="quarto-xref">Remark&nbsp;<span>4.3</span></a>). In particular, <span class="math inline">\(E(0)=1\)</span> and <span class="math inline">\(E(1)=e\)</span>.</p>
+<div id="cell-fig-exp-ln" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-exp-ln" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-exp-ln-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="21_exp_log_files/figure-html/fig-exp-ln-output-1.png" width="459" height="453" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-exp-ln-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;25.1: The graphs of <span class="math inline">\(\ln\)</span> and its inverse <span class="math inline">\(E\)</span> are reflections of each other about the line <span class="math inline">\(y=x\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-E-continuous" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 25.4</strong></span> <br>
+<span class="math inline">\(E\)</span> is continuous and strictly increasing on <span class="math inline">\(\mathbb{R}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><em>Strictly increasing:</em> if <span class="math inline">\(y&lt;w\)</span> but <span class="math inline">\(E(y)\ge E(w)\)</span>, then, since <span class="math inline">\(\ln\)</span> is increasing, <span class="math inline">\(y = \ln(E(y)) \ge \ln(E(w)) = w\)</span>, a contradiction.</p>
+<p><em>Continuous:</em> let <span class="math inline">\(y_0\in\mathbb{R}\)</span>, <span class="math inline">\(x_0 = E(y_0)\)</span>, and let <span class="math inline">\(\varepsilon&gt;0\)</span> with <span class="math inline">\(x_0-\varepsilon&gt;0\)</span>. Put <span class="math display">\[
+\delta = \min\big(y_0-\ln(x_0-\varepsilon),\ \ln(x_0+\varepsilon)-y_0\big),
+\]</span> which is positive because <span class="math inline">\(\ln\)</span> is strictly increasing. If <span class="math inline">\(\lvert y-y_0 \rvert&lt;\delta\)</span>, then <span class="math inline">\(\ln(x_0-\varepsilon)&lt;y&lt;\ln(x_0+\varepsilon)\)</span>, and applying the increasing function <span class="math inline">\(E\)</span> gives <span class="math inline">\(x_0-\varepsilon&lt;E(y)&lt;x_0+\varepsilon\)</span>. By <a href="08_limits_of_functions.html#prp-function-limit-eps-delta" class="quarto-xref">Proposition&nbsp;<span>10.1</span></a>, <span class="math inline">\(\lim_{y\to y_0}E(y) = E(y_0)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ex-ex" class="level2" data-number="25.5">
+<h2 data-number="25.5" class="anchored" data-anchor-id="ex-ex"><span class="header-section-number">25.5</span> <span class="math inline">\(E(x) = e^x\)</span></h2>
+<p>You have learned that <span class="math inline">\(E(x) = e^x\)</span>. But why is this so? For <strong>rational</strong> <span class="math inline">\(r\)</span> we saw above that <span class="math inline">\(\ln(e^r) = r\)</span>, which means <span class="math inline">\(E(r) = e^r\)</span>: on rational numbers, <span class="math inline">\(x\mapsto e^x\)</span> <em>is</em> the inverse function of <span class="math inline">\(\ln\)</span>.</p>
+<p>What if <span class="math inline">\(x\)</span> is irrational? Approximate it by rationals: <span class="math inline">\(x = \lim_{n\to\infty}r_n\)</span> with <span class="math inline">\(r_n\in\mathbb{Q}\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-exp" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 25.2</strong></span> <br>
+For <span class="math inline">\(x\in\mathbb{R}\)</span>, let <span class="math inline">\((r_n)\)</span> be a sequence of rational numbers with <span class="math inline">\(r_n\to x\)</span>. Define <span class="math display">\[
+e^x := \lim_{n\to\infty} e^{r_n}.
+\]</span> We also use the notation <span class="math inline">\(\exp(x)\)</span> for <span class="math inline">\(e^x\)</span>; it is called the <strong>exponential function</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-exp-well-defined" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 25.2</strong></span> Show that the limit in <a href="#def-exp" class="quarto-xref">Definition&nbsp;<span>25.2</span></a> exists and does not depend on the choice of the sequence <span class="math inline">\((r_n)\)</span>. (Hint: <span class="math inline">\(e^{r_n} = E(r_n)\)</span>, and <span class="math inline">\(E\)</span> is continuous by <a href="#prp-E-continuous" class="quarto-xref">Proposition&nbsp;<span>25.4</span></a>.)</p>
+</div>
+</div>
+</div>
+</div>
+<p>With this definition, by continuity of <span class="math inline">\(\ln\)</span>, <span class="math display">\[
+\ln(e^x) = \lim_{n\to\infty}\ln\big(e^{r_n}\big) = \lim_{n\to\infty} r_n\underbrace{\ln(e)}_{=1}
+= \lim_{n\to\infty} r_n = x .
+\]</span> Hence <span class="math inline">\(E(x) = e^x\)</span> for every <span class="math inline">\(x\in\mathbb{R}\)</span>. In other words, <span class="math inline">\(\ln(x)\)</span> is the exponent to which <span class="math inline">\(e\)</span> has to be raised to obtain <span class="math inline">\(x\)</span>: <span class="math display">\[
+\boxed{\;e^{\ln(x)} = x \quad (x&gt;0), \qquad\qquad \ln(e^x) = x \quad (x\in\mathbb{R}).\;}
+\]</span></p>
+</section>
+<section id="defining-xalpha" class="level2" data-number="25.6">
+<h2 data-number="25.6" class="anchored" data-anchor-id="defining-xalpha"><span class="header-section-number">25.6</span> Defining <span class="math inline">\(x^\alpha\)</span></h2>
+<p>We have seen that <span class="math inline">\(\ln(x^\alpha) = \alpha\ln(x)\)</span> for rational <span class="math inline">\(\alpha\)</span> (<a href="#exr-ln-rational-powers" class="quarto-xref">Exercise&nbsp;<span>25.1</span></a>). Since <span class="math inline">\(e^{\ln(y)} = y\)</span>, we obtain <span class="math display">\[
+x^\alpha = e^{\ln(x^\alpha)} = e^{\alpha\ln(x)} \qquad (\alpha\in\mathbb{Q},\ x&gt;0).
+\]</span> Note that this requires <span class="math inline">\(x&gt;0\)</span>. We use it to define <span class="math inline">\(x^\alpha\)</span> for <strong>general</strong> real <span class="math inline">\(\alpha\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-general-power" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 25.3</strong></span> <br>
+Let <span class="math inline">\(x&gt;0\)</span> and <span class="math inline">\(\alpha\in\mathbb{R}\)</span>, and let <span class="math inline">\((\alpha_n)\)</span> be a sequence of rational numbers with <span class="math inline">\(\alpha_n\to\alpha\)</span>. Define <span class="math display">\[
+x^\alpha := \lim_{n\to\infty}x^{\alpha_n} = \lim_{n\to\infty}e^{\alpha_n\ln(x)} .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>Since <span class="math inline">\(\exp\)</span> is continuous, <span class="math display">\[
+x^\alpha = e^{\lim_{n\to\infty}\alpha_n\ln(x)} = e^{\alpha\ln(x)} .
+\]</span> In particular, the limit exists and does not depend on the choice of <span class="math inline">\((\alpha_n)\)</span>, and <span class="math display">\[
+\boxed{\;x^\alpha = e^{\alpha\ln(x)} \qquad (x&gt;0,\ \alpha\in\mathbb{R}).\;}
+\]</span> Taking <span class="math inline">\(\ln\)</span> of both sides shows that <span class="math inline">\(\ln(x^\alpha) = \alpha\ln(x)\)</span> now holds for <strong>all</strong> real <span class="math inline">\(\alpha\)</span>. For <span class="math inline">\(x = a\)</span> and <span class="math inline">\(\alpha\)</span> the variable, this is the exponential function with base <span class="math inline">\(a\)</span> from <a href="04_elementary_functions.html#def-exponential" class="quarto-xref">Definition&nbsp;<span>5.4</span></a>: <span class="math inline">\(a^x = e^{x\ln(a)}\)</span>.</p>
+</section>
+<section id="exponential-laws" class="level2" data-number="25.7">
+<h2 data-number="25.7" class="anchored" data-anchor-id="exponential-laws"><span class="header-section-number">25.7</span> Exponential Laws</h2>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-exponential-laws" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 25.5</strong></span> <br>
+For <span class="math inline">\(x&gt;0\)</span> and <span class="math inline">\(\alpha,\beta\in\mathbb{R}\)</span>, <span class="math display">\[
+\big(x^\beta\big)^\alpha = x^{\beta\alpha},
+\qquad\qquad
+x^{\alpha+\beta} = x^\alpha\cdot x^\beta .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>For the first law, using <span class="math inline">\(\ln(x^\beta) = \beta\ln(x)\)</span>: <span class="math display">\[
+\big(x^\beta\big)^\alpha = e^{\alpha\ln(x^\beta)} = e^{\alpha\beta\ln(x)} = x^{\alpha\beta} = x^{\beta\alpha}.
+\]</span> For the second law, take logarithms: <span class="math display">\[
+\begin{aligned}
+\ln\big(x^{\alpha+\beta}\big) &amp;= \ln\big(e^{(\alpha+\beta)\ln(x)}\big)
+= (\alpha+\beta)\ln(x)
+= \alpha\ln(x) + \beta\ln(x) \\
+&amp;= \ln(x^\alpha) + \ln(x^\beta)
+= \ln\big(x^\alpha\cdot x^\beta\big),
+\end{aligned}
+\]</span> where the last step is <a href="#thm-ln-addition" class="quarto-xref">Theorem&nbsp;<span>25.1</span></a>. Since <span class="math inline">\(\ln\)</span> is one-to-one, this implies <span class="math inline">\(x^{\alpha+\beta} = x^\alpha\cdot x^\beta\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-exponential-function-as-solution-to-a-differential-equation" class="level2" data-number="25.8">
+<h2 data-number="25.8" class="anchored" data-anchor-id="the-exponential-function-as-solution-to-a-differential-equation"><span class="header-section-number">25.8</span> The Exponential Function as Solution to a Differential Equation</h2>
+<p>How can we compute <span class="math inline">\(\frac{d}{dx}e^x\)</span>? Since <span class="math inline">\(\exp\)</span> is the inverse of <span class="math inline">\(\ln\)</span>, whose derivative we know, we first look at derivatives of inverse functions in general.</p>
+<section id="derivative-of-an-inverse-function" class="level3">
+<h3 class="anchored" data-anchor-id="derivative-of-an-inverse-function">Derivative of an inverse function</h3>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-inverse-derivative" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 25.2 (Derivative of the inverse function)</strong></span> Let <span class="math inline">\(y=f(x)\)</span> be differentiable on <span class="math inline">\((a,b)\)</span>, and suppose that either <span class="math inline">\(f'(x)&gt;0\)</span> throughout the interval or <span class="math inline">\(f'(x)&lt;0\)</span> throughout the interval. Then the inverse function <span class="math inline">\(x=\varphi(y)\)</span> is differentiable at every interior point of its interval of definition, and <span class="math display">\[
+\varphi'(y) = \frac{1}{f'\big(\varphi(y)\big)} .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>We only derive the formula, assuming that <span class="math inline">\(\varphi\)</span> is differentiable. By the defining property of the inverse function, <span class="math display">\[
+f\big(\varphi(y)\big) = y .
+\]</span> Once we have established that <span class="math inline">\(\varphi\)</span> is differentiable (<a href="#exr-inverse-differentiable" class="quarto-xref">Exercise&nbsp;<span>25.3</span></a>), we can differentiate both sides using the chain rule: <span class="math display">\[
+\frac{d}{dy}f\big(\varphi(y)\big) = \frac{d}{dy}\,y
+\qquad\Longrightarrow\qquad
+f'\big(\varphi(y)\big)\cdot\varphi'(y) = 1
+\qquad\Longrightarrow\qquad
+\varphi'(y) = \frac1{f'\big(\varphi(y)\big)} .
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exr-inverse-differentiable" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 25.3</strong></span> Prove that <span class="math inline">\(\varphi\)</span> in <a href="#thm-inverse-derivative" class="quarto-xref">Theorem&nbsp;<span>25.2</span></a> is differentiable.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-derivative-of-ex" class="level3">
+<h3 class="anchored" data-anchor-id="the-derivative-of-ex">The derivative of <span class="math inline">\(e^x\)</span></h3>
+<div class="callout callout-style-simple callout-caution no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="prp-exp-derivative" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 25.6</strong></span> <br>
+<span class="math display">\[
+\exp'(x) = \exp(x) \qquad\text{for all } x\in\mathbb{R}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Apply <a href="#thm-inverse-derivative" class="quarto-xref">Theorem&nbsp;<span>25.2</span></a> with <span class="math inline">\(f=\ln\)</span> (whose derivative <span class="math inline">\(\frac1x\)</span> is positive) and <span class="math inline">\(\varphi = \exp\)</span>: <span class="math display">\[
+\exp'(x) = \frac{1}{\ln'\big(\exp(x)\big)} = \frac{1}{\;\frac{1}{\exp(x)}\;} = \exp(x).
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>By the chain rule, for constants <span class="math inline">\(c\)</span> and <span class="math inline">\(\alpha\)</span>, <span class="math display">\[
+\big(c\,e^{\alpha x}\big)' = c\,e^{\alpha x}\cdot\alpha = \alpha\,c\,e^{\alpha x}.
+\]</span> That is, <span class="math inline">\(y = c\,e^{\alpha x}\)</span> satisfies the <strong>differential equation</strong> <span class="math display">\[
+y' = \alpha y .
+\]</span> The converse is also true.</p>
+<div class="callout callout-style-simple callout-warning no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-exp-ode" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 25.3</strong></span> <br>
+Every solution <span class="math inline">\(y\colon\mathbb{R}\to\mathbb{R}\)</span> of the differential equation <span class="math inline">\(y'=\alpha y\)</span> has the form <span class="math display">\[
+y(x) = c\,e^{\alpha x}
+\]</span> for some constant <span class="math inline">\(c\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Suppose <span class="math inline">\(y\)</span> is such a function, and let <span class="math inline">\(u(x) = y(x)\,e^{-\alpha x}\)</span>. By the product and chain rules, <span class="math display">\[
+u' = y'e^{-\alpha x} + y\big(-\alpha e^{-\alpha x}\big)
+= \underbrace{\big(y'-\alpha y\big)}_{=0}e^{-\alpha x} = 0 .
+\]</span> A function with derivative <span class="math inline">\(0\)</span> on an interval is constant, so <span class="math inline">\(u\equiv c\)</span> for some constant <span class="math inline">\(c\)</span>, and <span class="math inline">\(y = c\,e^{\alpha x}\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="rem-exp-unique" class="proof remark">
+<p><span class="proof-title"><em>Remark 25.1</em>. </span>If <span class="math inline">\(\alpha=1\)</span> and we require <span class="math inline">\(y(0)=1\)</span>, then <span class="math inline">\(c = 1\)</span>. So <span class="math inline">\(e^x\)</span> is <strong>uniquely</strong> determined as the solution of <span class="math display">\[
+y' = y, \qquad y(0) = 1 .
+\]</span> This is a second answer to the question why <span class="math inline">\(e\)</span> is so important.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exponential-growth" class="level2" data-number="25.9">
+<h2 data-number="25.9" class="anchored" data-anchor-id="exponential-growth"><span class="header-section-number">25.9</span> Exponential Growth</h2>
+<p>Consider <span class="math display">\[
+y(t) = y_0\,e^{rt}, \qquad r&gt;0 .
+\]</span> By <a href="#thm-exp-ode" class="quarto-xref">Theorem&nbsp;<span>25.3</span></a>, this is the solution of the differential equation <span class="math display">\[
+y' = r\,y \qquad\text{with initial condition}\qquad y(0) = y_0 .
+\]</span> The equation says that at time <span class="math inline">\(t\)</span>, the rate of growth of <span class="math inline">\(y\)</span> is proportional to <span class="math inline">\(y(t)\)</span>, with factor <span class="math inline">\(r\)</span>. If <span class="math inline">\(\Delta t = 1\)</span>, then <span class="math display">\[
+\Delta y \approx r\,y ,
+\]</span> i.e.&nbsp;in one unit of time, <span class="math inline">\(y\)</span> grows by approximately <span class="math inline">\(r\,y\)</span> — the fraction <span class="math inline">\(r\)</span> of its current size. For this reason <span class="math inline">\(r\)</span> is called the <strong>growth rate</strong> (or <strong>growth constant</strong>).</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-bacteria" class="theorem example">
+<p><span class="theorem-title"><strong>Example 25.1 (Population of bacteria)</strong></span> <br>
+Initial population <span class="math inline">\(200\)</span>, growth rate <span class="math inline">\(0.02\)</span>, time <span class="math inline">\(t\)</span> in minutes: <span class="math display">\[
+y(t) = 200\,e^{0.02t}.
+\]</span> After one minute there are approximately <span class="math display">\[
+y(0)+0.02\cdot y(0) = 200 + 4 = 204
+\]</span> bacteria. The model gives exactly <span class="math inline">\(y(1) = 200\,e^{0.02}\approx 204.04\)</span>.</p>
+<p><em>How many bacteria are there after <span class="math inline">\(5\)</span> hours?</em> Five hours are <span class="math inline">\(300\)</span> minutes, so <span class="math display">\[
+y(300) = 200\,e^{0.02\cdot300} = 200\,e^{6} \approx 80{,}686 .
+\]</span></p>
+<p><em>When does the population reach <span class="math inline">\(100{,}000\)</span>?</em> We solve <span class="math display">\[
+100{,}000 = 200\,e^{0.02t}
+\quad \Leftrightarrow \quad 500 = e^{0.02t}
+\quad \Leftrightarrow \quad\ln(500) = 0.02\,t ,
+\]</span> so <span class="math inline">\(t = \frac{\ln(500)}{0.02}\approx 310.73\)</span>: after about <span class="math inline">\(310.73\)</span> minutes.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Discrete vs.&nbsp;continuous
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Here we are modeling a <strong>discrete</strong> quantity (there is always an integer number of bacteria) by a <strong>continuous</strong> function. The model’s answers, like <span class="math inline">\(204.04\)</span> bacteria, have to be interpreted accordingly.</p>
+</div>
+</div>
+<section id="doubling-time" class="level3">
+<h3 class="anchored" data-anchor-id="doubling-time">Doubling time</h3>
+<p>When does the population double? For the general model <span class="math inline">\(y(t) = y_0e^{rt}\)</span>, <span class="math display">\[
+2y_0 = y_0e^{rt} \quad \Leftrightarrow \quad 2 = e^{rt} \quad \Leftrightarrow \quad t_D = \frac{\ln(2)}{r} .
+\]</span> The <strong>doubling time</strong> <span class="math inline">\(t_D\)</span> does not depend on the initial value <span class="math inline">\(y_0\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-fish-pond" class="theorem example">
+<p><span class="theorem-title"><strong>Example 25.2 (Fish pond)</strong></span> <br>
+A pond is stocked with <span class="math inline">\(y(0) = 500\)</span> fish. After <span class="math inline">\(6\)</span> months, there are <span class="math inline">\(1000\)</span> fish. Fishing is permitted once the population is at least <span class="math inline">\(10{,}000\)</span>. How long is the wait?</p>
+<p>The doubling time is <span class="math inline">\(t_D = 6\)</span> months, so <span class="math display">\[
+6 = \frac{\ln(2)}{r} \qquad\Longrightarrow\qquad r = \frac{\ln(2)}{6}.
+\]</span> Now solve <span class="math display">\[
+10{,}000 = 500\,e^{\frac{\ln(2)}{6}t}
+\quad \Leftrightarrow \quad 20 = e^{\frac{\ln(2)}{6}t}
+\quad \Leftrightarrow \quad t = \frac{\ln(20)}{\ln(2)/6} \approx 25.93 \text{ months}.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exponential-decay" class="level2" data-number="25.10">
+<h2 data-number="25.10" class="anchored" data-anchor-id="exponential-decay"><span class="header-section-number">25.10</span> Exponential Decay</h2>
+<p>Now consider <span class="math display">\[
+y(t) = y_0\,e^{-rt}, \qquad r&gt;0 ,
+\]</span> the solution of <span class="math inline">\(y' = -ry\)</span>, <span class="math inline">\(y(0) = y_0\)</span>. The <strong>half-life</strong> is the time it takes for <span class="math inline">\(y\)</span> to drop to half of its initial value: <span class="math display">\[
+\tfrac12y_0 = y_0e^{-rt} \quad \Leftrightarrow \quad t_{\text{half}} = \frac{\ln(2)}{r} .
+\]</span></p>
+<section id="newtons-law-of-cooling" class="level3">
+<h3 class="anchored" data-anchor-id="newtons-law-of-cooling">Newton’s law of cooling</h3>
+<p>The rate of temperature change of a cooling object is proportional to the difference between the temperature of the object and the ambient temperature.</p>
+<p>Let <span class="math inline">\(T(t)\)</span> be the temperature of the cooling object and <span class="math inline">\(T_a\)</span> the (constant) ambient temperature, and let <span class="math display">\[
+y(t) = T(t)-T_a .
+\]</span> Since <span class="math inline">\(T_a\)</span> is constant, <span class="math inline">\(y'(t) = T'(t)\)</span>, and the law reads <span class="math display">\[
+y'(t) = -r\,y(t), \qquad r&gt;0 .
+\]</span> The sign is negative because the temperature of an object warmer than its surroundings is decreasing. By <a href="#thm-exp-ode" class="quarto-xref">Theorem&nbsp;<span>25.3</span></a> the solution is <span class="math display">\[
+y(t) = y_0\,e^{-rt}, \qquad y_0 = T(0)-T_a ,
+\]</span> that is, <span class="math display">\[
+T(t) - T_a = \big(T(0)-T_a\big)e^{-rt},
+\qquad\text{or}\qquad
+T(t) = \big(T(0)-T_a\big)e^{-rt} + T_a .
+\]</span></p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-coffee" class="theorem example">
+<p><span class="theorem-title"><strong>Example 25.3 (Coffee)</strong></span> <br>
+The optimal drinking temperature of coffee is between <span class="math inline">\(155\)</span> and <span class="math inline">\(175\,^\circ\)</span>F. A cup is poured at <span class="math inline">\(200\,^\circ\)</span>F, and after <span class="math inline">\(2\)</span> minutes it has cooled to <span class="math inline">\(180\,^\circ\)</span>F. The room temperature is <span class="math inline">\(70\,^\circ\)</span>F. When is the coffee ready to drink? When is it too cold?</p>
+<p><em>Find the model.</em> With <span class="math inline">\(T(0)-T_a = 200-70 = 130\)</span>, <span class="math display">\[
+180 = 130\,e^{-2r}+70
+\quad \Leftrightarrow \quad 110 = 130\,e^{-2r}
+\quad \Leftrightarrow \quad r = -\frac{\ln\big(\frac{11}{13}\big)}{2} = \frac{\ln(13)-\ln(11)}{2}\approx 0.0835 .
+\]</span> So <span class="math display">\[
+T(t) = 130\,e^{-\frac{\ln(13)-\ln(11)}{2}t} + 70 .
+\]</span></p>
+<p><em>Solve for the times.</em> <span class="math inline">\(T(t) = 175\)</span> gives <span class="math inline">\(e^{-rt} = \frac{105}{130}\)</span>, so <span class="math inline">\(t_{\text{drink}} = \frac{\ln(130/105)}{r}\approx 2.56\)</span> minutes. <span class="math inline">\(T(t)=155\)</span> gives <span class="math inline">\(e^{-rt} = \frac{85}{130}\)</span>, so <span class="math inline">\(t_{\text{too cold}} = \frac{\ln(130/85)}{r}\approx 5.09\)</span> minutes.</p>
+<p>So the coffee is best enjoyed between about <span class="math inline">\(2.56\)</span> and <span class="math inline">\(5.09\)</span> minutes after pouring.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="radiocarbon-dating" class="level3">
+<h3 class="anchored" data-anchor-id="radiocarbon-dating">Radiocarbon dating</h3>
+<p>The carbon isotope C-14 is radioactive: it decays to nitrogen (C-14 <span class="math inline">\(\to\)</span> N-14) according to the law of exponential decay. If we know</p>
+<ul>
+<li>how much C-14 was initially present in an object (this is known from the C-14/C-12 ratio in the atmosphere), and</li>
+<li>how much C-14 remains,</li>
+</ul>
+<p>we can determine the age of the object. The half-life of C-14 is about <span class="math inline">\(5730\)</span> years: after that time, half of the material has been converted to N-14.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-radiocarbon" class="theorem example">
+<p><span class="theorem-title"><strong>Example 25.4 (Radiocarbon dating)</strong></span> <br>
+</p>
+<ol type="1">
+<li>There are <span class="math inline">\(100\)</span> g of C-14 today. How much is left in <span class="math inline">\(50\)</span> years?</li>
+<li>A sample contained <span class="math inline">\(100\)</span> g of C-14 originally, and contains <span class="math inline">\(10\)</span> g now. How old is it?</li>
+</ol>
+<p><em>Find the model.</em> From <span class="math inline">\(t_{\text{half}} = \frac{\ln(2)}{r}\)</span>, <span class="math display">\[
+5730 = \frac{\ln(2)}{r} \qquad\Longrightarrow\qquad r = \frac{\ln(2)}{5730} .
+\]</span></p>
+<p><em>(1)</em> The model is <span class="math display">\[
+y(t) = 100\,e^{-\frac{\ln(2)}{5730}t},
+\qquad\text{so}\qquad
+y(50) = 100\,e^{-\frac{50\ln(2)}{5730}} \approx 99.40 \text{ g}.
+\]</span></p>
+<p><em>(2)</em> We solve <span class="math display">\[
+10 = 100\,e^{-\frac{\ln(2)}{5730}t}
+\quad \Leftrightarrow \quad\ln\Big(\frac1{10}\Big) = -\frac{\ln(2)}{5730}\,t
+\quad \Leftrightarrow \quad t = \frac{\ln\big(\frac1{10}\big)}{-\ln(2)}\cdot 5730 = \frac{\ln(10)}{\ln(2)}\cdot5730\approx 19{,}035 .
+\]</span> The sample is about <span class="math inline">\(19{,}035\)</span> years old.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2" data-number="25.11">
+<h2 data-number="25.11" class="anchored" data-anchor-id="summary"><span class="header-section-number">25.11</span> Summary</h2>
+<ul>
+<li>The <strong>natural logarithm</strong> is defined by an integral, <span class="math inline">\(\ln(x) = \int_1^x\frac{du}{u}\)</span> for <span class="math inline">\(x&gt;0\)</span> (<a href="#def-ln" class="quarto-xref">Definition&nbsp;<span>25.1</span></a>). It is differentiable with <span class="math inline">\(\ln'(x) = \frac1x\)</span>, strictly increasing, and <span class="math inline">\(\ln(1)=0\)</span> (<a href="#prp-ln-basic" class="quarto-xref">Proposition&nbsp;<span>25.1</span></a>).</li>
+<li><span class="math inline">\(\ln\)</span> turns products into sums, <span class="math inline">\(\ln(xy) = \ln(x)+\ln(y)\)</span> (<a href="#thm-ln-addition" class="quarto-xref">Theorem&nbsp;<span>25.1</span></a>); consequently <span class="math inline">\(\ln(x^r) = r\ln(x)\)</span> for rational <span class="math inline">\(r\)</span> (<a href="#cor-ln-powers" class="quarto-xref">Corollary&nbsp;<span>25.1</span></a>, <a href="#exr-ln-rational-powers" class="quarto-xref">Exercise&nbsp;<span>25.1</span></a>).</li>
+<li><span class="math inline">\(\ln(e) = 1\)</span> (<a href="#prp-ln-e" class="quarto-xref">Proposition&nbsp;<span>25.2</span></a>), and <span class="math inline">\(\operatorname{ran}(\ln) = \mathbb{R}\)</span> (<a href="#prp-ln-range" class="quarto-xref">Proposition&nbsp;<span>25.3</span></a>). So <span class="math inline">\(\ln\)</span> has a continuous, strictly increasing inverse <span class="math inline">\(E\colon\mathbb{R}\to(0,\infty)\)</span> (<a href="#prp-E-continuous" class="quarto-xref">Proposition&nbsp;<span>25.4</span></a>).</li>
+<li>Defining <span class="math inline">\(e^x\)</span> for irrational <span class="math inline">\(x\)</span> as a limit of <span class="math inline">\(e^{r_n}\)</span> with rational <span class="math inline">\(r_n\to x\)</span> (<a href="#def-exp" class="quarto-xref">Definition&nbsp;<span>25.2</span></a>) gives <span class="math inline">\(E(x) = e^x\)</span>: <span class="math inline">\(\;e^{\ln(x)} = x\)</span> and <span class="math inline">\(\ln(e^x) = x\)</span>.</li>
+<li>General powers are defined by <span class="math inline">\(x^\alpha = e^{\alpha\ln(x)}\)</span> for <span class="math inline">\(x&gt;0\)</span> (<a href="#def-general-power" class="quarto-xref">Definition&nbsp;<span>25.3</span></a>), and the <strong>exponential laws</strong> <span class="math inline">\((x^\beta)^\alpha = x^{\alpha\beta}\)</span>, <span class="math inline">\(x^{\alpha+\beta} = x^\alpha x^\beta\)</span> hold (<a href="#prp-exponential-laws" class="quarto-xref">Proposition&nbsp;<span>25.5</span></a>).</li>
+<li>The <strong>derivative of an inverse function</strong> is <span class="math inline">\(\varphi'(y) = 1/f'(\varphi(y))\)</span> (<a href="#thm-inverse-derivative" class="quarto-xref">Theorem&nbsp;<span>25.2</span></a>). Applied to <span class="math inline">\(\ln\)</span>, it gives <span class="math inline">\(\exp' = \exp\)</span> (<a href="#prp-exp-derivative" class="quarto-xref">Proposition&nbsp;<span>25.6</span></a>).</li>
+<li>The solutions of <span class="math inline">\(y' = \alpha y\)</span> are exactly the functions <span class="math inline">\(c\,e^{\alpha x}\)</span> (<a href="#thm-exp-ode" class="quarto-xref">Theorem&nbsp;<span>25.3</span></a>); <span class="math inline">\(e^x\)</span> is the unique solution of <span class="math inline">\(y'=y\)</span>, <span class="math inline">\(y(0)=1\)</span>.</li>
+<li><strong>Exponential growth</strong> <span class="math inline">\(y_0e^{rt}\)</span> has doubling time <span class="math inline">\(\frac{\ln 2}{r}\)</span>; <strong>exponential decay</strong> <span class="math inline">\(y_0e^{-rt}\)</span> has half-life <span class="math inline">\(\frac{\ln 2}{r}\)</span>. Applications: population growth (<a href="#exm-bacteria" class="quarto-xref">Example&nbsp;<span>25.1</span></a>, <a href="#exm-fish-pond" class="quarto-xref">Example&nbsp;<span>25.2</span></a>), Newton’s law of cooling (<a href="#exm-coffee" class="quarto-xref">Example&nbsp;<span>25.3</span></a>), and radiocarbon dating (<a href="#exm-radiocarbon" class="quarto-xref">Example&nbsp;<span>25.4</span></a>).</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./20_chain_rule_substitution.html" class="pagination-link" aria-label="The Chain Rule and Integration by Substitution">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">The Chain Rule and Integration by Substitution</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

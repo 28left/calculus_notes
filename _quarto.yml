@@ -46,6 +46,7 @@ book:
       chapters:
         - 19_techniques_of_calculus.qmd
         - 20_chain_rule_substitution.qmd
+        - 21_exp_log.qmd
 
 
 
@@ -59,16 +60,16 @@ format:
     theme:
       - cosmo
     number-depth: 2
-  pdf:
-    documentclass: scrreprt
-    toc: true
-    toc-depth: 2
-    number-depth: 2
-    callout-icon: false
-    keep-tex: true
-    geometry:
-      - margin=1.5in
-      - heightrounded
+  # pdf:
+  #   documentclass: scrreprt
+  #   toc: true
+  #   toc-depth: 2
+  #   number-depth: 2
+  #   callout-icon: false
+  #   keep-tex: true
+  #   geometry:
+  #     - margin=1.5in
+  #     - heightrounded
 
 callouty-theorem:
   thm:

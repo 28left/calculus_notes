@@ -1,0 +1,633 @@
+
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# The Exponential Function and the Logarithm
+
+In @def-exponential and @def-logarithm we took $a^x$ and $\log_a$ for granted. In this chapter we
+construct them: we first define the natural logarithm as an integral, and then obtain the
+exponential function as its inverse.
+
+## The Number $e$
+
+Recall (@thm-e-exists) that
+$$
+e = \lim_{n\to\infty}\left(1+\frac1n\right)^n .
+$$
+This number arises from the **continuous compounding of interest**. Invest $\$1$ at $100\%$ interest
+per year.
+
+- Interest paid once a year: after one year we have $\$2$.
+- Interest $\tfrac12 = 50\%$ paid every six months:
+  $\left(1+\tfrac12\right)\left(1+\tfrac12\right) = \$2.25$.
+- Interest $\tfrac1{12}$ paid every month:
+  $$
+  \underbrace{\left(1+\tfrac1{12}\right)\left(1+\tfrac1{12}\right)\cdots\left(1+\tfrac1{12}\right)}_{12\text{ times}}
+  = \left(1+\tfrac1{12}\right)^{12} \approx \$2.613 .
+  $$
+- Interest $\tfrac1{52}$ paid every week: $\left(1+\tfrac1{52}\right)^{52} \approx \$2.693$.
+
+Compounding more and more often, we approach
+$$
+e = \lim_{n\to\infty}\left(1+\frac1n\right)^n = 2.718281828459\ldots
+$$
+
+Why is this number so important? The answer will emerge in the course of this chapter: $e$ is the
+base of the logarithm defined by the simplest possible integral (@prp-ln-e), and $e^x$ is the
+function that is its own derivative (@prp-exp-derivative).
+
+## The Natural Logarithm
+
+::: {#def-ln}
+\
+For $x>0$, the **natural logarithm** of $x$ is
+$$
+\ln(x) := \int_1^x \frac1u\,du .
+$$
+:::
+
+Here the integral is understood in the oriented sense of @def-oriented-integral, so that it also
+makes sense for $0<x\le 1$.
+
+::: {#prp-ln-basic}
+## Basic properties of $\ln$
+\
+
+1. **Domain:** $\ln(x)$ is defined for every $x>0$.
+2. **Differentiability:** $\ln$ is differentiable on $(0,\infty)$ with $\ln'(x) = \dfrac1x$, and
+   hence continuous.
+3. **Monotonicity:** $\ln$ is strictly increasing.
+4. **Sign:** $\ln(1) = 0$, $\ln(x)>0$ for $x>1$, and $\ln(x)<0$ for $0<x<1$.
+:::
+
+::: {.proof}
+1. The integrand $\frac1u$ is continuous for $u>0$, so the integral exists for every $x>0$.
+2. This is the Fundamental Theorem of Calculus. (Continuity can also be seen directly: for
+   $0<x<w$, @cor-min-max-bound gives $0 \le \ln(w)-\ln(x) = \int_x^w \frac{du}{u} \le \frac{w-x}{x}$.)
+3. Let $0<x<w$. By additivity in any order (@exr-additivity-any-order),
+   $\ln(w)-\ln(x) = \int_x^w \frac1u\,du$. The integrand is positive, and its minimum on $[x,w]$ is
+   $\frac1w$, so by @cor-min-max-bound
+   $$
+   \ln(w)-\ln(x) \ge \frac{w-x}{w} > 0 .
+   $$
+4. $\ln(1) = \int_1^1 \frac1u\,du = 0$. The rest follows from 3. (Equivalently: for $x>1$ we
+   integrate a positive function from left to right, for $0<x<1$ from right to left.)
+:::
+
+::: {#thm-ln-addition}
+## Addition theorem
+For all $x,y>0$,
+$$
+\ln(xy) = \ln(x)+\ln(y).
+$$
+:::
+
+::: {.proof}
+Fix $y>0$ and regard both sides as functions of $x\in(0,\infty)$. Since $\ln$ is differentiable, we
+can take derivatives. By the Fundamental Theorem of Calculus and the chain rule,
+$$
+\frac{d}{dx}\ln(xy) = \frac1{xy}\cdot y = \frac1x,
+\qquad
+\frac{d}{dx}\big[\ln(x)+\ln(y)\big] = \frac1x + 0 = \frac1x .
+$$
+Both sides have the same derivative on the interval $(0,\infty)$, so they differ by a constant $C$:
+$$
+\ln(xy) = \ln(x)+\ln(y)+C \qquad\text{for all } x>0.
+$$
+Plugging in $x=1$ gives $\ln(y) = 0 + \ln(y) + C$, so $C=0$.
+:::
+
+::: {#cor-ln-powers}
+\
+For every natural number $n\ge1$ and every $x>0$,
+$$
+\ln(x^n) = n\ln(x), \qquad \ln\big(x^{1/n}\big) = \frac1n\ln(x).
+$$
+More generally, $\ln(x^r) = r\ln(x)$ for every rational $r>0$.
+:::
+
+::: {.proof}
+The first identity follows from @thm-ln-addition by induction on $n$. Replacing $x$ by $x^{1/n}$
+in it gives
+$$
+\ln(x) = \ln\Big(\big(x^{1/n}\big)^n\Big) = n\ln\big(x^{1/n}\big),
+\qquad\text{so}\qquad
+\ln\big(x^{1/n}\big) = \frac1n\ln(x).
+$$
+Together, for rational $r = \frac pq>0$ with $p,q\in\N$:
+$$
+\ln(x^r) = \ln\Big(\big(x^{1/q}\big)^p\Big) = p\ln\big(x^{1/q}\big) = \frac pq\ln(x).
+$$
+:::
+
+::: {#exr-ln-rational-powers}
+Show that $\ln(x^r) = r\ln(x)$ holds for **every** rational number $r$, including $r=0$ and $r<0$.
+(Hint: apply @thm-ln-addition to $x\cdot\frac1x$ to find $\ln\big(\frac1x\big)$.)
+:::
+
+## Where Is $\ln(x) = 1$?
+
+::: {#prp-ln-e}
+\
+$$
+\ln(e) = 1 .
+$$
+:::
+
+::: {.proof}
+Since $\ln$ is continuous, we may pull the limit out (@def-continuity), and then use
+@cor-ln-powers:
+$$
+\ln(e) = \ln\left(\lim_{n\to\infty}\left(1+\frac1n\right)^n\right)
+= \lim_{n\to\infty}\ln\left(\left(1+\frac1n\right)^n\right)
+= \lim_{n\to\infty}\, n\,\ln\left(1+\frac1n\right).
+$$
+Now
+$$
+\ln\left(1+\frac1n\right) = \int_1^{1+\frac1n}\frac1u\,du ,
+$$
+and by the Mean Value Theorem for Integrals (@thm-mvt-integrals) this equals
+$\frac1n\cdot\frac1{\xi_n}$ for some $\xi_n\in\left[1,1+\frac1n\right]$. As $n\to\infty$, we have
+$\xi_n\to1$ (squeeze theorem). Hence
+$$
+\lim_{n\to\infty} n\,\ln\left(1+\frac1n\right) = \lim_{n\to\infty} n\cdot\frac1n\cdot\frac1{\xi_n}
+= \lim_{n\to\infty}\frac1{\xi_n} = 1 .
+$$
+:::
+
+## The Inverse Function of $\ln$
+
+What is the range of $\ln$? For rational $r$, the power $e^r$ is defined by roots: if $r=\frac pq$,
+then $e^r = \sqrt[q]{e^p}$. By @exr-ln-rational-powers and @prp-ln-e,
+$$
+\ln(e^r) = r\ln(e) = r ,
+$$
+so every rational number is attained as a value of $\ln$.
+
+::: {#prp-ln-range}
+\
+$$
+\ran(\ln) = \R .
+$$
+:::
+
+::: {.proof}
+Let $y\in\R$, and pick rational numbers $r<y<s$. Then $\ln(e^r) = r < y < s = \ln(e^s)$. Since $\ln$
+is continuous on $[e^r,e^s]$, the Intermediate Value Theorem (@rem-ivt-general) gives an
+$x\in[e^r,e^s]$ with $\ln(x) = y$.
+:::
+
+Since $\ln$ is strictly increasing, it is one-to-one (@exr-strict-mono-injective). Hence $\ln$ has an
+inverse function (@def-inverse). Call it $E$. It is defined by
+$$
+y = \ln(x) \Iff x = E(y),
+$$
+that is,
+$$
+E\big(\ln(x)\big) = x \ \text{ for } x>0, \qquad \ln\big(E(y)\big) = y \ \text{ for } y\in\R,
+$$
+and by @prp-ln-range,
+$$
+\dom(E) = \R = (-\infty,\infty), \qquad \ran(E) = (0,\infty).
+$$
+The graph of $E$ is the reflection of the graph of $\ln$ about the line $y=x$ (@rem-inverse-graph).
+In particular, $E(0)=1$ and $E(1)=e$.
+
+```{python}
+#| label: fig-exp-ln
+#| fig-cap: "The graphs of $\\ln$ and its inverse $E$ are reflections of each other about the line $y=x$."
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(5.5, 5.5))
+x = np.linspace(-4, 1.6, 400)
+ax.plot(x, np.exp(x), lw=2, label=r"$E(x)$")
+u = np.linspace(0.02, 5, 400)
+ax.plot(u, np.log(u), lw=2, label=r"$\ln(x)$")
+ax.plot([-4, 5], [-4, 5], ls=":", color="0.5", label=r"$y=x$")
+ax.plot([0, 1, 1, np.e], [1, np.e, 0, 1], "ko", ms=4)
+ax.annotate(r"$(0,1)$", (0, 1), xytext=(-38, 4), textcoords="offset points")
+ax.annotate(r"$(1,e)$", (1, np.e), xytext=(-36, 4), textcoords="offset points")
+ax.annotate(r"$(1,0)$", (1, 0), xytext=(4, -14), textcoords="offset points")
+ax.annotate(r"$(e,1)$", (np.e, 1), xytext=(4, -14), textcoords="offset points")
+ax.axhline(0, color="0.25", lw=1)
+ax.axvline(0, color="0.25", lw=1)
+ax.set_xlim(-4, 5)
+ax.set_ylim(-4, 5)
+ax.set_aspect("equal")
+ax.grid(True, color="0.9", lw=0.6)
+for side in ("top", "right"):
+    ax.spines[side].set_visible(False)
+ax.legend(loc="lower right")
+plt.show()
+```
+
+::: {#prp-E-continuous}
+\
+$E$ is continuous and strictly increasing on $\R$.
+:::
+
+::: {.proof}
+*Strictly increasing:* if $y<w$ but $E(y)\ge E(w)$, then, since $\ln$ is increasing,
+$y = \ln(E(y)) \ge \ln(E(w)) = w$, a contradiction.
+
+*Continuous:* let $y_0\in\R$, $x_0 = E(y_0)$, and let $\eps>0$ with $x_0-\eps>0$. Put
+$$
+\delta = \min\big(y_0-\ln(x_0-\eps),\ \ln(x_0+\eps)-y_0\big),
+$$
+which is positive because $\ln$ is strictly increasing. If $\abs{y-y_0}<\delta$, then
+$\ln(x_0-\eps)<y<\ln(x_0+\eps)$, and applying the increasing function $E$ gives
+$x_0-\eps<E(y)<x_0+\eps$. By @prp-function-limit-eps-delta, $\lim_{y\to y_0}E(y) = E(y_0)$.
+:::
+
+## $E(x) = e^x$
+
+You have learned that $E(x) = e^x$. But why is this so? For **rational** $r$ we saw above that
+$\ln(e^r) = r$, which means $E(r) = e^r$: on rational numbers, $x\mapsto e^x$ *is* the inverse
+function of $\ln$.
+
+What if $x$ is irrational? Approximate it by rationals: $x = \lim_{n\to\infty}r_n$ with $r_n\in\Q$.
+
+::: {#def-exp}
+\
+For $x\in\R$, let $(r_n)$ be a sequence of rational numbers with $r_n\to x$. Define
+$$
+e^x := \lim_{n\to\infty} e^{r_n}.
+$$
+We also use the notation $\exp(x)$ for $e^x$; it is called the **exponential function**.
+:::
+
+::: {#exr-exp-well-defined}
+Show that the limit in @def-exp exists and does not depend on the choice of the sequence $(r_n)$.
+(Hint: $e^{r_n} = E(r_n)$, and $E$ is continuous by @prp-E-continuous.)
+:::
+
+With this definition, by continuity of $\ln$,
+$$
+\ln(e^x) = \lim_{n\to\infty}\ln\big(e^{r_n}\big) = \lim_{n\to\infty} r_n\underbrace{\ln(e)}_{=1}
+= \lim_{n\to\infty} r_n = x .
+$$
+Hence $E(x) = e^x$ for every $x\in\R$. In other words, $\ln(x)$ is the exponent to which $e$ has to be
+raised to obtain $x$:
+$$
+\boxed{\;e^{\ln(x)} = x \quad (x>0), \qquad\qquad \ln(e^x) = x \quad (x\in\R).\;}
+$$
+
+## Defining $x^\alpha$
+
+We have seen that $\ln(x^\alpha) = \alpha\ln(x)$ for rational $\alpha$ (@exr-ln-rational-powers).
+Since $e^{\ln(y)} = y$, we obtain
+$$
+x^\alpha = e^{\ln(x^\alpha)} = e^{\alpha\ln(x)} \qquad (\alpha\in\Q,\ x>0).
+$$
+Note that this requires $x>0$. We use it to define $x^\alpha$ for **general** real $\alpha$.
+
+::: {#def-general-power}
+\
+Let $x>0$ and $\alpha\in\R$, and let $(\alpha_n)$ be a sequence of rational numbers with
+$\alpha_n\to\alpha$. Define
+$$
+x^\alpha := \lim_{n\to\infty}x^{\alpha_n} = \lim_{n\to\infty}e^{\alpha_n\ln(x)} .
+$$
+:::
+
+Since $\exp$ is continuous,
+$$
+x^\alpha = e^{\lim_{n\to\infty}\alpha_n\ln(x)} = e^{\alpha\ln(x)} .
+$$
+In particular, the limit exists and does not depend on the choice of $(\alpha_n)$, and
+$$
+\boxed{\;x^\alpha = e^{\alpha\ln(x)} \qquad (x>0,\ \alpha\in\R).\;}
+$$
+Taking $\ln$ of both sides shows that $\ln(x^\alpha) = \alpha\ln(x)$ now holds for **all** real
+$\alpha$. For $x = a$ and $\alpha$ the variable, this is the exponential function with base $a$ from
+@def-exponential: $a^x = e^{x\ln(a)}$.
+
+## Exponential Laws
+
+::: {#prp-exponential-laws}
+\
+For $x>0$ and $\alpha,\beta\in\R$,
+$$
+\big(x^\beta\big)^\alpha = x^{\beta\alpha},
+\qquad\qquad
+x^{\alpha+\beta} = x^\alpha\cdot x^\beta .
+$$
+:::
+
+::: {.proof}
+For the first law, using $\ln(x^\beta) = \beta\ln(x)$:
+$$
+\big(x^\beta\big)^\alpha = e^{\alpha\ln(x^\beta)} = e^{\alpha\beta\ln(x)} = x^{\alpha\beta} = x^{\beta\alpha}.
+$$
+For the second law, take logarithms:
+$$
+\begin{aligned}
+\ln\big(x^{\alpha+\beta}\big) &= \ln\big(e^{(\alpha+\beta)\ln(x)}\big)
+= (\alpha+\beta)\ln(x)
+= \alpha\ln(x) + \beta\ln(x) \\
+&= \ln(x^\alpha) + \ln(x^\beta)
+= \ln\big(x^\alpha\cdot x^\beta\big),
+\end{aligned}
+$$
+where the last step is @thm-ln-addition. Since $\ln$ is one-to-one, this implies
+$x^{\alpha+\beta} = x^\alpha\cdot x^\beta$.
+:::
+
+## The Exponential Function as Solution to a Differential Equation
+
+How can we compute $\frac{d}{dx}e^x$? Since $\exp$ is the inverse of $\ln$, whose derivative we
+know, we first look at derivatives of inverse functions in general.
+
+### Derivative of an inverse function
+
+::: {#thm-inverse-derivative}
+## Derivative of the inverse function
+Let $y=f(x)$ be differentiable on $(a,b)$, and suppose that either $f'(x)>0$ throughout the interval or
+$f'(x)<0$ throughout the interval. Then the inverse function $x=\varphi(y)$ is differentiable at every
+interior point of its interval of definition, and
+$$
+\varphi'(y) = \frac{1}{f'\big(\varphi(y)\big)} .
+$$
+:::
+
+::: {.proof}
+We only derive the formula, assuming that $\varphi$ is differentiable. By the defining property of the inverse function,
+$$
+f\big(\varphi(y)\big) = y .
+$$
+Once we have established that $\varphi$ is differentiable (@exr-inverse-differentiable), we can
+differentiate both sides using the chain rule:
+$$
+\frac{d}{dy}f\big(\varphi(y)\big) = \frac{d}{dy}\,y
+\qquad\Longrightarrow\qquad
+f'\big(\varphi(y)\big)\cdot\varphi'(y) = 1
+\qquad\Longrightarrow\qquad
+\varphi'(y) = \frac1{f'\big(\varphi(y)\big)} .
+$$
+:::
+
+::: {#exr-inverse-differentiable}
+Prove that $\varphi$ in @thm-inverse-derivative is differentiable.
+:::
+
+### The derivative of $e^x$
+
+::: {#prp-exp-derivative}
+\
+$$
+\exp'(x) = \exp(x) \qquad\text{for all } x\in\R .
+$$
+:::
+
+::: {.proof}
+Apply @thm-inverse-derivative with $f=\ln$ (whose derivative $\frac1x$ is positive) and
+$\varphi = \exp$:
+$$
+\exp'(x) = \frac{1}{\ln'\big(\exp(x)\big)} = \frac{1}{\;\frac{1}{\exp(x)}\;} = \exp(x).
+$$
+:::
+
+By the chain rule, for constants $c$ and $\alpha$,
+$$
+\big(c\,e^{\alpha x}\big)' = c\,e^{\alpha x}\cdot\alpha = \alpha\,c\,e^{\alpha x}.
+$$
+That is, $y = c\,e^{\alpha x}$ satisfies the **differential equation**
+$$
+y' = \alpha y .
+$$
+The converse is also true.
+
+::: {#thm-exp-ode}
+\
+Every solution $y\colon\R\to\R$ of the differential equation $y'=\alpha y$ has the form
+$$
+y(x) = c\,e^{\alpha x}
+$$
+for some constant $c$.
+:::
+
+::: {.proof}
+Suppose $y$ is such a function, and let $u(x) = y(x)\,e^{-\alpha x}$. By the product and chain rules,
+$$
+u' = y'e^{-\alpha x} + y\big(-\alpha e^{-\alpha x}\big)
+= \underbrace{\big(y'-\alpha y\big)}_{=0}e^{-\alpha x} = 0 .
+$$
+A function with derivative $0$ on an interval is constant, so $u\equiv c$ for some constant $c$, and
+$y = c\,e^{\alpha x}$.
+:::
+
+::: {#rem-exp-unique}
+If $\alpha=1$ and we require $y(0)=1$, then $c = 1$. So $e^x$ is **uniquely** determined as the
+solution of
+$$
+y' = y, \qquad y(0) = 1 .
+$$
+This is a second answer to the question why $e$ is so important.
+:::
+
+## Exponential Growth
+
+Consider
+$$
+y(t) = y_0\,e^{rt}, \qquad r>0 .
+$$
+By @thm-exp-ode, this is the solution of the differential equation
+$$
+y' = r\,y \qquad\text{with initial condition}\qquad y(0) = y_0 .
+$$
+The equation says that at time $t$, the rate of growth of $y$ is proportional to $y(t)$, with factor
+$r$. If $\Delta t = 1$, then
+$$
+\Delta y \approx r\,y ,
+$$
+i.e. in one unit of time, $y$ grows by approximately $r\,y$ — the fraction $r$ of its current size.
+For this reason $r$ is called the **growth rate** (or **growth constant**).
+
+::: {#exm-bacteria}
+## Population of bacteria
+\
+Initial population $200$, growth rate $0.02$, time $t$ in minutes:
+$$
+y(t) = 200\,e^{0.02t}.
+$$
+After one minute there are approximately
+$$
+y(0)+0.02\cdot y(0) = 200 + 4 = 204
+$$
+bacteria. The model gives exactly $y(1) = 200\,e^{0.02}\approx 204.04$.
+
+*How many bacteria are there after $5$ hours?* Five hours are $300$ minutes, so
+$$
+y(300) = 200\,e^{0.02\cdot300} = 200\,e^{6} \approx 80{,}686 .
+$$
+
+*When does the population reach $100{,}000$?* We solve
+$$
+100{,}000 = 200\,e^{0.02t}
+\Iff 500 = e^{0.02t}
+\Iff \ln(500) = 0.02\,t ,
+$$
+so $t = \frac{\ln(500)}{0.02}\approx 310.73$: after about $310.73$ minutes.
+:::
+
+::: {.callout-warning}
+## Discrete vs. continuous
+Here we are modeling a **discrete** quantity (there is always an integer number of bacteria) by a
+**continuous** function. The model's answers, like $204.04$ bacteria, have to be interpreted
+accordingly.
+:::
+
+### Doubling time
+
+When does the population double? For the general model $y(t) = y_0e^{rt}$,
+$$
+2y_0 = y_0e^{rt} \Iff 2 = e^{rt} \Iff t_D = \frac{\ln(2)}{r} .
+$$
+The **doubling time** $t_D$ does not depend on the initial value $y_0$.
+
+::: {#exm-fish-pond}
+## Fish pond
+\
+A pond is stocked with $y(0) = 500$ fish. After $6$ months, there are $1000$ fish. Fishing is
+permitted once the population is at least $10{,}000$. How long is the wait?
+
+The doubling time is $t_D = 6$ months, so
+$$
+6 = \frac{\ln(2)}{r} \qquad\Longrightarrow\qquad r = \frac{\ln(2)}{6}.
+$$
+Now solve
+$$
+10{,}000 = 500\,e^{\frac{\ln(2)}{6}t}
+\Iff 20 = e^{\frac{\ln(2)}{6}t}
+\Iff t = \frac{\ln(20)}{\ln(2)/6} \approx 25.93 \text{ months}.
+$$
+:::
+
+## Exponential Decay
+
+Now consider
+$$
+y(t) = y_0\,e^{-rt}, \qquad r>0 ,
+$$
+the solution of $y' = -ry$, $y(0) = y_0$. The **half-life** is the time it takes for $y$ to drop to
+half of its initial value:
+$$
+\tfrac12y_0 = y_0e^{-rt} \Iff t_{\text{half}} = \frac{\ln(2)}{r} .
+$$
+
+### Newton's law of cooling
+
+The rate of temperature change of a cooling object is proportional to the difference between the
+temperature of the object and the ambient temperature.
+
+Let $T(t)$ be the temperature of the cooling object and $T_a$ the (constant) ambient temperature, and
+let
+$$
+y(t) = T(t)-T_a .
+$$
+Since $T_a$ is constant, $y'(t) = T'(t)$, and the law reads
+$$
+y'(t) = -r\,y(t), \qquad r>0 .
+$$
+The sign is negative because the temperature of an object warmer than its surroundings is
+decreasing. By @thm-exp-ode the solution is
+$$
+y(t) = y_0\,e^{-rt}, \qquad y_0 = T(0)-T_a ,
+$$
+that is,
+$$
+T(t) - T_a = \big(T(0)-T_a\big)e^{-rt},
+\qquad\text{or}\qquad
+T(t) = \big(T(0)-T_a\big)e^{-rt} + T_a .
+$$
+
+::: {#exm-coffee}
+## Coffee
+\
+The optimal drinking temperature of coffee is between $155$ and $175\,^\circ$F. A cup is poured at
+$200\,^\circ$F, and after $2$ minutes it has cooled to $180\,^\circ$F. The room temperature is
+$70\,^\circ$F. When is the coffee ready to drink? When is it too cold?
+
+*Find the model.* With $T(0)-T_a = 200-70 = 130$,
+$$
+180 = 130\,e^{-2r}+70
+\Iff 110 = 130\,e^{-2r}
+\Iff r = -\frac{\ln\big(\frac{11}{13}\big)}{2} = \frac{\ln(13)-\ln(11)}{2}\approx 0.0835 .
+$$
+So
+$$
+T(t) = 130\,e^{-\frac{\ln(13)-\ln(11)}{2}t} + 70 .
+$$
+
+*Solve for the times.* $T(t) = 175$ gives $e^{-rt} = \frac{105}{130}$, so
+$t_{\text{drink}} = \frac{\ln(130/105)}{r}\approx 2.56$ minutes. $T(t)=155$ gives
+$e^{-rt} = \frac{85}{130}$, so $t_{\text{too cold}} = \frac{\ln(130/85)}{r}\approx 5.09$ minutes.
+
+So the coffee is best enjoyed between about $2.56$ and $5.09$ minutes after pouring.
+:::
+
+### Radiocarbon dating
+
+The carbon isotope C-14 is radioactive: it decays to nitrogen (C-14 $\to$ N-14) according to the law
+of exponential decay. If we know
+
+- how much C-14 was initially present in an object (this is known from the C-14/C-12 ratio in the
+  atmosphere), and
+- how much C-14 remains,
+
+we can determine the age of the object. The half-life of C-14 is about $5730$ years: after that
+time, half of the material has been converted to N-14.
+
+::: {#exm-radiocarbon}
+## Radiocarbon dating
+\
+
+1. There are $100$ g of C-14 today. How much is left in $50$ years?
+2. A sample contained $100$ g of C-14 originally, and contains $10$ g now. How old is it?
+
+*Find the model.* From $t_{\text{half}} = \frac{\ln(2)}{r}$,
+$$
+5730 = \frac{\ln(2)}{r} \qquad\Longrightarrow\qquad r = \frac{\ln(2)}{5730} .
+$$
+
+*(1)* The model is
+$$
+y(t) = 100\,e^{-\frac{\ln(2)}{5730}t},
+\qquad\text{so}\qquad
+y(50) = 100\,e^{-\frac{50\ln(2)}{5730}} \approx 99.40 \text{ g}.
+$$
+
+*(2)* We solve
+$$
+10 = 100\,e^{-\frac{\ln(2)}{5730}t}
+\Iff \ln\Big(\frac1{10}\Big) = -\frac{\ln(2)}{5730}\,t
+\Iff t = \frac{\ln\big(\frac1{10}\big)}{-\ln(2)}\cdot 5730 = \frac{\ln(10)}{\ln(2)}\cdot5730\approx 19{,}035 .
+$$
+The sample is about $19{,}035$ years old.
+:::
+
+## Summary
+
+- The **natural logarithm** is defined by an integral, $\ln(x) = \int_1^x\frac{du}{u}$ for $x>0$
+  (@def-ln). It is differentiable with $\ln'(x) = \frac1x$, strictly increasing, and $\ln(1)=0$
+  (@prp-ln-basic).
+- $\ln$ turns products into sums, $\ln(xy) = \ln(x)+\ln(y)$ (@thm-ln-addition); consequently
+  $\ln(x^r) = r\ln(x)$ for rational $r$ (@cor-ln-powers, @exr-ln-rational-powers).
+- $\ln(e) = 1$ (@prp-ln-e), and $\ran(\ln) = \R$ (@prp-ln-range). So $\ln$ has a continuous,
+  strictly increasing inverse $E\colon\R\to(0,\infty)$ (@prp-E-continuous).
+- Defining $e^x$ for irrational $x$ as a limit of $e^{r_n}$ with rational $r_n\to x$ (@def-exp) gives
+  $E(x) = e^x$: $\;e^{\ln(x)} = x$ and $\ln(e^x) = x$.
+- General powers are defined by $x^\alpha = e^{\alpha\ln(x)}$ for $x>0$ (@def-general-power), and the
+  **exponential laws** $(x^\beta)^\alpha = x^{\alpha\beta}$, $x^{\alpha+\beta} = x^\alpha x^\beta$ hold
+  (@prp-exponential-laws).
+- The **derivative of an inverse function** is $\varphi'(y) = 1/f'(\varphi(y))$
+  (@thm-inverse-derivative). Applied to $\ln$, it gives $\exp' = \exp$ (@prp-exp-derivative).
+- The solutions of $y' = \alpha y$ are exactly the functions $c\,e^{\alpha x}$ (@thm-exp-ode); $e^x$ is
+  the unique solution of $y'=y$, $y(0)=1$.
+- **Exponential growth** $y_0e^{rt}$ has doubling time $\frac{\ln 2}{r}$; **exponential decay**
+  $y_0e^{-rt}$ has half-life $\frac{\ln 2}{r}$. Applications: population growth
+  (@exm-bacteria, @exm-fish-pond), Newton's law of cooling (@exm-coffee), and radiocarbon dating
+  (@exm-radiocarbon).

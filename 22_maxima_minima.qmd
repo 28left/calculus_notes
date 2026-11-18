@@ -1,0 +1,752 @@
+::: {.content-hidden}
+{{< include _macros.qmd >}}
+:::
+
+# Maxima and Minima
+
+<!-- ::: {.callout-note}
+## Companion reading
+This lecture corresponds to C&J §3.6.a–b: convexity and concavity, points of inflection, and
+absolute and relative extrema, up to (but not including) the worked examples at the end of §3.6.
+::: -->
+
+Finding the largest or smallest value of a function is one of the oldest applications of calculus;
+it was one of the main motivations for its development in the seventeenth century. Before we get
+there, we look at what the *second* derivative says about the shape of a graph.
+
+## Concavity
+
+The **second derivative** of $f$ is the derivative of the derivative,
+$$
+f'' = (f')'.
+$$
+Just as the sign of $f'$ tells us whether $f$ increases or decreases, the sign of $f''$ tells us
+whether $f'$ increases or decreases — that is, whether the graph of $f$ is turning upward or
+downward.
+
+We will repeatedly use the following simple observation. It says that a function cannot jump from
+a positive limit to non-positive values at nearby points.
+
+::: {#lem-sign-persistence}
+## Sign persistence
+Let $g\colon D\to\R$, $\xi\in\R$, and suppose $\displaystyle\lim_{x\to\xi} g(x) = L > 0$. Then there
+is $\delta>0$ such that
+$$
+g(x) > 0 \qquad\text{for all } x\in D \text{ with } 0<\abs{x-\xi}<\delta .
+$$
+In particular, if $\xi\in D$, $g$ is continuous at $\xi$, and $g(\xi)>0$, then $g(x)>0$ for all
+$x\in D$ with $\abs{x-\xi}<\delta$. The analogous statements hold for $L<0$, and for one-sided limits
+(with $x$ restricted to one side of $\xi$).
+:::
+
+::: {.proof}
+Apply @prp-function-limit-eps-delta with $\eps = \frac L2$: there is $\delta>0$ such that
+$\abs{g(x)-L}<\frac L2$ whenever $x\in D$ and $0<\abs{x-\xi}<\delta$. For such $x$,
+$$
+g(x) > L - \frac L2 = \frac L2 > 0 .
+$$
+If $g$ is continuous at $\xi$, then $L=g(\xi)$ by @prp-continuity-via-limit, and the point $x=\xi$
+satisfies $g(\xi)>0$ anyway. For $L<0$, apply the result to $-g$.
+:::
+
+Now suppose $f''$ exists and is continuous on an open interval containing $x_0$, and that
+$f''(x_0) > 0$. By @lem-sign-persistence, $f''>0$ on some smaller open interval $U$ around $x_0$.
+A function with positive derivative on an interval is strictly increasing there (a consequence of
+the Mean Value Theorem). Applied to $f'$, whose derivative is $f''$, this shows that **$f'$ is
+strictly increasing on $U$**: the slope of the graph of $f$ grows as we move from left to right.
+Likewise, $f''(x_0)<0$ makes $f'$ strictly decreasing near $x_0$.
+
+::: {#def-concavity}
+\
+Let $f$ be differentiable on an interval $I$. We say that $f$ (or its graph) is
+
+- **concave up**, or **convex**, on $I$ if $f'$ is strictly increasing on $I$;
+- **concave down**, or **concave**, on $I$ if $f'$ is strictly decreasing on $I$.
+:::
+
+So the discussion above says: if $f''$ is continuous and $f''(x_0)>0$, then $f$ is concave up on an
+open interval around $x_0$; if $f''(x_0)<0$, then $f$ is concave down on such an interval.
+
+::: {#rem-concavity-terminology}
+Watch out for the terminology. "Convex" and "concave up" mean the same thing, and "concave" on its
+own means concave *down*; 
+:::
+
+Geometrically, a concave up graph bends away from its tangent lines on the upper side, while a
+concave down graph bends away on the lower side.
+
+::: {#prp-tangent-line}
+## Curve vs. tangent
+Let $f$ be differentiable on an interval $I$, let $x_0\in I$, and let
+$t(x) = f(x_0) + f'(x_0)(x-x_0)$ be the tangent line at $x_0$.
+
+1. If $f$ is concave up on $I$, then $f(x) > t(x)$ for all $x\in I$ with $x\neq x_0$: the curve
+   $y=f(x)$ lies **above** the tangent.
+2. If $f$ is concave down on $I$, then $f(x) < t(x)$ for all $x\in I$ with $x\neq x_0$: the curve
+   lies **below** the tangent.
+:::
+
+::: {.proof}
+Let $f$ be concave up and $x\in I$, $x\neq x_0$. By the Mean Value Theorem there is $\beta$
+strictly between $x_0$ and $x$ with
+$$
+f(x) - f(x_0) = f'(\beta)\,(x-x_0),
+\qquad\text{so}\qquad
+f(x) - t(x) = \big(f'(\beta) - f'(x_0)\big)(x-x_0).
+$$
+If $x>x_0$, then $\beta>x_0$, so $f'(\beta)>f'(x_0)$ since $f'$ is strictly increasing, and both
+factors are positive. If $x<x_0$, then $\beta<x_0$, so $f'(\beta)<f'(x_0)$, and both factors are
+negative. Either way $f(x)-t(x)>0$. The concave down case is the same with the inequalities reversed
+(or apply part 1 to $-f$).
+:::
+
+::: {#exr-four-sign-cases}
+Sketch curves for all four sign combinations:
+
+| | $f'$ | $f''$ |
+|:--|:--:|:--:|
+| (a) | $>0$ | $>0$ |
+| (b) | $>0$ | $<0$ |
+| (c) | $<0$ | $>0$ |
+| (d) | $<0$ | $<0$ |
+
+Can you find specific functions for each case?
+:::
+
+::: {.solution}
+For instance:
+
+(a) $f(x)=e^x$: $f'(x)=f''(x)=e^x>0$.
+
+(b) $f(x)=\ln x$ on $(0,\infty)$: $f'(x)=\frac1x>0$, $f''(x)=-\frac1{x^2}<0$.
+
+(c) $f(x)=e^{-x}$: $f'(x)=-e^{-x}<0$, $f''(x)=e^{-x}>0$.
+
+(d) $f(x)=\ln(-x)$ on $(-\infty,0)$: $f'(x)=\frac1x<0$, $f''(x)=-\frac1{x^2}<0$.
+:::
+
+## Inflection Points
+
+What happens at a point where $f''(x_0)=0$? Typically $f''$ changes sign there, but not necessarily.
+To be precise about this, we fix what "changing sign" means.
+
+::: {#def-changes-sign}
+\
+Let $g$ be defined on an open interval around $\xi$. We say that $g$ **changes sign at $\xi$ from
+$+$ to $-$** if there is $\delta>0$ such that
+$$
+g(x) > 0 \ \text{ for } \xi-\delta<x<\xi
+\qquad\text{and}\qquad
+g(x) < 0 \ \text{ for } \xi<x<\xi+\delta .
+$$
+Changing sign **from $-$ to $+$** is defined analogously. We say that $g$ **changes sign at $\xi$**
+if it does so in one of these two ways.
+:::
+
+Note that the value $g(\xi)$ plays no role in this definition.
+
+::: {#def-inflection-point}
+\
+Let $f$ be twice differentiable on an open interval containing $\xi$. Then $\xi$ is an
+**inflection point** of $f$ if $f''$ changes sign at $\xi$.
+:::
+
+At an inflection point, $f$ is concave up on one side of $\xi$ and concave down on the other. One can
+show (using @prp-tangent-line on each side) that the curve **crosses** its tangent line there: it
+lies above the tangent on one side and below it on the other.
+
+If $f''$ is continuous, then $f''(\xi)=0$ at every inflection point $\xi$: if we had, say,
+$f''(\xi)>0$, then by @lem-sign-persistence $f''$ would be positive on *both* sides of $\xi$, so it
+could not change sign. The converse is false.
+
+::: {#exm-inflection-points}
+\
+
+- $f(x)=x^3$: $f''(x)=6x$ changes sign from $-$ to $+$ at $0$, so $0$ is an inflection point. The
+  tangent at $0$ is the $x$-axis, and the curve crosses it.
+- $f(x)=\sin x$: $f'(x)=\cos x$ and $f''(x)=-\sin x$, which changes sign from $+$ to $-$ at $0$. So
+  $0$ is an inflection point; the tangent there is the line $y=x$, inclined at $45^\circ$.
+- $f(x)=x^4$: $f''(x)=12x^2$ vanishes at $0$, but $f''\ge0$ everywhere, so it does **not** change
+  sign, and $0$ is **not** an inflection point. Indeed, the curve lies entirely above its tangent
+  $y=0$ at the origin.
+:::
+
+## Global Maxima and Minima
+
+::: {#def-global-extremum}
+\
+Let $f\colon D\to\R$ and $\xi\in D$. We say $f$ has a **(global** or **absolute) maximum** at $\xi$ if
+$$
+f(\xi)\ge f(x) \qquad\text{for all } x\in D,
+$$
+and a **(global** or **absolute) minimum** at $\xi$ if $f(\xi)\le f(x)$ for all $x\in D$. The number
+$f(\xi)$ is then called the **maximum value** (resp. **minimum value**) of $f$. Maxima and minima are
+collectively called **extrema**. The maximum (minimum) is **strict** if $f(\xi)>f(x)$
+($f(\xi)<f(x)$) for all $x\in D$ with $x\neq\xi$.
+:::
+
+The maximum *value* of $f$ is unique if it exists, but it may be attained at several points.
+
+::: {#exm-semicircle}
+\
+$f(x)=\sqrt{1-x^2}$, with $\dom(f)=[-1,1]$, has a maximum at $x=0$ (value $1$) and minima at both
+$x=-1$ and $x=1$ (value $0$).
+:::
+
+Global maxima and minima need not exist.
+
+::: {#exm-no-extrema}
+\
+All three functions below have domain $\R$.
+
+- $f(x)=x^2$ has a minimum at $x=0$ but no maximum, since $f(n)=n^2$ is unbounded.
+- $g(x)=\frac1{1+x^2}$ has a maximum at $x=0$ but no minimum: $g(x)>0$ for all $x$, and for every
+  $\xi$ we have $g(\abs\xi+1)<g(\xi)$, so no value is the smallest.
+- $h(x)=e^x$ has neither a maximum nor a minimum, since it is strictly increasing:
+  $h(\xi-1)<h(\xi)<h(\xi+1)$ for every $\xi$.
+:::
+
+On a closed bounded interval, however, a continuous function always attains a maximum and a minimum.
+We already used this fact (see @rem-darboux-informal); here is the official statement.
+
+::: {#thm-extreme-value}
+## Extreme Value Theorem (Weierstrass)
+Let $a<b$ and let $f\colon[a,b]\to\R$ be continuous. Then $f$ has a maximum and a minimum on $[a,b]$:
+there are $\xi_{\min},\xi_{\max}\in[a,b]$ with
+$$
+f(\xi_{\min}) \le f(x) \le f(\xi_{\max}) \qquad\text{for all } x\in[a,b].
+$$
+:::
+
+::: {#exr-evt-informal}
+Why should @thm-extreme-value be true? Try to give an informal justification. (A bisection argument
+in the spirit of the proof of @thm-ivt is one possible approach.)
+:::
+
+::: {#rem-evt-hypotheses}
+None of the hypotheses of @thm-extreme-value can be dropped.
+
+1. *The interval must be closed:* $f(x)=\frac1x$ on $(0,1]$ is continuous but has no maximum.
+2. *The interval must be bounded:* $f(x)=x$ on $[0,\infty)$ is continuous but has no maximum.
+3. *The function must be continuous:* $f(x)=x$ for $0\le x<1$ and $f(1)=0$ defines a function on
+   $[0,1]$ that takes values arbitrarily close to $1$ but never reaches a largest value.
+:::
+
+## Local Extrema
+
+Global extrema are often hard to find directly. What calculus provides are methods to locate
+**local** (or **relative**) extrema, among which the global ones must be found.
+
+::: {#def-local-extremum}
+\
+Let $f\colon D\to\R$ and $\xi\in D$. We say $f$ has a **local** (or **relative**) **maximum** at $\xi$
+if there is an open interval $(\alpha,\beta)$ with $\alpha<\xi<\beta$ such that
+$$
+f(\xi)\ge f(z) \qquad\text{for all } z\in(\alpha,\beta)\cap D .
+$$
+A **local minimum** is defined analogously, with $f(\xi)\le f(z)$. The local extremum is **strict**
+if the inequality is strict for all $z\in(\alpha,\beta)\cap D$ with $z\neq\xi$.
+:::
+
+In words: $\xi$ is a local maximum if it is a global maximum of $f$ restricted to points of the
+domain sufficiently close to $\xi$. Every global maximum is in particular a local one. The
+intersection with $D$ matters when $\xi$ is an endpoint of the domain: for $D=[a,b]$ and $\xi=a$, the
+condition only compares $f(a)$ with values $f(z)$ for $a\le z<\beta$. So **endpoints can be local
+extrema**.
+
+```{python}
+#| label: fig-local-extrema
+#| fig-cap: "A continuous function on $[a,b]$ with local maxima at $x_1, x_3, x_5, b$ and local minima at $a, x_2, x_4, x_6$. The global maximum is at $b$, the global minimum at $x_2$."
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+# nodes (x, y, slope); piecewise cubic Hermite interpolation
+xs = [0.0, 1.0, 2.3, 3.3, 4.5, 5.6, 6.1, 7.2]
+ys = [1.6, 2.3, 0.2, 2.4, 0.6, 1.2, 1.05, 3.2]
+ms = [0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0]
+labels = ["$a$", "$x_1$", "$x_2$", "$x_3$", "$x_4$", "$x_5$", "$x_6$", "$b$"]
+
+
+def hermite(x0, x1, y0, y1, m0, m1, t):
+    h = x1 - x0
+    s = (t - x0) / h
+    h00 = 2 * s**3 - 3 * s**2 + 1
+    h10 = s**3 - 2 * s**2 + s
+    h01 = -2 * s**3 + 3 * s**2
+    h11 = s**3 - s**2
+    return h00 * y0 + h10 * h * m0 + h01 * y1 + h11 * h * m1
+
+
+fig, ax = plt.subplots(figsize=(7, 3.6))
+for i in range(len(xs) - 1):
+    t = np.linspace(xs[i], xs[i + 1], 100)
+    ax.plot(t, hermite(xs[i], xs[i + 1], ys[i], ys[i + 1], ms[i], ms[i + 1], t),
+            color="C0", lw=2)
+
+maxima = [1, 3, 5, 7]
+minima = [0, 2, 4, 6]
+ax.plot([xs[i] for i in maxima], [ys[i] for i in maxima], "o", color="C3",
+        label="local max")
+ax.plot([xs[i] for i in minima], [ys[i] for i in minima], "s", color="C2",
+        label="local min")
+for x, y in zip(xs, ys):
+    ax.plot([x, x], [-0.3, y], ls=":", color="0.6", lw=0.8)
+
+ax.set_xticks(xs)
+ax.set_xticklabels(labels)
+ax.set_yticks([])
+ax.set_ylim(-0.3, 3.5)
+ax.axhline(-0.3, color="0.25", lw=1.1)
+for side in ("top", "right", "left"):
+    ax.spines[side].set_visible(False)
+ax.legend(loc="upper left", frameon=False)
+fig.tight_layout()
+plt.show()
+```
+
+@fig-local-extrema illustrates several points. A local maximum need not be a global one, and the
+value at a local maximum ($x_5$) may even be *smaller* than the value at a local minimum ($a$). The
+picture also suggests that local maxima and minima alternate: between any two local maxima there is a
+local minimum.
+
+::: {#exr-alternation}
+Let $f$ be continuous on an interval $I$, and let $p<q$ be two points of $I$ at which $f$ has a
+local maximum. Show that $f$ has a local minimum at some point of the open interval $(p,q)$.
+(Hint: use @thm-extreme-value on $[p,q]$. Be careful if the minimum is attained at an endpoint.)
+:::
+
+::: {.solution}
+By @thm-extreme-value, $f$ restricted to $[p,q]$ attains a minimum value $m$. We claim that $m$ is
+attained at some point $c\in(p,q)$. If not, $m$ is attained only at endpoints, say at $p$ (the case
+$q$ is symmetric). Since $p$ is a local maximum, there is $\beta>p$ with $f(z)\le f(p)$ for all
+$z\in(p,\beta)$; we may take $\beta\le q$. But also $f(z)\ge m = f(p)$ for $z\in[p,q]$. Hence
+$f(z)=f(p)=m$ on $(p,\beta)$, so $m$ *is* attained inside $(p,q)$ after all.
+
+Now $f(c)=m\le f(z)$ for all $z\in(p,q)$, and $(p,q)$ is an open interval containing $c$, so $f$ has a
+local minimum at $c$.
+:::
+
+## A Necessary Condition: Critical Points
+
+At a local extremum in the *interior* of the domain, the tangent to a differentiable function must be
+horizontal.
+
+::: {#thm-fermat}
+## Necessary condition for a local extremum
+Let $f\colon D\to\R$, and let $\xi$ be an interior point of $D$, i.e. $(\xi-\delta,\xi+\delta)\subseteq
+D$ for some $\delta>0$. If $f$ is differentiable at $\xi$ and has a local extremum at $\xi$, then
+$$
+f'(\xi) = 0 .
+$$
+:::
+
+::: {#def-critical-point}
+\
+An interior point $\xi$ of $\dom(f)$ with $f'(\xi)=0$ is called a **critical point** (or **stationary
+point**) of $f$.
+:::
+
+So @thm-fermat says: at an interior point where $f$ is differentiable, a local extremum can only occur
+at a critical point.
+
+::: {.proof}
+Suppose $f$ has a local maximum at $\xi$. Shrinking $\delta$ if necessary, we have
+$$
+f(\xi+h)\le f(\xi) \qquad\text{for all } h \text{ with } \abs h<\delta .
+$$
+Hence the difference quotient satisfies
+$$
+\frac{f(\xi+h)-f(\xi)}{h} \le 0 \quad\text{for } 0<h<\delta,
+\qquad\qquad
+\frac{f(\xi+h)-f(\xi)}{h} \ge 0 \quad\text{for } -\delta<h<0,
+$$
+since the numerator is $\le0$ and the denominator is positive in the first case and negative in the
+second. As $f$ is differentiable at $\xi$, both one-sided limits of the difference quotient exist and
+equal $f'(\xi)$.
+
+- Letting $h\to0^+$: if we had $f'(\xi)>0$, then by @lem-sign-persistence the difference quotient would
+  be positive for all sufficiently small $h>0$, a contradiction. So $f'(\xi)\le0$.
+- Letting $h\to0^-$: by the same argument, $f'(\xi)\ge0$.
+
+Therefore $f'(\xi)=0$. If $f$ has a local minimum at $\xi$, apply this to $-f$, which has a local
+maximum at $\xi$.
+:::
+
+::: {#rem-fermat-hypotheses}
+Both hypotheses of @thm-fermat matter.
+
+1. *Interior point.* At an endpoint of the domain the derivative need not vanish: $f(x)=x$ on $[0,1]$
+   has its global minimum at $0$ and its global maximum at $1$, but $f'\equiv1$. The proof above,
+   using only one side, shows: if $f$ has a local maximum at the left endpoint $a$, then $f'(a)\le0$;
+   at the right endpoint $b$, then $f'(b)\ge0$ (one-sided derivatives; reverse the inequalities for
+   minima).
+2. *Differentiability.* $f(x)=\abs x$ has a global minimum at $0$, where it is not differentiable.
+:::
+
+The condition $f'(\xi)=0$ is **necessary** but **not sufficient** for a local extremum.
+
+::: {#exm-cube-not-extremum}
+\
+For $f(x)=x^3$, $f'(0)=0$, so $0$ is a critical point. But $f$ is strictly increasing, so
+$f(x)<f(0)<f(y)$ whenever $x<0<y$: every open interval around $0$ contains points with larger and
+points with smaller values than $f(0)$. Hence $f$ has no local extremum at $0$. (Here $0$ is an
+inflection point with a horizontal tangent; see @exm-inflection-points.)
+:::
+
+## The First Derivative Test
+
+The sign of $f'$ to the left and to the right of a point decides whether there is a local extremum.
+
+::: {#thm-first-derivative-test}
+## First derivative test
+Let $\delta>0$, and let $f$ be continuous on $(\xi-\delta,\xi+\delta)$ and differentiable at every
+point of this interval except possibly at $\xi$.
+
+1. If $f'$ changes sign at $\xi$ from $+$ to $-$ (i.e. $f'>0$ on $(\xi-\delta,\xi)$ and $f'<0$ on
+   $(\xi,\xi+\delta)$), then $f$ has a strict local **maximum** at $\xi$.
+2. If $f'$ changes sign at $\xi$ from $-$ to $+$, then $f$ has a strict local **minimum** at $\xi$.
+3. If $f'>0$ on both $(\xi-\delta,\xi)$ and $(\xi,\xi+\delta)$, or $f'<0$ on both, then $f$ has
+   **no** local extremum at $\xi$.
+:::
+
+::: {.proof}
+We use the Mean Value Theorem. Note that for $x$ in the interval, $f$ is continuous on the closed
+interval between $x$ and $\xi$ and differentiable at every point strictly between them, so the Mean
+Value Theorem applies.
+
+*Part 1.* Let $\xi-\delta<x<\xi$. There is $\beta\in(x,\xi)$ with
+$$
+f(\xi)-f(x) = \underbrace{f'(\beta)}_{>0}\,\underbrace{(\xi-x)}_{>0} > 0,
+$$
+so $f(x)<f(\xi)$. Now let $\xi<x<\xi+\delta$. There is $\beta\in(\xi,x)$ with
+$$
+f(x)-f(\xi) = \underbrace{f'(\beta)}_{<0}\,\underbrace{(x-\xi)}_{>0} < 0,
+$$
+so again $f(x)<f(\xi)$. Thus $f(x)<f(\xi)$ for all $x\neq\xi$ in $(\xi-\delta,\xi+\delta)$: a strict
+local maximum.
+
+*Part 2.* Apply part 1 to $-f$.
+
+*Part 3.* Suppose $f'>0$ on both sides. The first computation above gives $f(x)<f(\xi)$ for
+$\xi-\delta<x<\xi$, while the second, now with $f'(\beta)>0$, gives $f(x)>f(\xi)$ for
+$\xi<x<\xi+\delta$. Every open interval around $\xi$ contains points of both kinds, so $\xi$ is
+neither a local maximum nor a local minimum. The case $f'<0$ on both sides is analogous.
+:::
+
+::: {#rem-first-derivative-test}
+If $f$ is differentiable at $\xi$, then in cases 1 and 2 we automatically have $f'(\xi)=0$, by
+@thm-fermat. But the test does not require differentiability at $\xi$: $f(x)=\abs x$ has
+$f'(x)=-1$ for $x<0$ and $f'(x)=1$ for $x>0$, so it has a strict local minimum at $0$ by part 2.
+:::
+
+In many practical situations, $f'$ is continuous and has only finitely many zeros. Then the three
+cases of @thm-first-derivative-test cover everything, and we get a clean characterization.
+
+::: {#cor-extremum-iff-sign-change}
+\
+Let $f$ be differentiable on $(\xi-\delta,\xi+\delta)$ with $f'$ continuous there, and suppose
+$f'(x)\neq0$ for $0<\abs{x-\xi}<\delta$. Then $f$ has a local extremum at $\xi$ if and only if $f'$
+changes sign at $\xi$.
+:::
+
+::: {.proof}
+By the Intermediate Value Theorem (@rem-ivt-general), the continuous function $f'$, which has no zero
+on $(\xi-\delta,\xi)$, has constant sign there; likewise on $(\xi,\xi+\delta)$. So exactly one of the
+three cases of @thm-first-derivative-test applies.
+:::
+
+::: {#rem-sign-change-not-necessary}
+Without an assumption like the one in @cor-extremum-iff-sign-change, a local extremum does **not**
+force $f'$ to change sign.
+
+1. If $f$ is constant, every point is a local maximum and a local minimum, but $f'\equiv0$ never
+   changes sign.
+2. A more interesting example is
+   $$
+   f(x) = \begin{cases} x^4\big(2+\sin\frac1x\big) & x\neq0, \\ 0 & x=0. \end{cases}
+   $$
+   Since $2+\sin\frac1x\ge1$, we have $f(x)\ge x^4>0=f(0)$ for $x\neq0$, so $f$ has a strict global
+   minimum at $0$. One checks that $f$ is differentiable everywhere, with $f'(0)=0$ and
+   $$
+   f'(x) = 4x^3\Big(2+\sin\frac1x\Big) - x^2\cos\frac1x \qquad (x\neq0),
+   $$
+   and that $f'$ is even continuous. But at the points $x_k=\frac{1}{2k\pi}$ we get
+   $f'(x_k) = x_k^2(8x_k-1) < 0$ for $k\ge1$, while at $y_k=\frac{1}{(2k+1)\pi}$ we get
+   $f'(y_k)=y_k^2(8y_k+1)>0$. So $f'$ takes both signs in every interval $(0,\delta)$ (and similarly
+   in every $(-\delta,0)$): it does not change sign at $0$ in the sense of @def-changes-sign.
+:::
+
+## The Second Derivative Test
+
+Often it is easier to look at a single number, $f''(\xi)$, than at the sign of $f'$ on both sides of
+$\xi$. If $f''$ is continuous and $f''(\xi)>0$, then $f$ is concave up near $\xi$, so its graph lies
+above the tangent (@prp-tangent-line). At a critical point the tangent is the horizontal line
+$y=f(\xi)$, so $f(\xi)$ must be a local minimum. The following theorem makes this precise, and in
+fact does not need continuity of $f''$.
+
+::: {#thm-second-derivative-test}
+## Second derivative test
+Let $f$ be differentiable on an open interval containing $\xi$, with $f'(\xi)=0$, and suppose that
+$f''(\xi)$ exists.
+
+1. If $f''(\xi)>0$, then $f$ has a strict local **minimum** at $\xi$ (concave up).
+2. If $f''(\xi)<0$, then $f$ has a strict local **maximum** at $\xi$ (concave down).
+:::
+
+::: {.proof}
+Suppose $f''(\xi)>0$. Since $f'(\xi)=0$,
+$$
+0 < f''(\xi) = \lim_{h\to0}\frac{f'(\xi+h)-f'(\xi)}{h} = \lim_{h\to0}\frac{f'(\xi+h)}{h}.
+$$
+By @lem-sign-persistence there is $\delta>0$ with $\frac{f'(\xi+h)}{h}>0$ for $0<\abs h<\delta$. So
+$f'(\xi+h)$ has the same sign as $h$: $f'<0$ on $(\xi-\delta,\xi)$ and $f'>0$ on $(\xi,\xi+\delta)$.
+(We may take $\delta$ so small that $f$ is differentiable, hence continuous, on
+$(\xi-\delta,\xi+\delta)$.) By @thm-first-derivative-test, part 2, $f$ has a strict local minimum at
+$\xi$. For $f''(\xi)<0$, apply this to $-f$.
+:::
+
+::: {.callout-warning}
+## If $f''(\xi)=0$, the test is inconclusive
+The functions $x^3$, $x^4$, and $-x^4$ all satisfy $f'(0)=f''(0)=0$. But $x^3$ has no local extremum
+at $0$ (@exm-cube-not-extremum), $x^4$ has a minimum there, and $-x^4$ has a maximum. In such cases,
+go back to the first derivative test.
+:::
+
+### From local to global
+
+A local extremum need not be global. To decide whether it is, we have to consider the function on its
+whole domain. The following criterion, which also goes back to the sign of $f'$, is often useful.
+
+::: {#prp-global-first-derivative}
+## Global first derivative test
+Let $f$ be continuous on an interval $I$, let $\xi\in I$, and suppose $f$ is differentiable at all
+interior points of $I$ except possibly $\xi$. If, for all interior points $x$ of $I$,
+$$
+f'(x)>0 \ \text{ if } x<\xi,
+\qquad\text{and}\qquad
+f'(x)<0 \ \text{ if } x>\xi,
+$$
+then $f$ has a strict global maximum on $I$ at $\xi$. Moreover, $f$ is strictly increasing on
+$I\cap(-\infty,\xi]$ and strictly decreasing on $I\cap[\xi,\infty)$. The analogous statement with
+the signs reversed gives a strict global minimum.
+:::
+
+::: {.proof}
+This is the proof of @thm-first-derivative-test, part 1, except that $x$ may now be any point of
+$I$: for $x\in I$, $x<\xi$, the Mean Value Theorem on $[x,\xi]$ gives
+$f(\xi)-f(x) = f'(\beta)(\xi-x)>0$, and for $x>\xi$ it gives $f(x)-f(\xi)=f'(\beta)(x-\xi)<0$. The same
+argument applied to any two points $x<w$ on the same side of $\xi$ gives the monotonicity statement.
+:::
+
+If $f''$ has the same sign on the whole interval, the sign condition on $f'$ comes for free.
+
+::: {#cor-global-second-derivative}
+\
+Let $f$ be twice differentiable on an interval $I$ (with one-sided derivatives at endpoints that
+belong to $I$), and let $\xi$ be an interior point of $I$ with $f'(\xi)=0$.
+
+1. If $f''(x)<0$ for **all** $x\in I$, then $f$ has a strict global **maximum** on $I$ at $\xi$.
+   If moreover $I=[a,b]$, then the global minimum of $f$ is attained at $a$ or at $b$.
+2. If $f''(x)>0$ for **all** $x\in I$, then $f$ has a strict global **minimum** on $I$ at $\xi$.
+   If moreover $I=[a,b]$, then the global maximum of $f$ is attained at $a$ or at $b$.
+:::
+
+::: {.proof}
+In case 1, $f''<0$ on $I$ means that $f'$ is strictly decreasing on $I$. Since $f'(\xi)=0$, we get
+$f'(x)>0$ for $x<\xi$ and $f'(x)<0$ for $x>\xi$, and @prp-global-first-derivative gives the strict
+global maximum. If $I=[a,b]$, the same proposition says that $f$ is strictly increasing on $[a,\xi]$
+and strictly decreasing on $[\xi,b]$, so the smallest value on $[a,\xi]$ is $f(a)$, the smallest
+value on $[\xi,b]$ is $f(b)$, and the global minimum is $\min\{f(a),f(b)\}$. Case 2 follows by
+applying case 1 to $-f$.
+:::
+
+::: {#rem-interval-needed}
+It is essential that the domain is an *interval*. The function
+$$
+f(x) = \begin{cases} -x^2 & -1\le x\le 1, \\ 5-(x-10)^2 & 9\le x\le 11, \end{cases}
+$$
+has $f''(x)=-2<0$ at every point of its domain and $f'(0)=0$, but $f(10)=5>0=f(0)$: the strict
+local maximum at $0$ is not global.
+:::
+
+## Example: The Gaussian
+
+The **Gaussian** (or **normal**) density with parameters $\mu\in\R$ and $\sigma>0$ is
+$$
+f(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\Big(-\frac{(x-\mu)^2}{2\sigma^2}\Big),
+\qquad x\in\R .
+$$
+Its graph is the familiar bell curve. The case $\mu=0$, $\sigma=1$,
+$$
+\varphi(x) = \frac1{\sqrt{2\pi}}\,e^{-x^2/2},
+$$
+is the **standard** normal density. Note that $f(x)>0$ for all $x$. We determine its extrema and
+inflection points.
+
+**Step 1: critical points.** By the chain rule,
+$$
+f'(x) = \frac{1}{\sigma\sqrt{2\pi}}\exp\Big(-\frac{(x-\mu)^2}{2\sigma^2}\Big)\cdot
+\Big(-\frac{2(x-\mu)}{2\sigma^2}\Big)
+= -\frac{x-\mu}{\sigma^2}\,f(x).
+$$
+Since $f(x)>0$, we have $f'(x)=0$ if and only if $x=\mu$. So $\mu$ is the only critical point.
+
+**Step 2: local extremum.** Again since $f(x)>0$ and $\sigma^2>0$, the sign of $f'(x)$ is the sign of
+$-(x-\mu)$:
+$$
+f'(x)>0 \ \text{ for } x<\mu, \qquad f'(x)<0 \ \text{ for } x>\mu .
+$$
+So $f'$ changes sign from $+$ to $-$ at $\mu$, and by @thm-first-derivative-test $f$ has a strict
+local maximum at $\mu$.
+
+We can also use @thm-second-derivative-test. By the product rule, using $f'(x)=-\frac{x-\mu}{\sigma^2}f(x)$
+once more,
+$$
+f''(x) = -\frac{1}{\sigma^2}\,f(x) - \frac{x-\mu}{\sigma^2}\,f'(x)
+= -\frac{1}{\sigma^2}\,f(x) + \frac{(x-\mu)^2}{\sigma^4}\,f(x)
+= \frac{f(x)}{\sigma^4}\Big((x-\mu)^2-\sigma^2\Big).
+$$
+In particular $f''(\mu) = -\frac{f(\mu)}{\sigma^2}<0$: $f$ is concave down at $\mu$, confirming the
+local maximum.
+
+**Step 3: is the local maximum global?** Here @cor-global-second-derivative does **not** apply, since
+$f''$ is not negative everywhere (see Step 4). But the sign information from Step 2 holds on all of
+$\R$, so @prp-global-first-derivative applies with $I=\R$: $f$ has a strict global maximum at $\mu$,
+with maximum value
+$$
+f(\mu) = \frac{1}{\sigma\sqrt{2\pi}} .
+$$
+There is no global minimum: $f$ is symmetric about $\mu$, i.e. $f(\mu+t)=f(\mu-t)$, and strictly
+decreasing on $[\mu,\infty)$. Hence $f(x)<f(\xi)$ whenever $\abs{x-\mu}>\abs{\xi-\mu}$, so no value
+is the smallest.
+
+**Step 4: inflection points.** Since $\frac{f(x)}{\sigma^4}>0$, the sign of $f''(x)$ is the sign of
+$(x-\mu)^2-\sigma^2$. Thus
+$$
+f''(x)<0 \ \text{ for } \abs{x-\mu}<\sigma,
+\qquad
+f''(x)>0 \ \text{ for } \abs{x-\mu}>\sigma,
+$$
+and $f''(x)=0$ exactly at $x=\mu\pm\sigma$. At both of these points $f''$ changes sign, so they are
+inflection points. The bell curve is concave down on $(\mu-\sigma,\mu+\sigma)$ and concave up outside
+of it: the inflection points lie exactly **one standard deviation** away from the mean.
+
+For the standard normal density ($\mu=0$, $\sigma=1$) the formulas read
+$$
+\varphi'(x) = -x\,\varphi(x),
+\qquad
+\varphi''(x) = (x^2-1)\,\varphi(x),
+$$
+with the global maximum at $0$ and inflection points at $\pm1$.
+
+```{python}
+#| label: fig-gaussian
+#| fig-cap: "The standard normal density $\\varphi$. It is concave down on $(-1,1)$ (shaded) and concave up outside; the inflection points $\\pm1$ are marked."
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-4, 4, 400)
+phi = np.exp(-x**2 / 2) / np.sqrt(2 * np.pi)
+
+fig, ax = plt.subplots(figsize=(7, 3.4))
+ax.plot(x, phi, color="C0", lw=2)
+mask = np.abs(x) <= 1
+ax.fill_between(x[mask], 0, phi[mask], color="C0", alpha=0.15)
+xi = np.array([-1.0, 1.0])
+ax.plot(xi, np.exp(-xi**2 / 2) / np.sqrt(2 * np.pi), "o", color="C3",
+        label="inflection points")
+ax.plot([0], [1 / np.sqrt(2 * np.pi)], "o", color="C2", label="global maximum")
+ax.axhline(0, color="0.25", lw=1.1)
+ax.set_xticks([-3, -2, -1, 0, 1, 2, 3])
+ax.set_xlabel("$x$")
+for side in ("top", "right"):
+    ax.spines[side].set_visible(False)
+ax.legend(loc="upper right", frameon=False)
+fig.tight_layout()
+plt.show()
+```
+
+::: {#rem-gaussian-rescaling}
+The general case can be reduced to the standard one: $f(x) = \frac1\sigma\,\varphi\big(\frac{x-\mu}{\sigma}\big)$.
+The graph of $f$ is obtained from that of $\varphi$ by stretching horizontally by the factor $\sigma$,
+compressing vertically by the same factor, and shifting by $\mu$. Under this transformation the
+maximum of $\varphi$ at $0$ moves to $\mu$, and the inflection points $\pm1$ move to $\mu\pm\sigma$.
+:::
+
+## Global Extrema on a Closed Interval
+
+If the domain is a closed bounded interval, there is a systematic way to find the global extrema.
+Let $f$ be continuous on $[a,b]$ and differentiable on $(a,b)$, except possibly at finitely many
+points.
+
+By @thm-extreme-value, $f$ has a global maximum and a global minimum on $[a,b]$. Where can they be?
+If a global extremum occurs at an interior point $\xi\in(a,b)$ at which $f$ is differentiable, then it
+is in particular a local extremum, so $f'(\xi)=0$ by @thm-fermat. Hence every global extremum occurs
+at one of the following **candidate points**:
+
+1. the critical points of $f$ in $(a,b)$;
+2. the points of $(a,b)$ at which $f$ is not differentiable;
+3. the endpoints $a$ and $b$.
+
+This yields the following procedure.
+
+1. Determine all candidate points.
+2. Compute the value of $f$ at each of them.
+3. The largest of these values is the global maximum value, the smallest is the global minimum value.
+
+Note that we do not need to determine first which critical points are local maxima or minima;
+comparing values is enough. The procedure works as long as there are only finitely many candidates,
+which is the case in most examples.
+
+::: {#exm-closed-interval-method}
+\
+Find the global extrema of $f(x)=\frac{1}{10}(x^6-3x^2)$ on $[-2,2]$ (C&J §3.6.b).
+
+Here $f'(x) = \frac{1}{10}(6x^5-6x) = \frac35\,x(x^4-1) = \frac35\,x(x^2+1)(x-1)(x+1)$, so the
+critical points are $-1$, $0$, $1$, and $f$ is differentiable everywhere. Together with the endpoints:
+
+| $x$ | $-2$ | $-1$ | $0$ | $1$ | $2$ |
+|:--|:--:|:--:|:--:|:--:|:--:|
+| $f(x)$ | $5.2$ | $-0.2$ | $0$ | $-0.2$ | $5.2$ |
+
+So the global maximum value is $5.2$, attained at both endpoints $\pm2$, and the global minimum value
+is $-0.2$, attained at $\pm1$. The critical point $0$ is only a local maximum (by
+@thm-second-derivative-test: $f''(x)=3x^4-\frac35$, so $f''(0)=-\frac35<0$).
+:::
+
+On domains that are not closed bounded intervals, the procedure can fail, because global extrema
+need not exist (@exm-no-extrema). There, one has to argue as in Step 3 of the Gaussian example.
+
+## Summary
+
+- The **second derivative** $f''$ controls the bending of a graph. If $f''$ is continuous and
+  $f''(x_0)>0$, then $f''>0$ near $x_0$ (@lem-sign-persistence), so $f'$ is strictly increasing
+  there: $f$ is **concave up** (convex) near $x_0$ (@def-concavity), and the curve lies above its
+  tangent lines (@prp-tangent-line). For $f''(x_0)<0$, $f$ is **concave down** and the curve lies
+  below its tangents.
+- An **inflection point** is a point where $f''$ changes sign (@def-inflection-point), i.e. where
+  concavity changes. If $f''$ is continuous, $f''=0$ there, but $f''(\xi)=0$ alone is not enough:
+  $x^4$ at $0$ (@exm-inflection-points).
+- **Global extrema** (@def-global-extremum) need not exist (@exm-no-extrema), but a continuous
+  function on a closed bounded interval always has a maximum and a minimum (@thm-extreme-value).
+  **Local extrema** (@def-local-extremum) only compare $f(\xi)$ with nearby values; endpoints of the
+  domain can be local extrema.
+- At an interior local extremum where $f$ is differentiable, $f'(\xi)=0$: local extrema occur at
+  **critical points** (@thm-fermat). This is necessary but not sufficient ($x^3$ at $0$,
+  @exm-cube-not-extremum).
+- **First derivative test** (@thm-first-derivative-test): $f'$ changing sign from $+$ to $-$ gives a
+  strict local maximum, from $-$ to $+$ a strict local minimum, and no sign change gives no
+  extremum. If $f'$ is continuous with no zeros near $\xi$ other than $\xi$, a local extremum occurs
+  exactly when $f'$ changes sign (@cor-extremum-iff-sign-change); in general, a local extremum does
+  not force a sign change (@rem-sign-change-not-necessary).
+- **Second derivative test** (@thm-second-derivative-test): at a critical point, $f''(\xi)>0$ gives a
+  strict local minimum and $f''(\xi)<0$ a strict local maximum; $f''(\xi)=0$ is inconclusive.
+- **From local to global:** if $f'>0$ to the left and $f'<0$ to the right of $\xi$ on an entire
+  interval, the maximum at $\xi$ is global (@prp-global-first-derivative); this holds in particular
+  if $f''<0$ on the whole interval (@cor-global-second-derivative). For the Gaussian, the maximum at
+  $\mu$ is global and the inflection points are $\mu\pm\sigma$.
+- On a **closed interval** $[a,b]$, the global extrema are found by comparing the values of $f$ at
+  the critical points, the points of non-differentiability, and the endpoints
+  (@exm-closed-interval-method).

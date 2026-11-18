@@ -47,6 +47,7 @@ book:
         - 19_techniques_of_calculus.qmd
         - 20_chain_rule_substitution.qmd
         - 21_exp_log.qmd
+        - 22_maxima_minima.qmd
 
 
 

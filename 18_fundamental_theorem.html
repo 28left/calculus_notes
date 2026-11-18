@@ -373,6 +373,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">The Exponential Function and the Logarithm</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22_maxima_minima.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Maxima and Minima</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -938,7 +944,7 @@ F(b) - F(a) = F(x)\Big|_a^b = \Big[F(x)\Big]_a^b .
 <ul>
 <li><strong>FTC, Part 1</strong> (<a href="#thm-ftc-1" class="quarto-xref">Theorem&nbsp;<span>22.1</span></a>): if <span class="math inline">\(f\)</span> is continuous, the indefinite integral <span class="math inline">\(\Phi(x)=\int_\alpha^x f(u)\,du\)</span> is differentiable with <span class="math inline">\(\Phi'=f\)</span>. The proof combines the Mean Value Theorem for Integrals, <span class="math inline">\(\frac{\Phi(x+h)-\Phi(x)}{h} = f(\xi)\)</span> with <span class="math inline">\(\xi\)</span> between <span class="math inline">\(x\)</span> and <span class="math inline">\(x+h\)</span>, with the continuity of <span class="math inline">\(f\)</span>. Without continuity the conclusion can fail (<a href="#rem-ftc-needs-continuity" class="quarto-xref">Remark&nbsp;<span>22.1</span></a>).</li>
 <li>An <strong>antiderivative</strong> (or primitive) of <span class="math inline">\(f\)</span> is a function <span class="math inline">\(F\)</span> with <span class="math inline">\(F'=f\)</span> (<a href="#def-antiderivative" class="quarto-xref">Definition&nbsp;<span>22.1</span></a>). Every indefinite integral of a continuous function is one.</li>
-<li>If <span class="math inline">\(f'=0\)</span> on an interval, then <span class="math inline">\(f\)</span> is constant (<a href="#prp-zero-derivative-constant" class="quarto-xref">Proposition&nbsp;<span>22.1</span></a>, from the Mean Value Theorem). Hence two antiderivatives of the same function on an interval differ by a constant (<a href="#lem-antiderivatives-differ-by-constant" class="quarto-xref">Lemma&nbsp;<span>22.1</span></a>), and adding a constant to an antiderivative gives another one (<a href="#lem-antiderivative-plus-constant" class="quarto-xref">Lemma&nbsp;<span>22.2</span></a>). On domains that are not intervals, this fails (<a href="#rem-interval-needed" class="quarto-xref">Remark&nbsp;<span>22.2</span></a>).</li>
+<li>If <span class="math inline">\(f'=0\)</span> on an interval, then <span class="math inline">\(f\)</span> is constant (<a href="#prp-zero-derivative-constant" class="quarto-xref">Proposition&nbsp;<span>22.1</span></a>, from the Mean Value Theorem). Hence two antiderivatives of the same function on an interval differ by a constant (<a href="#lem-antiderivatives-differ-by-constant" class="quarto-xref">Lemma&nbsp;<span>22.1</span></a>), and adding a constant to an antiderivative gives another one (<a href="#lem-antiderivative-plus-constant" class="quarto-xref">Lemma&nbsp;<span>22.2</span></a>). On domains that are not intervals, this fails (<a href="22_maxima_minima.html#rem-interval-needed" class="quarto-xref">Remark&nbsp;<span>26.6</span></a>).</li>
 <li><strong>Fundamental Theorem of Calculus</strong> (<a href="#thm-ftc" class="quarto-xref">Theorem&nbsp;<span>22.2</span></a>): the antiderivatives of a function <span class="math inline">\(f\)</span> that is continuous on an interval are exactly the functions <span class="math inline">\(c + \int_\alpha^x f(u)\,du\)</span>. The constant <span class="math inline">\(c\)</span> cannot be dropped in general (<a href="#rem-constant-needed" class="quarto-xref">Remark&nbsp;<span>22.3</span></a>).</li>
 <li><strong>Evaluation of definite integrals</strong> (<a href="#cor-ftc-evaluation" class="quarto-xref">Corollary&nbsp;<span>22.1</span></a>): for any antiderivative <span class="math inline">\(F\)</span> of <span class="math inline">\(f\)</span>, <span class="math inline">\(\int_a^b f(u)\,du = F(b)-F(a) = \big[F(x)\big]_a^b\)</span>. The notation <span class="math inline">\(\int f(x)\,dx = F(x)+c\)</span> stands for an arbitrary antiderivative (<a href="#rem-indefinite-notation" class="quarto-xref">Remark&nbsp;<span>22.4</span></a>).</li>
 </ul>
